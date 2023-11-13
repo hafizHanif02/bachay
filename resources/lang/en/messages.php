@@ -6634,4 +6634,11 @@
   'product_images_is_required' => 'Product images is required',
   'No_review_given_yet' => 'No review given yet',
   'Already_have_account ' => 'Already have account ',
+  'environment_variables_updated_successfully' => 'Environment variables updated successfully',
+  'by_Turning_OFF_Cookie_Settings' => 'By Turning OFF Cookie Settings',
+  'by_Turning_ON_Cookie_Settings' => 'By Turning ON Cookie Settings',
+  'If_you_disable_it_customers_cannot_see_Cookie_Settings_in_frontend' => 'If you disable it customers cannot see Cookie Settings in frontend',
+  'If_you_enable_it_customers_will_see_Cookie_Settings_in_frontend' => 'If you enable it customers will see Cookie Settings in frontend',
+  'generate_Sitemap' => 'Generate Sitemap',
+  'download_Generate_Sitemap' => 'Download Generate Sitemap',
 );
