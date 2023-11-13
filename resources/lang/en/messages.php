@@ -6628,4 +6628,10 @@
   'search_Criteria' => 'Search Criteria',
   'Copy_URI' => 'Copy URI',
   'We are sorry  server is not responding' => 'We are sorry  server is not responding',
+  'Cart_is_empty' => 'Cart is empty',
+  'Sub_Sub_Category_updated_successfully' => 'Sub Sub Category updated successfully',
+  'brand_added_successfully' => 'Brand added successfully',
+  'product_images_is_required' => 'Product images is required',
+  'No_review_given_yet' => 'No review given yet',
+  'Already_have_account ' => 'Already have account ',
 );
