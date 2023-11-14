@@ -259,7 +259,8 @@
 <!-- Navbar-->
 <!-- Quick View Modal-->
 @include('layouts.front-end.partials._quick-view-modal')
-
+<!-- Navbar Electronics Store-->
+@include('layouts.front-end.partials.header')
 <!-- Page title-->
 
 <span id="authentication-status" data-auth="{{ auth('customer')->check() ? 'true' : 'false' }}"></span>
@@ -279,7 +280,7 @@
 {{--loader--}}
 
 <!-- Page Content-->
-
+{{-- @yield('content') --}}
 @include('layouts.front-end.partials.layout')
 
 <span id="update_nav_cart_url" data-url="{{route('cart.nav-cart')}}"></span>
@@ -287,7 +288,8 @@
 <span id="update_quantity_url" data-url="{{route('cart.updateQuantity.guest')}}"></span>
 <span id="order_again_url" data-url="{{ route('cart.order-again') }}"></span>
 <!-- Footer-->
-
+<!-- Footer-->
+@include('layouts.front-end.partials.footer')
 @include('layouts.front-end.partials.modal._dynamic-modals')
 
 

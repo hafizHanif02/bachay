@@ -6692,4 +6692,5 @@
   'total_pricesssss' => 'Total pricesssss',
   'taxssss' => 'Taxssss',
   'Already_have_account ' => 'Already have account ',
+  'Sub_Sub_Category_updated_successfully' => 'Sub Sub Category updated successfully',
 );
