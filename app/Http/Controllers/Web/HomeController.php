@@ -47,7 +47,7 @@ class HomeController extends Controller
     public function index()
     {
         $theme_name = theme_root_path();
-
+        
         return match ($theme_name) {
             'default' => self::default_theme(),
             'theme_aster' => self::theme_aster(),

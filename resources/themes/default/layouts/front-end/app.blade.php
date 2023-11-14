@@ -38,6 +38,10 @@
     <link rel="stylesheet" href="{{asset('public/assets/front-end')}}/css/home.css"/>
     <link rel="stylesheet" href="{{asset('public/assets/front-end')}}/css/responsive1.css"/>
 
+    <!-- CDN's -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href='https://fonts.googleapis.com/css?family=Poppins' />
+    <link rel="stylesheet" href="{{asset('public/assets/front-end')}}/css/style1.css">
 
     <link rel="stylesheet" href="{{asset('public/assets/front-end')}}/css/style.css">
     {{--dont touch this--}}
@@ -277,6 +281,7 @@
 
 <!-- Page Content-->
 @yield('content')
+@include('layouts.front-end.partials.layout')
 
 <span id="update_nav_cart_url" data-url="{{route('cart.nav-cart')}}"></span>
 <span id="remove_from_cart_url" data-url="{{ route('cart.remove') }}"></span>
@@ -330,6 +335,8 @@
 <script src="{{asset('public/assets/front-end')}}/js/slick.min.js"></script>
 
 <script src="{{asset('public/assets/front-end')}}/js/sweet_alert.js"></script>
+
+<script src="{{asset('public/assets/front-end')}}/js/script.js"></script>
 {{--Toastr--}}
 <script src={{asset("public/assets/back-end/js/toastr.js")}}></script>
 {!! Toastr::message() !!}
