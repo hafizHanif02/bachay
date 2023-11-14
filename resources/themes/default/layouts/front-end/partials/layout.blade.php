@@ -2052,12 +2052,11 @@
         {{-- discount carousel --}}
         <div class="slider-container mb-5 mt-5">
             <div class="slider">
-                    <div>
-                        <a href="#">
-                            <img class="rounded-5 img-fluid imgBanner"  src="" alt="Image 1">
-        
-                        </a>
-                    </div>
+                <div>
+                    <a href="#">
+                        <img class="rounded-5 img-fluid imgBanner"  src="{{ asset("public/images/brand-banner.png") }}" alt="Image 1">
+                    </a>
+                </div>
             </div>
         </div>
         {{-- discount slider --}}
@@ -2072,7 +2071,7 @@
                                 <div class="deal-alert-circle">-%</div>
                                 <div class="forHeight">
                                     <img class="object-fit-cover card-img rounded-5"
-                                        src=""
+                                        src="{{ asset("public/images/flash-sales1.png") }}"
                                         alt="Flash Sale " width="100%" height="100%" />
                                 </div>
                                 <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
@@ -2099,7 +2098,7 @@
                                             </span>
                                         </div>
                                         <div class="col-12 text-center">
-                                            <img class="mt-5 mb-5 articles-img" src="" alt="category image"
+                                            <img class="mt-5 mb-5 articles-img" src="{{ asset("public/images/cate-img3.png") }}" alt="category image"
                                                 srcset="">
                                         </div>
                                         <div class="col-12 text-center">
@@ -2132,7 +2131,7 @@
                                     <div class="first-sec card1">
                                         <div class="image-container">
                                             <a href="">
-                                                <img src=""
+                                                <img src="{{ asset("public/images/savings.png") }}"
                                                     alt="Product image" class="img-fluid" width="100%" height="100%">
                                             </a>
                                             <div class="sec-best-seller mt-3">
@@ -2168,7 +2167,7 @@
                                                 <a href="#">Standard Delivery</a>
                                                 <p class="rounded-pill text-white">
                                                      <img
-                                                        src="" alt=""></p>
+                                                        src="{{ asset("public/images/star.svg") }}" alt=""></p>
                                                 <h5></h5>
                                             </div>
                                         </div>
@@ -2279,7 +2278,7 @@
                 <div class="col list-group">
                     <ul>
                         <li><a href="#" class="text-decoration-none"><img
-                                    src="" alt="Logo"></a></li>
+                                    src="{{ asset("public/images/logo.png") }}" alt="Logo"></a></li>
 
                         <li class="mt-4 poppins"><a href="#" class="text-decoration-none">
                                 <h6><i class="bi bi-geo-alt"></i> </h6>

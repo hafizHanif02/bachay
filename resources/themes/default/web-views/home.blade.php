@@ -421,9 +421,7 @@
 
         <!--delivery type -->
         @php($company_reliability = \App\CPU\Helpers::get_business_settings('company_reliability'))
-        @if($company_reliability != null)
-            @include('web-views.partials._company-reliability')
-        @endif
+    
     </div>
 @endsection
 
