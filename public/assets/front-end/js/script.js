@@ -1,3 +1,5 @@
+
+
 $(".slider").slick({
     autoplay: true,
     arrows: false,
@@ -21,7 +23,6 @@ $(".slider").slick({
         },
     ],
 });
-
 
 const $readMoreButton = $("#read-more");
 const $readLessButton = $("#read-less");
@@ -49,8 +50,6 @@ $smallImages.click(function () {
     $smallImages.removeClass("active");
     $(this).addClass("active");
 });
-
-
 
 function logout() {
     $.ajax({
@@ -550,3 +549,35 @@ $(".MyProfile-ul li").on("click", function () {
     $(".MyProfile-ul li").removeClass("active");
     $(this).addClass("active");
 });
+
+$("input").on("input", function () {
+    $(this).closest("tr").addClass("row-changed");
+});
+
+ 
+    // $('.save-button').on('click', function () {
+    //     var row = $(this).closest('tr');
+    //     var webOrder = row.find('.web-order').val();
+    //     var webStatus = row.find('.web-status-switch').prop('checked');
+    //     var mobileOrder = row.find('.mobile-order').val();
+    //     var mobileStatus = row.find('.mobile-status-switch').prop('checked');
+    //     $.ajax({
+    //         url: '/admin/business-settings/home-layout',
+    //         method: 'POST',
+    //         data: {
+    //             webOrder: webOrder,
+    //             webStatus: webStatus,
+    //             mobileOrder: mobileOrder,
+    //             mobileStatus: mobileStatus,
+    //         },
+    //         success: function (response) {
+    //             console.log('Data saved successfully!');
+    //             row.removeClass('row-changed');
+    //             $('.save-button').prop('disabled', true);
+    //         },
+    //         error: function (xhr, status, error) {
+    //             console.error('Error:', status, error);
+    //         }
+    //     });
+    // });
+

@@ -90,6 +90,10 @@
                                                         aria-label="Action: activate to sort column ascending">Mobile
                                                         Status
                                                     </th>
+                                                    <th class="text-center sorting" tabindex="0" aria-controls="dataTable"
+                                                    rowspan="1" colspan="1"
+                                                    aria-label="Action: activate to sort column ascending">actions
+                                                </th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -138,7 +142,9 @@
                                                                     for="customSwitches2"></label>
                                                             </div>
                                                         </td>
-
+                                                        <td>
+                                                            <button class="btn btn--primary save-button">save</button>
+                                                        </td>
                                                         {{-- <td valign="top" colspan="6" class="dataTables_empty">No data
                                                             available in table</td> --}}
                                                     </tr>
@@ -187,6 +193,38 @@
         $('#editor').ckeditor({
             contentsLangDirection: '{{ Session::get('direction') }}',
         });
+        $('.save-button').prop('disabled', true);
+    $('input').on('input', function () {
+        $('.save-button').prop('disabled', false);
+    });
+
+    $('.save-button').click(function () {
+        var id = $(this).data('id');
+        var webOrder = $('.web-order').val();
+        var webStatus = $('.web-status-switch').is(':checked') ? 1 : 0;
+        var mobileOrder = $('.mobile-order').val();
+        var mobileStatus = $('.mobile-status-switch').is(':checked') ? 1 : 0;
+
+        $.ajax({
+            url: '/admin/business-settings/home-layout',
+            method: 'POST',
+            data: {
+                web_order: webOrder,
+                web_status: webStatus,
+                mobile_order: mobileOrder,
+                mobile_status: mobileStatus,
+                _token: '{{ csrf_token() }}'
+            },
+            success: function (response) {
+                console.log('Updated Successfully'); 
+            },
+           
+        });
+    });
+
+
     </script>
     {{-- ck editor --}}
 @endpush
+
+
