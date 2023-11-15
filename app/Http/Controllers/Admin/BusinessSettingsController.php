@@ -6,6 +6,7 @@ use App\CPU\Helpers;
 use App\CPU\ImageManager;
 use App\Http\Controllers\Controller;
 use App\Model\BusinessSetting;
+use App\Models\HomeLayout;
 use App\Model\Currency;
 use App\Model\SocialMedia;
 use Brian2694\Toastr\Facades\Toastr;
@@ -187,8 +188,9 @@ class BusinessSettingsController extends Controller
 
     public function home_layout()
     {
-        $terms_condition = BusinessSetting::where('type', 'terms_condition')->first();
-        return view('admin-views.business-settings.home-layout', compact('terms_condition'));
+
+        $home_layout =  HomeLayout::get();
+        return view('admin-views.business-settings.home-layout', compact('home_layout'));
     }
 
     public function updateTermsCondition(Request $data)

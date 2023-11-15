@@ -6696,4 +6696,6 @@
   'home_setting' => 'Home setting',
   'home_layout' => 'Home layout',
   'Home_Page_Layout' => 'Home Page Layout',
+  'brand_added_successfully' => 'Brand added successfully',
+  'deal_added_successfully' => 'Deal added successfully',
 );
