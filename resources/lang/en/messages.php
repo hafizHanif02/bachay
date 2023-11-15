@@ -6695,4 +6695,5 @@
   'Sub_Sub_Category_updated_successfully' => 'Sub Sub Category updated successfully',
   'home_setting' => 'Home setting',
   'home_layout' => 'Home layout',
+  'Home_Page_Layout' => 'Home Page Layout',
 );
