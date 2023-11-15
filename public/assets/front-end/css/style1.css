@@ -519,6 +519,10 @@ h1.text-center.textClr {
     position: relative;
     height: 328.84px;
     border-radius: 14.497px;
+    position: relative;
+    border: 3px solid #845dc2;
+   
+   
 }
 .border-purple {
     border: 3px solid #845dc2;
@@ -540,6 +544,10 @@ h1.text-center.textClr {
 }
 .text-purple {
     color: #845dc2 !important;
+}
+.ParentingTool{
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
 }
 .card-1 {
     border-radius: 14.497px;
