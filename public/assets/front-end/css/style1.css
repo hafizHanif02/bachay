@@ -237,9 +237,9 @@ input.form-control.search-input {
     padding: 0;
     border-radius: 50px;
 }
-.card-img{
+/* .card-img{
     border-radius: 38px;
-}
+} */
 .card-img-overlay .card-text {
     display: flex;
     align-items: center;

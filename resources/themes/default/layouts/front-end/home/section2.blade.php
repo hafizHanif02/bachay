@@ -3,11 +3,11 @@
 
     <div class="row mt-5 col-12 flash-sales-container">
         <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
-            <div class="card">
+            <div class="card rounded-5">
                 <a href="#">
                     <div class="deal-alert-circle">-14%</div>
                     <div class="forHeight">
-                        <img class="object-fit-cover card-img" src="{{ asset('public/images/flash-sales2.png') }}"
+                        <img class="object-fit-cover card-img rounded-5" src="{{ asset('public/images/flash-sales2.png') }}"
                             alt="Flash Sale" width="100%" height="100%" />
                     </div>
                     <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
@@ -17,11 +17,11 @@
             </div>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
-            <div class="card">
+            <div class="card rounded-5">
                 <a href="#">
                     <div class="deal-alert-circle">-14%</div>
                     <div class="forHeight">
-                        <img class="object-fit-cover card-img" src="{{ asset('public/images/flash-sales2.png') }}"
+                        <img class="object-fit-cover card-img rounded-5" src="{{ asset('public/images/flash-sales2.png') }}"
                             alt="Flash Sale" width="100%" height="100%" />
                     </div>
                     <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
@@ -31,11 +31,11 @@
             </div>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
-            <div class="card">
+            <div class="card rounded-5">
                 <a href="#">
                     <div class="deal-alert-circle">-14%</div>
                     <div class="forHeight">
-                        <img class="object-fit-cover card-img" src="{{ asset('public/images/flash-sales2.png') }}"
+                        <img class="object-fit-cover card-img rounded-5" src="{{ asset('public/images/flash-sales3.png') }}"
                             alt="Flash Sale" width="100%" height="100%" />
                     </div>
                     <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
@@ -45,11 +45,11 @@
             </div>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
-            <div class="card">
+            <div class="card rounded-5">
                 <a href="#">
                     <div class="deal-alert-circle">-14%</div>
                     <div class="forHeight">
-                        <img class="object-fit-cover card-img" src="{{ asset('public/images/flash-sales2.png') }}"
+                        <img class="object-fit-cover card-img rounded-5" src="{{ asset('public/images/flash-sales5.png') }}"
                             alt="Flash Sale" width="100%" height="100%" />
                     </div>
                     <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
@@ -59,11 +59,11 @@
             </div>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
-            <div class="card">
+            <div class="card rounded-5">
                 <a href="#">
                     <div class="deal-alert-circle">-14%</div>
                     <div class="forHeight">
-                        <img class="object-fit-cover card-img" src="{{ asset('public/images/flash-sales2.png') }}"
+                        <img class="object-fit-cover card-img rounded-5" src="{{ asset('public/images/flash-sales4.png') }}"
                             alt="Flash Sale" width="100%" height="100%" />
                     </div>
                     <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
@@ -73,11 +73,11 @@
             </div>
         </div>
         <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
-            <div class="card">
+            <div class="card rounded-5">
                 <a href="#">
                     <div class="deal-alert-circle">-14%</div>
                     <div class="forHeight">
-                        <img class="object-fit-cover card-img" src="{{ asset('public/images/flash-sales2.png') }}"
+                        <img class="object-fit-cover card-img rounded-5" src="{{ asset('public/images/flash-sales3.png') }}"
                             alt="Flash Sale" width="100%" height="100%" />
                     </div>
                     <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">

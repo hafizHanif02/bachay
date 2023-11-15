@@ -217,7 +217,7 @@
                             <div class="sub-nav-column">
                                 <div class="z-depth-1 polariod">
                                     <img class="object-fit-cover rounded-3"
-                                        src="" alt="image 1"
+                                        src="{{ asset('public/images/img1.1.webp') }}" alt="image 1"
                                         class="theme responsive-img" width="100%" height="100%">
 
                                 </div>
@@ -357,7 +357,7 @@
                             <div class="sub-nav-column">
                                 <div class="z-depth-1 polariod">
                                     <img class="object-fit-cover rounded-3"
-                                        src="" alt="image 2"
+                                        src="{{ asset('public/images/img2.2.webp') }}" alt="image 2"
                                         class="theme responsive-img" width="100%" height="100%">
 
                                 </div>
@@ -495,7 +495,7 @@
                             <div class="sub-nav-column">
                                 <div class="z-depth-1 polariod">
                                     <img class="object-fit-cover rounded-3"
-                                        src="" alt="premium image"
+                                        src="{{ asset('public/images/premium-b-7.webp') }}" alt="premium image"
                                         class="theme responsive-img" width="100%" height="100%">
 
                                 </div>
@@ -574,7 +574,7 @@
                             <div class="sub-nav-column">
                                 <div class="z-depth-1 polariod">
                                     <img class="object-fit-cover rounded-3"
-                                        src="" alt="premium 6 image"
+                                        src="{{ asset('public/images/premium-b-6.webp') }}" alt="premium 6 image"
                                         class="theme responsive-img" width="100%" height="100%">
 
                                 </div>
@@ -697,7 +697,7 @@
                             <div class="sub-nav-column">
                                 <div class="z-depth-1 polariod">
                                     <img class="object-fit-cover rounded-3"
-                                        src="" alt="premium b3 image"
+                                        src="{{ asset('public/images/premium-b-3.webp') }}" alt="premium b3 image"
                                         class="theme responsive-img" width="100%" height="100%">
 
                                 </div>
@@ -820,7 +820,7 @@
                             <div class="sub-nav-column">
                                 <div class="z-depth-1 polariod">
                                     <img class="object-fit-cover rounded-3"
-                                        src="" alt="premium b2 image"
+                                        src="{{ asset('public/images/premium-b-2.webp') }}" alt="premium b2 image"
                                         class="theme responsive-img" width="100%" height="100%">
 
                                 </div>
