@@ -9,6 +9,7 @@ use App\Model\BusinessSetting;
 use App\Models\HomeLayout;
 use App\Model\Currency;
 use App\Model\SocialMedia;
+use App\Http\Controllers\Admin\Log;
 use Brian2694\Toastr\Facades\Toastr;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
@@ -191,6 +192,32 @@ class BusinessSettingsController extends Controller
 
         $home_layout =  HomeLayout::get();
         return view('admin-views.business-settings.home-layout', compact('home_layout'));
+    }
+
+    public function submitSection(Request $request)
+    {
+        Log::info($request->all());
+        $request->validate([
+            'sectionName' => 'required|string',
+            'webOrder' => 'required|numeric',
+            'mobileOrder' => 'required|numeric',
+            'webStatus' => 'nullable|boolean',
+            'mobileStatus' => 'nullable|boolean',
+        ]);
+
+
+        $homeLayout = new HomeLayout([
+            'section_name' => $request->input('sectionName'),
+            'web_order' => $request->input('webOrder'),
+            'mobile_order' => $request->input('mobileOrder'),
+            'web_status' => $request->input('webStatus') ?? 0,
+            'mobile_status' => $request->input('mobileStatus') ?? 0,
+        ]);
+
+        $homeLayout->save();
+
+
+        return response()->json(['message' => 'Section added successfully']);
     }
 
     public function updateTermsCondition(Request $data)
