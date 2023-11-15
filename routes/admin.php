@@ -515,6 +515,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
                 Route::get('page/{page}', 'BusinessSettingsController@page')->name('page');
                 Route::post('page/{page}', 'BusinessSettingsController@page_update')->name('page-update');
 
+                Route::get('home-layout', 'BusinessSettingsController@home_layout')->name('home-layout');
                 Route::get('terms-condition', 'BusinessSettingsController@terms_condition')->name('terms-condition');
                 Route::post('terms-condition', 'BusinessSettingsController@updateTermsCondition')->name('update-terms');
                 Route::get('privacy-policy', 'BusinessSettingsController@privacy_policy')->name('privacy-policy');

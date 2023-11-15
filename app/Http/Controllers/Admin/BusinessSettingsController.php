@@ -185,6 +185,12 @@ class BusinessSettingsController extends Controller
         return view('admin-views.business-settings.terms-condition', compact('terms_condition'));
     }
 
+    public function home_layout()
+    {
+        $terms_condition = BusinessSetting::where('type', 'terms_condition')->first();
+        return view('admin-views.business-settings.home-layout', compact('terms_condition'));
+    }
+
     public function updateTermsCondition(Request $data)
     {
         $validatedData = $data->validate([

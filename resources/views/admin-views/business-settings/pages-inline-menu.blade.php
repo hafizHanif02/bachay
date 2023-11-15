@@ -1,5 +1,6 @@
 <div class="inline-page-menu my-4">
     <ul class="list-unstyled">
+        <li class="{{ Request::is('admin/business-settings/home-layout') ?'active':'' }}"><a href="{{route('admin.business-settings.home-layout')}}">{{translate('home_layout')}}</a></li>
         <li class="{{ Request::is('admin/business-settings/terms-condition') ?'active':'' }}"><a href="{{route('admin.business-settings.terms-condition')}}">{{translate('terms_&_Conditions')}}</a></li>
         <li class="{{ Request::is('admin/business-settings/privacy-policy') ?'active':'' }}"><a href="{{route('admin.business-settings.privacy-policy')}}">{{translate('privacy_Policy')}}</a></li>
         <li class="{{ Request::is('admin/business-settings/page/refund-policy') ?'active':'' }}"><a href="{{route('admin.business-settings.page',['refund-policy'])}}">{{translate('refund_Policy')}}</a></li>
