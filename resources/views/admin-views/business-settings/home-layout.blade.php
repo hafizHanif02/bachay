@@ -203,8 +203,7 @@
         {{-- </div> --}}
     </div>
     <!-- Add Modal -->
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
-        aria-hidden="true">
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -214,47 +213,20 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="addSectionForm" method="POST">
+                    <form action="{{ route('submit.section') }}" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="sectionName">Section Name</label>
-                            <input type="text" class="form-control" id="sectionName" name="sectionName"
-                                placeholder="Enter Section Name">
+                            <input type="text" class="form-control" id="sectionName" name="sectionName" placeholder="Enter Section Name" required>
                         </div>
-                        <div class="form-group">
-                            <label for="webOrder">Web Order</label>
-                            <input type="number" class="form-control" id="webOrder" name="webOrder"
-                                placeholder="Enter Web Order">
-                        </div>
-                        <div class="form-group">
-                            <label for="mobileOrder">Mobile Order</label>
-                            <input type="number" class="form-control" id="mobileOrder" name="mobileOrder"
-                                placeholder="Enter Mobile Order">
-                        </div>
-                        <div class="form-group">
-                            <label>Web Status</label>
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="webStatusSwitch"
-                                    name="webStatus">
-                                <label class="custom-control-label" for="webStatusSwitch"></label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label>Mobile Status</label>
-                            <div class="custom-control custom-switch">
-                                <input type="checkbox" class="custom-control-input" id="mobileStatusSwitch"
-                                    name="mobileStatus">
-                                <label class="custom-control-label" for="mobileStatusSwitch"></label>
-                            </div>
-                        </div>
+                       
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>
                 </div>
-
-
             </div>
         </div>
     </div>
+
 @endsection
 
 @push('script')
