@@ -104,7 +104,7 @@
                                                 @foreach ($home_layout as $data)
                                                     {{-- {{ $data }} --}}
                                                     <tr class="odd">
-                                                        <td id="layout{{$data->id}}">
+                                                        <td id="layout{{ $data->id }}">
                                                             {{ $data->id }}
                                                         </td>
                                                         <td>
@@ -112,7 +112,9 @@
                                                         </td>
                                                         <td>
                                                             <div>
-                                                                <input onkeypress="showBtn({{$data->id}})" type="number" id="web-order{{$data->id}}" class="web-order form-control "
+                                                                <input onkeypress="showBtn({{ $data->id }})"
+                                                                    type="number" id="web-order{{ $data->id }}"
+                                                                    class="web-order form-control "
                                                                     placeholder="Enter Web order"
                                                                     value="{{ $data->web_order }}">
 
@@ -122,8 +124,10 @@
                                                         </td>
                                                         <td>
                                                             <!-- Custom switch with dynamic status -->
-                                                            <div id="web-status-switch{{$data->id}}" class="custom-control custom-switch text-center">
-                                                                <input onchange="showBtn({{$data->id}})" type="checkbox" class="custom-control-input"
+                                                            <div id="web-status-switch{{ $data->id }}"
+                                                                class="custom-control custom-switch text-center">
+                                                                <input onchange="showBtn({{ $data->id }})"
+                                                                    type="checkbox" class="custom-control-input"
                                                                     id="customSwitches{{ $loop->iteration }}"
                                                                     name="status"
                                                                     {{ $data->web_status ? 'checked' : '' }}>
@@ -134,7 +138,9 @@
 
                                                         <td>
                                                             <div class="">
-                                                                <input onkeypress="showBtn({{$data->id}})" type="number" id="mobile-order{{$data->id}}" class="mobile-order form-control"
+                                                                <input onkeypress="showBtn({{ $data->id }})"
+                                                                    type="number" id="mobile-order{{ $data->id }}"
+                                                                    class="mobile-order form-control"
                                                                     placeholder="Enter Mobile Order"
                                                                     value="{{ $data->mobile_order }}">
 
@@ -143,8 +149,10 @@
 
                                                         <td>
                                                             <!-- Default switch -->
-                                                            <div id="mobile-status-switch{{$data->id}}" class="custom-control custom-switch text-center">
-                                                                <input onchange="showBtn({{$data->id}})" type="checkbox" class="custom-control-input"
+                                                            <div id="mobile-status-switch{{ $data->id }}"
+                                                                class="custom-control custom-switch text-center">
+                                                                <input onchange="showBtn({{ $data->id }})"
+                                                                    type="checkbox" class="custom-control-input"
                                                                     id="customSwitches2{{ $loop->iteration }}"
                                                                     {{ $data->mobile_status ? 'checked' : '' }}>
                                                                 <label class="custom-control-label"
@@ -152,7 +160,9 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <button id="save-button{{ $data->id }}" class="btn btn--primary save-button" onclick="saveLayout({{ $data->id }})">save</button>
+                                                            <button id="save-button{{ $data->id }}"
+                                                                class="btn btn--primary save-button"
+                                                                onclick="saveLayout({{ $data->id }})">save</button>
                                                         </td>
                                                         {{-- <td valign="top" colspan="6" class="dataTables_empty">No data
                                                             available in table</td> --}}
@@ -261,23 +271,23 @@
         //     $('.save-button').prop('disabled', false);
         // });
 
-        function showBtn(layoutID){
+        function showBtn(layoutID) {
             console.log(layoutID);
             $('#save-button' + layoutID).prop('disabled', false);
         }
 
         function saveLayout(layoutID) {
             var id = layoutID;
-            var webOrder = $('#web-order'+layoutID).val();
-            var webStatus = $('#web-status-switch'+layoutID).is(':checked') ? 1 : 0;
-            var mobileOrder = $('#mobile-order'+layoutID).val();
-            var mobileStatus = $('#mobile-status-switch'+layoutID).is(':checked') ? 1 : 0;
+            var webOrder = $('#web-order' + layoutID).val();
+            var webStatus = $('#web-status-switch' + layoutID).is(':checked') ? 1 : 0;
+            var mobileOrder = $('#mobile-order' + layoutID).val();
+            var mobileStatus = $('#mobile-status-switch' + layoutID).is(':checked') ? 1 : 0;
             console.log(webStatus);
             $.ajax({
                 url: '/admin/business-settings/home-layout',
                 method: 'POST',
                 data: {
-                    id_layout:id,
+                    id_layout: id,
                     web_order: webOrder,
                     web_status: webStatus,
                     mobile_order: mobileOrder,
@@ -285,7 +295,11 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    window.location.href = window.location.href;
+                    // window.location.href = window.location.href;
+                    Swal.fire({
+                        title: "Updated Succes!",
+                        icon: "success"
+                    });
                     console.log('Updated Successfully');
                 },
 
@@ -294,4 +308,3 @@
     </script>
     {{-- ck editor --}}
 @endpush
-
