@@ -101,7 +101,7 @@
 
 <!-- Page Content-->
 {{-- @yield('content') --}}
-@include('layouts.front-end.partials.layout')
+@include('layouts.front-end.partials.home')
 
 <span id="update_nav_cart_url" data-url="{{route('cart.nav-cart')}}"></span>
 <span id="remove_from_cart_url" data-url="{{ route('cart.remove') }}"></span>

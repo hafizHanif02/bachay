@@ -259,30 +259,6 @@
         $('input').on('input', function() {
             $('.save-button').prop('disabled', false);
         });
-
-        $('.save-button').click(function() {
-            var id = $(this).data('id');
-            var webOrder = $('.web-order').val();
-            var webStatus = $('.web-status-switch').is(':checked') ? 1 : 0;
-            var mobileOrder = $('.mobile-order').val();
-            var mobileStatus = $('.mobile-status-switch').is(':checked') ? 1 : 0;
-
-            $.ajax({
-                url: '/admin/business-settings/home-layout',
-                method: 'POST',
-                data: {
-                    web_order: webOrder,
-                    web_status: webStatus,
-                    mobile_order: mobileOrder,
-                    mobile_status: mobileStatus,
-                    _token: '{{ csrf_token() }}'
-                },
-                success: function(response) {
-                    console.log('Updated Successfully');
-                },
-
-            });
-        });
     </script>
     {{-- ck editor --}}
 @endpush
