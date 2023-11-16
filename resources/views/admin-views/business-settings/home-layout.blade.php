@@ -254,44 +254,33 @@
         function deleteLayout(layoutID) {
             var id = layoutID;
             var csrfToken = "{{ csrf_token() }}";
-
-            Swal.fire({
-                title: 'Are you sure?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#d33',
-                cancelButtonColor: '#3085d6',
-                confirmButtonText: 'Yes, delete it!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken
-                        }
-                    });
-                    var ajaxData = {
-                        id_layout: id,
-                        _token: csrfToken
-                    };
-                    $.ajax({
-                        url: '/admin/business-settings/home-layout',
-                        method: 'POST',
-                        data: ajaxData,
-                        success: function(response) {
-                            location.reload();
-                        },
-                        error: function(error) {
-                            console.error('Error deleting layout:', error);
-                            Swal.fire({
-                                title: "Error deleting layout!",
-                                icon: "error"
-                            });
-                        }
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': csrfToken
+                }
+            });
+            var ajaxData = {
+                id_layout: id,
+                _token: csrfToken
+            };
+            $.ajax({
+                url: '/admin/business-settings/home-layout',
+                method: 'DELETE',
+                data: ajaxData,
+                success: function(response) {
+                    location.reload();
+                },
+                error: function(error) {
+                    console.error('Error deleting layout:', error);
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Oops...',
+                        text: 'Something went wrong!'
                     });
                 }
             });
-        }
 
+        }
 
         function saveLayout(layoutID) {
             var id = layoutID;

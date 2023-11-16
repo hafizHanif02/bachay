@@ -224,7 +224,7 @@ class BusinessSettingsController extends Controller
             return response()->json(['message' => 'Section not found']);
         }
         $homeLayout->delete();
-        // return response()->json(['message' => 'Section is deleted']);
+        return response()->json(['message' => 'Section is deleted']);
     }
 
     public function updateSection(Request $req){
