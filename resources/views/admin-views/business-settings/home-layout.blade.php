@@ -124,15 +124,15 @@
                                                         </td>
                                                         <td>
                                                             <!-- Custom switch with dynamic status -->
-                                                            <div id="web-status-switch{{ $data->id }}"
+                                                            <div id=""
                                                                 class="custom-control custom-switch text-center">
                                                                 <input onchange="showBtn({{ $data->id }})"
                                                                     type="checkbox" class="custom-control-input"
-                                                                    id="customSwitches{{ $loop->iteration }}"
+                                                                    id="web-status-switch{{ $data->id }}"
                                                                     name="status"
                                                                     {{ $data->web_status ? 'checked' : '' }}>
                                                                 <label class="custom-control-label"
-                                                                    for="customSwitches{{ $loop->iteration }}"></label>
+                                                                    for="web-status-switch{{ $data->id }}"></label>
                                                             </div>
                                                         </td>
 
@@ -149,14 +149,14 @@
 
                                                         <td>
                                                             <!-- Default switch -->
-                                                            <div id="mobile-status-switch{{ $data->id }}"
+                                                            <div id=""
                                                                 class="custom-control custom-switch text-center">
                                                                 <input onchange="showBtn({{ $data->id }})"
                                                                     type="checkbox" class="custom-control-input"
-                                                                    id="customSwitches2{{ $loop->iteration }}"
+                                                                    id="mobile-status-switch{{ $data->id }}"
                                                                     {{ $data->mobile_status ? 'checked' : '' }}>
                                                                 <label class="custom-control-label"
-                                                                    for="customSwitches2{{ $loop->iteration }}"></label>
+                                                                    for="mobile-status-switch{{ $data->id }}"></label>
                                                             </div>
                                                         </td>
                                                         <td>
@@ -203,7 +203,8 @@
         {{-- </div> --}}
     </div>
     <!-- Add Modal -->
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -213,20 +214,47 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('submit.section') }}" method="post">
+                    <form id="addSectionForm" method="POST">
                         @csrf
                         <div class="form-group">
                             <label for="sectionName">Section Name</label>
-                            <input type="text" class="form-control" id="sectionName" name="sectionName" placeholder="Enter Section Name" required>
+                            <input type="text" class="form-control" id="sectionName" name="sectionName"
+                                placeholder="Enter Section Name">
                         </div>
-                       
+                        <div class="form-group">
+                            <label for="webOrder">Web Order</label>
+                            <input type="number" class="form-control" id="webOrder" name="webOrder"
+                                placeholder="Enter Web Order">
+                        </div>
+                        <div class="form-group">
+                            <label for="mobileOrder">Mobile Order</label>
+                            <input type="number" class="form-control" id="mobileOrder" name="mobileOrder"
+                                placeholder="Enter Mobile Order">
+                        </div>
+                        <div class="form-group">
+                            <label>Web Status</label>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="webStatusSwitch"
+                                    name="webStatus">
+                                <label class="custom-control-label" for="webStatusSwitch"></label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Mobile Status</label>
+                            <div class="custom-control custom-switch">
+                                <input type="checkbox" class="custom-control-input" id="mobileStatusSwitch"
+                                    name="mobileStatus">
+                                <label class="custom-control-label" for="mobileStatusSwitch"></label>
+                            </div>
+                        </div>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>
                 </div>
+
+
             </div>
         </div>
     </div>
-
 @endsection
 
 @push('script')
@@ -239,10 +267,6 @@
         });
         $('.save-button').prop('disabled', true);
 
-        // $('input').on('input', function() {
-        //     $('.save-button').prop('disabled', false);
-        // });
-
         function showBtn(layoutID) {
             console.log(layoutID);
             $('#save-button' + layoutID).prop('disabled', false);
@@ -254,7 +278,6 @@
             var webStatus = $('#web-status-switch' + layoutID).is(':checked') ? 1 : 0;
             var mobileOrder = $('#mobile-order' + layoutID).val();
             var mobileStatus = $('#mobile-status-switch' + layoutID).is(':checked') ? 1 : 0;
-            console.log(webStatus);
             $.ajax({
                 url: '/admin/business-settings/home-layout',
                 method: 'POST',
@@ -269,10 +292,10 @@
                 success: function(response) {
                     // window.location.href = window.location.href;
                     Swal.fire({
-                        title: "Updated Succes!",
+                        title: "Updated successully!",
                         icon: "success"
                     });
-                    console.log('Updated Successfully');
+                    // console.log('Updated Successfully');
                 },
 
             });
