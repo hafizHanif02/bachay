@@ -519,6 +519,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
 
                 Route::get('home-layout', 'BusinessSettingsController@home_layout')->name('home-layout');
                 Route::post('submit-section', 'BusinessSettingsController@submitSection')->name('submit.section');
+                Route::post('home-layout', 'BusinessSettingsController@updateSection')->name('update.section');
 
 
                 Route::get('terms-condition', 'BusinessSettingsController@terms_condition')->name('terms-condition');

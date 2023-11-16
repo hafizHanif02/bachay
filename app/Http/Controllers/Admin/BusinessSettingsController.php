@@ -220,6 +220,29 @@ class BusinessSettingsController extends Controller
         return response()->json(['message' => 'Section added successfully']);
     }
 
+    public function updateSection(Request $req){
+        //return $req;
+        $req->validate([
+            'web_order' => 'required|numeric',  
+            'mobile_order' => 'required|numeric',
+            'web_status' => 'nullable|boolean',
+            'mobile_status' => 'nullable|boolean',
+        ]);
+
+        $homeLayout = HomeLayout::find($req->id_layout);
+        if ($homeLayout == null) { 
+            return response()->json(['message' => 'Section not found']);
+        }
+
+        
+        $homeLayout->web_order = $req->web_order;
+        $homeLayout->mobile_order = $req->mobile_order;
+        $homeLayout->web_status = $req->web_status;
+        $homeLayout->mobile_status = $req->mobile_status;
+        $homeLayout->save();
+       
+        return response()->json(['message' => 'Section is update']);
+    }
     public function updateTermsCondition(Request $data)
     {
         $validatedData = $data->validate([

@@ -104,7 +104,7 @@
                                                 @foreach ($home_layout as $data)
                                                     {{-- {{ $data }} --}}
                                                     <tr class="odd">
-                                                        <td>
+                                                        <td id="layout{{$data->id}}">
                                                             {{ $data->id }}
                                                         </td>
                                                         <td>
@@ -112,7 +112,7 @@
                                                         </td>
                                                         <td>
                                                             <div>
-                                                                <input type="number" class="form-control "
+                                                                <input type="number" id="web-order{{$data->id}}" class="web-order form-control "
                                                                     placeholder="Enter Web order"
                                                                     value="{{ $data->web_order }}">
 
@@ -122,7 +122,7 @@
                                                         </td>
                                                         <td>
                                                             <!-- Custom switch with dynamic status -->
-                                                            <div class="custom-control custom-switch text-center">
+                                                            <div id="web-status-switch{{$data->id}}" class="custom-control custom-switch text-center">
                                                                 <input type="checkbox" class="custom-control-input"
                                                                     id="customSwitches{{ $loop->iteration }}"
                                                                     name="status"
@@ -134,7 +134,7 @@
 
                                                         <td>
                                                             <div class="">
-                                                                <input type="number" class="form-control"
+                                                                <input type="number" id="mobile-order{{$data->id}}" class="mobile-order form-control"
                                                                     placeholder="Enter Mobile Order"
                                                                     value="{{ $data->mobile_order }}">
 
@@ -143,7 +143,7 @@
 
                                                         <td>
                                                             <!-- Default switch -->
-                                                            <div class="custom-control custom-switch text-center">
+                                                            <div id="mobile-status-switch{{$data->id}}" class="custom-control custom-switch text-center">
                                                                 <input type="checkbox" class="custom-control-input"
                                                                     id="customSwitches2{{ $loop->iteration }}"
                                                                     {{ $data->mobile_status ? 'checked' : '' }}>
@@ -152,7 +152,7 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <button class="btn btn--primary save-button">save</button>
+                                                            <button class="btn btn--primary save-button" onclick="saveLayout({{ $data->id }})">save</button>
                                                         </td>
                                                         {{-- <td valign="top" colspan="6" class="dataTables_empty">No data
                                                             available in table</td> --}}
@@ -259,6 +259,32 @@
         $('input').on('input', function() {
             $('.save-button').prop('disabled', false);
         });
+
+        function saveLayout(layoutID) {
+            var id = layoutID;
+            var webOrder = $('#web-order'+layoutID).val();
+            var webStatus = $('#web-status-switch'+layoutID).is(':checked') ? 1 : 0;
+            var mobileOrder = $('#mobile-order'+layoutID).val();
+            var mobileStatus = $('#mobile-status-switch'+layoutID).is(':checked') ? 1 : 0;
+            console.log(id);
+            $.ajax({
+                url: '/admin/business-settings/home-layout',
+                method: 'POST',
+                data: {
+                    id_layout:id,
+                    web_order: webOrder,
+                    web_status: webStatus,
+                    mobile_order: mobileOrder,
+                    mobile_status: mobileStatus,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(response) {
+                    console.log(response);
+                    console.log('Updated Successfully');
+                },
+
+            });
+        };
     </script>
     {{-- ck editor --}}
 @endpush
