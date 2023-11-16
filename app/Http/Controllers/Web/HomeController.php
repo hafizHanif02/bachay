@@ -47,7 +47,7 @@ class HomeController extends Controller
     public function index()
     {
         $theme_name = theme_root_path();
-        
+
         return match ($theme_name) {
             'default' => self::default_theme(),
             'theme_aster' => self::theme_aster(),
@@ -67,6 +67,7 @@ class HomeController extends Controller
                 ->where('category_ids', 'like', "%{$id}%")
                 ->inRandomOrder()->take(12)->get();
         });
+        return $home_categories;
         $current_date = date('Y-m-d H:i:s');
         //products based on top seller
         $top_sellers = $this->seller->approved()->with(['shop','orders','product.reviews'])
