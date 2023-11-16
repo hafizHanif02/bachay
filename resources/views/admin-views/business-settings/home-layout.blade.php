@@ -160,9 +160,15 @@
                                                             </div>
                                                         </td>
                                                         <td>
-                                                            <button id="save-button{{ $data->id }}"
-                                                                class="btn btn--primary save-button"
-                                                                onclick="saveLayout({{ $data->id }})">save</button>
+                                                            <div class="d-flex gap-2">
+                                                                <button id="save-button{{ $data->id }}"
+                                                                    class="btn btn--primary save-button"
+                                                                    onclick="saveLayout({{ $data->id }})">Save</button>
+
+                                                                <button id="delete-button{{ $data->id }}"
+                                                                    class="btn btn-danger delete-button"
+                                                                    onclick="deleteLayout({{ $data->id }})">Delete</button>
+                                                            </div>
                                                         </td>
                                                         {{-- <td valign="top" colspan="6" class="dataTables_empty">No data
                                                             available in table</td> --}}
@@ -203,7 +209,8 @@
         {{-- </div> --}}
     </div>
 
-    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -217,7 +224,8 @@
                         @csrf
                         <div class="form-group">
                             <label for="sectionName">Section Name</label>
-                            <input type="text" class="form-control" id="sectionName" name="sectionName" placeholder="Enter Section Name" required>
+                            <input type="text" class="form-control" id="sectionName" name="sectionName"
+                                placeholder="Enter Section Name" required>
                         </div>
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>
@@ -242,6 +250,48 @@
             console.log(layoutID);
             $('#save-button' + layoutID).prop('disabled', false);
         }
+
+        function deleteLayout(layoutID) {
+            var id = layoutID;
+            var csrfToken = "{{ csrf_token() }}";
+
+            Swal.fire({
+                title: 'Are you sure?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken
+                        }
+                    });
+                    var ajaxData = {
+                        id_layout: id,
+                        _token: csrfToken
+                    };
+                    $.ajax({
+                        url: '/admin/business-settings/home-layout',
+                        method: 'POST',
+                        data: ajaxData,
+                        success: function(response) {
+                            location.reload();
+                        },
+                        error: function(error) {
+                            console.error('Error deleting layout:', error);
+                            Swal.fire({
+                                title: "Error deleting layout!",
+                                icon: "error"
+                            });
+                        }
+                    });
+                }
+            });
+        }
+
 
         function saveLayout(layoutID) {
             var id = layoutID;

@@ -217,6 +217,15 @@ class BusinessSettingsController extends Controller
         return redirect()->route('admin.business-settings.home-layout')->with('success', 'Section added successfully');
     }
 
+    public function deleteSection(Request $req)
+    {
+        $homeLayout = HomeLayout::find($req->id_layout);
+        if ($homeLayout == null) {
+            return response()->json(['message' => 'Section not found']);
+        }
+        $homeLayout->delete();
+        // return response()->json(['message' => 'Section is deleted']);
+    }
 
     public function updateSection(Request $req){
         //return $req;
