@@ -214,7 +214,7 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form id="addSectionForm" method="POST">
+                    <form action="{{ route('admin.business-settings.submit.section') }}" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="sectionName">Section Name</label>

@@ -196,51 +196,49 @@ class BusinessSettingsController extends Controller
 
     public function submitSection(Request $request)
     {
-        Log::info($request->all());
+
         $request->validate([
             'sectionName' => 'required|string',
-            'webOrder' => 'required|numeric',
-            'mobileOrder' => 'required|numeric',
-            'webStatus' => 'nullable|boolean',
-            'mobileStatus' => 'nullable|boolean',
         ]);
 
 
         $homeLayout = new HomeLayout([
             'section_name' => $request->input('sectionName'),
-            'web_order' => $request->input('webOrder'),
-            'mobile_order' => $request->input('mobileOrder'),
-            'web_status' => $request->input('webStatus') ?? 0,
-            'mobile_status' => $request->input('mobileStatus') ?? 0,
+            'web_order' => 0,
+            'mobile_order' => 0,
+            'web_status' => 0,
+            'mobile_status' => 0,
         ]);
+
 
         $homeLayout->save();
 
 
-        return response()->json(['message' => 'Section added successfully']);
+        return redirect()->route('admin.business-settings.home-layout')->with('success', 'Section added successfully');
     }
+
 
     public function updateSection(Request $req){
         //return $req;
         $req->validate([
-            'web_order' => 'required|numeric',  
+            'web_order' => 'required|numeric',
             'mobile_order' => 'required|numeric',
             'web_status' => 'nullable|boolean',
             'mobile_status' => 'nullable|boolean',
         ]);
 
         $homeLayout = HomeLayout::find($req->id_layout);
-        if ($homeLayout == null) { 
+        if ($homeLayout == null) {
             return response()->json(['message' => 'Section not found']);
         }
 
-        
+
         $homeLayout->web_order = $req->web_order;
         $homeLayout->mobile_order = $req->mobile_order;
         $homeLayout->web_status = $req->web_status;
         $homeLayout->mobile_status = $req->mobile_status;
         $homeLayout->save();
-       
+
         return response()->json(['message' => 'Section is update']);
     }
     public function updateTermsCondition(Request $data)
