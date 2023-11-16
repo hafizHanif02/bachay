@@ -285,7 +285,7 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    console.log(response);
+                    window.location.href = window.location.href;
                     console.log('Updated Successfully');
                 },
 
@@ -294,35 +294,4 @@
     </script>
     {{-- ck editor --}}
 @endpush
-@push('script')
-    <script>
-        $(document).ready(function() {
-            $('#addSectionForm button[type="submit"]').click(function(e) {
-                e.preventDefault();
 
-                var formData = {
-                    sectionName: $('#sectionName').val(),
-                    webOrder: $('#webOrder').val(),
-                    mobileOrder: $('#mobileOrder').val(),
-                    webStatus: $('#webStatusSwitch').is(':checked') ? 1 : 0,
-                    mobileStatus: $('#mobileStatusSwitch').is(':checked') ? 1 : 0,
-                    _token: $('input[name="_token"]').val()
-                };
-
-
-                $.ajax({
-                    url: '/submit-section',
-                    type: 'POST',
-                    data: formData,
-                    success: function(response) {
-                        console.log('Data submitted successfully');
-
-                    },
-                    error: function(error) {
-                        console.log('Error submitting data');
-                    }
-                });
-            });
-        });
-    </script>
-@endpush
