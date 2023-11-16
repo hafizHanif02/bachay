@@ -203,13 +203,13 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{ route('submit.section') }}" method="post">
+                    <form action="{{ route('admin.business-settings.submit.section') }}" method="post">
                         @csrf
                         <div class="form-group">
                             <label for="sectionName">Section Name</label>
                             <input type="text" class="form-control" id="sectionName" name="sectionName" placeholder="Enter Section Name" required>
                         </div>
-                       
+
                         <button type="submit" class="btn btn-primary">Save</button>
                     </form>
                 </div>

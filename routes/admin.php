@@ -517,6 +517,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
 
                 // routes/web.php
 
+                // Route::get('home-layout', 'BusinessSettingsController@home_layout')->name('home-layout');
                 Route::get('home-layout', 'BusinessSettingsController@home_layout')->name('home-layout');
                 Route::post('submit-section', 'BusinessSettingsController@submitSection')->name('submit.section');
                 Route::post('home-layout', 'BusinessSettingsController@updateSection')->name('update.section');
