@@ -69,9 +69,6 @@ class HomeController extends Controller
                 ->where('category_ids', 'like', "%{$id}%")
                 ->inRandomOrder()->take(12)->get();
         });
-        // return $home_categories;
-
-
 
         $current_date = date('Y-m-d H:i:s');
         //products based on top seller
