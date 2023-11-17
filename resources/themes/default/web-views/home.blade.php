@@ -1,4 +1,4 @@
-@extends('layouts.front-end.app')
+@extends('layouts.front-end.layout')
 
 @section('title', $web_config['name']->value.' '.translate('online_Shopping').' | '.$web_config['name']->value.' '.translate('ecommerce'))
 
@@ -421,7 +421,7 @@
 
         <!--delivery type -->
         @php($company_reliability = \App\CPU\Helpers::get_business_settings('company_reliability'))
-    
+
     </div>
 @endsection
 
