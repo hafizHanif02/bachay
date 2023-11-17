@@ -69,7 +69,10 @@ class HomeController extends Controller
                 ->where('category_ids', 'like', "%{$id}%")
                 ->inRandomOrder()->take(12)->get();
         });
-        return $home_categories;
+        // return $home_categories;
+
+
+
         $current_date = date('Y-m-d H:i:s');
         //products based on top seller
         $top_sellers = $this->seller->approved()->with(['shop','orders','product.reviews'])
@@ -100,6 +103,8 @@ class HomeController extends Controller
             ->get();
         //end
 
+        $home_layouts = HomeLayout::all();
+        // return $home_layouts;
         $latest_products = $this->product->with(['reviews'])->active()->orderBy('id', 'desc')->take(8)->get();
         $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->take(8)->get();
         $brands = Brand::active()->take(15)->get();

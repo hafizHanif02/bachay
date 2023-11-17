@@ -135,7 +135,8 @@ class WebController extends Controller
     public function all_categories()
     {
         $categories = Category::all();
-        return view('web-views.categories', compact('categories'));
+        // C:\xampp\htdocs\resources\themes\default\layouts\front-end\partials\categories.blade.php
+        return view('layouts.front-end.partials.categories', compact('categories'));
     }
 
     public function categories_by_category($id)
