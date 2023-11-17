@@ -69,10 +69,7 @@ class HomeController extends Controller
                 ->where('category_ids', 'like', "%{$id}%")
                 ->inRandomOrder()->take(12)->get();
         });
-        $home_layout = HomeLayout::all();
-
-        // return $home_layout;
-        // return $home_categories;
+        return $home_categories;
         $current_date = date('Y-m-d H:i:s');
         //products based on top seller
         $top_sellers = $this->seller->approved()->with(['shop','orders','product.reviews'])

@@ -253,34 +253,46 @@
 
         function deleteLayout(layoutID) {
             var id = layoutID;
-            var csrfToken = "{{ csrf_token() }}";
-            $.ajaxSetup({
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken
-                }
-            });
-            var ajaxData = {
-                id_layout: id,
-                _token: csrfToken
-            };
-            $.ajax({
-                url: '/admin/business-settings/home-layout',
-                method: 'DELETE',
-                data: ajaxData,
-                success: function(response) {
-                    location.reload();
-                },
-                error: function(error) {
-                    console.error('Error deleting layout:', error);
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!'
+            Swal.fire({
+                title: 'Are you sure?',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+                if (result.value) {
+                    var csrfToken = "{{ csrf_token() }}";
+                    $.ajaxSetup({
+                        headers: {
+                            'X-CSRF-TOKEN': csrfToken
+                        }
+                    });
+                    var ajaxData = {
+                        id_layout: id,
+                        _token: csrfToken
+                    };
+                    $.ajax({
+                        url: '/admin/business-settings/home-layout',
+                        method: 'DELETE',
+                        data: ajaxData,
+                        success: function(response) {
+                            location.reload();
+
+                        },
+                        error: function(error) {
+                            console.error('Error deleting layout:', error);
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: 'Something went wrong!'
+                            });
+                        }
                     });
                 }
             });
-
         }
+
 
         function saveLayout(layoutID) {
             var id = layoutID;
@@ -300,12 +312,10 @@
                     _token: '{{ csrf_token() }}'
                 },
                 success: function(response) {
-                    // window.location.href = window.location.href;
                     Swal.fire({
                         title: "Updated successully!",
                         icon: "success"
                     });
-                    // console.log('Updated Successfully');
                 },
 
             });
