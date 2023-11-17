@@ -44,7 +44,7 @@ Route::group(['namespace' => 'Web','middleware'=>['maintenance_mode','guestCheck
         Route::get('deliveryman-review/{id}','ReviewController@delivery_man_review')->name('deliveryman-review');
         Route::post('submit-deliveryman-review','ReviewController@delivery_man_submit')->name('submit-deliveryman-review');
     });
-    
+
     Route::get('checkout-details', 'WebController@checkout_details')->name('checkout-details');
     Route::get('checkout-shipping', 'WebController@checkout_shipping')->name('checkout-shipping');
     Route::get('checkout-payment', 'WebController@checkout_payment')->name('checkout-payment');
@@ -66,6 +66,7 @@ Route::group(['namespace' => 'Web','middleware'=>['maintenance_mode','guestCheck
     Route::get('search-shop', 'WebController@search_shop')->name('search-shop');
 
     Route::get('categories', 'WebController@all_categories')->name('categories');
+    Route::get('sub-category', 'WebController@sub_categories')->name('sub-categories');
     Route::get('category-ajax/{id}', 'WebController@categories_by_category')->name('category-ajax');
 
     Route::get('brands', 'WebController@all_brands')->name('brands');

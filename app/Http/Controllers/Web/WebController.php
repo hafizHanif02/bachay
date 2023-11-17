@@ -141,10 +141,23 @@ class WebController extends Controller
                 ->where('category_ids', 'like', "%{$id}%")
                 ->inRandomOrder()->take(12)->get();
         });
-        
+
         $categories = Category::all();
         // C:\xampp\htdocs\resources\themes\default\layouts\front-end\partials\categories.blade.php
         return view('layouts.front-end.partials.categories', compact('categories', 'home_categories'));
+    }
+    public function sub_categories(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+
+        $categories = Category::all();
+        // C:\xampp\htdocs\resources\themes\default\layouts\front-end\partials\categories.blade.php
+        return view('layouts.front-end.partials.sub-category', compact('categories', 'home_categories'));
     }
 
     public function categories_by_category($id)
