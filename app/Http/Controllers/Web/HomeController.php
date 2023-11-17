@@ -101,7 +101,7 @@ class HomeController extends Controller
         //end
 
         $home_layouts = HomeLayout::all();
-        // return $home_layouts;
+
         $latest_products = $this->product->with(['reviews'])->active()->orderBy('id', 'desc')->take(8)->get();
         $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->take(8)->get();
         $brands = Brand::active()->take(15)->get();
@@ -144,12 +144,12 @@ class HomeController extends Controller
         $product=$this->product->active()->inRandomOrder()->first();
         $footer_banner = $this->banner->where('banner_type','Footer Banner')->where('theme', theme_root_path())->where('published',1)->orderBy('id','desc')->take(2)->get();
 
-        
+
         return view(VIEW_FILE_NAMES['home'],
             compact(
                 'featured_products', 'topRated', 'bestSellProduct', 'latest_products', 'categories', 'brands',
                 'deal_of_the_day', 'top_sellers', 'home_categories', 'brand_setting', 'main_banner', 'main_section_banner',
-                'current_date','product','footer_banner',
+                'current_date','product','footer_banner', 'home_layouts',
             )
         );
     }

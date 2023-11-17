@@ -27,7 +27,7 @@
     {{--dont touch this--}}
     <!--to make http ajax request to https-->
     <!--<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
- 
+
 
     @php($google_tag_manager_id = \App\CPU\Helpers::get_business_settings('google_tag_manager_id'))
     @if($google_tag_manager_id )
@@ -100,8 +100,8 @@
 {{--loader--}}
 
 <!-- Page Content-->
-{{-- @yield('content') --}}
-@include('layouts.front-end.partials.home')
+@yield('content')
+
 
 <span id="update_nav_cart_url" data-url="{{route('cart.nav-cart')}}"></span>
 <span id="remove_from_cart_url" data-url="{{ route('cart.remove') }}"></span>

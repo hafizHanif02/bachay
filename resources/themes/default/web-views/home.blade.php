@@ -13,14 +13,27 @@
     <meta property="twitter:url" content="{{env('APP_URL')}}">
     <meta property="twitter:description" content="{{ substr(strip_tags(str_replace('&nbsp;', ' ', $web_config['about']->value)),0,160) }}">
 
-    
+
 @endpush
 
 @section('content')
-   
+
+@foreach ($home_layouts as $layout)
+    @includeIf('layouts.front-end.home.' . $layout->section_name)
+@endforeach
+{{-- @include('layouts.front-end.home.section1')
+@include('layouts.front-end.home.section2')
+@include('layouts.front-end.home.section3')
+@include('layouts.front-end.home.section4')
+@include('layouts.front-end.home.section5')
+@include('layouts.front-end.home.section6')
+@include('layouts.front-end.home.section7')
+@include('layouts.front-end.home.section8')
+@include('layouts.front-end.home.section9') --}}
+
 @endsection
 
 @push('script')
-    
+
 @endpush
 
