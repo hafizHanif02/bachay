@@ -10,6 +10,7 @@ use App\Http\Controllers\Controller;
 use App\Model\Banner;
 use App\Model\Brand;
 use App\Model\BusinessSetting;
+use App\Models\HomeLayout;
 use App\Model\Cart;
 use App\Model\Category;
 use App\Model\Coupon;
@@ -58,6 +59,7 @@ class HomeController extends Controller
 
     public function default_theme()
     {
+
         $theme_name = theme_root_path();
         $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
         $home_categories = Category::where('home_status', true)->priority()->get();
@@ -67,7 +69,10 @@ class HomeController extends Controller
                 ->where('category_ids', 'like', "%{$id}%")
                 ->inRandomOrder()->take(12)->get();
         });
-        return $home_categories;
+        $home_layout = HomeLayout::all();
+
+        // return $home_layout;
+        // return $home_categories;
         $current_date = date('Y-m-d H:i:s');
         //products based on top seller
         $top_sellers = $this->seller->approved()->with(['shop','orders','product.reviews'])
@@ -134,6 +139,8 @@ class HomeController extends Controller
         $deal_of_the_day = DealOfTheDay::join('products', 'products.id', '=', 'deal_of_the_days.product_id')->select('deal_of_the_days.*', 'products.unit_price')->where('products.status', 1)->where('deal_of_the_days.status', 1)->first();
         $main_banner = $this->banner->where(['banner_type'=>'Main Banner', 'theme'=>$theme_name, 'published'=> 1])->latest()->get();
         $main_section_banner = $this->banner->where(['banner_type'=> 'Main Section Banner', 'theme'=>$theme_name, 'published'=> 1])->orderBy('id', 'desc')->latest()->first();
+
+        // return $main_banner;
 
         $product=$this->product->active()->inRandomOrder()->first();
         $footer_banner = $this->banner->where('banner_type','Footer Banner')->where('theme', theme_root_path())->where('published',1)->orderBy('id','desc')->take(2)->get();

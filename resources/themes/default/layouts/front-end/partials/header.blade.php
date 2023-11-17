@@ -1,6 +1,6 @@
 <header>
     <div class="desktop-nav">
-        
+
         <nav class="navbar navbar-expand-md d-flex justify-content-between align-items-center col-12">
             <div class="d-flex col-md-5">
                 <a class="navbar-brand col-3" href=""><img
@@ -81,8 +81,8 @@
                     @endguest
                 </ul>
             </div>
-        </nav>        
-        
+        </nav>
+
         <div class="nav-btn" id="mega-menu" class="hide-on-med-and-down">
             <ul class="sub-nav d-flex justify-content-between align-items-baseline pt-4 pb-4">
                 <li><a href="" class="browse-all-cate text-white">
@@ -95,7 +95,10 @@
                                     <li class="collection-item">
                                         <h4>SHOP BY CATEGORY</h4>
                                     </li>
-                                    <li><a href="#">Sets & Suits <span class="color">NEW</span></a></li>
+                                    @foreach ($home_categories as $category)
+                                    <li><a href="#">{{ $category->name }} <span class="color">NEW</span></a></li>
+                                    @endforeach
+                                    {{-- <li><a href="#">Sets & Suits <span class="color">NEW</span></a></li>
                                     <li><a href="#">T-shirts <span class="color">NEW</span></a></li>
                                     <li><a href="">Nightwear</a></li>
                                     <li><a href="#">Sweatshirts<span class="color">NEW</span></a></li>
@@ -116,7 +119,7 @@
                                     <li><a href="#">Swim Wear</a></li>
                                     <li><a href="#">Rainwear</a></li>
                                     <li><a href="#">Theme Costumes</a></li>
-                                    <li><a href="#">View All</a></li>
+                                    <li><a href="#">View All</a></li> --}}
                                 </ul>
                             </div>
                             <div class="sub-nav-column">
@@ -1600,7 +1603,7 @@
                         </div>
                     </div>
                 </li>
-                
+
                 <li> <a href="#" class="drp-btn">Feeding</a>
 
                     <div class="mega-menu-container">
@@ -1777,7 +1780,7 @@
                         </div>
                     </div>
                 </li>
-                
+
                 <li> <a href="#" class="drp-btn">Health</a>
                     <div class="mega-menu-container">
                         <div class="mega-menu-grid">
