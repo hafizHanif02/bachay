@@ -150,7 +150,7 @@
         @endforeach
     </div>
 </div>  --}}
-<div class="mainCon mb-4 space-between">
+{{-- <div class="mainCon mb-4 space-between">
     @php
         $pageSectionCategories = $data->pageSectionCategories;
     @endphp
@@ -168,4 +168,4 @@
             </div>
         @endforeach
     </div>
-</div>
+</div> --}}

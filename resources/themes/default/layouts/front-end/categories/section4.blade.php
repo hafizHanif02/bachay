@@ -1,4 +1,4 @@
-{{-- <div class="cateSlider space-between">
+<div class="cateSlider space-between">
     <div class="slider-category mt-3">
         @foreach ($data->pageSectionCategories as $pageSectionCategory)
             <div>
@@ -11,8 +11,8 @@
             </div>
         @endforeach
     </div>
-</div> --}}
-
+</div>
+{{-- 
 <div class="mainCon space-between">
     @php
         $pageSectionCategories = $data->pageSectionCategories;
@@ -31,4 +31,4 @@
             </div>
         @endforeach
     </div>
-</div>
+</div> --}}
