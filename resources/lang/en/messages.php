@@ -6698,4 +6698,5 @@
   'Home_Page_Layout' => 'Home Page Layout',
   'brand_added_successfully' => 'Brand added successfully',
   'deal_added_successfully' => 'Deal added successfully',
+  'brand_is_required' => 'Brand is required',
 );
