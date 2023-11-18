@@ -100,7 +100,8 @@ class HomeController extends Controller
             ->get();
         //end
 
-        $home_layouts = HomeLayout::all();
+        $home_layouts = HomeLayout::where('web_status', 1)->orderBy('web_order', 'asc')->get();
+
 
         $latest_products = $this->product->with(['reviews'])->active()->orderBy('id', 'desc')->take(8)->get();
         $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->take(8)->get();
