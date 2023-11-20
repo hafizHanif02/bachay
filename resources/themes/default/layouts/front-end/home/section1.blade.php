@@ -1,17 +1,8 @@
-<div class="slider-container pt-3">
+<div class="slider-container pt-3 mb-5">
     <div class="slider">
-        
-        <div><img class="rounded-5 img-fluid imgBanner"  src="{{ asset('public/images/banner-2.png') }}" alt="Image 1"></div>
-        <div><img class="rounded-5 img-fluid imgBanner"  src="{{ asset('public/images/banner-2.png') }}" alt="Image 2"></div>
-        <div><img class="rounded-5 img-fluid imgBanner"  src="{{ asset('public/images/banner-2.png') }}" alt="Image 3"></div>
-    </div>
-</div>
-{{-- <div class="slider-container pt-3">
-    <div class="slider">
-        @foreach ($data->pageSectionBanners as $pageSectionBanner)
-            <div>
-                <img class="rounded-5 img-fluid imgBanner"  src="{{ Storage::url($pageSectionBanner->banner) }}" alt="Image 1">
-            </div>
+        @foreach($main_banner as $banner)        
+        <div><img class="rounded-5 img-fluid imgBanner"  src="{{ asset('storage/app/public/banner/'.$banner->photo) }}" alt="Image 3"></div>
         @endforeach
     </div>
-</div> --}}
+</div>  
+

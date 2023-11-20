@@ -1,5 +1,5 @@
 <div class="sub-contain">
-    <div class="row">
+    <div class="row mb-4">
         <div class="col-12 d-flex justify-content-between">
             <h1 class="textClr">Autum Whjisper</h1>
             <a class="d-flex align-items-center text-dark" href="#">
@@ -23,7 +23,6 @@
                                         <img class="object-fit-cover" src="{{ asset("storage/app/public/product/$photo") }}" alt=""
                                             class="img-fluid" width="100%" height="100%">
                                     @endforeach
-
                                 </div>
                                 <div class="sec-best-seller mt-3">
                                     <p>Best Seller</p>
