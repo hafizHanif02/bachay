@@ -552,30 +552,44 @@ $("input").on("input", function () {
     $(this).closest("tr").addClass("row-changed");
 });
 
- 
-    // $('.save-button').on('click', function () {
-    //     var row = $(this).closest('tr');
-    //     var webOrder = row.find('.web-order').val();
-    //     var webStatus = row.find('.web-status-switch').prop('checked');
-    //     var mobileOrder = row.find('.mobile-order').val();
-    //     var mobileStatus = row.find('.mobile-status-switch').prop('checked');
-    //     $.ajax({
-    //         url: '/admin/business-settings/home-layout',
-    //         method: 'POST',
-    //         data: {
-    //             webOrder: webOrder,
-    //             webStatus: webStatus,
-    //             mobileOrder: mobileOrder,
-    //             mobileStatus: mobileStatus,
-    //         },
-    //         success: function (response) {
-    //             console.log('Data saved successfully!');
-    //             row.removeClass('row-changed');
-    //             $('.save-button').prop('disabled', true);
-    //         },
-    //         error: function (xhr, status, error) {
-    //             console.error('Error:', status, error);
-    //         }
-    //     });
-    // });
+$("#readmore").click(function () {
+    var dots = $("#dots");
+    var moreText = $("#more");
+    var btnText = $("#readmore");
 
+    if (dots.css("display") === "none") {
+        dots.css("display", "inline");
+        btnText.html(" Read More");
+        moreText.css("display", "none");
+    } else {
+        dots.css("display", "none");
+        btnText.html(" ... read less");
+        moreText.css("display", "inline");
+    }
+});
+
+// $('.save-button').on('click', function () {
+//     var row = $(this).closest('tr');
+//     var webOrder = row.find('.web-order').val();
+//     var webStatus = row.find('.web-status-switch').prop('checked');
+//     var mobileOrder = row.find('.mobile-order').val();
+//     var mobileStatus = row.find('.mobile-status-switch').prop('checked');
+//     $.ajax({
+//         url: '/admin/business-settings/home-layout',
+//         method: 'POST',
+//         data: {
+//             webOrder: webOrder,
+//             webStatus: webStatus,
+//             mobileOrder: mobileOrder,
+//             mobileStatus: mobileStatus,
+//         },
+//         success: function (response) {
+//             console.log('Data saved successfully!');
+//             row.removeClass('row-changed');
+//             $('.save-button').prop('disabled', true);
+//         },
+//         error: function (xhr, status, error) {
+//             console.error('Error:', status, error);
+//         }
+//     });
+// });

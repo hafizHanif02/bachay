@@ -420,6 +420,9 @@ h1.text-center.textClr {
 .card1 {
     position: relative;
 }
+.imgCon{
+    height: 300px;
+}
 .image-container {
     position: relative;
     flex-direction: column;
@@ -2535,7 +2538,20 @@ details[open] summary::after {
         grid-template-columns: 1fr; 
     }
 }
+.card-text {
+    max-width: 300px; 
+    overflow: hidden;
+}
 
+/* #dots {
+    display: inline;
+} */
+#readmore{
+    cursor: pointer;
+}
+.more {
+    display: none;
+}
 
   
 
