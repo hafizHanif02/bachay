@@ -23,7 +23,7 @@ use App\Model\PaymentRequest;
 use App\Model\Product;
 use App\Model\Review;
 use App\Model\Seller;
-// use App\Http\Controllers\Web\FlashDealProducts;
+use App\Model\FlashDealProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -148,27 +148,31 @@ class HomeController extends Controller
         $product=$this->product->active()->inRandomOrder()->first();
         $footer_banner = $this->banner->where('banner_type','Footer Banner')->where('theme', theme_root_path())->where('published',1)->orderBy('id','desc')->take(2)->get();
 
-        $flash_deals = FlashDeal::with(['products'=>function($query){
-            $query->with(['product.wish_list'=>function($query){
-                return $query->where('customer_id', Auth::guard('customer')->user()->id ?? 0);
-            }, 'product.compare_list'=>function($query){
-                return $query->where('user_id', Auth::guard('customer')->user()->id ?? 0);
-            }])->whereHas('product',function($q){
-                $q->active();
-            });
-        }])
-        ->where(['deal_type'=>'flash_deal', 'status'=>1])
-        ->whereDate('start_date','<=',date('Y-m-d'))
-        ->whereDate('end_date','>=',date('Y-m-d'))
-        ->first();
+        // $flash_deals = FlashDeal::with(['products'=>function($query){
+        //     $query->with(['product.wish_list'=>function($query){
+        //         return $query->where('customer_id', Auth::guard('customer')->user()->id ?? 0);
+        //     }, 'product.compare_list'=>function($query){
+        //         return $query->where('user_id', Auth::guard('customer')->user()->id ?? 0);
+        //     }])->whereHas('product',function($q){
+        //         $q->active();
+        //     });
+        // }])
+        // ->where(['deal_type'=>'flash_deal', 'status'=>1])
+        // ->whereDate('start_date','<=',date('Y-m-d'))
+        // ->whereDate('end_date','>=',date('Y-m-d'))
+        // ->first();
 
-        // return $flash_deals;
+
+        $flash_deal = FlashDeal::where('status',1)->first();
+        $flash_deals_products = FlashDealProduct::where('flash_deal_id',$flash_deal->id)->get();
+
+        // return $flash_deals_products;
 
         return view(VIEW_FILE_NAMES['home'],
             compact(
                 'featured_products', 'topRated', 'bestSellProduct', 'latest_products', 'categories', 'brands',
                 'deal_of_the_day', 'top_sellers', 'home_categories', 'brand_setting', 'main_banner', 'main_section_banner',
-                'current_date','product','footer_banner', 'home_layouts', 'flash_deals',
+                'current_date','product','footer_banner', 'home_layouts', 'flash_deal', 'flash_deals_products'
             )
         );
     }

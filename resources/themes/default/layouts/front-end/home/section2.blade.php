@@ -2,6 +2,13 @@
     <h1 class="text-center textClr">Flash Sales For Child Product Get Crazy Discounts</h1>
 
     <div class="row mt-5 col-12 flash-sales-container">
+
+            @foreach ($flash_deals_products as $flashProducts)
+                {{ $flashProducts }}
+
+
+            @endforeach
+
         <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
             <div class="card rounded-5">
                 <a href="#">
@@ -88,7 +95,7 @@
         </div>
 
     </div>
-    
+
 
 
 
@@ -146,7 +153,7 @@
           </a>
         </div>
       </div>
-  
+
       <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
           <div class="card rounded-5">
             <a href="#">
@@ -158,7 +165,7 @@
             </a>
           </div>
         </div>
-  
+
         <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
           <div class="card rounded-5">
             <a href="#">
@@ -170,7 +177,7 @@
             </a>
           </div>
         </div>
-  
+
 
   </div>
 
@@ -181,7 +188,7 @@
 
 
 
-    {{-- 
+    {{--
 <div class="flash-sales">
     <h1 class="text-center textClr">{{ $data->pageSectionHeading->heading }}</h1>
     <div class="row mt-5 col-12 flash-sales-container">
