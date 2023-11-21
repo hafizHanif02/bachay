@@ -23,6 +23,7 @@ use App\Model\PaymentRequest;
 use App\Model\Product;
 use App\Model\Review;
 use App\Model\Seller;
+// use App\Http\Controllers\Web\FlashDealProducts;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
@@ -141,17 +142,33 @@ class HomeController extends Controller
         $main_banner = $this->banner->where(['banner_type'=>'Main Banner', 'theme'=>$theme_name, 'published'=> 1])->latest()->get();
         $main_section_banner = $this->banner->where(['banner_type'=> 'Main Section Banner', 'theme'=>$theme_name, 'published'=> 1])->orderBy('id', 'desc')->latest()->first();
 
+        // return $deal_of_the_day;
         // return $main_banner;
 
         $product=$this->product->active()->inRandomOrder()->first();
         $footer_banner = $this->banner->where('banner_type','Footer Banner')->where('theme', theme_root_path())->where('published',1)->orderBy('id','desc')->take(2)->get();
 
+        $flash_deals = FlashDeal::with(['products'=>function($query){
+            $query->with(['product.wish_list'=>function($query){
+                return $query->where('customer_id', Auth::guard('customer')->user()->id ?? 0);
+            }, 'product.compare_list'=>function($query){
+                return $query->where('user_id', Auth::guard('customer')->user()->id ?? 0);
+            }])->whereHas('product',function($q){
+                $q->active();
+            });
+        }])
+        ->where(['deal_type'=>'flash_deal', 'status'=>1])
+        ->whereDate('start_date','<=',date('Y-m-d'))
+        ->whereDate('end_date','>=',date('Y-m-d'))
+        ->first();
+
+        // return $flash_deals;
 
         return view(VIEW_FILE_NAMES['home'],
             compact(
                 'featured_products', 'topRated', 'bestSellProduct', 'latest_products', 'categories', 'brands',
                 'deal_of_the_day', 'top_sellers', 'home_categories', 'brand_setting', 'main_banner', 'main_section_banner',
-                'current_date','product','footer_banner', 'home_layouts',
+                'current_date','product','footer_banner', 'home_layouts', 'flash_deals',
             )
         );
     }
@@ -180,6 +197,7 @@ class HomeController extends Controller
                 ->where('category_id',$data['id'])
                 ->inRandomOrder()->take(12)->get();
 
+
             //for flash deal
             $data['products']?->map(function ($product) use ($current_date) {
                 $flash_deal_status = 0;
@@ -195,6 +213,7 @@ class HomeController extends Controller
                 return $product;
             });
         });
+
 
         //products based on top seller
         $top_sellers = $this->seller->approved()->with(['shop', 'coupon', 'product' => function ($query) {

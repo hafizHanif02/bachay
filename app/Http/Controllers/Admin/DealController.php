@@ -207,11 +207,13 @@ class DealController extends Controller
 
         if(!isset($flash_deal_products))
         {
+            $products = DB::table('products')->where('id', $request['product_id'])->first();
+            // return $products;
             DB::table('flash_deal_products')->insertOrIgnore([
                 'product_id' => $request['product_id'],
                 'flash_deal_id' => $deal_id,
-                'discount' => $request['discount'],
-                'discount_type' => $request['discount_type'],
+                'discount' => $products->discount,
+                'discount_type' => $products->discount_type,
                 'created_at' => now(),
                 'updated_at' => now(),
             ]);
