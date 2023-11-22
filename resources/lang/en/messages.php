@@ -6699,4 +6699,5 @@
   'brand_added_successfully' => 'Brand added successfully',
   'deal_added_successfully' => 'Deal added successfully',
   'brand_is_required' => 'Brand is required',
+  'product_already_added' => 'Product already added',
 );

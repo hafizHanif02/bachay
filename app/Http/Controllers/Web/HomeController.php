@@ -148,6 +148,7 @@ class HomeController extends Controller
         $product=$this->product->active()->inRandomOrder()->first();
         $footer_banner = $this->banner->where('banner_type','Footer Banner')->where('theme', theme_root_path())->where('published',1)->orderBy('id','desc')->take(2)->get();
 
+
         // $flash_deals = FlashDeal::with(['products'=>function($query){
         //     $query->with(['product.wish_list'=>function($query){
         //         return $query->where('customer_id', Auth::guard('customer')->user()->id ?? 0);
@@ -161,10 +162,15 @@ class HomeController extends Controller
         // ->whereDate('start_date','<=',date('Y-m-d'))
         // ->whereDate('end_date','>=',date('Y-m-d'))
         // ->first();
-
-
         $flash_deal = FlashDeal::where('status',1)->first();
         $flash_deals_products = FlashDealProduct::where('flash_deal_id',$flash_deal->id)->get();
+
+        $productIds = $flash_deals_products->pluck('product_id')->toArray();
+        $productsInFlashDeal = $this->product->active()->whereIn('id', $productIds)->get();
+
+
+
+
 
         // return $flash_deals_products;
 
@@ -172,7 +178,7 @@ class HomeController extends Controller
             compact(
                 'featured_products', 'topRated', 'bestSellProduct', 'latest_products', 'categories', 'brands',
                 'deal_of_the_day', 'top_sellers', 'home_categories', 'brand_setting', 'main_banner', 'main_section_banner',
-                'current_date','product','footer_banner', 'home_layouts', 'flash_deal', 'flash_deals_products'
+                'current_date','product','footer_banner', 'home_layouts', 'flash_deal', 'flash_deals_products', 'productIds', 'productsInFlashDeal',
             )
         );
     }

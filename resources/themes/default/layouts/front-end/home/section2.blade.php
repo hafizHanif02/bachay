@@ -3,27 +3,28 @@
 
     <div class="row mt-5 col-12 flash-sales-container">
 
-            @foreach ($flash_deals_products as $flashProducts)
-                {{ $flashProducts }}
-
-
-            @endforeach
-
+        @foreach ($productsInFlashDeal as $products)
         <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
             <div class="card rounded-5">
                 <a href="#">
-                    <div class="deal-alert-circle">-14%</div>
+                    <div class="deal-alert-circle">-{{ $products->discount  }}%</div>
                     <div class="forHeight">
-                        <img class="object-fit-cover card-img rounded-5" src="{{ asset('public/images/flash-sales2.png') }}"
+                        @foreach (json_decode($products->images) as $key => $photo)
+
+                        @endforeach
+                        <img class="object-fit-cover card-img rounded-5" src="{{ asset("storage/app/public/product/$photo") }}  "
                             alt="Flash Sale" width="100%" height="100%" />
                     </div>
                     <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
-                        <p class="card-text">New Toys For Childs</p>
+                        <p class="card-text">{{ $products->name }}</p>
                     </div>
                 </a>
             </div>
         </div>
-        <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
+
+        @endforeach
+
+        {{-- <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
             <div class="card rounded-5">
                 <a href="#">
                     <div class="deal-alert-circle">-14%</div>
@@ -92,7 +93,7 @@
                     </div>
                 </a>
             </div>
-        </div>
+        </div> --}}
 
     </div>
 
