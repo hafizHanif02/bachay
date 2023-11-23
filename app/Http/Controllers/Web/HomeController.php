@@ -107,6 +107,16 @@ class HomeController extends Controller
         $latest_products = $this->product->with(['reviews'])->active()->orderBy('id', 'desc')->take(8)->get();
 
         $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->take(8)->get();
+        // dd($categories);
+        $new_arrivals_categories = $this->category
+        ->with('childes.childes')
+        ->where(['position' => 0])
+        ->priority()
+        ->latest('created_at') // Order by the 'created_at' column in descending order
+        ->take(5)
+        ->get();
+
+        dd($new_arrivals_categories);
         $brands = Brand::active()->take(15)->get();
         //best sell product
         $bestSellProduct = $this->order_details->with('product.reviews')
@@ -144,12 +154,12 @@ class HomeController extends Controller
 
         // return $deal_of_the_day;
         // return $main_banner;
-        
+
         $product=$this->product->active()->inRandomOrder()->first();
         $footer_banner = $this->banner->where('banner_type','Footer Banner')->where('theme', theme_root_path())->where('published',1)->orderBy('id','desc')->take(2)->get();
-        
-        
-        
+
+
+
         // $flash_deals = FlashDeal::with(['products'=>function($query){
         //     $query->with(['product.wish_list'=>function($query){
         //         return $query->where('customer_id', Auth::guard('customer')->user()->id ?? 0);
@@ -163,15 +173,15 @@ class HomeController extends Controller
         // ->whereDate('start_date','<=',date('Y-m-d'))
         // ->whereDate('end_date','>=',date('Y-m-d'))
         // ->first();
-        
+
         $flash_deal = FlashDeal::where('status',1)->first();
         $flash_deals_products = FlashDealProduct::where('flash_deal_id',$flash_deal->id)->get();
-        
-        
+
+
         $productIds = $flash_deals_products->pluck('product_id')->toArray();
         $productsInFlashDeal = $this->product->active()->whereIn('id', $productIds)->get();
-        
-            
+
+
 
 
 
@@ -182,7 +192,7 @@ class HomeController extends Controller
             compact(
                 'featured_products', 'topRated', 'bestSellProduct', 'latest_products', 'categories', 'brands',
                 'deal_of_the_day', 'top_sellers', 'home_categories', 'brand_setting', 'main_banner', 'main_section_banner',
-                'current_date','product','footer_banner', 'home_layouts', 'flash_deal', 'flash_deals_products', 'productIds', 'productsInFlashDeal',
+                'current_date','product','footer_banner', 'home_layouts', 'flash_deal', 'flash_deals_products', 'productIds', 'productsInFlashDeal', 'new_arrivals_categories',
             )
         );
     }
