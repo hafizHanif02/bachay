@@ -116,7 +116,7 @@ class HomeController extends Controller
         ->take(5)
         ->get();
 
-        dd($new_arrivals_categories);
+        // dd($new_arrivals_categories);
         $brands = Brand::active()->take(15)->get();
         //best sell product
         $bestSellProduct = $this->order_details->with('product.reviews')

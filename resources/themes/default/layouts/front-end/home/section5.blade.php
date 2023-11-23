@@ -1,14 +1,16 @@
 <div class="new-arival mt-4">
     <div class="sub-container bg-white pt-5 pb-5 rounded-5">
-        @if (isset($data->pageSectionHeading))
-        <h1 class="text-center textClr">{{ $data->pageSectionHeading->heading }}</h1>
-        @endif
+
+        <h1 class="text-center textClr">Early Breeze New Arival</h1>
         <div class="row justify-content-evenly ps-5 pe-5 pt-5">
-            @foreach ($data->pageSectionCategories as $pageSectionCategory)
+            @foreach ($new_arrivals_categories as $arrivals)
                 <div class="col-lg-2 col-md-4 col-sm-6 col-12 p-0">
                     <a href="#" class="text-decoration-none">
-                        <img class="NewSeasonBorder rounded-5 new-arival-container" src="{{ Storage::url($pageSectionCategory->image) }}" alt="Category image">
-                        <h3 class="text-center gradient-text mt-1">{{ $pageSectionCategory->text }}</h3>
+
+                        <img class="NewSeasonBorder rounded-5 new-arival-container"
+                                src="{{asset('storage/app/public/category')}}/{{$arrivals['icon']}}" alt="Category image">
+
+                        <h3 class="text-center gradient-text mt-1">{{ $arrivals->name }}</h3>
                     </a>
                 </div>
             @endforeach
@@ -19,12 +21,12 @@
 
 
 
- {{-- <div class="new-arival">
+{{-- <div class="new-arival">
     <div class="sub-container bg-white pt-5 pb-5 rounded-5">
         <h1 class="text-center textClr">Early Breeze New Arival</h1>
         <div class="row pt-5">
             <div class="col-lg-1 col-md-4 col-sm-6 col-12">
-                
+
             </div>
             <div class="col-lg-2 col-md-4 col-sm-6 col-12">
                 <a href="#" class="text-decoration-none">
@@ -57,11 +59,11 @@
                 </a>
             </div>
             <div class="col-lg-1 col-md-4 col-sm-6 col-12">
-                
+
             </div>
         </div>
     </div>
-    
+
 </div>  --}}
 {{-- <div class="new-arival">
     <div class="sub-container bg-white pt-5 pb-5 rounded-5">

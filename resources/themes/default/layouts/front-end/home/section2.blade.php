@@ -10,10 +10,10 @@
                         <div class="deal-alert-circle">-{{ $products->discount }}%</div>
                         <div class="forHeight">
                             @foreach (json_decode($products->images) as $key => $photo)
+                                <img class="object-fit-cover card-img rounded-5"
+                                    src="{{ asset("storage/app/public/product/$photo") }}  " alt="Flash Sale"
+                                    width="100%" height="100%" />
                             @endforeach
-                            <img class="object-fit-cover card-img rounded-5"
-                                src="{{ asset("storage/app/public/product/$photo") }}  " alt="Flash Sale" width="100%"
-                                height="100%" />
                         </div>
                         <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
                             @if (strlen($products->name) <= 20)
