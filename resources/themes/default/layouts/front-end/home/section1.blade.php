@@ -4,5 +4,6 @@
         <div><img class="rounded-5 img-fluid imgBanner"  src="{{ asset('storage/app/public/banner/'.$banner->photo) }}" alt="Image 3"></div>
         @endforeach
     </div>
-</div>  
+</div> 
+
 

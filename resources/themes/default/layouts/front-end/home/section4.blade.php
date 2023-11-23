@@ -13,14 +13,12 @@
         @foreach ($latest_products as $products)
             <div class="col-md-6 col-lg-3 mb-4">
                 <div class="sub-card rounded-3 p-4">
-
-
                     <div class="card1">
                         <div class="first-sec card1">
                             <div class="image-container">
                                 <div class="imgCon">
                                     @foreach (json_decode($products->images) as $key => $photo)
-                                        <img class="object-fit-cover" src="{{ asset("storage/app/public/product/$photo") }}" alt=""
+                                        <img class="object-fit-cover rounded-3" src="{{ asset("storage/app/public/product/$photo") }}" alt=""
                                             class="img-fluid" width="100%" height="100%">
                                     @endforeach
                                 </div>
@@ -32,12 +30,13 @@
                                             alt=""></a>
                                 </div>
                                 <p class="card-text mt-3" id="productDescription">
-                                    @if (strlen($products->name) <= 15)
+                                    @if (strlen($products->name) <= 20)
                                         {{ $products->name }}
                                     @else
-                                        {{ substr($products->name, 0, 15) }}<span id="dots">...</span><span
-                                            id="more" class="more">{{ substr($products->name, 15) }}</span><span
-                                            id="readmore"> Read More </span>
+                                        {{ substr($products->name, 0, 20) }}
+                                        
+                                        <span id="dots">....</span>
+                                     
                                     @endif
                                 </p>
 
@@ -45,7 +44,7 @@
                                     <h4 class="card-text price">Rs.
                                         {{ $products->unit_price - ($products->unit_price * $products->discount) / 100 }}
                                     </h4>
-                                    <p class="bg-primary rounded-pill ps-2 pe-2 ms-2 mt-1 text-white units">141 Solds
+                                    <p class="bg-primary rounded-pill ps-2 pe-2 ms-2 text-white units">141 Solds
                                     </p>
                                 </div>
                                 <p class="card-text"><span class="discount">Rs. {{ $products->unit_price }}</span> <span

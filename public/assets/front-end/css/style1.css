@@ -264,7 +264,6 @@ input.form-control.search-input {
     font-weight: bold;
     padding: 15px 10px;
     border-radius: 50%;
-    border-radius: 1286.611px;
     border: 5.146px solid #fff;
     background: #b00;
 }
@@ -421,7 +420,7 @@ h1.text-center.textClr {
     position: relative;
 }
 .imgCon{
-    height: 300px;
+    height: 280px;
 }
 .image-container {
     position: relative;
@@ -2538,20 +2537,12 @@ details[open] summary::after {
         grid-template-columns: 1fr; 
     }
 }
-.card-text {
-    max-width: 300px; 
-    overflow: hidden;
-}
-
-/* #dots {
-    display: inline;
-} */
-#readmore{
+/* #readmore{
     cursor: pointer;
 }
 .more {
     display: none;
-}
+} */
 
   
 

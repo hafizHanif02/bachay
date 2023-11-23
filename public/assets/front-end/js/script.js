@@ -552,21 +552,21 @@ $("input").on("input", function () {
     $(this).closest("tr").addClass("row-changed");
 });
 
-$("#readmore").click(function () {
-    var dots = $("#dots");
-    var moreText = $("#more");
-    var btnText = $("#readmore");
+// $("#readmore").click(function () {
+//     var dots = $("#dots");
+//     var moreText = $("#more");
+//     var btnText = $("#readmore");
 
-    if (dots.css("display") === "none") {
-        dots.css("display", "inline");
-        btnText.html(" Read More");
-        moreText.css("display", "none");
-    } else {
-        dots.css("display", "none");
-        btnText.html(" ... read less");
-        moreText.css("display", "inline");
-    }
-});
+//     if (dots.css("display") === "none") {
+//         dots.css("display", "inline");
+//         btnText.html(" Read More");
+//         moreText.css("display", "none");
+//     } else {
+//         dots.css("display", "none");
+//         btnText.html(" ... read less");
+//         moreText.css("display", "inline");
+//     }
+// });
 
 // $('.save-button').on('click', function () {
 //     var row = $(this).closest('tr');
