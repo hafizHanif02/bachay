@@ -33,13 +33,9 @@
                                     @if (strlen($products->name) <= 20)
                                         {{ $products->name }}
                                     @else
-                                        {{ substr($products->name, 0, 20) }}
-                                        
-                                        <span id="dots">....</span>
-                                     
+                                        {{ substr($products->name, 0, 20) }}<span id="dots"> ....</span>
                                     @endif
                                 </p>
-
                                 <div class="d-flex">
                                     <h4 class="card-text price">Rs.
                                         {{ $products->unit_price - ($products->unit_price * $products->discount) / 100 }}
