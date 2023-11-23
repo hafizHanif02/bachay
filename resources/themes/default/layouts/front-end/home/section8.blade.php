@@ -9,14 +9,14 @@
     </div>
     <div class="main-con mt-5">
         <div class="row">
-            @foreach ($latest_products as $products)
+            @foreach ($products as $prod)
                 <div class="col-md-6 col-lg-3 mb-4">
                     <div class="sub-card rounded-3 p-4">
                         <div class="card1">
                             <div class="first-sec card1">
                                 <div class="image-container">
                                     <div class="imgCon">
-                                        @foreach (json_decode($products->images) as $key => $photo)
+                                        @foreach (json_decode($prod->images) as $key => $photo)
                                             <img class="object-fit-cover rounded-3" src="{{ asset("storage/app/public/product/$photo") }}" alt=""
                                                 class="img-fluid" width="100%" height="100%">
                                         @endforeach
@@ -29,29 +29,29 @@
                                                 alt=""></a>
                                     </div>
                                     <p class="card-text mt-3" id="productDescription">
-                                        @if (strlen($products->name) <= 20)
-                                            {{ $products->name }}
+                                        @if (strlen($prod->name) <= 20)
+                                            {{ $prod->name }}
                                         @else
-                                            {{ substr($products->name, 0, 20) }}<span id="dots"> ....</span>
+                                            {{ substr($prod->name, 0, 20) }}<span id="dots"> ....</span>
                                         @endif
                                     </p>
                                     <div class="d-flex">
                                         <h4 class="card-text price">Rs.
-                                            {{ $products->unit_price - ($products->unit_price * $products->discount) / 100 }}
+                                            {{ $prod->unit_price - ($prod->unit_price * $prod->discount) / 100 }}
                                         </h4>
                                         <p class="bg-primary rounded-pill ps-2 pe-2 ms-2 text-white units">141 Solds
                                         </p>
                                     </div>
-                                    <p class="card-text"><span class="discount">Rs. {{ $products->unit_price }}</span> <span
-                                            class="text-success">-{{ $products->discount }}% Off</span></p>
+                                    <p class="card-text"><span class="discount">Rs. {{ $prod->unit_price }}</span> <span
+                                            class="text-success">-{{ $prod->discount }}% Off</span></p>
                                     <div class="subdiv d-flex justify-content-between">
                                         <a href="#">Standard Delivery</a>
-                                        @foreach ($products->reviews as $reviews)
+                                        @foreach ($prod->reviews as $reviews)
                                             <p class="rounded-pill text-white">{{ $reviews }} <img
                                                     src="{{ asset('public/images/star.svg') }}" alt=""></p>
                                         @endforeach
 
-                                        <h5>({{ $products->reviews_count }})</h5>
+                                        <h5>({{ $prod->reviews_count }})</h5>
                                     </div>
 
                                 </div>
@@ -61,7 +61,7 @@
                     </div>
                 </div>
             @endforeach
-         
+
     </div>
 </div>
 {{-- <div class="sub-contain">

@@ -20,7 +20,8 @@ class BannerController extends Controller
                 'Main Banner',
                 'Footer Banner',
                 'Popup Banner',
-                'Main Section Banner'
+                'Main Section Banner',
+                'Promo Banner'
             ),
             'theme_aster' => array(
                 'Main Banner',

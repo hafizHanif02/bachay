@@ -106,6 +106,8 @@ class HomeController extends Controller
 
         $latest_products = $this->product->with(['reviews'])->active()->orderBy('id', 'desc')->take(8)->get();
 
+        $products = $this->product->with(['reviews'])->active()->orderBy('id')->take(16)->get();
+
         $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->take(8)->get();
         // dd($categories);
         $new_arrivals_categories = $this->category
@@ -192,7 +194,7 @@ class HomeController extends Controller
             compact(
                 'featured_products', 'topRated', 'bestSellProduct', 'latest_products', 'categories', 'brands',
                 'deal_of_the_day', 'top_sellers', 'home_categories', 'brand_setting', 'main_banner', 'main_section_banner',
-                'current_date','product','footer_banner', 'home_layouts', 'flash_deal', 'flash_deals_products', 'productIds', 'productsInFlashDeal', 'new_arrivals_categories',
+                'current_date','product','footer_banner', 'home_layouts', 'flash_deal', 'flash_deals_products', 'productIds', 'productsInFlashDeal', 'new_arrivals_categories', 'products',
             )
         );
     }
