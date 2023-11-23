@@ -2,7 +2,7 @@
 
     <div class="row">
         @foreach ($footer_banner as $banner)
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 position-relative">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 position-relative mb-5">
 
 
                 <a href="">
