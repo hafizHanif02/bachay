@@ -177,11 +177,20 @@ class HomeController extends Controller
         // ->first();
 
         $flash_deal = FlashDeal::where('status',1)->first();
-        $flash_deals_products = FlashDealProduct::where('flash_deal_id',$flash_deal->id)->get();
+        $flash_deals_products = [];
+        $productIds = null;
+        if(isset($flash_deal->id)){
+
+            $flash_deals_products = FlashDealProduct::where('flash_deal_id',$flash_deal->id)->get();
+            $productIds = $flash_deals_products->pluck('product_id')->toArray();
+        }
 
 
-        $productIds = $flash_deals_products->pluck('product_id')->toArray();
-        $productsInFlashDeal = $this->product->active()->whereIn('id', $productIds)->get();
+        $productsInFlashDeal = [];
+        if(isset($productIds)){
+
+            $productsInFlashDeal = $this->product->active()->whereIn('id', $productIds)->get();
+        }
 
 
 
