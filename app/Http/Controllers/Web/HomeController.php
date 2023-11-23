@@ -158,8 +158,20 @@ class HomeController extends Controller
         // return $main_banner;
 
         $product=$this->product->active()->inRandomOrder()->first();
-        $footer_banner = $this->banner->where('banner_type','Footer Banner')->where('theme', theme_root_path())->where('published',1)->orderBy('id','desc')->take(2)->get();
+        // $footer_banner = $this->banner->where('banner_type','Footer Banner')->where('theme', theme_root_path())->where('published',1)->orderBy('id','desc')->take(6)->get();
 
+        $footer_banner = $this->banner
+    ->where('banner_type', 'Footer Banner')
+    ->where('theme', theme_root_path())
+    ->where('published', 1)
+    ->orderBy('id', 'desc')
+    ->take(6)
+    ->get();
+
+// Use null coalescing operator to provide an empty array if $footer_banner is null
+$footer_banner = $footer_banner ?? [];
+
+        // return  $footer_banner;
 
 
         // $flash_deals = FlashDeal::with(['products'=>function($query){
@@ -203,7 +215,7 @@ class HomeController extends Controller
             compact(
                 'featured_products', 'topRated', 'bestSellProduct', 'latest_products', 'categories', 'brands',
                 'deal_of_the_day', 'top_sellers', 'home_categories', 'brand_setting', 'main_banner', 'main_section_banner',
-                'current_date','product','footer_banner', 'home_layouts', 'flash_deal', 'flash_deals_products', 'productIds', 'productsInFlashDeal', 'new_arrivals_categories', 'products',
+                'current_date','product','footer_banner', 'home_layouts', 'flash_deal', 'flash_deals_products', 'productIds', 'productsInFlashDeal', 'new_arrivals_categories', 'products','footer_banner',
             )
         );
     }
