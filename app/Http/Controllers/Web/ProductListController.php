@@ -172,13 +172,13 @@ class ProductListController extends Controller
     
             $products = $fetched->paginate(20)->appends($data);
     
-            if ($request->ajax()) {
+            // if ($request->ajax()) {
     
-                return response()->json([
-                    'total_product'=>$products->total(),
-                    'view' => view('web-views.products._ajax-products', compact('products'))->render()
-                ], 200);
-            }
+            //     return response()->json([
+            //         'total_product'=>$products->total(),
+            //         'view' => view('web-views.products._ajax-products', compact('products'))->render()
+            //     ], 200);
+            // }
             if ($request['data_from'] == 'category') {
                 $data['brand_name'] = Category::find((int)$request['id'])->name;
             }
@@ -193,17 +193,29 @@ class ProductListController extends Controller
             }
             $products =  DB::table('products')->get();
 
-            // dd($products);
     
-            return view(VIEW_FILE_NAMES['products_view_page'], compact('products', 'data'));
+            // return view(VIEW_FILE_NAMES['products'], compact( 'data','porduct_data'));
+            // return $products;
+
+            
+            // return view('themes.default.web-views.products',['products' => $products]);
+            // return view('themes.default.web-views.products', ['products' => $products]);
+            return view(resource_path('themes\default\web-views\products.blade.php'), ['products' => $products]);
+            // return view('testfolder.test',[
+            //     'products' => $products,
+            // ]);
+
+
         }else{
             $products =  DB::table('products')->get();
 
             dd($products);
 
-            return view(VIEW_FILE_NAMES['products_view_page'],[
-                'product'=>$products
-            ]);
+            // return view(VIEW_FILE_NAMES['products'],[
+            //     'product'=>$products
+            // ]);
+            return view(resource_path('themes/default/web-views/products.blade.php'), ['products' => $products]);
+
 
         }
     }
