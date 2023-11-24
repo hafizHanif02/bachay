@@ -76,7 +76,7 @@
         <div class="search-page-header">
             <div>
                 <h5 class="font-semibold mb-1">{{translate(str_replace('_',' ',$data['data_from']))}} {{translate('products')}} {{ isset($data['brand_name']) ? '('.$data['brand_name'].')' : ''}}</h5>
-                <div class="view-page-item-count">{{$products->total()}} {{translate('items_found')}}</div>
+                <div class="view-page-item-count">{{$products->count()}} {{translate('items_found')}}</div>
             </div>
             <form id="search-form" class="d-none d-lg-block" action="{{ route('products') }}" method="GET">
                 <input hidden name="data_from" value="{{$data['data_from']}}">
