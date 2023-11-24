@@ -55,8 +55,7 @@
 .myfont {
     font-family: myfont;
 }
-header,
-footer {
+header {
     padding: 10px 50px;
 }
 body {
