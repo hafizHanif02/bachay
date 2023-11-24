@@ -32,7 +32,7 @@ use App\Http\Controllers\Payment_Methods\PaystackController;
 Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('maintenance-mode');
 
 
-Route::group(['namespace' => 'Web','middleware'=>['maintenance_mode','guestCheck']], function () {
+    Route::group(['namespace' => 'Web','middleware'=>['maintenance_mode','guestCheck']], function () {
     Route::get('/', 'HomeController@index')->name('home');
 
     Route::get('quick-view', 'WebController@quick_view')->name('quick-view');
