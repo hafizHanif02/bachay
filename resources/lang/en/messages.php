@@ -6700,4 +6700,6 @@
   'deal_added_successfully' => 'Deal added successfully',
   'brand_is_required' => 'Brand is required',
   'product_already_added' => 'Product already added',
+  'flash_Deal_Update' => 'Flash Deal Update',
+  'upload_Image' => 'Upload Image',
 );

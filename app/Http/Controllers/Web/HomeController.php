@@ -189,6 +189,8 @@ $footer_banner = $footer_banner ?? [];
         // ->first();
 
         $flash_deal = FlashDeal::where('status',1)->first();
+        
+
         $flash_deals_products = [];
         $productIds = null;
         if(isset($flash_deal->id)){
@@ -309,6 +311,7 @@ $footer_banner = $footer_banner ?? [];
             ->whereDate('end_date','>=',date('Y-m-d'))
             ->first();
 
+            ;
         //find what you need
         $find_what_you_need_categories_data = $this->category->where('parent_id', 0)
             ->with(['childes' => function ($query) {
