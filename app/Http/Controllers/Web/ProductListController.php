@@ -200,7 +200,13 @@ class ProductListController extends Controller
             
             // return view('themes.default.web-views.products',['products' => $products]);
             // return view('themes.default.web-views.products', ['products' => $products]);
-            return view(resource_path('themes\default\web-views\products.blade.php'), ['products' => $products]);
+            // return view('themes.default.web-views.products', ['products' => $products]);
+
+
+            $viewContents = file_get_contents(resource_path('themes/default/web-views/products.blade.php'));
+            return response($viewContents);
+
+
             // return view('testfolder.test',[
             //     'products' => $products,
             // ]);
