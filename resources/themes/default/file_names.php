@@ -34,6 +34,7 @@ return [
     'all_stores_page'=>'web-views.sellers',
     'customer_auth_verify'=>'customer-view.auth.verify',
     'products_details'=>'web-views.products.details',
+    'products'=>'web-views.products',
     'products_cart_partials'=>'layouts.front-end.partials.cart',
     'products_floating_nav_partials' =>'',
     'products_cart_details_partials'=>'layouts.front-end.partials.cart_details',

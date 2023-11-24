@@ -192,24 +192,21 @@ class ProductListController extends Controller
                 }
             }
             $products =  DB::table('products')->get();
-
+            $home_categories = Category::where('home_status', true)->priority()->get();
+            $home_categories->map(function ($data) {
+                $id = '"' . $data['id'] . '"';
+                $data['products'] = Product::active()
+                    ->where('category_ids', 'like', "%{$id}%")
+                    ->inRandomOrder()->take(12)->get();
+            });
     
-            // return view(VIEW_FILE_NAMES['products'], compact( 'data','porduct_data'));
+            return view(VIEW_FILE_NAMES['products'], compact( 'data','products','home_categories'));
             // return $products;
 
             
             // return view('themes.default.web-views.products',['products' => $products]);
             // return view('themes.default.web-views.products', ['products' => $products]);
-            // return view('themes.default.web-views.products', ['products' => $products]);
-
-
-            $viewContents = file_get_contents(resource_path('themes/default/web-views/products.blade.php'));
-            return response($viewContents);
-
-
-            // return view('testfolder.test',[
-            //     'products' => $products,
-            // ]);
+            // return view(resource_path('themes\default\web-views\products.blade.php'), ['products' => $products]);
 
 
         }else{
