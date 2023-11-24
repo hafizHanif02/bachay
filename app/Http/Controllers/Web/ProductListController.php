@@ -35,162 +35,164 @@ class ProductListController extends Controller
     }
 
     public function default_theme($request){
-        $request['sort_by'] == null ? $request['sort_by'] == 'latest' : $request['sort_by'];
+        // $request['sort_by'] == null ? $request['sort_by'] == 'latest' : $request['sort_by'];
 
-        $porduct_data = Product::active()->with(['reviews']);
+        // $porduct_data = Product::active()->with(['reviews']);
 
-        if ($request['data_from'] == 'category') {
-            $products = $porduct_data->get();
-            $product_ids = [];
-            foreach ($products as $product) {
-                foreach (json_decode($product['category_ids'], true) as $category) {
-                    if ($category['id'] == $request['id']) {
-                        array_push($product_ids, $product['id']);
-                    }
-                }
-            }
-            $query = $porduct_data->whereIn('id', $product_ids);
-        }
+        $products = DB::table('products')->get();
 
-        if ($request['data_from'] == 'brand') {
-            $query = $porduct_data->where('brand_id', $request['id']);
-        }
+        // if ($request['data_from'] == 'category') {
+        //     $products = $porduct_data->get();
+        //     $product_ids = [];
+        //     foreach ($products as $product) {
+        //         foreach (json_decode($product['category_ids'], true) as $category) {
+        //             if ($category['id'] == $request['id']) {
+        //                 array_push($product_ids, $product['id']);
+        //             }
+        //         }
+        //     }
+        //     $query = $porduct_data->whereIn('id', $product_ids);
+        // }
 
-        if (!$request->has('data_from') || $request['data_from'] == 'latest') {
-            $query = $porduct_data;
-        }
+        // if ($request['data_from'] == 'brand') {
+        //     $query = $porduct_data->where('brand_id', $request['id']);
+        // }
 
-        if ($request['data_from'] == 'top-rated') {
-            $reviews = Review::select('product_id', DB::raw('AVG(rating) as count'))
-                ->groupBy('product_id')
-                ->orderBy("count", 'desc')->get();
-            $product_ids = [];
-            foreach ($reviews as $review) {
-                array_push($product_ids, $review['product_id']);
-            }
-            $query = $porduct_data->whereIn('id', $product_ids);
-        }
+        // if (!$request->has('data_from') || $request['data_from'] == 'latest') {
+        //     $query = $porduct_data;
+        // }
 
-        if ($request['data_from'] == 'best-selling') {
-            $details = OrderDetail::with('product')
-                ->select('product_id', DB::raw('COUNT(product_id) as count'))
-                ->groupBy('product_id')
-                ->orderBy("count", 'desc')
-                ->get();
-            $product_ids = [];
-            foreach ($details as $detail) {
-                array_push($product_ids, $detail['product_id']);
-            }
-            $query = $porduct_data->whereIn('id', $product_ids);
-        }
+        // if ($request['data_from'] == 'top-rated') {
+        //     $reviews = Review::select('product_id', DB::raw('AVG(rating) as count'))
+        //         ->groupBy('product_id')
+        //         ->orderBy("count", 'desc')->get();
+        //     $product_ids = [];
+        //     foreach ($reviews as $review) {
+        //         array_push($product_ids, $review['product_id']);
+        //     }
+        //     $query = $porduct_data->whereIn('id', $product_ids);
+        // }
 
-        if ($request['data_from'] == 'most-favorite') {
-            $details = Wishlist::with('product')
-                ->select('product_id', DB::raw('COUNT(product_id) as count'))
-                ->groupBy('product_id')
-                ->orderBy("count", 'desc')
-                ->get();
-            $product_ids = [];
-            foreach ($details as $detail) {
-                array_push($product_ids, $detail['product_id']);
-            }
-            $query = $porduct_data->whereIn('id', $product_ids);
-        }
+        // if ($request['data_from'] == 'best-selling') {
+        //     $details = OrderDetail::with('product')
+        //         ->select('product_id', DB::raw('COUNT(product_id) as count'))
+        //         ->groupBy('product_id')
+        //         ->orderBy("count", 'desc')
+        //         ->get();
+        //     $product_ids = [];
+        //     foreach ($details as $detail) {
+        //         array_push($product_ids, $detail['product_id']);
+        //     }
+        //     $query = $porduct_data->whereIn('id', $product_ids);
+        // }
 
-        if ($request['data_from'] == 'featured') {
-            $query = Product::with(['reviews'])->active()->where('featured', 1);
-        }
+        // if ($request['data_from'] == 'most-favorite') {
+        //     $details = Wishlist::with('product')
+        //         ->select('product_id', DB::raw('COUNT(product_id) as count'))
+        //         ->groupBy('product_id')
+        //         ->orderBy("count", 'desc')
+        //         ->get();
+        //     $product_ids = [];
+        //     foreach ($details as $detail) {
+        //         array_push($product_ids, $detail['product_id']);
+        //     }
+        //     $query = $porduct_data->whereIn('id', $product_ids);
+        // }
 
-        if ($request['data_from'] == 'featured_deal') {
-            $featured_deal_id = FlashDeal::where(['status'=>1])->where(['deal_type'=>'feature_deal'])->pluck('id')->first();
-            $featured_deal_product_ids = FlashDealProduct::where('flash_deal_id',$featured_deal_id)->pluck('product_id')->toArray();
-            $query = Product::with(['reviews'])->active()->whereIn('id', $featured_deal_product_ids);
-        }
+        // if ($request['data_from'] == 'featured') {
+        //     $query = Product::with(['reviews'])->active()->where('featured', 1);
+        // }
 
-        if ($request['data_from'] == 'search') {
-            $key = explode(' ', $request['name']);
-            $product_ids = Product::where(function ($q) use ($key) {
-                foreach ($key as $value) {
-                    $q->orWhere('name', 'like', "%{$value}%")
-                        ->orWhereHas('tags',function($query)use($value){
-                            $query->where('tag', 'like', "%{$value}%");
-                        });
-                }
-            })->pluck('id');
+        // if ($request['data_from'] == 'featured_deal') {
+        //     $featured_deal_id = FlashDeal::where(['status'=>1])->where(['deal_type'=>'feature_deal'])->pluck('id')->first();
+        //     $featured_deal_product_ids = FlashDealProduct::where('flash_deal_id',$featured_deal_id)->pluck('product_id')->toArray();
+        //     $query = Product::with(['reviews'])->active()->whereIn('id', $featured_deal_product_ids);
+        // }
 
-            if($product_ids->count()==0)
-            {
-                $product_ids = Translation::where('translationable_type', 'App\Model\Product')
-                    ->where('key', 'name')
-                    ->where(function ($q) use ($key) {
-                        foreach ($key as $value) {
-                            $q->orWhere('value', 'like', "%{$value}%");
-                        }
-                    })
-                    ->pluck('translationable_id');
+        // if ($request['data_from'] == 'search') {
+        //     $key = explode(' ', $request['name']);
+        //     $product_ids = Product::where(function ($q) use ($key) {
+        //         foreach ($key as $value) {
+        //             $q->orWhere('name', 'like', "%{$value}%")
+        //                 ->orWhereHas('tags',function($query)use($value){
+        //                     $query->where('tag', 'like', "%{$value}%");
+        //                 });
+        //         }
+        //     })->pluck('id');
+
+        //     if($product_ids->count()==0)
+        //     {
+        //         $product_ids = Translation::where('translationable_type', 'App\Model\Product')
+        //             ->where('key', 'name')
+        //             ->where(function ($q) use ($key) {
+        //                 foreach ($key as $value) {
+        //                     $q->orWhere('value', 'like', "%{$value}%");
+        //                 }
+        //             })
+        //             ->pluck('translationable_id');
 
 
-            }
+        //     }
 
-            $query = $porduct_data->WhereIn('id', $product_ids);
+        //     $query = $porduct_data->WhereIn('id', $product_ids);
 
-        }
+        // }
 
-        if ($request['data_from'] == 'discounted') {
-            $query = Product::with(['reviews'])->active()->where('discount', '!=', 0);
-        }
+        // if ($request['data_from'] == 'discounted') {
+        //     $query = Product::with(['reviews'])->active()->where('discount', '!=', 0);
+        // }
 
-        if ($request['sort_by'] == 'latest') {
-            $fetched = $query->latest();
-        } elseif ($request['sort_by'] == 'low-high') {
-            $fetched = $query->orderBy('unit_price', 'ASC');
-        } elseif ($request['sort_by'] == 'high-low') {
-            $fetched = $query->orderBy('unit_price', 'DESC');
-        } elseif ($request['sort_by'] == 'a-z') {
-            $fetched = $query->orderBy('name', 'ASC');
-        } elseif ($request['sort_by'] == 'z-a') {
-            $fetched = $query->orderBy('name', 'DESC');
-        } else {
-            $fetched = $query->latest();
-        }
+        // if ($request['sort_by'] == 'latest') {
+        //     $fetched = $query->latest();
+        // } elseif ($request['sort_by'] == 'low-high') {
+        //     $fetched = $query->orderBy('unit_price', 'ASC');
+        // } elseif ($request['sort_by'] == 'high-low') {
+        //     $fetched = $query->orderBy('unit_price', 'DESC');
+        // } elseif ($request['sort_by'] == 'a-z') {
+        //     $fetched = $query->orderBy('name', 'ASC');
+        // } elseif ($request['sort_by'] == 'z-a') {
+        //     $fetched = $query->orderBy('name', 'DESC');
+        // } else {
+        //     $fetched = $query->latest();
+        // }
 
-        if ($request['min_price'] != null || $request['max_price'] != null) {
-            $fetched = $fetched->whereBetween('unit_price', [Helpers::convert_currency_to_usd($request['min_price']), Helpers::convert_currency_to_usd($request['max_price'])]);
-        }
+        // if ($request['min_price'] != null || $request['max_price'] != null) {
+        //     $fetched = $fetched->whereBetween('unit_price', [Helpers::convert_currency_to_usd($request['min_price']), Helpers::convert_currency_to_usd($request['max_price'])]);
+        // }
 
-        $data = [
-            'id' => $request['id'],
-            'name' => $request['name'],
-            'data_from' => $request['data_from'],
-            'sort_by' => $request['sort_by'],
-            'page_no' => $request['page'],
-            'min_price' => $request['min_price'],
-            'max_price' => $request['max_price'],
-        ];
+        // $data = [
+        //     'id' => $request['id'],
+        //     'name' => $request['name'],
+        //     'data_from' => $request['data_from'],
+        //     'sort_by' => $request['sort_by'],
+        //     'page_no' => $request['page'],
+        //     'min_price' => $request['min_price'],
+        //     'max_price' => $request['max_price'],
+        // ];
 
-        $products = $fetched->paginate(20)->appends($data);
+        // $products = $fetched->paginate(20)->appends($data);
 
-        if ($request->ajax()) {
+        // if ($request->ajax()) {
 
-            return response()->json([
-                'total_product'=>$products->total(),
-                'view' => view('web-views.products._ajax-products', compact('products'))->render()
-            ], 200);
-        }
-        if ($request['data_from'] == 'category') {
-            $data['brand_name'] = Category::find((int)$request['id'])->name;
-        }
-        if ($request['data_from'] == 'brand') {
-            $brand_data = Brand::active()->find((int)$request['id']);
-            if($brand_data) {
-                $data['brand_name'] = $brand_data->name;
-            }else {
-                Toastr::warning(translate('not_found'));
-                return redirect('/');
-            }
-        }
+        //     return response()->json([
+        //         'total_product'=>$products->total(),
+        //         'view' => view('web-views.products._ajax-products', compact('products'))->render()
+        //     ], 200);
+        // }
+        // if ($request['data_from'] == 'category') {
+        //     $data['brand_name'] = Category::find((int)$request['id'])->name;
+        // }
+        // if ($request['data_from'] == 'brand') {
+        //     $brand_data = Brand::active()->find((int)$request['id']);
+        //     if($brand_data) {
+        //         $data['brand_name'] = $brand_data->name;
+        //     }else {
+        //         Toastr::warning(translate('not_found'));
+        //         return redirect('/');
+        //     }
+        // }
 
-        return view(VIEW_FILE_NAMES['products_view_page'], compact('products', 'data'));
+        return view(VIEW_FILE_NAMES['products'], compact('products'));
     }
 
     public function theme_aster($request){
