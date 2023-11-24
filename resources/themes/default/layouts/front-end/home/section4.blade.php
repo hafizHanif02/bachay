@@ -1,9 +1,9 @@
 <div class="sub-contain">
     <div class="row mb-4">
-        <div class="col-12 d-flex justify-content-between">
-            <h1 class="textClr">Autum Whjisper</h1>
+        <div class="col-12 d-flex justify-content-between align-items-center">
+            <h1 class="textClr m-0">Autum Whjisper</h1>
             <a class="d-flex align-items-center text-dark" href="#">
-                <h5>See All</h5>
+                <h5 class="m-0">See All</h5>
             </a>
         </div>
     </div>
