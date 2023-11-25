@@ -22,6 +22,19 @@ use function App\CPU\translate;
 
 class ProductListController extends Controller
 {
+    public function __construct(
+        private Product      $product,
+        // private Order        $order,
+        // private OrderDetail  $order_details,
+        // private Category     $category,
+        // private Seller       $seller,
+        // private Review       $review,
+        // private DealOfTheDay $deal_of_the_day,
+        // private Banner       $banner,
+        // private MostDemanded $most_demanded,
+    )
+    {
+    }
     public function products(Request $request)
     {
         $theme_name = theme_root_path();
@@ -38,9 +51,9 @@ class ProductListController extends Controller
 
         if(isset($request)){
             $request['sort_by'] == null ? $request['sort_by'] == 'latest' : $request['sort_by'];
-    
+
             $porduct_data = Product::active()->with(['reviews']);
-    
+
             if ($request['data_from'] == 'category') {
                 $products = $porduct_data->get();
                 $product_ids = [];
@@ -53,15 +66,15 @@ class ProductListController extends Controller
                 }
                 $query = $porduct_data->whereIn('id', $product_ids);
             }
-    
+
             if ($request['data_from'] == 'brand') {
                 $query = $porduct_data->where('brand_id', $request['id']);
             }
-    
+
             if (!$request->has('data_from') || $request['data_from'] == 'latest') {
                 $query = $porduct_data;
             }
-    
+
             if ($request['data_from'] == 'top-rated') {
                 $reviews = Review::select('product_id', DB::raw('AVG(rating) as count'))
                     ->groupBy('product_id')
@@ -72,7 +85,7 @@ class ProductListController extends Controller
                 }
                 $query = $porduct_data->whereIn('id', $product_ids);
             }
-    
+
             if ($request['data_from'] == 'best-selling') {
                 $details = OrderDetail::with('product')
                     ->select('product_id', DB::raw('COUNT(product_id) as count'))
@@ -85,7 +98,7 @@ class ProductListController extends Controller
                 }
                 $query = $porduct_data->whereIn('id', $product_ids);
             }
-    
+
             if ($request['data_from'] == 'most-favorite') {
                 $details = Wishlist::with('product')
                     ->select('product_id', DB::raw('COUNT(product_id) as count'))
@@ -98,17 +111,17 @@ class ProductListController extends Controller
                 }
                 $query = $porduct_data->whereIn('id', $product_ids);
             }
-    
+
             if ($request['data_from'] == 'featured') {
                 $query = Product::with(['reviews'])->active()->where('featured', 1);
             }
-    
+
             if ($request['data_from'] == 'featured_deal') {
                 $featured_deal_id = FlashDeal::where(['status'=>1])->where(['deal_type'=>'feature_deal'])->pluck('id')->first();
                 $featured_deal_product_ids = FlashDealProduct::where('flash_deal_id',$featured_deal_id)->pluck('product_id')->toArray();
                 $query = Product::with(['reviews'])->active()->whereIn('id', $featured_deal_product_ids);
             }
-    
+
             if ($request['data_from'] == 'search') {
                 $key = explode(' ', $request['name']);
                 $product_ids = Product::where(function ($q) use ($key) {
@@ -119,7 +132,7 @@ class ProductListController extends Controller
                             });
                     }
                 })->pluck('id');
-    
+
                 if($product_ids->count()==0)
                 {
                     $product_ids = Translation::where('translationable_type', 'App\Model\Product')
@@ -130,18 +143,18 @@ class ProductListController extends Controller
                             }
                         })
                         ->pluck('translationable_id');
-    
-    
+
+
                 }
-    
+
                 $query = $porduct_data->WhereIn('id', $product_ids);
-    
+
             }
-    
+
             if ($request['data_from'] == 'discounted') {
                 $query = Product::with(['reviews'])->active()->where('discount', '!=', 0);
             }
-    
+
             if ($request['sort_by'] == 'latest') {
                 $fetched = $query->latest();
             } elseif ($request['sort_by'] == 'low-high') {
@@ -155,11 +168,11 @@ class ProductListController extends Controller
             } else {
                 $fetched = $query->latest();
             }
-    
+
             if ($request['min_price'] != null || $request['max_price'] != null) {
                 $fetched = $fetched->whereBetween('unit_price', [Helpers::convert_currency_to_usd($request['min_price']), Helpers::convert_currency_to_usd($request['max_price'])]);
             }
-    
+
             $data = [
                 'id' => $request['id'],
                 'name' => $request['name'],
@@ -169,11 +182,11 @@ class ProductListController extends Controller
                 'min_price' => $request['min_price'],
                 'max_price' => $request['max_price'],
             ];
-    
+
             $products = $fetched->paginate(20)->appends($data);
-    
+
             // if ($request->ajax()) {
-    
+
             //     return response()->json([
             //         'total_product'=>$products->total(),
             //         'view' => view('web-views.products._ajax-products', compact('products'))->render()
@@ -191,7 +204,7 @@ class ProductListController extends Controller
                     return redirect('/');
                 }
             }
-            $products =  DB::table('products')->get();
+            // $products =  DB::table('products')->get();
             $home_categories = Category::where('home_status', true)->priority()->get();
             $home_categories->map(function ($data) {
                 $id = '"' . $data['id'] . '"';
@@ -199,11 +212,14 @@ class ProductListController extends Controller
                     ->where('category_ids', 'like', "%{$id}%")
                     ->inRandomOrder()->take(12)->get();
             });
-    
+
+            $products = $this->product->with(['reviews'])->active()->orderBy('id')->get();
+
+            // dd($products);
             return view(VIEW_FILE_NAMES['products'], compact( 'data','products','home_categories'));
             // return $products;
 
-            
+
             // return view('themes.default.web-views.products',['products' => $products]);
             // return view('themes.default.web-views.products', ['products' => $products]);
             // return view(resource_path('themes\default\web-views\products.blade.php'), ['products' => $products]);
@@ -212,7 +228,7 @@ class ProductListController extends Controller
         }else{
             $products =  DB::table('products')->get();
 
-            dd($products);
+
 
             // return view(VIEW_FILE_NAMES['products'],[
             //     'product'=>$products
