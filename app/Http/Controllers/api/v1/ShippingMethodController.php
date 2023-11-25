@@ -35,7 +35,7 @@ class ShippingMethodController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'cart_group_id' => 'required',
-            'id' => 'required'
+            'id' => ['required','exists:shipping_methods,id']
         ], [
             'id.required' => translate('shipping_id_is_required')
         ]);

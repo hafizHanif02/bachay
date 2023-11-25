@@ -80,7 +80,7 @@ class CartController extends Controller
     public function add_to_cart(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'id' => 'required',
+            'id' => ['required','exists:products,id'],
             'quantity' => 'required',
         ], [
             'id.required' => translate('Product ID is required!')
@@ -97,7 +97,7 @@ class CartController extends Controller
     public function update_cart(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'key' => 'required',
+            'key' => ['required','exists:carts,id'],
             'quantity' => 'required',
         ], [
             'key.required' => translate('Cart key or ID is required!')
@@ -114,7 +114,7 @@ class CartController extends Controller
     public function remove_from_cart(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'key' => 'required'
+            'key' => ['required','exists:carts,id']
         ], [
             'key.required' => translate('Cart key or ID is required!')
         ]);
@@ -134,7 +134,7 @@ class CartController extends Controller
     public function remove_all_from_cart(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'key' => 'required'
+            'key' => ['required','exists:carts,id']
         ], [
             'key.required' => translate('Cart key or ID is required!')
         ]);
