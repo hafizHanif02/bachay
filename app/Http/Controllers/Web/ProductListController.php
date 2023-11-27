@@ -22,6 +22,18 @@ use function App\CPU\translate;
 
 class ProductListController extends Controller
 {
+    
+    public function product_detail()
+        {
+            $home_categories = Category::where('home_status', true)->priority()->get();
+                $home_categories->map(function ($data) {
+                    $id = '"' . $data['id'] . '"';
+                    $data['products'] = Product::active()
+                        ->where('category_ids', 'like', "%{$id}%")
+                        ->inRandomOrder()->take(12)->get();
+                });
+            return view(VIEW_FILE_NAMES['product-detail'],(compact('home_categories')));
+        }
     public function __construct(
         private Product      $product,
         // private Order        $order,

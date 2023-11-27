@@ -3,16 +3,23 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-12 d-flex flex-column fixedProduct">
             <div class="product-container">
                 <div class="main-image">
-                    <img id="main-image" class="detailed-product-img p-3"
-                        src="{{ Storage::url($product->productImages[0]->image) }}" alt="Product Image">
+                    <img id="main-image" class="detailed-product-img p-3" src="{{ asset('public/images/Frame 855 (2).png') }}"
+                        alt="Main Image">
                 </div>
                 <div class="small-images">
-                    @foreach ($product->productImages as $productImage)
-                        <img class="small-image" src="{{ Storage::url($productImage->image) }}"
-                            alt="Product image {{ $loop->iteration }}">
-                    @endforeach
+
+                    <img class="small-image " src="{{ asset('public/images/Frame 855 (2).png') }}" alt="Small Image 1">
+                    <img class="small-image " src="{{ asset('public/images/Frame 134 (2).png') }}" alt="Small Image 2">
+                    <img class="small-image" src="{{ asset('public/images/Frame 135 (2).png') }}" alt="Small Image 3">
+                    <img class="small-image " src="{{ asset('public/images/Frame 137 (2).png') }}" alt="Small Image 3">
+                    <img class="small-image " src="{{ asset('public/images/Frame 855 (2).png') }}" alt="Small Image 3">
+                    <img class="small-image " src="{{ asset('public/images/Frame 856 (2).png') }}" alt="Small Image 3">
+
+
+
                 </div>
             </div>
+            {{-- <img class="detailed-product-img" src="{{ asset('public/images/Frame 83.png') }}" alt=""> --}}
             <div class="d-flex  mt-1">
                 <button class="buy-now rounded-pill text-white w-100 pt-4 pb-4 m-2 ms-3 me-3">Buy Now</button>
             </div>
@@ -25,52 +32,48 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-12 ">
             <div class="row pt-3 pb-3">
                 <div class="col-12 d-flex align-items-center">
-                    <h6 class="fontPoppins fw-bold boysClothes mb-0">Boys - Clothes</h6>
+                    <h6 class="pe-5 fontPoppins fw-bold boysClothes mb-0">Boys - Clothes</h6>
                     <div class="d-flex align-items-center me-3">
                         <h6 class="share pe-3 fontPoppins fw-bold mb-0">Share</h6>
 
-                        <img class="ms-1 me-1 socialShareIcons" src="{{ asset('web/images/image 24.png') }}"
+                        <img class="ms-1 me-1 socialShareIcons" src="{{ asset('public/images/image 24.png') }}"
                             alt="">
-                        <img class="ms-1 me-1 socialShareIcons" src="{{ asset('web/images/image 25.png') }}"
+                        <img class="ms-1 me-1 socialShareIcons" src="{{ asset('public/images/image 25.png') }}"
                             alt="">
-                        <img class="ms-1 me-1 socialShareIcons" src="{{ asset('web/images/image 26.png') }}"
+                        <img class="ms-1 me-1 socialShareIcons" src="{{ asset('public/images/image 26.png') }}"
                             alt="">
 
                     </div>
 
                     <div class="vl"></div>
-                    @php
-                        $aboutUs = \App\Models\AboutUs::first();
-                    @endphp
+
                     <div class=" ms-3 follow d-flex align-items-end">
                         <p class="m-0 fw-normal fontPoppins followUs">Follow Us </p>
                         <a href="#" class="pe-2 ps-2"><img class="socialShareIcons"
-                                src="{{ asset('web/images/image 26.png') }}" alt="Facebook image"></a>
-                        <p class="m-0 fw-normal followUs">{{ $aboutUs->facebook_link }}</p>
+                                src="{{ asset('public/images/image 26.png') }}" alt=""></a>
+                        <p class="m-0 fw-normal followUs">@profilehandel </p>
                         <a href="#" class="pe-2 ps-2"><img class="socialShareIcons"
-                                src="{{ asset('web/images/image 27.png') }}" alt="Instagram image"></a>
-                        <p class="m-0 fw-normal followUs">{{ $aboutUs->instagram_link }}</p>
+                                src="{{ asset('public/images/image 27.png') }}" alt=""></a>
+                        <p class="m-0 fw-normal followUs">@profilehandel </p>
 
                     </div>
                 </div>
                 <div class="col-12">
                     <h4 class="pt-3 pb-2 fw-bold fontPoppins">
-                        {{ $product->name }}
+                        Pine Kids Lace Up Casual Shoes Color Block - White
                     </h4>
                 </div>
                 <div class="col-12 d-flex align-items-center pb-2">
                     <h6 class="text-secondary pe-2 fontPoppins">Product ID: </h6>
-                    <h6 class="text-dark fw-bold fontPoppins">{{ $product->id }}</h6>
+                    <h6 class="text-dark fw-bold fontPoppins">9663711</h6>
                 </div>
                 <div class="col-12 pb-3">
                     <div class="hl "></div>
                 </div>
                 <div class="col-12 d-flex align-items-center">
-                    <h3 class="fw-bold pe-3 fontPoppins">Rs. {{ salePrice($product) }}</h3>
-                    <h5 class="text-secondary text-decoration-line-through pe-1 fontPoppins">Rs.
-                        {{ $product->productAttributes[0]->price }}</h5>
-                    <h6 class="discountPercent fontPoppins"> -
-                        {{ $product->productAttributes[0]->discount_percentage }}% Off</h6>
+                    <h3 class="fw-bold pe-3 fontPoppins">Rs. 1999</h3>
+                    <h5 class="text-secondary text-decoration-line-through pe-1 fontPoppins">Rs. 3999</h5>
+                    <h6 class="discountPercent fontPoppins"> - 85% Off</h6>
                 </div>
                 <div class="col-12">
                     <h6 class="text-secondary txtFontWeight fontPoppins">
@@ -80,56 +83,41 @@
 
                 <div class="col-8 pb-4 pt-3">
                     <div class=" rounded-pill border border-2 border-secondary p-2 ">
-                        @if (empty(auth()->user()->clubMember))
-                            @php
-                                $club = \App\Models\Club::first();
-                            @endphp
-                            <div class="row">
-                                <div class="col-2">
-                                    <img class="joinImg" src="{{ Storage::url($club->image) }}" alt="Club image">
-                                </div>
-                                <div class="col-6">
-                                    <p class="text-dark mb-0 priceJoin fontPoppins">Save <span class="joinPrice">
-                                            {{ $club->discount_percentage }}%
-                                        </span>
-                                        With Club</p>
-                                    <p class="text-dark mb-0 priceClub fontPoppins">Club Price: <span
-                                            class="clubPrice">Rs {{ $club->price }}</span></p>
-                                </div>
-                                <div class="col-4">
-                                    <button
-                                        class="buy-now rounded-pill text-white w-100 p-3 me-4 fontPoppins joinBTN">Join
-                                        Now</button>
 
-                                </div>
+                        <div class="row">
+                            <div class="col-2">
+                                <img class="joinImg" src="{{ asset('public/images/join.png') }}" alt="">
                             </div>
-                        @endif
+                            <div class="col-6">
+                                <p class="text-dark mb-0 priceJoin fontPoppins">Save <span class="joinPrice"> Rs.25.98
+                                    </span>
+                                    With Club</p>
+                                <p class="text-dark mb-0 priceClub fontPoppins">Club Price: <span class="clubPrice">Rs
+                                        1000.23</span></p>
+                            </div>
+                            <div class="col-4">
+                                <button class="buy-now rounded-pill text-white w-100 p-3 me-4 fontPoppins joinBTN">Join
+                                    Now</button>
+
+                            </div>
+                        </div>
+
+
                     </div>
                 </div>
-                <div class="ProductColors col-12 d-flex align-items-center pb-4">
+                <div class="col-12 d-flex align-items-center pb-4">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Colors</p>
-                    <input type="radio" class="me-3 bg-danger" id="btn1" name="Btn-1">
-                    <input type="radio" class="me-3 bg-primary" id="btn2" name="Btn-2">
-                    <input type="radio" class="me-3 bg-success" id="btn3" name="Btn-3">
-                    <input type="radio" class="me-3 bg-warning" id="btn4" name="Btn-4">
-                    <input type="radio" class="me-3 bg-secondary" id="btn5" name="Btn-5">
-
-
-                    {{-- <span class="dot dot1 ms-1 me-1" onclick="selectDot(1)"></span>
+                    <span class="dot dot1 ms-1 me-1" onclick="selectDot(1)"></span>
                     <span class="dot dot2 ms-1 me-1" onclick="selectDot(2)"></span>
                     <span class="dot dot3 ms-1 me-1" onclick="selectDot(3)"></span>
                     <span class="dot dot4 ms-1 me-1" onclick="selectDot(4)"></span>
-                    <span class="dot dot5 ms-1 me-1" onclick="selectDot(5)"></span> --}}
+                    <span class="dot dot5 ms-1 me-1" onclick="selectDot(5)"></span>
                 </div>
                 <div class="col-12 d-flex align-items-center pb-2">
                     <p class="text-dark simpleText fs-6 mb-0 pe-4 fontPoppins">Size Basics</p>
-                        <select name="" id="" class="SizeLocation btn btn-sm border-secondary font-poppins">
-                          <option value="usa">USA</option>
-                          <option value="uae">UAE</option>
-                          <option value="pak">PAK</option>
-                          <option value="aus">AUS</option>
-                        </select>
-                    {{-- <div class="dropdown">
+
+
+                    <div class="dropdown">
                         <button class="btn border border-secondary btn-sm dropdown-toggle" type="button"
                             id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
                             UK &nbsp; &nbsp; &nbsp; &nbsp;
@@ -139,13 +127,13 @@
                             <li><a class="dropdown-item fontPoppins" href="#">UAE</a></li>
                             <li><a class="dropdown-item fontPoppins" href="#">PAK</a></li>
                         </ul>
-                    </div> --}}
+                    </div>
 
                     <div class="ms-3 d-flex align-items-center">
 
                         <button type="button" class="btn sizeBTN fontPoppins" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
-                            <img class="me-2 sizeChartImg" src="{{ asset('web/images/size chart.png') }}"
+                            <img class="me-2 sizeChartImg" src="{{ asset('public/images/size chart.png') }}"
                                 alt="">
 
                             Size Chart
@@ -161,7 +149,7 @@
                                             aria-label="Close"></button>
                                     </div>
                                     <div class="modal-body p-0">
-                                        <img class="w-100" src="{{ asset('web/images/sizeChatImage.png') }}"
+                                        <img class="w-100" src="{{ asset('public/images/sizeChatImage.png') }}"
                                             alt="">
                                     </div>
 
@@ -179,15 +167,10 @@
 
                 </div>
 
-                <div class="Sizesbtn col-12 pt-2 d-flex align-items-center pb-4">
+                <div class="col-12 pt-2 d-flex align-items-center pb-4">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size</p>
-                    <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins" type="button" value="UK 11 (18.3 CM)">
-                    <input class="fontPoppins square square2 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2" type="button" value="UK 11.5 (18.9 CM)">
-                    <input class="fontPoppins square square3 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2" type="button" value="UK 12 (19.5 CM)">
-                    <input class="fontPoppins square square4 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2" type="button" value="UK 13 (20.2 CM)">
 
-
-                    {{-- <span class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
+                    <span class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
                         onclick="selectSquare(1)">
                         UK 11 <span class="squareTxt"> (18.3 CM)</span>
                     </span>
@@ -202,7 +185,7 @@
                     <span class="fontPoppins square square4 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2"
                         onclick="selectSquare(4)">
                         UK 13 <span class="squareTxt"> (20.2 CM)</span>
-                    </span> --}}
+                    </span>
                 </div>
 
                 <div class="col-12 pb-5 pt-2">
@@ -212,57 +195,55 @@
 
                 </div>
                 <div class="col-12 pb-3">
-                    <div class="hl"></div>
+                    <div class="hl "></div>
                 </div>
                 <div class="col-12">
                     <h5 class="pt-3 pb-2 fw-bold fontPoppins">
                         Offers & Discounts
                     </h5>
                 </div>
+
                 <div class="col-12 pb-5">
                     <div class="row">
-                        @foreach (\App\Models\Coupon::get() as $coupon)
-                            <div class="col-6">
-                                <div class="offer p-4 rounded-4">
-                                    <div class="row align-items-start">
-                                        <div class="col-2">
-                                            <img class="offerIMG" src="{{ asset('web/images/join.png') }}"
-                                                alt="">
-                                        </div>
-                                        <div class="col-10">
-                                            <h6 class="fontPoppins fw-bold flatss mb-0">Flat 42% Off for All Users -
-                                                Superhit
-                                                Fashion Brands</h6>
-                                            <a class="ViewTC fontPoppins" href="#">View T&C*</a>
+                        <div class="col-6 ">
+                            <div class="offer p-4 rounded-4">
+                                <div class="row align-items-start">
+                                    <div class="col-2">
+                                        <img class="offerIMG" src="{{ asset('public/images/join.png') }}"
+                                            alt="">
+                                    </div>
+                                    <div class="col-10">
+                                        <h6 class="fontPoppins fw-bold flatss mb-0">Flat 42% Off for All Users -
+                                            Superhit
+                                            Fashion Brands</h6>
+                                        <a class="ViewTC fontPoppins" href="#">View T&C*</a>
 
-                                        </div>
-                                        <div class="col-12 pt-3 pb-3">
-                                            <div class="dottedhl"></div>
-                                        </div>
+                                    </div>
+                                    <div class="col-12 pt-3 pb-3">
+                                        <div class="dottedhl"></div>
+                                    </div>
 
-                                        <div class="col-12 pt-2 d-flex align-items-center justify-content-start">
+                                    <div class="col-12 pt-2 d-flex align-items-center justify-content-start">
 
-                                            <a
-                                                class=" fontPoppins pt-2 pb-2 codde btn d-flex justify-content-around   "><span
-                                                    class="text-start codeTxt text-white fontPoppins">FG5DST</span>
-                                                <span class="copyCode text-end"><img class="copyIMG"
-                                                        src="{{ asset('web/images/copy.png') }}" alt="">
-                                                    Copy</span></a>
+                                        <a class=" fontPoppins pt-2 pb-2 codde btn d-flex justify-content-around   "><span
+                                                class="text-start codeTxt text-white fontPoppins">FG5DST</span> <span
+                                                class="copyCode text-end"><img class="copyIMG"
+                                                    src="{{ asset('public/images/copy.png') }}" alt="">
+                                                Copy</span></a>
 
-                                            <a class=" fontPoppins btn shareBtn ms-2 pt-1 pb-1" href="#"><span
-                                                    class="copyCode text-end"><img class="copyIMG"
-                                                        src="{{ asset('web/images/shareImg.png') }}" alt="">
-                                                    Share</span></a>
-                                        </div>
+                                        <a class=" fontPoppins btn shareBtn ms-2 pt-1 pb-1" href="#"><span
+                                                class="copyCode text-end"><img class="copyIMG"
+                                                    src="{{ asset('public/images/shareImg.png') }}" alt="">
+                                                Share</span></a>
                                     </div>
                                 </div>
                             </div>
-                        @endforeach
-                        {{-- <div class="col-6 ">
+                        </div>
+                        <div class="col-6 ">
                             <div class="offer2 p-4 rounded-4">
                                 <div class="row align-items-start">
                                     <div class="col-2">
-                                        <img class="offerIMG" src="{{ asset('web/images/join.png') }}"
+                                        <img class="offerIMG" src="{{ asset('public/images/join.png') }}"
                                             alt="">
                                     </div>
                                     <div class="col-10">
@@ -281,17 +262,17 @@
                                         <a class="fontPoppins pt-2 pb-2 codde btn d-flex justify-content-around   "><span
                                                 class="text-start codeTxt text-white">FG5DST</span> <span
                                                 class="copyCode text-end"><img class="copyIMG"
-                                                    src="{{ asset('web/images/copy.png') }}" alt="">
+                                                    src="{{ asset('public/images/copy.png') }}" alt="">
                                                 Copy</span></a>
 
                                         <a class="fontPoppins btn shareBtn ms-2 pt-1 pb-1" href="#"><span
                                                 class="copyCode text-end"><img class="copyIMG"
-                                                    src="{{ asset('web/images/shareImg.png') }}" alt="">
+                                                    src="{{ asset('public/images/shareImg.png') }}" alt="">
                                                 Share</span></a>
                                     </div>
                                 </div>
                             </div>
-                        </div> --}}
+                        </div>
                     </div>
                 </div>
 
@@ -304,38 +285,39 @@
                     </h5>
                 </div>
                 <div class="col-12 d-flex justify-content-between mt-2 pb-5">
-                    @foreach (\App\Models\ClubBenefit::get() as $clubBenefit)
-                        <div class="text-center clubCash">
-                            <img class="mb-3 benefitsImg" src="{{ Storage::url($clubBenefit->image) }}"
-                                alt="Benfit image">
-                            <p class="clubCashTxt mb-0 fontPoppins">{{ $clubBenefit->name }}</p>
-                            {{-- <h6 class="fw-bold clubCashTxt fontPoppins">Upto <span class="priceUpto">Rs.26</span></h6> --}}
-                        </div>
-                    @endforeach
-                    {{-- <div class="text-center ">
-                        <img class="mb-3 benefitsImg" src="{{ asset('web/images/Group 901 (1).png') }}"
+                    <div class="text-center clubCash">
+                        <img class="mb-3 benefitsImg" src="{{ asset('public/images/Group 901.png') }}" alt="">
+                        <p class="clubCashTxt mb-0 fontPoppins">Club Cash Benefits</p>
+                        <h6 class="fw-bold clubCashTxt fontPoppins">Upto <span class="priceUpto">Rs.26</span></h6>
+                    </div>
+                    <div class="text-center ">
+                        <img class="mb-3 benefitsImg" src="{{ asset('public/images/Group 901 (1).png') }}"
                             alt="">
                         <p class="clubCashTxt mb-0 fontPoppins ">Excusive Offers
                             & Discounts </p>
+                        {{-- <h6 class="fw-bold">Upto <span class="priceUpto">Rs.26</span></h6> --}}
                     </div>
                     <div class="text-center ">
-                        <img class="mb-3 benefitsImg" src="{{ asset('web/images/Group 901 (2).png') }}"
+                        <img class="mb-3 benefitsImg" src="{{ asset('public/images/Group 901 (2).png') }}"
                             alt="">
                         <p class="clubCashTxt mb-0 fontPoppins">Lower Prices on
                             Products</p>
+                        {{-- <h6 class="fw-bold">Upto <span class="priceUpto">Rs.26</span></h6> --}}
                     </div>
                     <div class="text-center ">
-                        <img class="mb-3 benefitsImg" src="{{ asset('web/images/Group 901 (3).png') }}"
+                        <img class="mb-3 benefitsImg" src="{{ asset('public/images/Group 901 (3).png') }}"
                             alt="">
                         <p class="clubCashTxt mb-0 fontPoppins">Lower Shipping
                             Barrier</p>
+                        {{-- <h6 class="fw-bold">Upto <span class="priceUpto">Rs.26</span></h6> --}}
                     </div>
                     <div class="text-center ">
-                        <img class="mb-3 benefitsImg" src="{{ asset('web/images/Group 901 (4).png') }}"
+                        <img class="mb-3 benefitsImg" src="{{ asset('public/images/Group 901 (4).png') }}"
                             alt="">
                         <p class="clubCashTxt mb-0 fontPoppins">Free baby gear
                             assembly</p>
-                    </div> --}}
+                        {{-- <h6 class="fw-bold">Upto <span class="priceUpto">Rs.26</span></h6> --}}
+                    </div>
                 </div>
                 <div class="col-12 pb-4">
                     <div class="hl "></div>
@@ -344,19 +326,19 @@
                 <div class="col-12 pt-3 pb-4">
                     <div class="row d-flex justify-content-between">
                         <div class="col-5 d-flex align-items-center justify-content-between">
-                            <img class="deliveryVan" src="{{ asset('web/images/deliveryVan.png') }}" alt="">
+                            <img class="deliveryVan" src="{{ asset('public/images/deliveryVan.png') }}" alt="">
                             <h6 class="fontPoppins fw-bold mb-0">
                                 Check Delivery Details
                             </h6>
-                            <img class="deliveryVan" src="{{ asset('web/images/war.png') }}" alt="">
+                            <img class="deliveryVan" src="{{ asset('public/images/war.png') }}" alt="">
 
                         </div>
                         <div class="col-5 d-flex align-items-center justify-content-between">
-                            <img class="deliveryVan" src="{{ asset('web/images/clock.png') }}" alt="">
+                            <img class="deliveryVan" src="{{ asset('public/images/clock.png') }}" alt="">
                             <h6 class="fontPoppins exchange fw-bold mb-0">
                                 7 Days Return or Exchange
                             </h6>
-                            <img class="deliveryVan" src="{{ asset('web/images/war.png') }}" alt="">
+                            <img class="deliveryVan" src="{{ asset('public/images/war.png') }}" alt="">
 
                         </div>
                     </div>
@@ -521,10 +503,10 @@
                         </div>
                     </div>
                     <button id="read-more" class="btn ps-0 pe-0 text-primary fs-6 fw-bold fontPoppins">Read More <img
-                            class="ms-2 ps-1 readBtn" src="{{ asset('web/images/readMorethan.png') }}"
+                            class="ms-2 ps-1 readBtn" src="{{ asset('public/images/readMorethan.png') }}"
                             alt=""></button>
                     <button id="read-less" class="btn ps-0 pe-0 text-primary fs-6 fw-bold fontPoppins">Read Less <img
-                            class="ms-2 ps-1 readBtn" src="{{ asset('web/images/readLess.png') }}"
+                            class="ms-2 ps-1 readBtn" src="{{ asset('public/images/readLess.png') }}"
                             alt=""></button>
 
                 </div>

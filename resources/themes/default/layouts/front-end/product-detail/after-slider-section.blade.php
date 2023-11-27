@@ -4,7 +4,7 @@
     <div class="row pt-5">
         <div class="col-12  d-flex align-items-center pb-4">
 
-            <img class="me-3" src="{{ asset('web/images/youmay.png') }}" alt="">
+            <img class="me-3" src="{{ asset('public/images/youmay.png') }}" alt="">
 
             <div>
                 <h4 class="fontPoppins mb-0 fw-bold">You May Also Like</h4>
@@ -59,19 +59,19 @@
         <div class="col-12 pt-3">
             <div class="row">
                 <div class="col-4 d-flex align-items-center">
-                    <img class="pe-4" src="{{asset('web/images/image 28.png')}}" alt="">
+                    <img class="pe-4" src="{{asset('public/images/image 28.png')}}" alt="">
                     <h4 class="">
                         Hassel Free Returns or Exchange
                     </h4>
                 </div>
                 <div class="col-3 d-flex align-items-center">
-                    <img class="pe-4" src="{{asset('web/images/image 29.png')}}" alt="">
+                    <img class="pe-4" src="{{asset('public/images/image 29.png')}}" alt="">
                     <h4 class="">
                         Handpicked Products
                     </h4>
                 </div>
                 <div class="col-4 d-flex align-items-center">
-                    <img class="pe-4" src="{{asset('web/images/image 30.png')}}" alt="">
+                    <img class="pe-4" src="{{asset('public/images/image 30.png')}}" alt="">
                     <h4 class="">
                         Easy Return Or Exchange
                     </h4>

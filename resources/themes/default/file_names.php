@@ -47,6 +47,14 @@ return [
     'payment_payment'=>'payment.paytm',
     'order_complete'=>'web-views.checkout.complete',
     'mobile_app_payment_view'=>'web-views.mobile-app-view.payment',
+    'my-cart-address'=>'web-views.my-cart-address',
+    'my-cart-added'=>'web-views.my-cart-added',
+    'add-payment'=>'web-views.add-payment',
+    'my-shortlist'=>'web-views.my-shortlist',
+    'product-detail'=>'web-views.product-detail',
+
+
+
     'products_mobile_nav_partials'=>'layouts.front-end.partials.cart',
     'products_view_page'=>'web-views.products.view',
     'products__ajax_partials'=>'web-views.products._ajax-products',

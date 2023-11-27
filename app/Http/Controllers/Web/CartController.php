@@ -9,6 +9,7 @@ use App\CPU\OrderManager;
 use App\CPU\ProductManager;
 use App\Http\Controllers\Controller;
 use App\Model\Cart;
+use App\Model\Category;
 use App\Model\Color;
 use App\Model\Order;
 use App\Model\OrderDetail;
@@ -19,8 +20,66 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
+// class CartController extends Controller
+// {
+//     public function index()
+//     {
+//         return view('my-cart-address'); 
+//     }
+// }
+
+
 class CartController extends Controller
 {
+    public function cart_address()
+    {
+        $home_categories = Category::where('home_status', true)->priority()->get();
+            $home_categories->map(function ($data) {
+                $id = '"' . $data['id'] . '"';
+                $data['products'] = Product::active()
+                    ->where('category_ids', 'like', "%{$id}%")
+                    ->inRandomOrder()->take(12)->get();
+            });
+        return view(VIEW_FILE_NAMES['my-cart-address'],(compact('home_categories')));
+
+    }
+    public function cart_added()
+    {
+        $home_categories = Category::where('home_status', true)->priority()->get();
+            $home_categories->map(function ($data) {
+                $id = '"' . $data['id'] . '"';
+                $data['products'] = Product::active()
+                    ->where('category_ids', 'like', "%{$id}%")
+                    ->inRandomOrder()->take(12)->get();
+            });
+        return view(VIEW_FILE_NAMES['my-cart-added'],(compact('home_categories')));
+
+    }
+    public function add_payment()
+    {
+        $home_categories = Category::where('home_status', true)->priority()->get();
+            $home_categories->map(function ($data) {
+                $id = '"' . $data['id'] . '"';
+                $data['products'] = Product::active()
+                    ->where('category_ids', 'like', "%{$id}%")
+                    ->inRandomOrder()->take(12)->get();
+            });
+        return view(VIEW_FILE_NAMES['add-payment'],(compact('home_categories')));
+
+    }
+
+    public function my_shortlist()
+    {
+        $home_categories = Category::where('home_status', true)->priority()->get();
+            $home_categories->map(function ($data) {
+                $id = '"' . $data['id'] . '"';
+                $data['products'] = Product::active()
+                    ->where('category_ids', 'like', "%{$id}%")
+                    ->inRandomOrder()->take(12)->get();
+            });
+        return view(VIEW_FILE_NAMES['my-shortlist'],(compact('home_categories')));
+
+    }
     public function __construct(
         private OrderDetail $order_details,
         private Product $product,

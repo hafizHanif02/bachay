@@ -55,6 +55,9 @@
 .imgMAin{
     height: 193px;
 }
+.imgMAinH{
+    height: 244px;
+}
 .myfont {
     font-family: myfont;
 }
@@ -766,12 +769,12 @@ h1.text-center.textClr {
 }
 .input-bar {
     display: flex;
-    justify-content: space-between;
+    /* justify-content: space-between;  */
     align-items: center;
     /* width: 300px; */
     border: 1px solid #404040;
-    padding: 5px;
-    border-radius: 5px;
+    /* padding: 5px; */
+    /* border-radius: 5px; */
 }
 
 .input-field {
@@ -789,7 +792,7 @@ h1.text-center.textClr {
     border-radius: 5px;
     cursor: pointer;
     padding: 5px 20px;
-    right: 0;
+    right: 5px;
 }
 
 .filter-by {
@@ -934,7 +937,7 @@ h1.text-center.textClr {
 .number {
     border: 2px solid #000;
     width: fit-content;
-    padding: 10px;
+    padding: 7px 0;
 }
 .minus,
 .plus,
