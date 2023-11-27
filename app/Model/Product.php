@@ -36,6 +36,7 @@ class Product extends Model
         'is_shipping_cost_updated' => 'integer'
     ];
 
+
     public function translations()
     {
         return $this->morphMany('App\Model\Translation', 'translationable');

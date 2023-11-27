@@ -48,14 +48,47 @@ class ProductListController extends Controller
     }
 
     public function default_theme(Request $request){
-
+        
+        
         if(isset($request)){
             $request['sort_by'] == null ? $request['sort_by'] == 'latest' : $request['sort_by'];
 
-            $porduct_data = Product::active()->with(['reviews']);
+            
+
+
+            if (isset($request->filter) && isset($request->filterprice)) {
+                $brandIds = [];
+            
+                foreach ($request->filter as $filter) {
+                    if (is_array($filter['brand_id'])) {
+                        $brandIds = array_merge($brandIds, $filter['brand_id']);
+                    } else {
+                        $brandIds[] = $filter['brand_id'];
+                    }
+                }
+
+                $max_price = intval(explode("-", $request->filterprice)[1]);
+                $min_price = intval(explode("-", $request->filterprice)[0]);
+
+                $porduct_data = Product::whereIn('brand_id', $brandIds)
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->with(['reviews', 'brand']);
+                
+
+            }
+            elseif(isset($request->filter)){
+                
+            }
+            else{
+                $porduct_data = Product::active()->with(['reviews','brand'])->orderBy('unit_price');
+            }
+
+            
 
             if ($request['data_from'] == 'category') {
                 $products = $porduct_data->get();
+                return $products;
                 $product_ids = [];
                 foreach ($products as $product) {
                     foreach (json_decode($product['category_ids'], true) as $category) {
@@ -113,13 +146,13 @@ class ProductListController extends Controller
             }
 
             if ($request['data_from'] == 'featured') {
-                $query = Product::with(['reviews'])->active()->where('featured', 1);
+                $query = Product::with(['reviews','brand'])->active()->where('featured', 1);
             }
 
             if ($request['data_from'] == 'featured_deal') {
                 $featured_deal_id = FlashDeal::where(['status'=>1])->where(['deal_type'=>'feature_deal'])->pluck('id')->first();
                 $featured_deal_product_ids = FlashDealProduct::where('flash_deal_id',$featured_deal_id)->pluck('product_id')->toArray();
-                $query = Product::with(['reviews'])->active()->whereIn('id', $featured_deal_product_ids);
+                $query = Product::with(['reviews','brand'])->active()->whereIn('id', $featured_deal_product_ids);
             }
 
             if ($request['data_from'] == 'search') {
@@ -152,7 +185,7 @@ class ProductListController extends Controller
             }
 
             if ($request['data_from'] == 'discounted') {
-                $query = Product::with(['reviews'])->active()->where('discount', '!=', 0);
+                $query = Product::with(['reviews','brand'])->active()->where('discount', '!=', 0);
             }
 
             if ($request['sort_by'] == 'latest') {
@@ -185,13 +218,6 @@ class ProductListController extends Controller
 
             $products = $fetched->paginate(20)->appends($data);
 
-            // if ($request->ajax()) {
-
-            //     return response()->json([
-            //         'total_product'=>$products->total(),
-            //         'view' => view('web-views.products._ajax-products', compact('products'))->render()
-            //     ], 200);
-            // }
             if ($request['data_from'] == 'category') {
                 $data['brand_name'] = Category::find((int)$request['id'])->name;
             }
@@ -204,7 +230,6 @@ class ProductListController extends Controller
                     return redirect('/');
                 }
             }
-            // $products =  DB::table('products')->get();
             $home_categories = Category::where('home_status', true)->priority()->get();
             $home_categories->map(function ($data) {
                 $id = '"' . $data['id'] . '"';
@@ -213,29 +238,44 @@ class ProductListController extends Controller
                     ->inRandomOrder()->take(12)->get();
             });
 
-            $products = $this->product->with(['reviews'])->active()->orderBy('id')->get();
 
-            // dd($products);
-            return view(VIEW_FILE_NAMES['products'], compact( 'data','products','home_categories'));
-            // return $products;
-
-
-            // return view('themes.default.web-views.products',['products' => $products]);
-            // return view('themes.default.web-views.products', ['products' => $products]);
-            // return view(resource_path('themes\default\web-views\products.blade.php'), ['products' => $products]);
-
-
-        }else{
-            $products =  DB::table('products')->get();
-
-
-
-            // return view(VIEW_FILE_NAMES['products'],[
-            //     'product'=>$products
-            // ]);
-            return view(resource_path('themes/default/web-views/products.blade.php'), ['products' => $products]);
+            if(isset($request->filter)){
+                foreach($request->filter as $filter){
+                $products = $this->product->where('brand_id',$filter['brand_id'])->with(['reviews','brand'])->active()->orderBy('id')->get();
+                }
+            }
+            if (isset($request->filter)) {
+                $brandIds = [];
+            
+                foreach ($request->filter as $filter) {
+                   
+                    if (is_array($filter['brand_id'])) {
+                        $brandIds = array_merge($brandIds, $filter['brand_id']);
+                    } else {
+                        $brandIds[] = $filter['brand_id'];
+                    }
+                }
 
 
+                $max_price = intval(explode("-", $request->filterprice)[1]);
+                $min_price = intval(explode("-", $request->filterprice)[0]);
+
+                $products = $this->product->whereIn('brand_id', $brandIds)
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->with(['reviews', 'brand'])
+                    ->active()->orderBy('id')->get();
+
+                // $products = $this->product->whereIn('brand_id', $brandIds)->with(['reviews','brand'])->active()->orderBy('id')->get();
+            }
+            else{
+                $products = $this->product->with(['reviews','brand'])->active()->orderBy('id')->get();
+            }
+            $brands = Brand::get();
+            $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
+
+
+            return view(VIEW_FILE_NAMES['products'], compact( 'data','products','home_categories','brands','pricefilter'));
         }
     }
 

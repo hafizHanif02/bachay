@@ -14,79 +14,53 @@
         </h5>
         <a class="clear-all-btn" href="">Clear All</a>
     </div>
-    <form action="">
-
+    <form action="{{ route('products-list') }}" method="GET" >
         <div class="promo-services mt-3">
             Promotion & Services
         </div>
         <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Express Delivery <span class="Reviews"> (216)</span>
-        </label>
-        <label class="col-12 f-spacing">
             <input type="checkbox" name="myCheckbox"> Free Delivery <span class="Reviews"> (481)</span>
         </label>
         <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Best Selling <span class="Reviews"> (181)</span>
-        </label>
-        <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Top Rated <span class="Reviews"> (122)</span>
-        </label>
-        <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Offers Running <span class="Reviews"> (15)</span>
+            <input type="checkbox" name="myCheckbox"> Standard Delivery <span class="Reviews"> (15)</span>
         </label>
 
         <div class="promo-services mt-4">
             Top Brands Here
         </div>
+        @foreach($brands as $brand)
         <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Brand Name 1 <span class="Reviews"> (216)</span>
+            <input type="checkbox" id="brand_id{{ $loop->iteration }}" onchange="filter({{ $loop->iteration }})" name="filter[{{ $loop->iteration }}][brand_id]" value="{{ $brand->id }}">{{ $brand->name }}<span class="Reviews"></span>
+            <input type="hidden" id="brand_name{{ $loop->iteration }}" value="{{ $brand->name }}">
         </label>
-        <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Brand Name 2 <span class="Reviews"> (481)</span>
-        </label>
-        <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Brand Name 3 <span class="Reviews"> (181)</span>
-        </label>
-        <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Brand Name 4 <span class="Reviews"> (122)</span>
-        </label>
-        <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Brand Name 5 <span class="Reviews"> (15)</span>
-        </label>
-        <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Brand Name 6 <span class="Reviews"> (15)</span>
-        </label>
-        <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Brand Name 7 <span class="Reviews"> (15)</span>
-        </label>
-        <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Brand Name 8 <span class="Reviews"> (15)</span>
-        </label>
-        <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Brand Name 9 <span class="Reviews"> (15)</span>
-        </label>
+        @endforeach
+        
 
         <div class="promo-services mt-4">
             Prices
         </div>
+
+    @if($pricefilter >= 1)
+    <label class="col-12 f-spacing">
+        <input type="radio" checked  onchange="pricefilter(1)" id="fullprice" name="filterprice" value="{{ 0 }}-{{  $pricefilter * 300  }}"> 
+        Rs.0  to {{ $pricefilter * 300 }}
+        <span class="Reviews"></span>
+    </label>
+    @php
+        $startPrice = 0;
+    @endphp
+    @for($i = 1; $i <= $pricefilter; $i++)
         <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Rs.0 to 240 <span class="Reviews"> (216)</span>
+            <input type="radio" onchange="pricefilter({{ $i }})" id="price{{ $i }}" name="filterprice" value="{{ $startPrice+1 }}-{{  $startPrice + 300  }}"> 
+            Rs.{{ $startPrice + 1 }} to {{ $startPrice + 300 }}
+            <span class="Reviews"></span>
         </label>
-        <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Rs.250 to 500 <span class="Reviews"> (481)</span>
-        </label>
-        <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Rs.500 to 1000 <span class="Reviews"> (181)</span>
-        </label>
-        <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Rs.1000 to 2000 <span class="Reviews"> (122)</span>
-        </label>
-        <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Rs.2000 to 3000 <span class="Reviews"> (122)</span>
-        </label>
-        <label class="col-12 custom-price mt-3 mb-2">
-            <input class="rounded-2" type="text" name="mytext" placeholder="custom">
-        </label>
+
+        @php
+            $startPrice += 300;
+        @endphp
+        @endfor
+    @endif
 
         <div class="promo-services mt-4">
             Ratings
@@ -139,7 +113,7 @@
             <span class="Reviews"> (34)</span>
         </label>
 
-        <div class="promo-services mt-4">
+        {{-- <div class="promo-services mt-4">
             Location
         </div>
         <label class="col-12 f-spacing">
@@ -150,11 +124,54 @@
         </label>
         <label class="col-12 f-spacing">
             <input type="checkbox" name="myCheckbox"> United State <span class="Reviews"> (51)</span>
-        </label>
+        </label> --}}
 
 
-        <button class="rounded-pill" type="submit"> Apply</button>
+        <button class="m-5 btn text-white rounded-pill" style="background-color: blueviolet" type="submit"> Apply</button>
 
     </form>
 
 </div>
+
+
+<script>
+    function filter(id) {
+    var brand = $('#brand_name'+id).val();
+    var checkbox = $('#brand_id'+id);
+
+    if (checkbox.prop('checked')) {
+        // If the checkbox is checked, add the button
+        $('#filters-btn').prepend(`
+            <button class="boys rounded-3 btn-style" id="filter-tag${id}">
+                <i class="bi bi-x-lg" onclick='remove(${id})'>${brand}</i>
+            </button>
+        `);
+    } else {
+        // If the checkbox is unchecked, remove the button
+        $(`#filter-tag${id}`).remove();
+
+        // Uncheck the checkbox
+        checkbox.prop('checked', false);
+    }
+}
+    
+    function remove(id){
+        $('#filter-tag'+id).hide();
+        $('#brand_id'+id).prop('checked', false);
+    }
+
+    function pricefilter(id) {
+    var price = $('#price'+id).val();
+
+    // Remove any previously selected buttons
+    $('.boys.rounded-3.btn-style').remove();
+
+    // Append the new button
+    $('#filters-btn').prepend(`
+        <button class="boys rounded-3 btn-style" id="filter-tag${id}">
+            <i class="bi bi-x-lg" onclick='remove(${id})'>${price}</i>
+        </button>
+    `);
+}
+
+</script>
