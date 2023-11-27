@@ -55,7 +55,7 @@
 .myfont {
     font-family: myfont;
 }
-header {
+header , footer {
     padding: 10px 50px;
 }
 body {
@@ -765,7 +765,7 @@ h1.text-center.textClr {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    width: 300px;
+    /* width: 300px; */
     border: 1px solid #404040;
     padding: 5px;
     border-radius: 5px;
@@ -786,6 +786,7 @@ h1.text-center.textClr {
     border-radius: 5px;
     cursor: pointer;
     padding: 5px 20px;
+    right: 0;
 }
 
 .filter-by {

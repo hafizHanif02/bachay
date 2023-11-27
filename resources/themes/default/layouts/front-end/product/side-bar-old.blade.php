@@ -7,9 +7,9 @@
                 <h5> <img src="{{ asset('web/images/cart-img.svg') }}" alt=""> Check Delivery Details</h5>
                 <i class="bi bi-exclamation-circle-fill"></i>
             </div>
-            <div class="input-bar mt-2">
+            <div class="input-bar mt-2 position-relative p-2">
                 <input type="text" class="input-field" placeholder="Enter Pin Code">
-                <button class="input-button">Check</button>
+                <button class="input-button position-absolute">Check</button>
             </div>
 
             <div class="filter-by d-flex justify-content-between align-items-center pt-2 pb-2 mt-3">
@@ -233,8 +233,12 @@
 
                                     <div class="d-flex justify-content-between mt-3">
                                         <button class="buy-now rounded-pill text-white">Buy Now</button>
-                                      <a href=""><img src="{{ asset('web/images/cart-image.svg') }}" alt=""></a>
-
+                                                <button id="cart-btn" class="p-0 bg-transparent rounded-circle forBorder">
+                                                    <i class="bi bi-cart"></i>
+                                                {{-- <i
+                                                    class="bi {{ in_array($product->id, $cartProducts) ? 'bi-cart-fill' : 'bi-cart' }} text-purple"></i> --}}
+                                            </button>
+                                           
                                     </div>
                                 </div>
                             </div>
