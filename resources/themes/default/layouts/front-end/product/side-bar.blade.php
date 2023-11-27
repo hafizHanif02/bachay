@@ -19,10 +19,10 @@
             Promotion & Services
         </div>
         <label class="col-12 f-spacing">
-            <input type="checkbox" name="filter[1]['shipping_delivery']"> Free Delivery <span class="Reviews"></span>
+            <input type="checkbox" name="filter[1][free_shipping]" value="1"> Free Delivery <span class="Reviews"></span>
         </label>
         <label class="col-12 f-spacing">
-            <input type="checkbox" name="filter[2]['shipping_delivery']"> Standard Delivery <span class="Reviews"></span>
+            <input type="checkbox" name="filter[2][free_shipping]" value="0"> Standard Delivery <span class="Reviews"></span>
         </label>
 
         <div class="promo-services mt-4">
@@ -85,12 +85,20 @@
         <div class="promo-services mt-4">
             Color
         </div>
-        <label class="col-12 f-spacing d-flex align-items-center">
-            <input type="checkbox" name="myCheckbox" class="me-2">
-            <div class="bg-danger p-2 rounded-circle me-1"></div> <span class="colors-name me-1"> Red</span>
-            <span class="Reviews"> (54)</span>
-        </label>
-        <label class="col-12 f-spacing d-flex align-items-center">
+        {{-- {{ dd($colors) }} --}}
+        <div id="colorContainer">
+            @foreach($colors as $index => $color)
+                <label class="col-12 f-spacing d-flex align-items-center color-item">
+                    <input type="checkbox" name="ColorFilter[{{ $loop->iteration }}][color]" value="{{ $color->code }}" class="me-2">
+                    <div class="p-2 rounded-circle me-1" style="background-color: {{ $color->code }}"></div>
+                    <span class="colors-name me-1">{{ $color->name }}</span>
+                    <span class="Reviews"></span>
+                </label>
+            @endforeach
+        </div>
+        <div class="text-primary" id="readMoreBtn">Read More <i class="bi bi-arrow-down"></i>
+        </div>
+        {{-- <label class="col-12 f-spacing d-flex align-items-center">
             <input type="checkbox" name="myCheckbox" class="me-2">
             <div class="bg-info p-2 rounded-circle me-1"></div> <span class="colors-name me-1"> Blue</span>
             <span class="Reviews"> (5)</span>
@@ -111,7 +119,7 @@
             <div class="bg-success p-2 rounded-circle me-1"></div> <span class="colors-name me-1">
                 Green</span>
             <span class="Reviews"> (34)</span>
-        </label>
+        </label> --}}
 
         {{-- <div class="promo-services mt-4">
             Location
@@ -133,24 +141,21 @@
 
 </div>
 
-
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
     function filter(id) {
     var brand = $('#brand_name'+id).val();
     var checkbox = $('#brand_id'+id);
 
     if (checkbox.prop('checked')) {
-        // If the checkbox is checked, add the button
         $('#filters-btn').prepend(`
             <button class="boys rounded-3 btn-style" id="filter-tag${id}">
                 <i class="bi bi-x-lg" onclick='remove(${id})'>${brand}</i>
             </button>
         `);
     } else {
-        // If the checkbox is unchecked, remove the button
         $(`#filter-tag${id}`).remove();
 
-        // Uncheck the checkbox
         checkbox.prop('checked', false);
     }
 }
@@ -163,15 +168,42 @@
     function pricefilter(id) {
     var price = $('#price'+id).val();
 
-    // Remove any previously selected buttons
     $('.boys.rounded-3.btn-style').remove();
 
-    // Append the new button
     $('#filters-btn').prepend(`
         <button class="boys rounded-3 btn-style" id="filter-tag${id}">
             <i class="bi bi-x-lg" onclick='remove(${id})'>${price}</i>
         </button>
     `);
 }
+$(document).ready(function () {
+        var colorContainer = $('#colorContainer');
+        var readMoreBtn = $('#readMoreBtn');
+        var initialHeight = 100; // Set your initial height
+
+        readMoreBtn.click(function () {
+            if (colorContainer.height() === initialHeight) {
+                colorContainer.css('max-height', 'none');
+                readMoreBtn.html('Read Less <i class="bi bi-arrow-up"></i>');
+            } else {
+                colorContainer.css('max-height', initialHeight + 'px');
+                readMoreBtn.html('Read More <i class="bi bi-arrow-down"></i>');
+            }
+        });
+    });
 
 </script>
+
+<style>
+    #colorContainer {
+    max-height: 100px; /* Set a fixed height for initial display */
+    overflow: hidden;
+    transition: max-height 0.5s ease-out;
+}
+
+#readMoreBtn {
+    cursor: pointer;
+    color: blue;
+}
+</style>
+

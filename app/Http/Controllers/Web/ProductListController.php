@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\CPU\Helpers;
-use App\Http\Controllers\Controller;
-use App\Model\Brand;
-use App\Model\Category;
-use App\Model\FlashDeal;
-use App\Model\FlashDealProduct;
-use App\Model\OrderDetail;
-use App\Model\Product;
-use App\Model\Review;
 use App\Model\Shop;
-use App\Model\Translation;
+use App\CPU\Helpers;
+use App\Model\Brand;
+use App\Model\Color;
+use App\Model\Review;
+use App\Model\Product;
+use App\Model\Category;
 use App\Model\Wishlist;
-use Brian2694\Toastr\Facades\Toastr;
+use App\Model\FlashDeal;
+use App\Model\OrderDetail;
+use App\Model\Translation;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
+use App\Model\FlashDealProduct;
 use function App\CPU\translate;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 
 class ProductListController extends Controller
 {
@@ -60,6 +61,7 @@ class ProductListController extends Controller
     }
 
     public function default_theme(Request $request){
+        // dd($request);
         
         
         if(isset($request)){
@@ -68,26 +70,66 @@ class ProductListController extends Controller
             
 
 
-            if (isset($request->filter) && isset($request->filterprice)) {
+            if (isset($request->filter) && isset($request->filterprice) && isset($request->ColorFilter)) {
                 $brandIds = [];
-            
-                foreach ($request->filter as $filter) {
-                    if (is_array($filter['brand_id'])) {
-                        $brandIds = array_merge($brandIds, $filter['brand_id']);
-                    } else {
-                        $brandIds[] = $filter['brand_id'];
+                $shippings = []; 
+                $colors = [];
+
+                foreach ($request->ColorFilter as $colorFilter) {
+                    if (isset($colorFilter['color'])) {
+                        if (is_array($colorFilter['color'])) {
+                            $colors = array_merge($colors, $colorFilter['color']);
+                        } else {
+                            $colors[] = $colorFilter['color'];
+                        }
                     }
                 }
-
+                
+                foreach ($request->filter as $filter) {
+                    if (isset($filter['brand_id'])) {
+                        if (is_array($filter['brand_id'])) {
+                            $brandIds = array_merge($brandIds, $filter['brand_id']);
+                        } else {
+                            $brandIds[] = $filter['brand_id'];
+                        }
+                    }
+                    
+                    if (isset($filter['free_shipping'])) {
+                        if (is_array($filter['free_shipping'])) {
+                            $shippings = array_merge($shippings, $filter['free_shipping']);
+                        } else {
+                            $shippings[] = $filter['free_shipping'];
+                        }
+                    }
+                }
+            
                 $max_price = intval(explode("-", $request->filterprice)[1]);
                 $min_price = intval(explode("-", $request->filterprice)[0]);
-
-                $porduct_data = Product::whereIn('brand_id', $brandIds)
-                    ->where('unit_price', '>=', $min_price)
-                    ->where('unit_price', '<=', $max_price)
-                    ->with(['reviews', 'brand']);
-                
-
+            
+                if (!empty($shippings)) {
+                    $porduct_data = Product::whereIn('brand_id', $brandIds)
+                        ->whereIn('free_shipping', $shippings)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand'])
+                        ->get();
+                } 
+                elseif (!empty($shippings) || !empty($colors)) {
+                    $porduct_data = Product::whereIn('brand_id', $brandIds)
+                        ->whereIn('free_shipping', $shippings)
+                        ->whereIn('color', $colors) // Assuming 'color' is the column name in the database
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand'])
+                        ->get();
+                }
+                else {
+                    $porduct_data = Product::whereIn('brand_id', $brandIds)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand'])
+                        ->get();
+                }
             }
             elseif(isset($request->filter)){
                 $brandIds = [];
@@ -218,19 +260,19 @@ class ProductListController extends Controller
                 $query = Product::with(['reviews','brand'])->active()->where('discount', '!=', 0);
             }
 
-            if ($request['sort_by'] == 'latest') {
-                $fetched = $query->latest();
-            } elseif ($request['sort_by'] == 'low-high') {
-                $fetched = $query->orderBy('unit_price', 'ASC');
-            } elseif ($request['sort_by'] == 'high-low') {
-                $fetched = $query->orderBy('unit_price', 'DESC');
-            } elseif ($request['sort_by'] == 'a-z') {
-                $fetched = $query->orderBy('name', 'ASC');
-            } elseif ($request['sort_by'] == 'z-a') {
-                $fetched = $query->orderBy('name', 'DESC');
-            } else {
-                $fetched = $query->latest();
-            }
+            // if ($request['sort_by'] == 'latest') {
+            //     $fetched = $query->latest();
+            // } elseif ($request['sort_by'] == 'low-high') {
+            //     $fetched = $query->orderBy('unit_price', 'ASC');
+            // } elseif ($request['sort_by'] == 'high-low') {
+            //     $fetched = $query->orderBy('unit_price', 'DESC');
+            // } elseif ($request['sort_by'] == 'a-z') {
+            //     $fetched = $query->orderBy('name', 'ASC');
+            // } elseif ($request['sort_by'] == 'z-a') {
+            //     $fetched = $query->orderBy('name', 'DESC');
+            // } else {
+            //     $fetched = $query->latest();
+            // }
 
             if ($request['min_price'] != null || $request['max_price'] != null) {
                 $fetched = $fetched->whereBetween('unit_price', [Helpers::convert_currency_to_usd($request['min_price']), Helpers::convert_currency_to_usd($request['max_price'])]);
@@ -246,7 +288,7 @@ class ProductListController extends Controller
                 'max_price' => $request['max_price'],
             ];
 
-            $products = $fetched->paginate(20)->appends($data);
+            // $products = $fetched->paginate(20)->appends($data);
 
             if ($request['data_from'] == 'category') {
                 $data['brand_name'] = Category::find((int)$request['id'])->name;
@@ -276,27 +318,51 @@ class ProductListController extends Controller
             // }
             if (isset($request->filter) && isset($request->filterprice)) {
                 $brandIds = [];
-            
+                $shippings = []; // Initialize the $shippings variable
+                
                 foreach ($request->filter as $filter) {
-                   
-                    if (is_array($filter['brand_id'])) {
-                        $brandIds = array_merge($brandIds, $filter['brand_id']);
-                    } else {
-                        $brandIds[] = $filter['brand_id'];
+                    if (isset($filter['brand_id'])) {
+                        if (is_array($filter['brand_id'])) {
+                            $brandIds = array_merge($brandIds, $filter['brand_id']);
+                        } else {
+                            $brandIds[] = $filter['brand_id'];
+                        }
+                    }
+                    
+                    if (isset($filter['free_shipping'])) {
+                        if (is_array($filter['free_shipping'])) {
+                            $shippings = array_merge($shippings, $filter['free_shipping']);
+                        } else {
+                            $shippings[] = $filter['free_shipping'];
+                        }
                     }
                 }
-
-
+            
                 $max_price = intval(explode("-", $request->filterprice)[1]);
                 $min_price = intval(explode("-", $request->filterprice)[0]);
-
-                $products = $this->product->whereIn('brand_id', $brandIds)
+            
+                if (!empty($shippings) && !empty($brandIds) ) {
+                    $products = Product::whereIn('brand_id', $brandIds)
+                        ->whereIn('free_shipping', $shippings)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand'])
+                        ->get();
+                }elseif(!empty($shippings) && empty($brandIds) ){
+                    $products = Product::whereIn('free_shipping', $shippings)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand'])
+                        ->get();
+                }elseif(empty($shippings) && !empty($brandIds)){
+                    $products = Product::whereIn('brand_id', $brandIds)
                     ->where('unit_price', '>=', $min_price)
                     ->where('unit_price', '<=', $max_price)
                     ->with(['reviews', 'brand'])
-                    ->active()->orderBy('id')->get();
-
-                // $products = $this->product->whereIn('brand_id', $brandIds)->with(['reviews','brand'])->active()->orderBy('id')->get();
+                    ->get();
+                }
+                
+            
             }
             elseif(isset($request->filter)){
                 $brandIds = [];
@@ -312,16 +378,22 @@ class ProductListController extends Controller
                     ->with(['reviews', 'brand'])->active()->orderBy('id')->get();
             }
             elseif(isset($request->filterprice)){
+                $max_price = intval(explode("-", $request->filterprice)[1]);
+                $min_price = intval(explode("-", $request->filterprice)[0]);
                 
+                $products = Product::where('unit_price', '>=', $min_price)
+                ->where('unit_price', '<=', $max_price)
+                ->with(['reviews', 'brand'])->get();
             }
             else{
-                $products = $this->product->with(['reviews','brand'])->active()->orderBy('id')->get();
+                $products = Product::with(['reviews','brand'])->active()->orderBy('id')->get();
             }
             $brands = Brand::get();
+            $colors = Color::get();
             $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
 
 
-            return view(VIEW_FILE_NAMES['products'], compact( 'data','products','home_categories','brands','pricefilter'));
+            return view(VIEW_FILE_NAMES['products'], compact( 'data','products','home_categories','brands','pricefilter','colors'));
         }
     }
 
