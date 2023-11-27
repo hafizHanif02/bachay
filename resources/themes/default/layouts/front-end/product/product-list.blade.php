@@ -26,6 +26,7 @@
         @foreach ($products as $product)
             {{-- {{ $product->name }} --}}
             <div class="col-md-6 col-lg-3 mb-4 pb-3">
+                <a href="{{ route('product.detail', $product->id) }}">
                 <div class="rounded-3">
                     <div class="card1">
                         <div class="first-sec card1">
@@ -90,6 +91,7 @@
                         </div>
                     </div>
                 </div>
+            </a>
             </div>
         @endforeach
 

@@ -19,10 +19,10 @@
             Promotion & Services
         </div>
         <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Free Delivery <span class="Reviews"> (481)</span>
+            <input type="checkbox" name="filter[1]['shipping_delivery']"> Free Delivery <span class="Reviews"></span>
         </label>
         <label class="col-12 f-spacing">
-            <input type="checkbox" name="myCheckbox"> Standard Delivery <span class="Reviews"> (15)</span>
+            <input type="checkbox" name="filter[2]['shipping_delivery']"> Standard Delivery <span class="Reviews"></span>
         </label>
 
         <div class="promo-services mt-4">

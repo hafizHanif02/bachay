@@ -90,7 +90,25 @@ class ProductListController extends Controller
 
             }
             elseif(isset($request->filter)){
-                
+                $brandIds = [];
+            
+                foreach ($request->filter as $filter) {
+                    if (is_array($filter['brand_id'])) {
+                        $brandIds = array_merge($brandIds, $filter['brand_id']);
+                    } else {
+                        $brandIds[] = $filter['brand_id'];
+                    }
+                }
+                $porduct_data = Product::whereIn('brand_id', $brandIds)
+                    ->with(['reviews', 'brand']);
+            }
+            elseif(isset($request->filterprice)){
+                $max_price = intval(explode("-", $request->filterprice)[1]);
+                $min_price = intval(explode("-", $request->filterprice)[0]);
+
+                $porduct_data = Product::where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->with(['reviews', 'brand']);
             }
             else{
                 $porduct_data = Product::active()->with(['reviews','brand'])->orderBy('unit_price');
@@ -251,12 +269,12 @@ class ProductListController extends Controller
             });
 
 
-            if(isset($request->filter)){
-                foreach($request->filter as $filter){
-                $products = $this->product->where('brand_id',$filter['brand_id'])->with(['reviews','brand'])->active()->orderBy('id')->get();
-                }
-            }
-            if (isset($request->filter)) {
+            // if(isset($request->filter)){
+            //     foreach($request->filter as $filter){
+            //     $products = $this->product->where('brand_id',$filter['brand_id'])->with(['reviews','brand'])->active()->orderBy('id')->get();
+            //     }
+            // }
+            if (isset($request->filter) && isset($request->filterprice)) {
                 $brandIds = [];
             
                 foreach ($request->filter as $filter) {
@@ -279,6 +297,22 @@ class ProductListController extends Controller
                     ->active()->orderBy('id')->get();
 
                 // $products = $this->product->whereIn('brand_id', $brandIds)->with(['reviews','brand'])->active()->orderBy('id')->get();
+            }
+            elseif(isset($request->filter)){
+                $brandIds = [];
+            
+                foreach ($request->filter as $filter) {
+                    if (is_array($filter['brand_id'])) {
+                        $brandIds = array_merge($brandIds, $filter['brand_id']);
+                    } else {
+                        $brandIds[] = $filter['brand_id'];
+                    }
+                }
+                $products = Product::whereIn('brand_id', $brandIds)
+                    ->with(['reviews', 'brand'])->active()->orderBy('id')->get();
+            }
+            elseif(isset($request->filterprice)){
+                
             }
             else{
                 $products = $this->product->with(['reviews','brand'])->active()->orderBy('id')->get();
