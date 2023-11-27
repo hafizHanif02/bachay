@@ -22,7 +22,9 @@
     @includeIf('layouts.front-end.home.' . $layout->section_name)
 @endforeach --}}
 
-@include('layouts.front-end.product.side-bar-old')
+@include('layouts.front-end.product.main-sec')
+
+
 
 
 @endsection

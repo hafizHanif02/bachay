@@ -52,6 +52,9 @@
     float: right;
     cursor: pointer;
 }
+.imgMAin{
+    height: 193px;
+}
 .myfont {
     font-family: myfont;
 }
