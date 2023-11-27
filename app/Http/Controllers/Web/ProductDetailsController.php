@@ -2,23 +2,24 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Model\Tag;
 use App\CPU\Helpers;
-use App\CPU\ProductManager;
-use App\Http\Controllers\Controller;
-use App\Model\DealOfTheDay;
-use App\Model\OrderDetail;
-use App\Model\Product;
 use App\Model\Review;
 use App\Model\Seller;
+use App\Model\Product;
+use App\Model\Category;
 use App\Model\Wishlist;
 use App\Model\ProductTag;
-use App\Model\Tag;
-use Brian2694\Toastr\Facades\Toastr;
-use Illuminate\Http\Request;
+use App\Model\OrderDetail;
+use App\CPU\ProductManager;
+use App\Model\DealOfTheDay;
 use Illuminate\Support\Arr;
-use Illuminate\Support\Facades\Auth;
-use function App\CPU\translate;
+use Illuminate\Http\Request;
 use App\Model\ProductCompare;
+use function App\CPU\translate;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 
 class ProductDetailsController extends Controller
 {
@@ -28,20 +29,31 @@ class ProductDetailsController extends Controller
     )
     {
     }
-    public function product($slug)
+    public function product($id)
     {
+        // dd($id);
         $theme_name = theme_root_path();
 
         return match ($theme_name){
-            'default' => self::default_theme($slug),
-            'theme_aster' => self::theme_aster($slug),
-            'theme_fashion' => self::theme_fashion($slug),
-            'theme_all_purpose' => self::theme_all_purpose($slug),
+            'default' => self::default_theme($id),
+            'theme_aster' => self::theme_aster($id),
+            'theme_fashion' => self::theme_fashion($id),
+            'theme_all_purpose' => self::theme_all_purpose($id),
         };
+        // $product = Product::wherer('id',$id)->first();
+        // $home_categories = Category::where('home_status', true)->priority()->get();
+        //         $home_categories->map(function ($data) {
+        //             $id = '"' . $data['id'] . '"';
+        //             $data['products'] = Product::active()
+        //                 ->where('category_ids', 'like', "%{$id}%")
+        //                 ->inRandomOrder()->take(12)->get();
+        //         });
+        //     return view(VIEW_FILE_NAMES['product-detail'],(compact('product','home_categories')));
+
     }
 
-    public function default_theme($slug){
-        $product = Product::active()->with(['reviews','seller.shop'])->where('slug', $slug)->first();
+    public function default_theme($id){
+        $product = Product::active()->with(['reviews','seller.shop'])->where('id', $id)->first();
         if ($product != null) {
             $overallRating = ProductManager::get_overall_rating($product->reviews);
             $wishlist_status = Wishlist::where(['product_id'=>$product->id, 'customer_id'=>auth('customer')->id()])->count();
@@ -76,7 +88,14 @@ class ProductDetailsController extends Controller
             $inhouse_vacation_status = $product->added_by == 'admin' ? $inhouse_vacation['status'] : false;
             $inhouse_temporary_close = $product->added_by == 'admin' ? $temporary_close['status'] : false;
 
-            return view(VIEW_FILE_NAMES['products_details'], compact('product', 'countWishlist', 'countOrder', 'relatedProducts',
+            $home_categories = Category::where('home_status', true)->priority()->get();
+            $home_categories->map(function ($data) {
+                $id = '"' . $data['id'] . '"';
+                $data['products'] = Product::active()
+                    ->where('category_ids', 'like', "%{$id}%")
+                    ->inRandomOrder()->take(12)->get();
+            });
+            return view(VIEW_FILE_NAMES['product-detail'], compact('home_categories','product', 'countWishlist', 'countOrder', 'relatedProducts',
                 'deal_of_the_day', 'current_date', 'seller_vacation_start_date', 'seller_vacation_end_date', 'seller_temporary_close',
                 'inhouse_vacation_start_date', 'inhouse_vacation_end_date', 'inhouse_vacation_status', 'inhouse_temporary_close','overallRating',
                 'wishlist_status','reviews_of_product','rating','total_reviews','products_for_review','more_product_from_seller','decimal_point_settings'));
