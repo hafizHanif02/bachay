@@ -90,7 +90,7 @@ Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('main
     
 
     Route::get('products-list', 'ProductListController@default_theme')->name('products-list');
-    Route::get('product-detail/{product}', 'ProductListController@product_detail')->name('product.detail');
+    Route::get('product-detail/{product}', 'ProductDetailsController@product')->name('product.detail');
 
 
     Route::get('my-cart-address', 'CartController@cart_address')->name('my-cart-address');
