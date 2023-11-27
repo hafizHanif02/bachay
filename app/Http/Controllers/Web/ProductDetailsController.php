@@ -40,15 +40,6 @@ class ProductDetailsController extends Controller
             'theme_fashion' => self::theme_fashion($id),
             'theme_all_purpose' => self::theme_all_purpose($id),
         };
-        // $product = Product::wherer('id',$id)->first();
-        // $home_categories = Category::where('home_status', true)->priority()->get();
-        //         $home_categories->map(function ($data) {
-        //             $id = '"' . $data['id'] . '"';
-        //             $data['products'] = Product::active()
-        //                 ->where('category_ids', 'like', "%{$id}%")
-        //                 ->inRandomOrder()->take(12)->get();
-        //         });
-        //     return view(VIEW_FILE_NAMES['product-detail'],(compact('product','home_categories')));
 
     }
 
@@ -74,7 +65,7 @@ class ProductDetailsController extends Controller
 
             $countOrder = OrderDetail::where('product_id', $product->id)->count();
             $countWishlist = Wishlist::where('product_id', $product->id)->count();
-            $relatedProducts = Product::with(['reviews'])->active()->where('category_ids', $product->category_ids)->where('id', '!=', $product->id)->limit(12)->get();
+            $relatedProducts = Product::with(['reviews'])->active()->where('category_ids', $product->category_ids)->where('id', '!=', $product->id)->get();
             $deal_of_the_day = DealOfTheDay::where('product_id', $product->id)->where('status', 1)->first();
             $current_date = date('Y-m-d');
             $seller_vacation_start_date = ($product->added_by == 'seller' && isset($product->seller->shop->vacation_start_date)) ? date('Y-m-d', strtotime($product->seller->shop->vacation_start_date)) : null;
@@ -95,7 +86,13 @@ class ProductDetailsController extends Controller
                     ->where('category_ids', 'like', "%{$id}%")
                     ->inRandomOrder()->take(12)->get();
             });
-            return view(VIEW_FILE_NAMES['product-detail'], compact('home_categories','product', 'countWishlist', 'countOrder', 'relatedProducts',
+            $categoryId = $product->category_id;
+            $categoryName = Category::find($categoryId)->name;
+
+            // return $categoryName;
+            // return $product;
+            // dd($relatedProducts);
+            return view(VIEW_FILE_NAMES['product-detail'], compact('home_categories','categoryId','categoryName','product', 'countWishlist', 'countOrder', 'relatedProducts',
                 'deal_of_the_day', 'current_date', 'seller_vacation_start_date', 'seller_vacation_end_date', 'seller_temporary_close',
                 'inhouse_vacation_start_date', 'inhouse_vacation_end_date', 'inhouse_vacation_status', 'inhouse_temporary_close','overallRating',
                 'wishlist_status','reviews_of_product','rating','total_reviews','products_for_review','more_product_from_seller','decimal_point_settings'));

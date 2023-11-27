@@ -1,14 +1,23 @@
 <div class="products mt-4">
     <div class="row">
+
+        {{-- {{ $prod }} --}}
+
+
         <div class="col-lg-6 col-md-6 col-sm-12 col-12 d-flex flex-column fixedProduct">
             <div class="product-container">
                 <div class="main-image">
-                    <img id="main-image" class="detailed-product-img p-3" src="{{ asset('public/images/Frame 855 (2).png') }}"
+
+                    @foreach (json_decode($product->images) as $key => $photo)
+
+                    <img id="main-image" class="detailed-product-img p-3" src="{{ asset("storage/app/public/product/$photo") }}"
                         alt="Main Image">
+                    @endforeach
                 </div>
                 <div class="small-images">
-
+                    {{-- @foreach (json_decode($product->color_images) as $key => $photo) --}}
                     <img class="small-image " src="{{ asset('public/images/Frame 855 (2).png') }}" alt="Small Image 1">
+                    {{-- @endfor --}}
                     <img class="small-image " src="{{ asset('public/images/Frame 134 (2).png') }}" alt="Small Image 2">
                     <img class="small-image" src="{{ asset('public/images/Frame 135 (2).png') }}" alt="Small Image 3">
                     <img class="small-image " src="{{ asset('public/images/Frame 137 (2).png') }}" alt="Small Image 3">
@@ -32,7 +41,9 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-12 ">
             <div class="row pt-3 pb-3">
                 <div class="col-12 d-flex align-items-center">
-                    <h6 class="pe-5 fontPoppins fw-bold boysClothes mb-0">Boys - Clothes</h6>
+                    <h6 class="pe-5 fontPoppins fw-bold boysClothes mb-0">{{ $categoryName }}
+                        {{-- Boys - Clothes --}}
+                    </h6>
                     <div class="d-flex align-items-center me-3">
                         <h6 class="share pe-3 fontPoppins fw-bold mb-0">Share</h6>
 
@@ -60,20 +71,21 @@
                 </div>
                 <div class="col-12">
                     <h4 class="pt-3 pb-2 fw-bold fontPoppins">
-                        Pine Kids Lace Up Casual Shoes Color Block - White
+
+                        {{ $product->name }}
                     </h4>
                 </div>
                 <div class="col-12 d-flex align-items-center pb-2">
                     <h6 class="text-secondary pe-2 fontPoppins">Product ID: </h6>
-                    <h6 class="text-dark fw-bold fontPoppins">9663711</h6>
+                    <h6 class="text-dark fw-bold fontPoppins">{{ $product->id }}</h6>
                 </div>
                 <div class="col-12 pb-3">
                     <div class="hl "></div>
                 </div>
                 <div class="col-12 d-flex align-items-center">
-                    <h3 class="fw-bold pe-3 fontPoppins">Rs. 1999</h3>
-                    <h5 class="text-secondary text-decoration-line-through pe-1 fontPoppins">Rs. 3999</h5>
-                    <h6 class="discountPercent fontPoppins"> - 85% Off</h6>
+                    <h3 class="fw-bold pe-3 fontPoppins">Rs.     {{ $product->unit_price - ($product->unit_price * $product->discount) / 100 }}</h3>
+                    <h5 class="text-secondary text-decoration-line-through pe-1 fontPoppins">Rs. {{ $product->unit_price }}</h5>
+                    <h6 class="discountPercent fontPoppins"> - {{ $product->discount }}% Off</h6>
                 </div>
                 <div class="col-12">
                     <h6 class="text-secondary txtFontWeight fontPoppins">
@@ -513,6 +525,8 @@
 
             </div>
         </div>
+
+
     </div>
 
 </div>

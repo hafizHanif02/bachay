@@ -85,9 +85,9 @@ Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('main
     Route::get('contacts', 'PageController@contacts')->name('contacts');
     Route::get('about-us', 'PageController@about_us')->name('about-us');
 
-    Route::get('/product/{slug}', 'ProductDetailsController@product')->name('product');
+    // Route::get('/product/{slug}', 'ProductDetailsController@product')->name('product');
     // Route::get('products', 'ProductListController@products')->name('products');
-    
+
 
     Route::get('products-list', 'ProductListController@default_theme')->name('products-list');
     Route::get('product-detail/{product}', 'ProductDetailsController@product')->name('product.detail');
