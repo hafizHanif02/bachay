@@ -85,11 +85,10 @@
         <div class="promo-services mt-4">
             Color
         </div>
-        {{-- {{ dd($colors) }} --}}
         <div id="colorContainer">
             @foreach($colors as $index => $color)
                 <label class="col-12 f-spacing d-flex align-items-center color-item">
-                    <input type="checkbox" name="ColorFilter[{{ $loop->iteration }}][color]" value="{{ $color->code }}" class="me-2">
+                    <input type="checkbox" name="filter[{{ $loop->iteration }}][color]" value="{{ $color->code }}" class="me-2">
                     <div class="p-2 rounded-circle me-1" style="background-color: {{ $color->code }}"></div>
                     <span class="colors-name me-1">{{ $color->name }}</span>
                     <span class="Reviews"></span>

@@ -8,11 +8,11 @@
             <div class="product-container">
                 <div class="main-image">
 
-                    @foreach (json_decode($product->images) as $key => $photo)
+                    {{-- @foreach (json_decode($product->images) as $key => $photo) --}}
 
-                    <img id="main-image" class="detailed-product-img p-3" src="{{ asset("storage/app/public/product/$photo") }}"
+                    <img id="main-image" class="detailed-product-img p-3" src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}"
                         alt="Main Image">
-                    @endforeach
+                    {{-- @endforeach --}}
                 </div>
                 <div class="small-images">
                     {{-- @foreach (json_decode($product->color_images) as $key => $photo) --}}

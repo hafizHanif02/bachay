@@ -70,12 +70,12 @@ class ProductListController extends Controller
             
 
 
-            if (isset($request->filter) && isset($request->filterprice) && isset($request->ColorFilter)) {
+            if (isset($request->filter) && isset($request->filterprice) ) {
                 $brandIds = [];
                 $shippings = []; 
                 $colors = [];
-
-                foreach ($request->ColorFilter as $colorFilter) {
+                
+                foreach ($request->filter as $colorFilter) {
                     if (isset($colorFilter['color'])) {
                         if (is_array($colorFilter['color'])) {
                             $colors = array_merge($colors, $colorFilter['color']);
@@ -106,29 +106,79 @@ class ProductListController extends Controller
                 $max_price = intval(explode("-", $request->filterprice)[1]);
                 $min_price = intval(explode("-", $request->filterprice)[0]);
             
-                if (!empty($shippings)) {
+                if (!empty($shippings) && !empty($brandIds) && !empty($colors)) {
                     $porduct_data = Product::whereIn('brand_id', $brandIds)
                         ->whereIn('free_shipping', $shippings)
+                        ->whereJsonContains('colors', $colors) 
                         ->where('unit_price', '>=', $min_price)
                         ->where('unit_price', '<=', $max_price)
-                        ->with(['reviews', 'brand'])
-                        ->get();
+                        ->with(['reviews', 'brand']);
                 } 
-                elseif (!empty($shippings) || !empty($colors)) {
+                elseif (!empty($shippings) && !empty($brandIds) && empty($color)) {
                     $porduct_data = Product::whereIn('brand_id', $brandIds)
                         ->whereIn('free_shipping', $shippings)
-                        ->whereIn('color', $colors) // Assuming 'color' is the column name in the database
                         ->where('unit_price', '>=', $min_price)
                         ->where('unit_price', '<=', $max_price)
-                        ->with(['reviews', 'brand'])
-                        ->get();
+                        ->with(['reviews', 'brand']);
+                }
+                elseif (!empty($shippings) && empty($brandIds) && !empty($color)) {
+                    $porduct_data = Product::whereIn('free_shipping', $shippings)
+                        ->whereJsonContains('colors', $colors) 
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand']);
+                }elseif (!empty($shippings) && empty($brandIds) && empty($color)) {
+                    $porduct_data = Product::whereIn('free_shipping', $shippings)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand']);
+                }
+                elseif (empty($shippings) && !empty($brandIds) && !empty($color)) {
+                    $porduct_data = Product::whereIn('brand_id', $brandIds)
+                        ->whereJsonContains('colors', $colors)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand']);
+                }
+                elseif (!empty($shippings) && !empty($brandIds) && empty($color)) {
+                    $porduct_data = Product::whereIn('brand_id', $brandIds)
+                        ->whereIn('free_shipping', $shippings)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand']);
+                }
+                elseif (empty($shippings) && !empty($brandIds) && empty($color)) {
+                    $porduct_data = Product::whereIn('brand_id', $brandIds)
+                        ->whereIn('free_shipping', $shippings)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand']);
+                }
+                elseif (empty($shippings) && !empty($brandIds) && !empty($color)) {
+                    $porduct_data = Product::whereIn('brand_id', $brandIds)
+                        ->whereJsonContains('colors', $colors)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand']);
+                }
+                elseif (!empty($shippings) && empty($brandIds) && !empty($color)) {
+                    $porduct_data = Product::whereIn('colors', $colors)
+                        ->whereIn('free_shipping', $shippings)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand']);
+                }
+                elseif (empty($shippings) && empty($brandIds) && !empty($color)) {
+                    $porduct_data = Product::whereIn('colors', $colors)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand']);
                 }
                 else {
                     $porduct_data = Product::whereIn('brand_id', $brandIds)
                         ->where('unit_price', '>=', $min_price)
                         ->where('unit_price', '<=', $max_price)
-                        ->with(['reviews', 'brand'])
-                        ->get();
+                        ->with(['reviews', 'brand']);
                 }
             }
             elseif(isset($request->filter)){
@@ -318,7 +368,19 @@ class ProductListController extends Controller
             // }
             if (isset($request->filter) && isset($request->filterprice)) {
                 $brandIds = [];
-                $shippings = []; // Initialize the $shippings variable
+                $shippings = [];
+                $colors = [];
+                
+                foreach ($request->filter as $colorFilter) {
+                    if (isset($colorFilter['color'])) {
+                        if (is_array($colorFilter['color'])) {
+                            $colors = array_merge($colors, $colorFilter['color']);
+                        } else {
+                            $colors[] = $colorFilter['color'];
+                        }
+                    }
+                }
+
                 
                 foreach ($request->filter as $filter) {
                     if (isset($filter['brand_id'])) {
@@ -341,25 +403,81 @@ class ProductListController extends Controller
                 $max_price = intval(explode("-", $request->filterprice)[1]);
                 $min_price = intval(explode("-", $request->filterprice)[0]);
             
-                if (!empty($shippings) && !empty($brandIds) ) {
+                if (!empty($shippings) && !empty($brandIds) && !empty($colors)) {
+                    $products = Product::whereIn('brand_id', $brandIds)
+                        ->whereIn('free_shipping', $shippings)
+                        ->whereJsonContains('colors', $colors) 
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand'])->get();
+                } 
+                elseif (!empty($shippings) && !empty($brandIds) && empty($color)) {
                     $products = Product::whereIn('brand_id', $brandIds)
                         ->whereIn('free_shipping', $shippings)
                         ->where('unit_price', '>=', $min_price)
                         ->where('unit_price', '<=', $max_price)
-                        ->with(['reviews', 'brand'])
-                        ->get();
-                }elseif(!empty($shippings) && empty($brandIds) ){
+                        ->with(['reviews', 'brand'])->get();
+                }
+                elseif (!empty($shippings) && empty($brandIds) && !empty($color)) {
+                    $products = Product::whereIn('free_shipping', $shippings)
+                        ->whereJsonContains('colors', $colors) 
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand'])->get();
+                }elseif (!empty($shippings) && empty($brandIds) && empty($color)) {
                     $products = Product::whereIn('free_shipping', $shippings)
                         ->where('unit_price', '>=', $min_price)
                         ->where('unit_price', '<=', $max_price)
-                        ->with(['reviews', 'brand'])
-                        ->get();
-                }elseif(empty($shippings) && !empty($brandIds)){
+                        ->with(['reviews', 'brand'])->get();
+                }
+                elseif (empty($shippings) && !empty($brandIds) && !empty($color)) {
                     $products = Product::whereIn('brand_id', $brandIds)
-                    ->where('unit_price', '>=', $min_price)
-                    ->where('unit_price', '<=', $max_price)
-                    ->with(['reviews', 'brand'])
-                    ->get();
+                        ->whereJsonContains('colors', $colors)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand'])->get();
+                }
+                elseif (!empty($shippings) && !empty($brandIds) && empty($color)) {
+                    $products = Product::whereIn('brand_id', $brandIds)
+                        ->whereIn('free_shipping', $shippings)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand'])->get();
+                }
+                elseif (empty($shippings) && !empty($brandIds) && empty($color)) {
+                    $products = Product::whereIn('brand_id', $brandIds)
+                        ->whereIn('free_shipping', $shippings)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand'])->get();
+                }
+                elseif (empty($shippings) && !empty($brandIds) && !empty($color)) {
+                    $products = Product::whereIn('brand_id', $brandIds)
+                        ->whereJsonContains('colors', $colors)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand'])->get();
+                }
+                elseif (!empty($shippings) && empty($brandIds) && !empty($color)) {
+                    
+                    $products = Product::whereIn('colors', $colors)
+                        ->whereIn('free_shipping', $shippings)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand'])->get();
+                }
+                elseif (empty($shippings) && empty($brandIds) && !empty($colors)) {
+                    $products = Product::whereJsonContains('colors', $colors)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand'])->get();
+                }
+                
+                else {
+                    $products = Product::whereIn('brand_id', $brandIds)
+                        ->where('unit_price', '>=', $min_price)
+                        ->where('unit_price', '<=', $max_price)
+                        ->with(['reviews', 'brand'])->get();
                 }
                 
             
@@ -388,12 +506,14 @@ class ProductListController extends Controller
             else{
                 $products = Product::with(['reviews','brand'])->active()->orderBy('id')->get();
             }
+
+
             $brands = Brand::get();
             $colors = Color::get();
             $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
 
 
-            return view(VIEW_FILE_NAMES['products'], compact( 'data','products','home_categories','brands','pricefilter','colors'));
+            return view(VIEW_FILE_NAMES['products'], compact( 'data','products','home_categories','brands','pricefilter','colors','request'));
         }
     }
 
