@@ -89,10 +89,36 @@ class ProductDetailsController extends Controller
             $categoryId = $product->category_id;
             $categoryName = Category::find($categoryId)->name;
 
+            $choiceOptions = json_decode($product->choice_options, true);
+
+            $choiceOptions = json_decode($product->choice_options, true);
+
+            // Initialize size options
+            $sizeOptions = [];
+
+            $ageOptions = [];
+            if($choiceOptions != null) {
+                foreach($choiceOptions as $choice) {
+                    if ($choice['title'] === 'Age'){
+                        $ageOptions = $choice['options'];
+                    }
+            }
+            // Check if decoding was successful and get size options
+            if ($choiceOptions !== null) {
+                foreach ($choiceOptions as $choice) {
+                    if ($choice['title'] === 'Size') {
+                        $sizeOptions = $choice['options'];
+                    }
+                }
+            }
+
+
+            // dd($ageOptions);
             // return $categoryName;
             // return $product;
             // dd($relatedProducts);
-            return view(VIEW_FILE_NAMES['product-detail'], compact('home_categories','categoryId','categoryName','product', 'countWishlist', 'countOrder', 'relatedProducts',
+            // dd($product->choice_options);
+            return view(VIEW_FILE_NAMES['product-detail'], compact('ageOptions','sizeOptions','home_categories','categoryId','categoryName','product', 'countWishlist', 'countOrder', 'relatedProducts',
                 'deal_of_the_day', 'current_date', 'seller_vacation_start_date', 'seller_vacation_end_date', 'seller_temporary_close',
                 'inhouse_vacation_start_date', 'inhouse_vacation_end_date', 'inhouse_vacation_status', 'inhouse_temporary_close','overallRating',
                 'wishlist_status','reviews_of_product','rating','total_reviews','products_for_review','more_product_from_seller','decimal_point_settings'));
@@ -101,7 +127,7 @@ class ProductDetailsController extends Controller
         Toastr::error(translate('not_found'));
         return back();
     }
-
+    }
     public function theme_aster($slug){
         $product = Product::active()
             ->with([

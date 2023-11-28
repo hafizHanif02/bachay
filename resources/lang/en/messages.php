@@ -6703,4 +6703,6 @@
   'flash_Deal_Update' => 'Flash Deal Update',
   'upload_Image' => 'Upload Image',
   'this_page_is_for_A4_size_page_printer_so_it_will_not_be_visible_in_smaller_devices.' => 'This page is for A4 size page printer so it will not be visible in smaller devices.',
+  'attribute_added_successfully' => 'Attribute added successfully',
+  'Age' => 'Age',
 );

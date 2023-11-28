@@ -182,11 +182,15 @@
                 <div class="col-12 pt-2 d-flex align-items-center pb-4">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size</p>
 
+                    @foreach ($sizeOptions as $size )
+                    {{-- {{  }} --}}
                     <span class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
-                        onclick="selectSquare(1)">
-                        UK 11 <span class="squareTxt"> (18.3 CM)</span>
-                    </span>
-                    <span class="fontPoppins square square2 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2"
+                    onclick="selectSquare(1)">
+                    {{ $size }} <span class="squareTxt"> </span>
+                </span>
+                    @endforeach
+
+                    {{-- <span class="fontPoppins square square2 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2"
                         onclick="selectSquare(2)">
                         UK 11.5 <span class="squareTxt"> (18.9 CM)</span>
                     </span>
@@ -197,7 +201,7 @@
                     <span class="fontPoppins square square4 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2"
                         onclick="selectSquare(4)">
                         UK 13 <span class="squareTxt"> (20.2 CM)</span>
-                    </span>
+                    </span> --}}
                 </div>
 
                 <div class="col-12 pb-5 pt-2">
@@ -400,9 +404,13 @@
                     <div>
                         <p class=" fontPoppins">Age:</p>
                     </div>
+                    @foreach ($ageOptions as $age)
                     <div>
-                        <p class=" fontPoppins">2.5 - 3 Years</p>
+                        <p class=" fontPoppins">{{ $age }} Years</p>
                     </div>
+
+
+                    @endforeach
 
                 </div>
                 <div class="col-12 pb-4">
@@ -430,9 +438,14 @@
                                 Specification
                             </h6>
                             <p class="speciTxt fontPoppins mb-1">
-                                Brand - Babyoye
+                                @if (str_replace('-', ' ', $product->slug))
+                                    {{ str_replace('-', ' ', $product->slug) }}
+                                @else
+                                    Default Value or Action
+                                @endif
                             </p>
-                            <p class="speciTxt fontPoppins mb-1">
+
+                            {{-- <p class="speciTxt fontPoppins mb-1">
                                 Type - Sport Shoes
                             </p>
                             <p class="speciTxt fontPoppins mb-1">
@@ -443,7 +456,7 @@
                             </p>
                             <p class="speciTxt fontPoppins mb-1">
                                 Sole - TPR
-                            </p>
+                            </p> --}}
                         </div>
                         <div class="col-12 more-content">
                             {{-- <p class="">This is the hidden content.</p> --}}
