@@ -26,16 +26,16 @@
         @foreach ($products as $product)
             {{-- {{ $product->name }} --}}
             <div class="col-md-6 col-lg-3 mb-4 pb-3">
-                <a href="{{ route('product.detail', $product->id) }}">
+                <a target="_blank" href="{{ route('product.detail', $product->id) }}">
                 <div class="rounded-3">
                     <div class="card1">
                         <div class="first-sec card1">
                             <div class="image-container">
                                 <div class="imgMAin">
-                                    @foreach (json_decode($product->images) as $key => $photo)
-                                        <img src="{{ asset("storage/app/public/product/$photo") }}" alt=""
+                                    {{-- @foreach (json_decode($product->thumbnail) as $key => $photo) --}}
+                                        <img src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}" alt=""
                                             class="object-fit-cover" width="100%" height="100%">
-                                    @endforeach
+                                    {{-- @endforeach --}}
                                 </div>
 
                                 <div class="sec-best-seller mt-3">

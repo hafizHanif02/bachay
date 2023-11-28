@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-12 d-flex justify-content-between align-items-center">
             <h1 class="textClr m-0">Upcoming</h1>
-            <a class="d-flex align-items-center text-dark" href="{{ route('products') }}">
+            <a class="d-flex align-items-center text-dark" href="{{ route('products-list') }}">
                 <h5 class="m-0">See All</h5>
             </a>
         </div>
@@ -16,11 +16,11 @@
                             <div class="first-sec card1">
                                 <div class="image-container">
                                     <div class="imgCon">
-                                        @foreach (json_decode($prod->images) as $key => $photo)
+                                        {{-- @foreach (json_decode($prod->images) as $key => $photo) --}}
                                             <img class="object-fit-cover rounded-3"
-                                                src="{{ asset("storage/app/public/product/$photo") }}" alt=""
+                                                src="{{ asset("storage/app/public/product/thumbnail/$prod->thumbnail") }}" alt=""
                                                 class="img-fluid" width="100%" height="100%">
-                                        @endforeach
+                                        {{-- @endforeach --}}
                                     </div>
                                     <div class="sec-best-seller mt-3">
                                         <p>Best Seller</p>
