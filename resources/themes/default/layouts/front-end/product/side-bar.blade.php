@@ -15,15 +15,17 @@
         <a class="clear-all-btn" href="">Clear All</a>
     </div>
     <form action="{{ route('products-list') }}" method="GET" >
-        <div class="promo-services mt-3">
-            Categories
+        {{-- <div class="promo-services mt-3">
+            Tag
         </div>
+        @foreach($products as $product )
+        @foreach($product->tags as $tag)
         <label class="col-12 f-spacing">
-            <input type="checkbox" name="filter[1][category]" value="0" > Boys <span class="Reviews"></span>
+            <input type="checkbox" name="filter[{{ $loop->iteration }}][tag]" value="{{ $tag->tag }}" > {{ $tag->tag }} <span class="Reviews"></span>
         </label>
-        <label class="col-12 f-spacing">
-            <input type="checkbox" name="filter[2][category]" > Girls <span class="Reviews"></span>
-        </label>
+        @endforeach
+        @endforeach --}}
+      
 
         <div class="promo-services mt-3">
             Promotion & Services
@@ -105,8 +107,8 @@
                 </label>
             @endforeach
         </div>
-        <div class="text-primary" id="readMoreBtn">Read More <i class="bi bi-arrow-down"></i>
-        </div>
+        {{-- <div class="text-primary" id="readMoreBtn">Read More <i class="bi bi-arrow-down"></i>
+        </div> --}}
         {{-- <label class="col-12 f-spacing d-flex align-items-center">
             <input type="checkbox" name="myCheckbox" class="me-2">
             <div class="bg-info p-2 rounded-circle me-1"></div> <span class="colors-name me-1"> Blue</span>
@@ -185,25 +187,25 @@
         </button>
     `);
 }
-$(document).ready(function () {
-        var colorContainer = $('#colorContainer');
-        var readMoreBtn = $('#readMoreBtn');
-        var initialHeight = 100; // Set your initial height
+// $(document).ready(function () {
+//         var colorContainer = $('#colorContainer');
+//         var readMoreBtn = $('#readMoreBtn');
+//         var initialHeight = 100; // Set your initial height
 
-        readMoreBtn.click(function () {
-            if (colorContainer.height() === initialHeight) {
-                colorContainer.css('max-height', 'none');
-                readMoreBtn.html('Read Less <i class="bi bi-arrow-up"></i>');
-            } else {
-                colorContainer.css('max-height', initialHeight + 'px');
-                readMoreBtn.html('Read More <i class="bi bi-arrow-down"></i>');
-            }
-        });
-    });
+//         readMoreBtn.click(function () {
+//             if (colorContainer.height() === initialHeight) {
+//                 colorContainer.css('max-height', 'none');
+//                 readMoreBtn.html('Read Less <i class="bi bi-arrow-up"></i>');
+//             } else {
+//                 colorContainer.css('max-height', initialHeight + 'px');
+//                 readMoreBtn.html('Read More <i class="bi bi-arrow-down"></i>');
+//             }
+//         });
+//     });
 
 </script>
 
-<style>
+{{-- <style>
     #colorContainer {
     max-height: 100px; /* Set a fixed height for initial display */
     overflow: hidden;
@@ -214,5 +216,5 @@ $(document).ready(function () {
     cursor: pointer;
     color: blue;
 }
-</style>
+</style> --}}
 
