@@ -518,7 +518,7 @@ class ProductListController extends Controller
             }
             else{
                 $products = Product::where('id', 14)->with(['reviews','brand', 'tags'])->active()->orderBy('id')->get();
-                // return $products;
+                // return $products->tags;
             }
 
             $color = [
