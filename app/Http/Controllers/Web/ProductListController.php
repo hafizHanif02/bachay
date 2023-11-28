@@ -74,6 +74,7 @@ class ProductListController extends Controller
                 $brandIds = [];
                 $shippings = []; 
                 $colors = [];
+                $tag = [];
                 
                 foreach ($request->filter as $colorFilter) {
                     if (isset($colorFilter['color'])) {
@@ -84,6 +85,17 @@ class ProductListController extends Controller
                         }
                     }
                 }
+
+                foreach ($request->filter as $filter) {
+                    if (isset($filter['tag'])) {
+                        if (is_array($filter['tag'])) {
+                            $tag = array_merge($tag, $filter['tag']);
+                        } else {
+                            $tag[] = $filter['tag'];
+                        }
+                    }
+                }
+                
                 
                 foreach ($request->filter as $filter) {
                     if (isset($filter['brand_id'])) {
@@ -370,7 +382,22 @@ class ProductListController extends Controller
                 $brandIds = [];
                 $shippings = [];
                 $colors = [];
+                $tag = [];
+
+
+                foreach ($request->filter as $tagFilter) {
+                    if (isset($tagFilter['tag'])) {
+                        if (is_array($tagFilter['tag'])) {
+                            $tag = array_merge($tag, $tagFilter['tag']);
+                        } else {
+                            $tag[] = $tagFilter['tag'];
+                        }
+                    }
+                }
                 
+                // return $tag;
+
+
                 foreach ($request->filter as $colorFilter) {
                     if (isset($colorFilter['color'])) {
                         if (is_array($colorFilter['color'])) {
@@ -380,6 +407,10 @@ class ProductListController extends Controller
                         }
                     }
                 }
+
+                
+
+                
 
                 
                 foreach ($request->filter as $filter) {
@@ -403,13 +434,30 @@ class ProductListController extends Controller
                 $max_price = intval(explode("-", $request->filterprice)[1]);
                 $min_price = intval(explode("-", $request->filterprice)[0]);
             
-                if (!empty($shippings) && !empty($brandIds) && !empty($colors)) {
+                if (!empty($shippings) && !empty($brandIds) && !empty($colors) ) {
+                    //  && !empty($tag)
+                    // $products = Product::whereIn('brand_id', $brandIds)
+                    // ->whereIn('free_shipping', $shippings)
+                    // ->whereJsonContains('colors', $colors)
+                    // ->where('unit_price', '>=', $min_price)
+                    // ->where('unit_price', '<=', $max_price)
+                    // ->where(function ($query) use ($tag) {
+                    //     foreach ($tag as $tagValue) {
+                    //          $query->WhereIn('choice_options', [['title' => $tagValue]]);
+                    //     }
+                    // })
+                    // ->with(['reviews', 'brand'])
+                    // ->get();
+
                     $products = Product::whereIn('brand_id', $brandIds)
-                        ->whereIn('free_shipping', $shippings)
-                        ->whereJsonContains('colors', $colors) 
-                        ->where('unit_price', '>=', $min_price)
-                        ->where('unit_price', '<=', $max_price)
-                        ->with(['reviews', 'brand'])->get();
+                    ->whereIn('free_shipping', $shippings)
+                    ->whereJsonContains('colors', $colors)
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->with(['reviews', 'brand'])
+                    ->get();
+                    
+                    // dd($max_price, $min_price, $brandIds, $colors, $shippings, $products);
                 } 
                 elseif (!empty($shippings) && !empty($brandIds) && empty($color)) {
                     $products = Product::whereIn('brand_id', $brandIds)
@@ -504,12 +552,21 @@ class ProductListController extends Controller
                 ->with(['reviews', 'brand'])->get();
             }
             else{
-                $products = Product::with(['reviews','brand'])->active()->orderBy('id')->get();
+                $products = Product::with(['reviews','brand','tags'])->active()->orderBy('id')->get();
+
+                // dd($products);
             }
 
+            $color = [
+                'Red',
+                'Blue',
+                'Purple',
+                'White',
+                'Black',
+            ];
 
             $brands = Brand::get();
-            $colors = Color::get();
+            $colors = Color::whereIn('name',$color)->get();
             $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
 
 
