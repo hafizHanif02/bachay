@@ -74,6 +74,7 @@ class ProductListController extends Controller
                 $brandIds = [];
                 $shippings = []; 
                 $colors = [];
+                $category = [];
                 
                 foreach ($request->filter as $colorFilter) {
                     if (isset($colorFilter['color'])) {
@@ -84,6 +85,18 @@ class ProductListController extends Controller
                         }
                     }
                 }
+
+                foreach ($request->filter as $filter) {
+                    if (isset($filter['category'])) {
+                        if (is_array($filter['category'])) {
+                            $category = array_merge($category, $filter['category']);
+                        } else {
+                            $category[] = $filter['category'];
+                        }
+                    }
+                }
+
+                
                 
                 foreach ($request->filter as $filter) {
                     if (isset($filter['brand_id'])) {
@@ -210,7 +223,7 @@ class ProductListController extends Controller
 
             if ($request['data_from'] == 'category') {
                 $products = $porduct_data->get();
-                return $products;
+                // return $products;
                 $product_ids = [];
                 foreach ($products as $product) {
                     foreach (json_decode($product['category_ids'], true) as $category) {
@@ -504,12 +517,20 @@ class ProductListController extends Controller
                 ->with(['reviews', 'brand'])->get();
             }
             else{
-                $products = Product::with(['reviews','brand'])->active()->orderBy('id')->get();
+                $products = Product::where('id', 14)->with(['reviews','brand', 'tags'])->active()->orderBy('id')->get();
+                // return $products;
             }
 
+            $color = [
+                'Red',
+                'Blue',
+                'Purple',
+                'White',
+                'Black',
+            ];
 
             $brands = Brand::get();
-            $colors = Color::get();
+            $colors = Color::whereIn('name',$color)->get();
             $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
 
 

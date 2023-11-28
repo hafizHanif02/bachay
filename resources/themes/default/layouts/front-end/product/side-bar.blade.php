@@ -16,6 +16,16 @@
     </div>
     <form action="{{ route('products-list') }}" method="GET" >
         <div class="promo-services mt-3">
+            Categories
+        </div>
+        <label class="col-12 f-spacing">
+            <input type="checkbox" name="filter[1][category]" value="0" > Boys <span class="Reviews"></span>
+        </label>
+        <label class="col-12 f-spacing">
+            <input type="checkbox" name="filter[2][category]" > Girls <span class="Reviews"></span>
+        </label>
+
+        <div class="promo-services mt-3">
             Promotion & Services
         </div>
         <label class="col-12 f-spacing">
