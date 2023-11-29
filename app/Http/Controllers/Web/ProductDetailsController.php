@@ -46,6 +46,7 @@ class ProductDetailsController extends Controller
     public function default_theme($id){
         $product = Product::active()->with(['reviews','seller.shop'])->where('id', $id)->first();
         if ($product != null) {
+            // dd($product != null);
             $overallRating = ProductManager::get_overall_rating($product->reviews);
             $wishlist_status = Wishlist::where(['product_id'=>$product->id, 'customer_id'=>auth('customer')->id()])->count();
             $reviews_of_product = Review::where('product_id', $product->id)->latest()->paginate(2);
@@ -95,8 +96,9 @@ class ProductDetailsController extends Controller
 
             // Initialize size options
             $sizeOptions = [];
-
+            
             $ageOptions = [];
+            
             if($choiceOptions != null) {
                 foreach($choiceOptions as $choice) {
                     if ($choice['title'] === 'Age'){
@@ -111,8 +113,8 @@ class ProductDetailsController extends Controller
                     }
                 }
             }
-
-
+            
+        }
             // dd($ageOptions);
             // return $categoryName;
             // return $product;
@@ -122,10 +124,11 @@ class ProductDetailsController extends Controller
                 'deal_of_the_day', 'current_date', 'seller_vacation_start_date', 'seller_vacation_end_date', 'seller_temporary_close',
                 'inhouse_vacation_start_date', 'inhouse_vacation_end_date', 'inhouse_vacation_status', 'inhouse_temporary_close','overallRating',
                 'wishlist_status','reviews_of_product','rating','total_reviews','products_for_review','more_product_from_seller','decimal_point_settings'));
-        }
-
+        
+    }
+    elseif($product == null){
         Toastr::error(translate('not_found'));
-        return back();
+        return 'hello';
     }
     }
     public function theme_aster($slug){
