@@ -40,7 +40,7 @@
             <li><a class="{{ request()->routeIs('my-orders') ? 'active' : '' }}" href="{{ route('my-order') }}">Order
                     History</a></li>
             <li><a class="{{ request()->routeIs('manage-returns') ? 'active' : '' }}"
-                    href="#">Manage Returns</a></li>
+                    href="{{ route('manage-returns') }}">Manage Returns</a></li>
             <li><a class="{{ request()->routeIs('quick-reorder') ? 'active' : '' }}"
                     href="#">Quick Reorder</a></li>
             <li><a class="{{ request()->routeIs('track-order') ? 'active' : '' }}"

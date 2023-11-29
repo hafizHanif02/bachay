@@ -90,7 +90,7 @@ Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('main
 
 
     Route::get('products-list', 'ProductListController@default_theme')->name('products-list');
-    Route::get('product-detail/{product}', 'ProductDetailsController@product')->name('product.detail');
+    Route::get('product-detail/{product}', 'ProductDetailsController@product')->name('product-detail');
 
 
     Route::get('my-cart-address', 'CartController@cart_address')->name('my-cart-address');
@@ -100,6 +100,8 @@ Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('main
     
     Route::post('ajax-filter-products', 'ShopViewController@ajax_filter_products')->name('ajax-filter-products'); // Theme fashion, ALl purpose
     route::get('my-order', 'WebController@my_order')->name('my-order');
+    route::get('manage-returns', 'WebController@manage_returns')->name('manage-returns');
+
     Route::get('orderDetails', 'WebController@orderdetails')->name('orderdetails');
     Route::get('discounted-products', 'WebController@discounted_products')->name('discounted-products');
     Route::post('/products-view-style', 'WebController@product_view_style')->name('product_view_style');
