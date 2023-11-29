@@ -17,6 +17,7 @@ use Illuminate\Support\Arr;
 use Illuminate\Http\Request;
 use App\Model\ProductCompare;
 use function App\CPU\translate;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
@@ -96,9 +97,9 @@ class ProductDetailsController extends Controller
 
             // Initialize size options
             $sizeOptions = [];
-            
+
             $ageOptions = [];
-            
+
             if($choiceOptions != null) {
                 foreach($choiceOptions as $choice) {
                     if ($choice['title'] === 'Age'){
@@ -113,18 +114,31 @@ class ProductDetailsController extends Controller
                     }
                 }
             }
-            
+
         }
-            // dd($ageOptions);
+
+
+        $randomCategories = Category::inRandomOrder()->take(2)->pluck('id');
+
+
+    $randomProducts = Product::active()
+        ->whereIn('category_id', $randomCategories)
+        ->inRandomOrder()
+        ->get();
+
+    // dd($randomProducts);
+
+
+        // dd($ageOptions);
             // return $categoryName;
             // return $product;
             // dd($relatedProducts);
             // dd($product->choice_options);
-            return view(VIEW_FILE_NAMES['product-detail'], compact('ageOptions','sizeOptions','home_categories','categoryId','categoryName','product', 'countWishlist', 'countOrder', 'relatedProducts',
+            return view(VIEW_FILE_NAMES['product-detail'], compact('randomCategories','randomProducts','ageOptions','sizeOptions','home_categories','categoryId','categoryName','product', 'countWishlist', 'countOrder', 'relatedProducts',
                 'deal_of_the_day', 'current_date', 'seller_vacation_start_date', 'seller_vacation_end_date', 'seller_temporary_close',
                 'inhouse_vacation_start_date', 'inhouse_vacation_end_date', 'inhouse_vacation_status', 'inhouse_temporary_close','overallRating',
                 'wishlist_status','reviews_of_product','rating','total_reviews','products_for_review','more_product_from_seller','decimal_point_settings'));
-        
+
     }
     elseif($product == null){
         Toastr::error(translate('not_found'));
