@@ -50,6 +50,7 @@ class ProductListController extends Controller
     }
     public function products(Request $request)
     {
+        
         $theme_name = theme_root_path();
 
         return match ($theme_name){
@@ -61,7 +62,7 @@ class ProductListController extends Controller
     }
 
     public function default_theme(Request $request){
-        // dd($request);
+        // dd($request);   
         
         
         if(isset($request)){

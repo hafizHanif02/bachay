@@ -7,7 +7,7 @@
         <input type="text" class="input-field" placeholder="Enter Pin Code">
         <button class="input-button position-absolute">Check</button>
     </div>
-
+    {{-- {{ dd($request->filterprice) }} --}}
     <div class="filter-by d-flex justify-content-between align-items-center pt-2 pb-2 mt-3">
         <h5>
             Filter By
@@ -63,7 +63,8 @@
     @endphp
     @for($i = 1; $i <= $pricefilter; $i++)
         <label class="col-12 f-spacing">
-            <input type="radio" onchange="pricefilter({{ $i }})" id="price{{ $i }}" name="filterprice" value="{{ $startPrice+1 }}-{{  $startPrice + 300  }}"> 
+            <input type="radio" onchange="pricefilter({{ $i }})" {{ ($request->filterprice == ($startPrice + 1) . '-' . ($startPrice + 300) ) ? "checked" : "" }}
+            id="price{{ $i }}" name="filterprice" value="{{ $startPrice+1 }}-{{  $startPrice + 300  }}"> 
             Rs.{{ $startPrice + 1 }} to {{ $startPrice + 300 }}
             <span class="Reviews"></span>
         </label>
@@ -100,7 +101,7 @@
         <div id="colorContainer">
             @foreach($colors as $index => $color)
                 <label class="col-12 f-spacing d-flex align-items-center color-item">
-                    <input type="checkbox" name="filter[{{ $loop->iteration }}][color]" value="{{ $color->code }}" class="me-2">
+                    <input type="checkbox" name="filter[{{ $loop->iteration }}][color]" value="{{ $color->code }}" class="me-2" onchange="colorFilter({{ $loop->iteration }})">
                     <div class="p-2 rounded-circle me-1" style="background-color: {{ $color->code }}"></div>
                     <span class="colors-name me-1">{{ $color->name }}</span>
                     <span class="Reviews"></span>
@@ -154,39 +155,40 @@
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-    function filter(id) {
+function remove(id, prefix) {
+    $(`#${prefix}-tag${id}`).remove();
+    $(`#${prefix}_id${id}`).prop('checked', false);
+}
+
+function filter(id) {
     var brand = $('#brand_name'+id).val();
     var checkbox = $('#brand_id'+id);
 
     if (checkbox.prop('checked')) {
         $('#filters-btn').prepend(`
             <button class="boys rounded-3 btn-style" id="filter-tag${id}">
-                <i class="bi bi-x-lg" onclick='remove(${id})'>${brand}</i>
+                <i class="bi bi-x-lg" onclick='remove(${id}, "filter")'>${brand}</i>
             </button>
         `);
     } else {
-        $(`#filter-tag${id}`).remove();
-
-        checkbox.prop('checked', false);
+        remove(id, "filter");
     }
 }
-    
-    function remove(id){
-        $('#filter-tag'+id).hide();
-        $('#brand_id'+id).prop('checked', false);
-    }
 
-    function pricefilter(id) {
-    var price = $('#price'+id).val();
+function pricefilter(id) {
+    var price = $('#price' + id).val();
 
-    $('.boys.rounded-3.btn-style').remove();
+    // Remove existing price filter button
+    $('.boys.rounded-3.btn-style[id^="price-filter-tag"]').remove();
 
+    // Add the new price filter button
     $('#filters-btn').prepend(`
-        <button class="boys rounded-3 btn-style" id="filter-tag${id}">
-            <i class="bi bi-x-lg" onclick='remove(${id})'>${price}</i>
+        <button class="boys rounded-3 btn-style" id="price-filter-tag${id}">
+            <i class="bi bi-x-lg" onclick='remove(${id}, "price-filter")'>${price}</i>
         </button>
     `);
 }
+
 // $(document).ready(function () {
 //         var colorContainer = $('#colorContainer');
 //         var readMoreBtn = $('#readMoreBtn');
@@ -202,6 +204,23 @@
 //             }
 //         });
 //     });
+
+function colorFilter(index) {
+    var colorCode = $('#colorContainer input[name="filter[' + index + '][color]"]').val();
+    var checkbox = $('#colorContainer input[name="filter[' + index + '][color]"]');
+
+    if (checkbox.prop('checked')) {
+        $('#filters-btn').prepend(`
+            <button class="boys rounded-3 btn-style" id="color-filter-tag${index}">
+                <i class="bi bi-x-lg" onclick='remove(${index}, "color-filter")'>
+                    <div class="p-2 rounded-circle me-1" style="background-color: ${colorCode};"></div>
+                </i>
+            </button>
+        `);
+    } else {
+        remove(index, "color-filter");
+    }
+}
 
 </script>
 
