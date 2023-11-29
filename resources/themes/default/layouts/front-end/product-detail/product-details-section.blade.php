@@ -10,23 +10,31 @@
 
                     {{-- @foreach (json_decode($product->images) as $key => $photo) --}}
 
-                    <img id="main-image" class="detailed-product-img p-3" src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}"
-                        alt="Main Image">
+                    <img id="main-image" class="detailed-product-img p-3"
+                        src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}" alt="Main Image">
                     {{-- @endforeach --}}
                 </div>
+
                 <div class="small-images">
-                    {{-- @foreach (json_decode($product->color_images) as $key => $photo) --}}
-                    <img class="small-image " src="{{ asset('public/images/Frame 855 (2).png') }}" alt="Small Image 1">
-                    {{-- @endfor --}}
-                    <img class="small-image " src="{{ asset('public/images/Frame 134 (2).png') }}" alt="Small Image 2">
+                    @foreach (json_decode($product->images) as $key => $photo)
+                        <img class="small-image"
+                             src="{{ asset('storage/app/public/product/' . $photo) }}"
+                             alt="Small Image {{ $key + 1 }}">
+                    @endforeach
+                </div>
+
+                            {{-- <img class="small-image" src="{{ asset('storage/app/public/product/images' . $photo) }}"
+                                alt="Small Image 1"> --}}
+
+                            {{-- <img class="small-image " src="{{ asset('public/images/Frame 134 (2).png') }}" alt="Small Image 2">
                     <img class="small-image" src="{{ asset('public/images/Frame 135 (2).png') }}" alt="Small Image 3">
                     <img class="small-image " src="{{ asset('public/images/Frame 137 (2).png') }}" alt="Small Image 3">
                     <img class="small-image " src="{{ asset('public/images/Frame 855 (2).png') }}" alt="Small Image 3">
-                    <img class="small-image " src="{{ asset('public/images/Frame 856 (2).png') }}" alt="Small Image 3">
+                    <img class="small-image " src="{{ asset('public/images/Frame 856 (2).png') }}" alt="Small Image 3"> --}}
 
 
 
-                </div>
+
             </div>
             {{-- <img class="detailed-product-img" src="{{ asset('public/images/Frame 83.png') }}" alt=""> --}}
             <div class="d-flex  mt-1">
@@ -83,8 +91,10 @@
                     <div class="hl "></div>
                 </div>
                 <div class="col-12 d-flex align-items-center">
-                    <h3 class="fw-bold pe-3 fontPoppins">Rs.     {{ $product->unit_price - ($product->unit_price * $product->discount) / 100 }}</h3>
-                    <h5 class="text-secondary text-decoration-line-through pe-1 fontPoppins">Rs. {{ $product->unit_price }}</h5>
+                    <h3 class="fw-bold pe-3 fontPoppins">Rs.
+                        {{ $product->unit_price - ($product->unit_price * $product->discount) / 100 }}</h3>
+                    <h5 class="text-secondary text-decoration-line-through pe-1 fontPoppins">Rs.
+                        {{ $product->unit_price }}</h5>
                     <h6 class="discountPercent fontPoppins"> - {{ $product->discount }}% Off</h6>
                 </div>
                 <div class="col-12">
@@ -182,12 +192,12 @@
                 <div class="col-12 pt-2 d-flex align-items-center pb-4">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size</p>
 
-                    @foreach ($sizeOptions as $size )
-                    {{-- {{  }} --}}
-                    <span class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
-                    onclick="selectSquare(1)">
-                    {{ $size }} <span class="squareTxt"> </span>
-                </span>
+                    @foreach ($sizeOptions as $size)
+                        {{-- {{  }} --}}
+                        <span class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
+                            onclick="selectSquare(1)">
+                            {{ $size }} <span class="squareTxt"> </span>
+                        </span>
                     @endforeach
 
                     {{-- <span class="fontPoppins square square2 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2"
@@ -302,7 +312,8 @@
                 </div>
                 <div class="col-12 d-flex justify-content-between mt-2 pb-5">
                     <div class="text-center clubCash">
-                        <img class="mb-3 benefitsImg" src="{{ asset('public/images/Group 901.png') }}" alt="">
+                        <img class="mb-3 benefitsImg" src="{{ asset('public/images/Group 901.png') }}"
+                            alt="">
                         <p class="clubCashTxt mb-0 fontPoppins">Club Cash Benefits</p>
                         <h6 class="fw-bold clubCashTxt fontPoppins">Upto <span class="priceUpto">Rs.26</span></h6>
                     </div>
@@ -342,7 +353,8 @@
                 <div class="col-12 pt-3 pb-4">
                     <div class="row d-flex justify-content-between">
                         <div class="col-5 d-flex align-items-center justify-content-between">
-                            <img class="deliveryVan" src="{{ asset('public/images/deliveryVan.png') }}" alt="">
+                            <img class="deliveryVan" src="{{ asset('public/images/deliveryVan.png') }}"
+                                alt="">
                             <h6 class="fontPoppins fw-bold mb-0">
                                 Check Delivery Details
                             </h6>
@@ -405,11 +417,9 @@
                         <p class=" fontPoppins">Age:</p>
                     </div>
                     @foreach ($ageOptions as $age)
-                    <div>
-                        <p class=" fontPoppins">{{ $age }} Years</p>
-                    </div>
-
-
+                        <div>
+                            <p class=" fontPoppins">{{ $age }} Years</p>
+                        </div>
                     @endforeach
 
                 </div>
