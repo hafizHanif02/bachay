@@ -128,7 +128,7 @@ class ProductDetailsController extends Controller
     }
     elseif($product == null){
         Toastr::error(translate('not_found'));
-        return 'hello';
+        return back();
     }
     }
     public function theme_aster($slug){
