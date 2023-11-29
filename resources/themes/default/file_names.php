@@ -52,6 +52,8 @@ return [
     'add-payment'=>'web-views.add-payment',
     'my-shortlist'=>'web-views.my-shortlist',
     'product-detail'=>'web-views.product-detail',
+    'my-profile' => 'web-views.my-profile',
+    'my-order' => 'web-views.my-order',
 
 
 

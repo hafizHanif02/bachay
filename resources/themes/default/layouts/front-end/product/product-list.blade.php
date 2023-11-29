@@ -1,7 +1,7 @@
 <div class="col-9">
     <div class="collection pb-3 d-flex justify-content-between align-items-center">
         <h5>Shoes Collection</h5>
-        <li class="nav-item sorted-by rounded-2 p-2 ps-4 pe-4">
+        <li class="nav-item sorted-by rounded-pill p-2 ps-4 pe-4">
             <div class="dropdown">
                 <a class="dropbtn nav-link">Sorted By: New Arrivals <i class="bi bi-chevron-down"></i></a>
                 <div class="dropdown-content">
@@ -34,7 +34,7 @@
                                 <div class="imgMAin">
                                     {{-- @foreach (json_decode($product->thumbnail) as $key => $photo) --}}
                                         <img src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}" alt=""
-                                            class="object-fit-cover" width="100%" height="100%">
+                                            class="object-fit-cover rounded-2" width="100%" height="100%">
                                     {{-- @endforeach --}}
                                 </div>
 

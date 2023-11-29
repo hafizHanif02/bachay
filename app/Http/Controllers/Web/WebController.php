@@ -81,6 +81,17 @@ class WebController extends Controller
 
     }
 
+    public function my_order(){
+
+        $home_categories = Category::where('home_status', true)->priority()->get();
+                $home_categories->map(function ($data) {
+                    $id = '"' . $data['id'] . '"';
+                    $data['products'] = Product::active()
+                        ->where('category_ids', 'like', "%{$id}%")
+                        ->inRandomOrder()->take(12)->get();
+                });
+        return view(VIEW_FILE_NAMES['my-order'],compact('home_categories'));
+    }
     public function maintenance_mode()
     {
         $maintenance_mode = Helpers::get_business_settings('maintenance_mode') ?? 0;

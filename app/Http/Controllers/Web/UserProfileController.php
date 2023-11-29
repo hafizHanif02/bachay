@@ -2,42 +2,46 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\CPU\Convert;
 use App\CPU\CustomerManager;
 use App\CPU\Helpers;
 use App\CPU\ImageManager;
 use App\CPU\OrderManager;
 use App\Http\Controllers\Controller;
+use App\Model\Category;
+use App\Model\Coupon;
 use App\Model\DeliveryCountryCode;
 use App\Model\DeliveryMan;
 use App\Model\DeliveryZipCode;
 use App\Model\Order;
 use App\Model\OrderDetail;
 use App\Model\Product;
+use App\Model\ProductCompare;
+use App\Model\RefundRequest;
 use App\Model\Review;
 use App\Model\Seller;
 use App\Model\ShippingAddress;
 use App\Model\SupportTicket;
 use App\Model\Wishlist;
-use App\Model\RefundRequest;
 use App\Traits\CommonTrait;
 use App\User;
 use Barryvdh\DomPDF\Facade as PDF;
 use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
+use function App\CPU\translate;
+use function React\Promise\all;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Facades\Image;
-use function App\CPU\translate;
-use App\CPU\Convert;
-use App\Model\Coupon;
-use App\Model\ProductCompare;
-use Illuminate\Support\Facades\Validator;
 
-use function React\Promise\all;
+use Illuminate\Support\Facades\Validator;
+use Intervention\Image\Facades\Image;
 
 class UserProfileController extends Controller
 {
+
+    
+
     use CommonTrait;
 
     public function __construct(
@@ -50,8 +54,9 @@ class UserProfileController extends Controller
         private Wishlist $wishlist,
     )
     {
-
+        
     }
+
 
     public function user_profile(Request $request)
     {
@@ -65,6 +70,17 @@ class UserProfileController extends Controller
         $customer_detail = User::where('id', auth('customer')->id())->first();
 
         return view(VIEW_FILE_NAMES['user_profile'], compact('customer_detail', 'addresses', 'wishlists', 'total_order', 'total_loyalty_point', 'total_wallet_balance'));
+    }
+    public function my_profile()
+    {
+        $home_categories = Category::where('home_status', true)->priority()->get();
+                $home_categories->map(function ($data) {
+                    $id = '"' . $data['id'] . '"';
+                    $data['products'] = Product::active()
+                        ->where('category_ids', 'like', "%{$id}%")
+                        ->inRandomOrder()->take(12)->get();
+                });
+        return view(VIEW_FILE_NAMES['my-profile'],compact('home_categories'));
     }
 
     public function user_account(Request $request)

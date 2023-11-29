@@ -97,8 +97,9 @@ Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('main
     Route::get('my-cart-added', 'CartController@cart_added')->name('my-cart-added');
     Route::get('add-payment', 'CartController@add_payment')->name('add-payment');
     Route::get('my-shortlist', 'CartController@my_shortlist')->name('my-shortlist');
-
+    
     Route::post('ajax-filter-products', 'ShopViewController@ajax_filter_products')->name('ajax-filter-products'); // Theme fashion, ALl purpose
+    route::get('my-order', 'WebController@my_order')->name('my-order');
     Route::get('orderDetails', 'WebController@orderdetails')->name('orderdetails');
     Route::get('discounted-products', 'WebController@discounted_products')->name('discounted-products');
     Route::post('/products-view-style', 'WebController@product_view_style')->name('product_view_style');
@@ -124,6 +125,7 @@ Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('main
     Route::get('delete-compare-list', 'CompareController@delete_compare_list')->name('delete-compare-list');
 
     //profile Route
+    route::get('my-profile', 'UserProfileController@my_profile')->name('my-profile');
     Route::get('user-profile', 'UserProfileController@user_profile')->name('user-profile')->middleware('customer'); //theme_aster
     Route::get('user-account', 'UserProfileController@user_account')->name('user-account')->middleware('customer');
     Route::post('user-account-update', 'UserProfileController@user_update')->name('user-update');
