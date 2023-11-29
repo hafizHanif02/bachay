@@ -15,7 +15,7 @@
         <a class="clear-all-btn" href="">Clear All</a>
     </div>
     <form action="{{ route('products-list') }}" method="GET" >
-        {{-- <div class="promo-services mt-3">
+        <div class="promo-services mt-3">
             Tag
         </div>
         @foreach($products as $product )
@@ -24,7 +24,7 @@
             <input type="checkbox" name="filter[{{ $loop->iteration }}][tag]" value="{{ $tag->tag }}" > {{ $tag->tag }} <span class="Reviews"></span>
         </label>
         @endforeach
-        @endforeach --}}
+        @endforeach
       
 
         <div class="promo-services mt-3">
