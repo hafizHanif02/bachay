@@ -14,7 +14,7 @@
         </h5>
         <a class="clear-all-btn" href="">Clear All</a>
     </div>
-    <form action="{{ route('products-list') }}" method="GET" >
+    <form action="{{ route('product-list') }}" method="GET" >
         <div class="promo-services mt-3">
             Tag
         </div>
