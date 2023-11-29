@@ -54,6 +54,8 @@ return [
     'product-detail'=>'web-views.product-detail',
     'my-profile' => 'web-views.my-profile',
     'my-order' => 'web-views.my-order',
+    'manage-returns'=>'web-views.manage-returns',
+
 
 
 
