@@ -124,27 +124,25 @@
 
                     </div>
                 </div>
+                @if($colors->isNotEmpty())
+                {{-- {{ dd($colors) }} --}}
                 <div class="ProductColors col-12 d-flex align-items-center pb-4">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Colors</p>
                     @foreach($colors as $color)
                         <input type="radio" class="me-3" style="background-color: {{ $color->code }}"
                             id="btn{{ $loop->iteration }}" onchange="changepicture('{{ $color->code }}')" name="Btn">
                     @endforeach
-
-                    {{-- <input type="radio" class="me-3 bg-primary" id="btn2" name="Btn-2">
-                    <input type="radio" class="me-3 bg-success" id="btn3" name="Btn-3">
-                    <input type="radio" class="me-3 bg-warning" id="btn4" name="Btn-4">
-                    <input type="radio" class="me-3 bg-secondary" id="btn5" name="Btn-5"> --}}
                 </div>
+                @endif
                 <div class="col-12 d-flex align-items-center pb-2">
-                    <p class="text-dark simpleText fs-6 mb-0 pe-4 fontPoppins">Size Basics</p>
+                    {{-- <p class="text-dark simpleText fs-6 mb-0 pe-4 fontPoppins">Size Basics</p>
                     <select name="" id=""
                         class="SizeLocation btn btn-sm border-secondary font-poppins">
                         <option value="usa">USA</option>
                         <option value="uae">UAE</option>
                         <option value="pak">PAK</option>
                         <option value="aus">AUS</option>
-                    </select>
+                    </select> --}}
                     <div class="ms-3 d-flex align-items-center">
                         <button type="button" class="btn sizeBTN fontPoppins" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
@@ -171,13 +169,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 mb-3">
+                {{-- <div class="col-12 mb-3">
                     <p class="text-secondary toetoHeel  mb-0 fontPoppins">Toe to Heel Size (in CM): <span
                             class="sizeToeSpan ">19.5</span> | Age: <span class="sizeToeSpan">6 - 6.5 Y</span> | Size:
                         <span class="sizeToeSpan">EU 31</span> | Brand Size: <span class="sizeToeSpan">32</span>
                     </p>
 
-                </div>
+                </div> --}}
                 <div class="Sizesbtn col-12 pt-2 d-flex align-items-center mb-3">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size</p>
                     <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins" type="button"
@@ -534,6 +532,8 @@ function changepicture(code) {
     $('.active').removeClass('active');
     var imageSrc = $('#image-' + code).attr('data-url');
     console.log(code, imageSrc);
+
+
     $('#main-image').attr('src', imageSrc);
     $('#image-' + code).addClass('active');
 }

@@ -6704,4 +6704,7 @@
   'upload_Image' => 'Upload Image',
   'this_page_is_for_A4_size_page_printer_so_it_will_not_be_visible_in_smaller_devices.' => 'This page is for A4 size page printer so it will not be visible in smaller devices.',
   'enter_your_order_ID_&_phone_number_to_get_delivery_updates' => 'Enter your order ID & phone number to get delivery updates',
+  'girl' => 'Girl',
+  'boy' => 'Boy',
+  'attribute_added_successfully' => 'Attribute added successfully',
 );
