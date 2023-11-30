@@ -88,11 +88,11 @@
                     <div class="hl "></div>
                 </div>
                 <div class="col-12 d-flex align-items-center">
-                    <h3 class="fw-bold pe-3 fontPoppins">Rs.
+                    <h3 class="fw-bold pe-3 fontPoppins" id="discounted_price">Rs.
                         {{ $product->unit_price - ($product->unit_price * $product->discount) / 100 }}</h3>
-                    <h5 class="text-secondary text-decoration-line-through pe-1 fontPoppins">Rs.
+                    <h5 class="text-secondary text-decoration-line-through pe-1 fontPoppins" id="actual_price">Rs.
                         {{ $product->unit_price }}</h5>
-                    <h6 class="discountPercent fontPoppins"> - {{ $product->discount }}% Off</h6>
+                    <h6 class="discountPercent fontPoppins discount"> - {{ $product->discount }}% Off</h6>
                 </div>
                 <div class="col-12">
                     <h6 class="text-secondary txtFontWeight fontPoppins">
@@ -100,7 +100,7 @@
                     </h6>
                 </div>
 
-                <div class="col-8 pb-4 pt-3">
+                {{-- <div class="col-8 pb-4 pt-3">
                     <div class=" rounded-pill border border-2 border-secondary p-2 ">
 
                         <div class="row align-items-center">
@@ -123,7 +123,7 @@
 
 
                     </div>
-                </div>
+                </div> --}}
                 @if($colors->isNotEmpty())
                 {{-- {{ dd($colors) }} --}}
                 <div class="ProductColors col-12 d-flex align-items-center pb-4">
@@ -176,16 +176,26 @@
                     </p>
 
                 </div> --}}
+                {{-- {{ dd($product->variation) }} --}}
                 <div class="Sizesbtn col-12 pt-2 d-flex align-items-center mb-3">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size</p>
-                    <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins" type="button"
+                    @foreach(json_decode($product->variation) as $variant)
+                        @if($variant->qty > 0)
+                            <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins" type="button"
+                                value="{{ $variant->type }}" data-price="{{ $variant->price }}" onclick="InsertVariant('{{ $loop->iteration }}')" data-discount={{ $product->discount }} id="variant{{ $loop->iteration }}">
+                        @elseif($variant->qty <= 0)
+                        <input class="bg-danger text-white square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins" disabled title="Not Available" type="button"
+                                value="{{ $variant->type }}">
+                        @endif
+                    @endforeach
+                    {{-- <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins" type="button"
                         value="UK 11 (18.3 CM)">
                     <input class="fontPoppins square square2 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2" type="button"
                         value="UK 11.5 (18.9 CM)">
                     <input class="fontPoppins square square3 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2" type="button"
                         value="UK 12 (19.5 CM)">
                     <input class="fontPoppins square square4 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2" type="button"
-                        value="UK 13 (20.2 CM)">
+                        value="UK 13 (20.2 CM)"> --}}
                 </div>
                 <div class="col-12 pb-5 pt-2">
                     <p class="text-secondary toetoHeel fontPoppins mb-0">Size: <span class="sizeToeSpan">I = Infants,
@@ -441,6 +451,7 @@
                                 Sole - TPR
                             </p> --}}
                         </div>
+                        {{-- {{ dd($product) }} --}}
                         <div class="col-12 more-content">
                             {{-- <p class="">This is the hidden content.</p> --}}
                             <div class="row">
@@ -474,7 +485,7 @@
                                 </div>
                                 <div class="col-12">
                                     <p class="fontPoppins noteTerms">
-                                        <span class="fw-bold">Note :</span> Mix of Taxes and discount may change
+                                        <span class="fw-bold">Note :</span> Mix of 0  Taxes and discount may change
                                         depending the amount of tax being
                                         borne by the Company. However, the final price as charged from customer will
                                         remain same. Taxes collected against every transaction will be paid to the
@@ -536,5 +547,17 @@ function changepicture(code) {
 
     $('#main-image').attr('src', imageSrc);
     $('#image-' + code).addClass('active');
+}
+function InsertVariant(index) {
+
+    var discount = $('#variant' + index).data('discount');
+    var price = $('#variant' + index).data('price');
+    var discountPercentage = parseFloat(discount) / 100;
+    var actual_price = (parseFloat(price) - parseFloat((parseFloat(price) * discountPercentage).toFixed(2))).toFixed(2);
+    $('#discounted_price').html('Rs. ' + actual_price);
+    $('#actual_price').html('Rs. ' + price);
+    $('#discount').html('-' + discount);
+    
+
 }
 </script>
