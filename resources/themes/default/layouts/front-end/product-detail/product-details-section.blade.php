@@ -7,17 +7,15 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-12 d-flex flex-column fixedProduct">
             <div class="product-container">
                 <div class="main-image">
-
-                    {{-- @foreach (json_decode($product->images) as $key => $photo) --}}
-
                     <img id="main-image" class="detailed-product-img p-3"
                         src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}" alt="Main Image">
-                    {{-- @endforeach --}}
                 </div>
 
                 <div class="small-images">
-                    @foreach (json_decode($product->images) as $key => $photo)
-                        <img class="small-image" src="{{ asset('storage/app/public/product/' . $photo) }}"
+                    @foreach (json_decode($product->color_image) as $key => $photo)
+                        <img class="small-image" id="image-#{{ ($photo->color) ? $photo->color : '' }}"
+                            src="{{ asset('storage/app/public/product/' . $photo->image_name) }}"
+                            data-url='{{ asset('storage/app/public/product/' . $photo->image_name) }}'
                             alt="Small Image {{ $key + 1 }}">
                     @endforeach
                 </div>
@@ -128,11 +126,15 @@
                 </div>
                 <div class="ProductColors col-12 d-flex align-items-center pb-4">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Colors</p>
-                    <input type="radio" class="me-3 bg-danger" id="btn1" name="Btn-1">
-                    <input type="radio" class="me-3 bg-primary" id="btn2" name="Btn-2">
+                    @foreach($colors as $color)
+                        <input type="radio" class="me-3" style="background-color: {{ $color->code }}"
+                            id="btn{{ $loop->iteration }}" onchange="changepicture('{{ $color->code }}')" name="Btn">
+                    @endforeach
+
+                    {{-- <input type="radio" class="me-3 bg-primary" id="btn2" name="Btn-2">
                     <input type="radio" class="me-3 bg-success" id="btn3" name="Btn-3">
                     <input type="radio" class="me-3 bg-warning" id="btn4" name="Btn-4">
-                    <input type="radio" class="me-3 bg-secondary" id="btn5" name="Btn-5">
+                    <input type="radio" class="me-3 bg-secondary" id="btn5" name="Btn-5"> --}}
                 </div>
                 <div class="col-12 d-flex align-items-center pb-2">
                     <p class="text-dark simpleText fs-6 mb-0 pe-4 fontPoppins">Size Basics</p>
@@ -526,3 +528,13 @@
     </div>
 
 </div>
+
+<script>
+function changepicture(code) {
+    $('.active').removeClass('active');
+    var imageSrc = $('#image-' + code).attr('data-url');
+    console.log(code, imageSrc);
+    $('#main-image').attr('src', imageSrc);
+    $('#image-' + code).addClass('active');
+}
+</script>

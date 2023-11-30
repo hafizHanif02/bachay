@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Model\Tag;
 use App\CPU\Helpers;
+use App\Model\Color;
 use App\Model\Review;
 use App\Model\Seller;
 use App\Model\Product;
@@ -32,7 +33,6 @@ class ProductDetailsController extends Controller
     }
     public function product($id)
     {
-        // dd($id);
         $theme_name = theme_root_path();
 
         return match ($theme_name){
@@ -46,6 +46,7 @@ class ProductDetailsController extends Controller
 
     public function default_theme($id){
         $product = Product::active()->with(['reviews','seller.shop'])->where('id', $id)->first();
+        // dd($product->colors);
         if ($product != null) {
             // dd($product != null);
             $overallRating = ProductManager::get_overall_rating($product->reviews);
@@ -126,6 +127,9 @@ class ProductDetailsController extends Controller
         ->inRandomOrder()
         ->get();
 
+        $colorCodes = json_decode($product->colors);
+
+        $colors = Color::whereIn('code', $colorCodes)->get();
     // dd($randomProducts);
 
 
@@ -134,7 +138,7 @@ class ProductDetailsController extends Controller
             // return $product;
             // dd($relatedProducts);
             // dd($product->choice_options);
-            return view(VIEW_FILE_NAMES['product-detail'], compact('randomCategories','randomProducts','ageOptions','sizeOptions','home_categories','categoryId','categoryName','product', 'countWishlist', 'countOrder', 'relatedProducts',
+            return view(VIEW_FILE_NAMES['product-detail'], compact('colors','randomCategories','randomProducts','ageOptions','sizeOptions','home_categories','categoryId','categoryName','product', 'countWishlist', 'countOrder', 'relatedProducts',
                 'deal_of_the_day', 'current_date', 'seller_vacation_start_date', 'seller_vacation_end_date', 'seller_temporary_close',
                 'inhouse_vacation_start_date', 'inhouse_vacation_end_date', 'inhouse_vacation_status', 'inhouse_temporary_close','overallRating',
                 'wishlist_status','reviews_of_product','rating','total_reviews','products_for_review','more_product_from_seller','decimal_point_settings'));

@@ -7,7 +7,6 @@
         <input type="text" class="input-field" placeholder="Enter Pin Code">
         <button class="input-button position-absolute">Check</button>
     </div>
-    {{-- {{ dd($request->filterprice) }} --}}
     <div class="filter-by d-flex justify-content-between align-items-center pt-2 pb-2 mt-3">
         <h5>
             Filter By
