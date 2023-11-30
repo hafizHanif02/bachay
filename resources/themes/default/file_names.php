@@ -55,9 +55,14 @@ return [
     'my-profile' => 'web-views.my-profile',
     'my-order' => 'web-views.my-order',
     'manage-returns'=>'web-views.manage-returns',
-
-
-
+    'return-detail'=>'web-views.return-detail',
+    'quick-reorder'=>'web-views.quick-reorder',
+    'order-available'=>'web-views.order-available',
+    'track-orders'=>'web-views.track-orders',
+    'your-query'=>'web-views.your-query',
+    'cash-refund'=>'web-views.cash-refund',
+    'my-payment-detail-not-added'=>'web-views.my-payment-detail-not-added',
+    'my-payment-detail-added'=>'web-views.my-payment-detail-added',
 
     'products_mobile_nav_partials'=>'layouts.front-end.partials.cart',
     'products_view_page'=>'web-views.products.view',

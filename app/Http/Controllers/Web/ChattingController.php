@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\CPU\Helpers;
 use App\CPU\ImageManager;
 use App\Http\Controllers\Controller;
+use App\Model\Category;
 use App\Model\Chatting;
 use App\Model\DeliveryMan;
 use App\Model\Order;
@@ -14,9 +15,9 @@ use App\Model\Wishlist;
 use App\Models\User;
 use Auth;
 use Brian2694\Toastr\Facades\Toastr;
+use function App\CPU\translate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use function App\CPU\translate;
 use Illuminate\Support\Facades\Validator;
 
 class ChattingController extends Controller
@@ -30,6 +31,7 @@ class ChattingController extends Controller
     {
 
     }
+    
     public function chat_list(Request $request, $type)
     {
 

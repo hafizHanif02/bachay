@@ -101,6 +101,19 @@ Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('main
     Route::post('ajax-filter-products', 'ShopViewController@ajax_filter_products')->name('ajax-filter-products'); // Theme fashion, ALl purpose
     route::get('my-order', 'WebController@my_order')->name('my-order');
     route::get('manage-returns', 'WebController@manage_returns')->name('manage-returns');
+    route::get('return-detail', 'WebController@return_detail')->name('return-detail');
+    route::get('quick-reorder', 'WebController@quick_reorder')->name('quick-reorder');
+    route::get('order-available', 'WebController@order_available')->name('order-available');
+    route::get('track-orders', 'WebController@track_order')->name('track-orders');
+    route::get('your-query', 'WebController@your_query')->name('your-query');
+    route::get('cash-refund', 'WebController@cash_refund')->name('cash-refund');
+    route::get('my-payment-detail-not-added', 'WebController@payments_not_added')->name('my-payment-detail-not-added');
+    route::get('my-payment-detail-added', 'WebController@payments_added')->name('my-payment-detail-added');
+
+
+    
+
+
 
     Route::get('orderDetails', 'WebController@orderdetails')->name('orderdetails');
     Route::get('discounted-products', 'WebController@discounted_products')->name('discounted-products');
@@ -159,6 +172,7 @@ Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('main
     Route::get('chat/{type}', 'ChattingController@chat_list')->name('chat')->middleware('customer');
     Route::get('messages', 'ChattingController@messages')->name('messages');
     Route::post('messages-store', 'ChattingController@messages_store')->name('messages_store');
+   
     // chatting end
 
     //Support Ticket

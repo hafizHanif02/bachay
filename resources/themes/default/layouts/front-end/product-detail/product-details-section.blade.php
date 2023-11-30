@@ -17,16 +17,15 @@
 
                 <div class="small-images">
                     @foreach (json_decode($product->images) as $key => $photo)
-                        <img class="small-image"
-                             src="{{ asset('storage/app/public/product/' . $photo) }}"
-                             alt="Small Image {{ $key + 1 }}">
+                        <img class="small-image" src="{{ asset('storage/app/public/product/' . $photo) }}"
+                            alt="Small Image {{ $key + 1 }}">
                     @endforeach
                 </div>
 
-                            {{-- <img class="small-image" src="{{ asset('storage/app/public/product/images' . $photo) }}"
+                {{-- <img class="small-image" src="{{ asset('storage/app/public/product/images' . $photo) }}"
                                 alt="Small Image 1"> --}}
 
-                            {{-- <img class="small-image " src="{{ asset('public/images/Frame 134 (2).png') }}" alt="Small Image 2">
+                {{-- <img class="small-image " src="{{ asset('public/images/Frame 134 (2).png') }}" alt="Small Image 2">
                     <img class="small-image" src="{{ asset('public/images/Frame 135 (2).png') }}" alt="Small Image 3">
                     <img class="small-image " src="{{ asset('public/images/Frame 137 (2).png') }}" alt="Small Image 3">
                     <img class="small-image " src="{{ asset('public/images/Frame 855 (2).png') }}" alt="Small Image 3">
@@ -48,12 +47,12 @@
 
         <div class="col-lg-6 col-md-6 col-sm-12 col-12 ">
             <div class="row pt-3 pb-3">
-                <div class="col-12 d-flex align-items-center">
-                    <h6 class="pe-5 fontPoppins fw-bold boysClothes mb-0">{{ $categoryName }}
+                <div class="col-12 d-flex align-items-center gap-3">
+                    <h6 class="fontPoppins fw-bold boysClothes mb-0">{{ $categoryName }}
                         {{-- Boys - Clothes --}}
                     </h6>
-                    <div class="d-flex align-items-center me-3">
-                        <h6 class="share pe-3 fontPoppins fw-bold mb-0">Share</h6>
+                    <div class="d-flex align-items-center gap-1">
+                        <h6 class="share fontPoppins fw-bold mb-0">Share</h6>
 
                         <img class="ms-1 me-1 socialShareIcons" src="{{ asset('public/images/image 24.png') }}"
                             alt="">
@@ -66,7 +65,7 @@
 
                     <div class="vl"></div>
 
-                    <div class=" ms-3 follow d-flex align-items-end">
+                    <div class="follow d-flex align-items-end">
                         <p class="m-0 fw-normal fontPoppins followUs">Follow Us </p>
                         <a href="#" class="pe-2 ps-2"><img class="socialShareIcons"
                                 src="{{ asset('public/images/image 26.png') }}" alt=""></a>
@@ -106,7 +105,7 @@
                 <div class="col-8 pb-4 pt-3">
                     <div class=" rounded-pill border border-2 border-secondary p-2 ">
 
-                        <div class="row">
+                        <div class="row align-items-center">
                             <div class="col-2">
                                 <img class="joinImg" src="{{ asset('public/images/join.png') }}" alt="">
                             </div>
@@ -118,7 +117,7 @@
                                         1000.23</span></p>
                             </div>
                             <div class="col-4">
-                                <button class="buy-now rounded-pill text-white w-100 p-3 me-4 fontPoppins joinBTN">Join
+                                <button class="buy-now rounded-pill text-white w-100 p-3 fontPoppins joinBTN">Join
                                     Now</button>
 
                             </div>
@@ -127,37 +126,28 @@
 
                     </div>
                 </div>
-                <div class="col-12 d-flex align-items-center pb-4">
+                <div class="ProductColors col-12 d-flex align-items-center pb-4">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Colors</p>
-                    <span class="dot dot1 ms-1 me-1" onclick="selectDot(1)"></span>
-                    <span class="dot dot2 ms-1 me-1" onclick="selectDot(2)"></span>
-                    <span class="dot dot3 ms-1 me-1" onclick="selectDot(3)"></span>
-                    <span class="dot dot4 ms-1 me-1" onclick="selectDot(4)"></span>
-                    <span class="dot dot5 ms-1 me-1" onclick="selectDot(5)"></span>
+                    <input type="radio" class="me-3 bg-danger" id="btn1" name="Btn-1">
+                    <input type="radio" class="me-3 bg-primary" id="btn2" name="Btn-2">
+                    <input type="radio" class="me-3 bg-success" id="btn3" name="Btn-3">
+                    <input type="radio" class="me-3 bg-warning" id="btn4" name="Btn-4">
+                    <input type="radio" class="me-3 bg-secondary" id="btn5" name="Btn-5">
                 </div>
                 <div class="col-12 d-flex align-items-center pb-2">
                     <p class="text-dark simpleText fs-6 mb-0 pe-4 fontPoppins">Size Basics</p>
-
-
-                    <div class="dropdown">
-                        <button class="btn border border-secondary btn-sm dropdown-toggle" type="button"
-                            id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                            UK &nbsp; &nbsp; &nbsp; &nbsp;
-                        </button>
-                        <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                            <li><a class="dropdown-item fontPoppins" href="#">USA</a></li>
-                            <li><a class="dropdown-item fontPoppins" href="#">UAE</a></li>
-                            <li><a class="dropdown-item fontPoppins" href="#">PAK</a></li>
-                        </ul>
-                    </div>
-
+                    <select name="" id=""
+                        class="SizeLocation btn btn-sm border-secondary font-poppins">
+                        <option value="usa">USA</option>
+                        <option value="uae">UAE</option>
+                        <option value="pak">PAK</option>
+                        <option value="aus">AUS</option>
+                    </select>
                     <div class="ms-3 d-flex align-items-center">
-
                         <button type="button" class="btn sizeBTN fontPoppins" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
-                            <img class="me-2 sizeChartImg" src="{{ asset('public/images/size chart.png') }}"
-                                alt="">
-
+                            <img class="sizeChartImg" src="{{ asset('public/images/size chart.png') }}"
+                                alt="Size Chart">
                             Size Chart
                         </button>
 
@@ -172,48 +162,31 @@
                                     </div>
                                     <div class="modal-body p-0">
                                         <img class="w-100" src="{{ asset('public/images/sizeChatImage.png') }}"
-                                            alt="">
+                                            alt="Size Chart Image">
                                     </div>
-
                                 </div>
                             </div>
                         </div>
                     </div>
-
                 </div>
-                <div class="col-12 pb-4">
+                <div class="col-12 mb-3">
                     <p class="text-secondary toetoHeel  mb-0 fontPoppins">Toe to Heel Size (in CM): <span
                             class="sizeToeSpan ">19.5</span> | Age: <span class="sizeToeSpan">6 - 6.5 Y</span> | Size:
                         <span class="sizeToeSpan">EU 31</span> | Brand Size: <span class="sizeToeSpan">32</span>
                     </p>
 
                 </div>
-
-                <div class="col-12 pt-2 d-flex align-items-center pb-4">
+                <div class="Sizesbtn col-12 pt-2 d-flex align-items-center mb-3">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size</p>
-
-                    @foreach ($sizeOptions as $size)
-                        {{-- {{  }} --}}
-                        <span class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
-                            onclick="selectSquare(1)">
-                            {{ $size }} <span class="squareTxt"> </span>
-                        </span>
-                    @endforeach
-
-                    {{-- <span class="fontPoppins square square2 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2"
-                        onclick="selectSquare(2)">
-                        UK 11.5 <span class="squareTxt"> (18.9 CM)</span>
-                    </span>
-                    <span class="fontPoppins square square3 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2"
-                        onclick="selectSquare(3)">
-                        UK 12 <span class="squareTxt"> (19.5 CM)</span>
-                    </span>
-                    <span class="fontPoppins square square4 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2"
-                        onclick="selectSquare(4)">
-                        UK 13 <span class="squareTxt"> (20.2 CM)</span>
-                    </span> --}}
+                    <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins" type="button"
+                        value="UK 11 (18.3 CM)">
+                    <input class="fontPoppins square square2 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2" type="button"
+                        value="UK 11.5 (18.9 CM)">
+                    <input class="fontPoppins square square3 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2" type="button"
+                        value="UK 12 (19.5 CM)">
+                    <input class="fontPoppins square square4 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2" type="button"
+                        value="UK 13 (20.2 CM)">
                 </div>
-
                 <div class="col-12 pb-5 pt-2">
                     <p class="text-secondary toetoHeel fontPoppins mb-0">Size: <span class="sizeToeSpan">I = Infants,
                             K =
@@ -229,10 +202,10 @@
                     </h5>
                 </div>
 
-                <div class="col-12 pb-5">
+                <div class="col-12 mb-5">
                     <div class="row">
                         <div class="col-6 ">
-                            <div class="offer p-4 rounded-4">
+                            <div class="offer pt-4 pb-4 ps-3 pe-3 rounded-4">
                                 <div class="row align-items-start">
                                     <div class="col-2">
                                         <img class="offerIMG" src="{{ asset('public/images/join.png') }}"
@@ -249,7 +222,7 @@
                                         <div class="dottedhl"></div>
                                     </div>
 
-                                    <div class="col-12 pt-2 d-flex align-items-center justify-content-start">
+                                    <div class="col-12 pt-2 d-flex align-items-center justify-content-start gap-2">
 
                                         <a class=" fontPoppins pt-2 pb-2 codde btn d-flex justify-content-around   "><span
                                                 class="text-start codeTxt text-white fontPoppins">FG5DST</span> <span
@@ -257,7 +230,7 @@
                                                     src="{{ asset('public/images/copy.png') }}" alt="">
                                                 Copy</span></a>
 
-                                        <a class=" fontPoppins btn shareBtn ms-2 pt-1 pb-1" href="#"><span
+                                        <a class=" fontPoppins btn shareBtn pt-1 pb-1" href="#"><span
                                                 class="copyCode text-end"><img class="copyIMG"
                                                     src="{{ asset('public/images/shareImg.png') }}" alt="">
                                                 Share</span></a>
@@ -266,7 +239,7 @@
                             </div>
                         </div>
                         <div class="col-6 ">
-                            <div class="offer2 p-4 rounded-4">
+                            <div class="offer pt-4 pb-4 ps-3 pe-3 rounded-4">
                                 <div class="row align-items-start">
                                     <div class="col-2">
                                         <img class="offerIMG" src="{{ asset('public/images/join.png') }}"
@@ -283,7 +256,7 @@
                                         <div class="dottedhl"></div>
                                     </div>
 
-                                    <div class="col-12 pt-2 d-flex align-items-center justify-content-start">
+                                    <div class="col-12 pt-2 d-flex align-items-center justify-content-start gap-2">
 
                                         <a class="fontPoppins pt-2 pb-2 codde btn d-flex justify-content-around   "><span
                                                 class="text-start codeTxt text-white">FG5DST</span> <span
@@ -291,7 +264,7 @@
                                                     src="{{ asset('public/images/copy.png') }}" alt="">
                                                 Copy</span></a>
 
-                                        <a class="fontPoppins btn shareBtn ms-2 pt-1 pb-1" href="#"><span
+                                        <a class="fontPoppins btn shareBtn pt-1 pb-1" href="#"><span
                                                 class="copyCode text-end"><img class="copyIMG"
                                                     src="{{ asset('public/images/shareImg.png') }}" alt="">
                                                 Share</span></a>
@@ -310,7 +283,7 @@
                         Bachay Club Benefits
                     </h5>
                 </div>
-                <div class="col-12 d-flex justify-content-between mt-2 pb-5">
+                <div class="col-12 d-flex justify-content-between mt-2 mb-5 gap-2">
                     <div class="text-center clubCash">
                         <img class="mb-3 benefitsImg" src="{{ asset('public/images/Group 901.png') }}"
                             alt="">

@@ -104,6 +104,90 @@ class WebController extends Controller
                 });
         return view(VIEW_FILE_NAMES['manage-returns'],compact('home_categories'));
     }
+    public function return_detail(){
+
+        $home_categories = Category::where('home_status', true)->priority()->get();
+                $home_categories->map(function ($data) {
+                    $id = '"' . $data['id'] . '"';
+                    $data['products'] = Product::active()
+                        ->where('category_ids', 'like', "%{$id}%")
+                        ->inRandomOrder()->take(12)->get();
+                });
+        return view(VIEW_FILE_NAMES['return-detail'],compact('home_categories'));
+    }
+    public function quick_reorder(){
+
+        $home_categories = Category::where('home_status', true)->priority()->get();
+                $home_categories->map(function ($data) {
+                    $id = '"' . $data['id'] . '"';
+                    $data['products'] = Product::active()
+                        ->where('category_ids', 'like', "%{$id}%")
+                        ->inRandomOrder()->take(12)->get();
+                });
+        return view(VIEW_FILE_NAMES['quick-reorder'],compact('home_categories'));
+    }
+    public function order_available(){
+
+        $home_categories = Category::where('home_status', true)->priority()->get();
+                $home_categories->map(function ($data) {
+                    $id = '"' . $data['id'] . '"';
+                    $data['products'] = Product::active()
+                        ->where('category_ids', 'like', "%{$id}%")
+                        ->inRandomOrder()->take(12)->get();
+                });
+        return view(VIEW_FILE_NAMES['order-available'],compact('home_categories'));
+    }
+    public function track_order(){
+
+        $home_categories = Category::where('home_status', true)->priority()->get();
+                $home_categories->map(function ($data) {
+                    $id = '"' . $data['id'] . '"';
+                    $data['products'] = Product::active()
+                        ->where('category_ids', 'like', "%{$id}%")
+                        ->inRandomOrder()->take(12)->get();
+                });
+        return view(VIEW_FILE_NAMES['track-orders'],compact('home_categories'));
+    }
+    public function your_query(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['your-query'],(compact('home_categories')));
+    }
+    public function cash_refund(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['cash-refund'],(compact('home_categories')));
+    }
+    public function payments_not_added(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['my-payment-detail-not-added'],(compact('home_categories')));
+    }
+    public function payments_added(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['my-payment-detail-added'],(compact('home_categories')));
+    }
     public function maintenance_mode()
     {
         $maintenance_mode = Helpers::get_business_settings('maintenance_mode') ?? 0;

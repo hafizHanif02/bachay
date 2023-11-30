@@ -1062,7 +1062,7 @@ input[type="radio"]:checked {
     background-color: #8456b6;
 }
 .ProductColors input[type="radio"]:focus {
-    border: 2px solid #282d32;
+    border: 3px solid #000;
 }
 .Sizesbtn input[type="button"]:focus {
     border: 1px solid #282d32;
@@ -1469,7 +1469,7 @@ input:checked + .se:before {
     font-size: 12px;
 }
 .priceClub {
-    font-size: 16px;
+    font-size: 15px;
 }
 .joinBTN {
     font-size: 14px;
@@ -1981,7 +1981,7 @@ input:checked + .se:before {
 .copyCode {
     color: #845dc2;
     font-weight: 500;
-    font-size: 11px;
+    font-size: 10px;
 }
 .copyIMG {
     width: 14px;
@@ -2042,9 +2042,9 @@ input:checked + .se:before {
 #read-less {
     display: none;
 }
-.clubCash {
+/* .clubCash {
     width: 180px;
-}
+} */
 .check-btn {
     position: absolute;
     display: flex;

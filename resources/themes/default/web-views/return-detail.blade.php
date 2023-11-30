@@ -22,12 +22,9 @@
     @includeIf('layouts.front-end.home.' . $layout->section_name)
 @endforeach --}}
 
-@include('layouts.front-end.product-detail.product-details-section')
-@include('layouts.front-end.product-detail.slider-1')
-{{-- @include('layouts.front-end.product-detail.after-slider-section') --}}
-{{-- @include('layouts.front-end.product-detail.last-slider') --}}
-
-
+@include('layouts.front-end.return-detail.first-section')
+@include('layouts.front-end.return-detail.payment-info')
+@include('layouts.front-end.return-detail.slider')
 
 
 
