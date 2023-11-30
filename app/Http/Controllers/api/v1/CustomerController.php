@@ -423,7 +423,7 @@ class CustomerController extends Controller
     public function get_order_by_id(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'order_id' => 'required',
+            'order_id' => ['required','exists:orders,id'],
         ]);
 
         if ($validator->fails()) {

@@ -174,7 +174,7 @@ class ProductController extends Controller
             $product = Helpers::product_data_formatting($product, false);
 
             if(isset($product->reviews) && !empty($product->reviews)){
-                $overallRating = \App\CPU\ProductManager::get_overall_rating($product->reviews);
+                $overallRating = ProductManager::get_overall_rating($product->reviews);
                 $product['average_review'] = $overallRating[0];
             }else{
                 $product['average_review'] = 0;
@@ -238,8 +238,8 @@ class ProductController extends Controller
     public function get_product_rating($id)
     {
         try {
-            $product = Product::find($id);
-            $overallRating = \App\CPU\ProductManager::get_overall_rating($product->reviews);
+            $product = Product::findOrFail($id);
+            $overallRating = ProductManager::get_overall_rating($product->reviews);
             return response()->json(floatval($overallRating[0]), 200);
         } catch (\Exception $e) {
             return response()->json(['errors' => $e], 403);
@@ -259,9 +259,9 @@ class ProductController extends Controller
 
     public function social_share_link($product_slug)
     {
-        $product = Product::where('slug', $product_slug)->first();
-        $link = route('product', $product->slug);
         try {
+            $product = Product::where('slug', $product_slug)->firstOrFail();
+            $link = route('product', $product->slug);
 
             return response()->json($link, 200);
         } catch (\Exception $e) {

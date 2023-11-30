@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\api\v1;
 
-use App\Http\Controllers\Controller;
-use App\Model\Notification;
-use App\Model\NotificationSeen;
+use App\CPU\Helpers;
 use Carbon\Carbon;
+use App\Model\Notification;
 use Illuminate\Http\Request;
+use App\Model\NotificationSeen;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class NotificationController extends Controller
 {
@@ -29,6 +31,14 @@ class NotificationController extends Controller
 
     public function notification_seen(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'id' => ['required','exists:notifications,id'],
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['errors' => Helpers::error_processor($validator)], 403);
+        }
+
         $user = $request->user();
         NotificationSeen::updateOrInsert(['user_id' => $user->id, 'notification_id' => $request->id],[
             'created_at' => Carbon::now(),
