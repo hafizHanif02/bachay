@@ -188,6 +188,137 @@ class WebController extends Controller
         });
         return view(VIEW_FILE_NAMES['my-payment-detail-added'],(compact('home_categories')));
     }
+    public function save_cards(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['save-cards'],(compact('home_categories')));
+    }
+    public function cash_coupons(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['cash-coupons'],(compact('home_categories')));
+    }
+    public function cash_back_codes(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['cash-back-codes'],(compact('home_categories')));
+    }
+    public function no_refund(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['my-refund-no-refund'],(compact('home_categories')));
+    }
+    public function my_refund(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['my-refund'],(compact('home_categories')));
+    }
+    public function bpl_vouchers(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['my-bpl-vouchers'],(compact('home_categories')));
+    }
+    public function guaranteed_savings(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['guaranteed-savings'],(compact('home_categories')));
+    }
+    public function guaranteed_savings_offer(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['guaranteed-savings-offer'],(compact('home_categories')));
+    }
+    public function guaranteed_savings_offer_brand(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['guaranteed-savings-offer-brand'],(compact('home_categories')));
+    }
+    public function intelli_education(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['intelli-education'],(compact('home_categories')));
+    }
+    public function gift_certification(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['gift-certification'],(compact('home_categories')));
+    }
+    public function invites_credits(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['invites-credits'],(compact('home_categories')));
+    }
+    public function my_reviews_upload(){
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['my-reviews-upload'],(compact('home_categories')));
+    }
+    
     public function maintenance_mode()
     {
         $maintenance_mode = Helpers::get_business_settings('maintenance_mode') ?? 0;

@@ -63,6 +63,27 @@ return [
     'cash-refund'=>'web-views.cash-refund',
     'my-payment-detail-not-added'=>'web-views.my-payment-detail-not-added',
     'my-payment-detail-added'=>'web-views.my-payment-detail-added',
+    'save-cards'=>'web-views.save-cards',
+    'cash-coupons'=>'web-views.cash-coupons',
+    'cash-back-codes'=>'web-views.cash-back-codes',
+    'my-refund-no-refund'=>'web-views.my-refund-no-refund',
+    'my-refund'=>'web-views.my-refund',
+    'my-bpl-vouchers'=>'web-views.my-bpl-vouchers',
+    'guaranteed-savings'=>'web-views.guaranteed-savings',
+    'guaranteed-savings-offer'=>'web-views.guaranteed-savings-offer',   
+    'guaranteed-savings-offer-brand'=>'web-views.guaranteed-savings-offer-brand',
+    'intelli-education'=>'web-views.intelli-education',
+    'gift-certification'=>'web-views.gift-certification',
+    'invites-credits'=>'web-views.invites-credits',
+    'my-reviews-upload'=>'web-views.my-reviews-upload',
+
+
+
+    
+
+
+
+
 
     'products_mobile_nav_partials'=>'layouts.front-end.partials.cart',
     'products_view_page'=>'web-views.products.view',

@@ -1,7 +1,7 @@
 <div class="SavingsOffer mt-5">
     <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center gap-3">
-            <img src="{{ asset('web/images/brand4.png') }}" alt="">
+            <img src="{{ asset('public /images/brand4.png') }}" alt="">
             <h3 class="fw-bold font-poppins m-0">Guaranteed Savings Offer</h3>
         </div>
         <a class="fw-bold font-poppins" href="">

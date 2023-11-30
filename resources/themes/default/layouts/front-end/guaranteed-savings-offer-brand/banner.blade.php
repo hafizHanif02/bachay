@@ -1,8 +1,8 @@
 <div class="slider-container pt-3">
     <div class="slider">
-        <div><img class="rounded-5 img-fluid imgBanner"  src="{{ asset('web/images/brand-banner.png') }}" alt="Image 1"></div>
-        <div><img class="rounded-5 img-fluid imgBanner"  src="{{ asset('web/images/brand-banner.png') }}" alt="Image 2"></div>
-        <div><img class="rounded-5 img-fluid imgBanner"  src="{{ asset('web/images/brand-banner.png') }}" alt="Image 3"></div>
+        <div><img class="rounded-5 img-fluid imgBanner"  src="{{ asset('public /images/brand-banner.png') }}" alt="Image 1"></div>
+        <div><img class="rounded-5 img-fluid imgBanner"  src="{{ asset('public /images/brand-banner.png') }}" alt="Image 2"></div>
+        <div><img class="rounded-5 img-fluid imgBanner"  src="{{ asset('public /images/brand-banner.png') }}" alt="Image 3"></div>
     </div>
 </div>
 {{-- <div class="slider-container pt-3">

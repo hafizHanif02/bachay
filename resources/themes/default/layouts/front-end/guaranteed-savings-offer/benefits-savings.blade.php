@@ -38,21 +38,21 @@
     </h2>
     <div class="row  savings-card mt-4 bottom-borderBlack pb-4">
         <div class="col-md-6 col-lg-3 d-flex align-items-center pe-0">
-            <img class="me-2" src="{{ asset('web/images/3.png') }}" alt="" width="60px" height="60px">
+            <img class="me-2" src="{{ asset('public /images/3.png') }}" alt="" width="60px" height="60px">
             <p class="exchange font-poppins m-0">Select and Purchase Your Guaranteed Saving Offers</p>
         </div>
         <div class="col-md-6 col-lg-3 d-flex align-items-center pe-0">
-            <img class="me-2" src="{{ asset('web/images/2.png') }}" alt="" width="60px" height="60px">
+            <img class="me-2" src="{{ asset('public /images/2.png') }}" alt="" width="60px" height="60px">
             <p class="exchange font-poppins m-0">You will receive a Guaranteed Savings code with assured discount and
                 offer balance.</p>
         </div>
         <div class="col-md-6 col-lg-3 d-flex align-items-center pe-0">
-            <img class="me-2" src="{{ asset('web/images/3.png') }}" alt="" width="60px" height="60px">
+            <img class="me-2" src="{{ asset('public /images/3.png') }}" alt="" width="60px" height="60px">
             <p class="exchange font-poppins m-0">Go to Bachaycom and add your favorite products to your Cart and click
                 on Place Order.</p>
         </div>
         <div class="col-md-6 col-lg-3 d-flex align-items-center pe-0">
-            <img class="me-2" src="{{ asset('web/images/4.png') }}" alt="" width="60px" height="60px">
+            <img class="me-2" src="{{ asset('public /images/4.png') }}" alt="" width="60px" height="60px">
             <p class="exchange font-poppins m-0">On the Order Page of checkout process, enter the Guaranteed Savings
                 code & Voila! Discount is applied on all products.</p>
 

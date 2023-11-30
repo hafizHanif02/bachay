@@ -109,9 +109,20 @@ Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('main
     route::get('cash-refund', 'WebController@cash_refund')->name('cash-refund');
     route::get('my-payment-detail-not-added', 'WebController@payments_not_added')->name('my-payment-detail-not-added');
     route::get('my-payment-detail-added', 'WebController@payments_added')->name('my-payment-detail-added');
+    route::get('save-cards', 'WebController@save_cards')->name('save-cards');
+    route::get('cash-coupons', 'WebController@cash_coupons')->name('cash-coupons');
+    route::get('cash-back-codes', 'WebController@cash_back_codes')->name('cash-back-codes');
+    route::get('my-refund-no-refund', 'WebController@no_refund')->name('my-refund-no-refund');
+    route::get('my-refund', 'WebController@my_refund')->name('my-refund');
+    route::get('my-bpl-vouchers', 'WebController@bpl_vouchers')->name('my-bpl-vouchers');
+    route::get('guaranteed-savings', 'WebController@guaranteed_savings')->name('guaranteed-savings');
+    route::get('guaranteed-savings-offer', 'WebController@guaranteed_savings_offer')->name('guaranteed-savings-offer');
+    route::get('guaranteed-savings-offer-brand', 'WebController@guaranteed_savings_offer_brand')->name('guaranteed-savings-offer-brand');
+    route::get('intelli-education', 'WebController@intelli_education')->name('intelli-education');
+    route::get('gift-certification', 'WebController@gift_certification')->name('gift-certification');
+    route::get('invites-credits', 'WebController@invites_credits')->name('invites-credits');
+    route::get('my-reviews-upload', 'WebController@my_reviews_upload')->name('my-reviews-upload');
 
-
-    
 
 
 

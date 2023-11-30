@@ -11,108 +11,7 @@
     </div>
 
     <div class="row mt-4">
-        <div class="col-3 border-right font-poppins">
-
-            <div class="MyProfile">
-
-                <button class="buttons col-12 border-0 rounded-pill text-start p-3">My Profile</button>
-            </div>
-            <div class="col-12 mt-3">
-                <ul class="MyProfile-ul p-0 ps-3">
-                    <li><a class="" href="">Personal Details</a></li>
-                    <li><a href="">Contact Details</a></li>
-                    <li><a href="">Child Details</a></li>
-                    <li><a href="">My Address Book</a></li>
-                    <li><a href="">Change Password</a></li>
-                    <li><a href="">Manage Subscription</a></li>
-
-
-                </ul>
-            </div>
-
-            <div class="MyProfile mt-2">
-
-                <button class="buttons col-12 border-0 rounded-pill text-start p-3">My Orders</button>
-            </div>
-            <div class="col-12 mt-3">
-                <ul class="MyProfile-ul p-0 ps-3">
-                    <li><a class="active" href="">Order History</a></li>
-                    <li><a href="">Manage Returns</a></li>
-                    <li><a href="">Quick Order</a></li>
-                    <li><a href="">Track Order</a></li>
-                    <li><a href="">Your Queries</a></li>
-
-
-                </ul>
-            </div>
-
-
-            <div class="MyProfile mt-2">
-
-                <button class="buttons-active col-12 border-0 rounded-pill text-start p-3">Cash in My Account</button>
-            </div>
-            <div class="col-12 mt-3">
-                <ul class="MyProfile-ul p-0 ps-3">
-                    <li><a href="">Club Cash</a></li>
-                    <li><a href="">Cash Refund</a></li>
-                    <li><a href="">My Payment Details</a></li>
-                    <li><a href="">Cash Coupons</a></li>
-                    <li><a href="">Cashback Codes</a></li>
-                    <li><a href="">My Refunds</a></li>
-                    <li><a href="">MY BPL Vouchers</a></li>
-                </ul>
-            </div>
-
-
-            <div class="MyProfile mt-2">
-
-                <button class="buttons col-12 border-0 rounded-pill text-start p-3">Guaranteed Savings</button>
-            </div>
-
-
-            <div class="MyProfile mt-2">
-
-                <button class="buttons col-12 border-0 rounded-pill text-start p-3">Intelli Education</button>
-            </div>
-
-            <div class="col-12 mt-3">
-                <ul class="MyProfile-ul p-0 ps-3">
-                    <li><a href="">Club Cash</a></li>
-                    <li><a href="">Cash Refund</a></li>
-                </ul>
-            </div>
-
-            <div class="MyProfile mt-2">
-
-                <button class="buttons col-12 border-0 rounded-pill text-start p-3">FitJunior Subscriptions</button>
-            </div>
-            <div class="MyProfile mt-2">
-
-                <button class="buttons col-12 border-0 rounded-pill text-start p-3">Gift Certificates</button>
-            </div>
-            <div class="MyProfile mt-2">
-
-                <button class="buttons col-12 border-0 rounded-pill text-start p-3">Invites & Credits</button>
-            </div>
-            <div class="MyProfile mt-2">
-
-                <button class="buttons col-12 border-0 rounded-pill text-start p-3">My Reviews & Uploads</button>
-            </div>
-
-            <div class="col-12 mt-3">
-                <ul class="MyProfile-ul p-0 ps-3">
-                    <li><a href="">Notify Me</a></li>
-                    <li><a href="">My Shortlist</a></li>
-                </ul>
-            </div>
-
-
-            <div class="MyProfile mt-2">
-
-                <button class="logout col-12 border-0 rounded-pill text-start p-3 text-white">Logout</button>
-            </div>
-
-        </div>
+        @include('layouts.front-end.my-profile.aside')
         <div class="col-9 ps-4">
             <div class="MyAccount font-poppins">
                 <h6 class="fw-bold m-0 rounded-pill">
@@ -131,7 +30,7 @@
                         <div class="CashCouponsFlat offer col-4 me-2">
                             <div class="d-flex align-items-center">
                                 <div class="">
-                                    <img src="{{ asset('web/images/gif.gif') }}" alt="" width="78px"
+                                    <img src="{{ asset('public/images/gif.gif') }}" alt="" width="78px"
                                         height="78px">
 
                                 </div>
@@ -148,7 +47,7 @@
 
                                 <div class="fontPoppins pt-2 pb-2 codde btn d-flex justify-content-around   "><span id="TextToCopy"
                                     class="text-start codeTxt text-white fontPoppins">BACHAY3DP1</span> <span class="copyCode text-end"><img class="copyIMG"
-                                        src="{{ asset('web/images/copy.png') }}" alt="">
+                                        src="{{ asset('public/images/copy.png') }}" alt="">
                                     Copy</span></div>
 
 
@@ -161,14 +60,14 @@
                             <a class="fw-bold" href="">*T&C Apply</a>
                         </div>
                     </div>
-                    <a href=""><img src="{{ asset('web/images/Arrow-right.svg') }}" alt=""></a>
+                    <a href=""><img src="{{ asset('public/images/Arrow-right.svg') }}" alt=""></a>
                 </li>
                 <li class="DashBorderT d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center col-11">
                         <div class="CashCouponsFlat offer col-4 me-2">
                             <div class="d-flex align-items-center">
                                 <div class="">
-                                    <img src="{{ asset('web/images/gif.gif') }}" alt="" width="78px"
+                                    <img src="{{ asset('public/images/gif.gif') }}" alt="" width="78px"
                                         height="78px">
 
                                 </div>
@@ -185,7 +84,7 @@
 
                                 <div class="fontPoppins pt-2 pb-2 codde btn d-flex justify-content-around   "><span id="TextToCopy"
                                     class="text-start codeTxt text-white fontPoppins">BACHAY3DP1</span> <span class="copyCode text-end"><img class="copyIMG"
-                                        src="{{ asset('web/images/copy.png') }}" alt="">
+                                        src="{{ asset('public/images/copy.png') }}" alt="">
                                     Copy</span></div>
 
 
@@ -198,14 +97,14 @@
                             <a class="fw-bold" href="">*T&C Apply</a>
                         </div>
                     </div>
-                    <a href=""><img src="{{ asset('web/images/Arrow-right.svg') }}" alt=""></a>
+                    <a href=""><img src="{{ asset('public/images/Arrow-right.svg') }}" alt=""></a>
                 </li>
                 <li class="DashBorderT d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center col-11">
                         <div class="CashCouponsFlat offer col-4 me-2">
                             <div class="d-flex align-items-center">
                                 <div class="">
-                                    <img src="{{ asset('web/images/gif.gif') }}" alt="" width="78px"
+                                    <img src="{{ asset('public/images/gif.gif') }}" alt="" width="78px"
                                         height="78px">
 
                                 </div>
@@ -222,7 +121,7 @@
 
                                 <div class="fontPoppins pt-2 pb-2 codde btn d-flex justify-content-around   "><span id="TextToCopy"
                                     class="text-start codeTxt text-white fontPoppins">BACHAY3DP1</span> <span class="copyCode text-end"><img class="copyIMG"
-                                        src="{{ asset('web/images/copy.png') }}" alt="">
+                                        src="{{ asset('public/images/copy.png') }}" alt="">
                                     Copy</span></div>
 
 
@@ -235,14 +134,14 @@
                             <a class="fw-bold" href="">*T&C Apply</a>
                         </div>
                     </div>
-                    <a href=""><img src="{{ asset('web/images/Arrow-right.svg') }}" alt=""></a>
+                    <a href=""><img src="{{ asset('public/images/Arrow-right.svg') }}" alt=""></a>
                 </li>
                 <li class="DashBorderT d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center col-11">
                         <div class="CashCouponsFlat offer col-4 me-2">
                             <div class="d-flex align-items-center">
                                 <div class="">
-                                    <img src="{{ asset('web/images/gif.gif') }}" alt="" width="78px"
+                                    <img src="{{ asset('public/images/gif.gif') }}" alt="" width="78px"
                                         height="78px">
 
                                 </div>
@@ -259,7 +158,7 @@
 
                                 <div class="fontPoppins pt-2 pb-2 codde btn d-flex justify-content-around   "><span id="TextToCopy"
                                     class="text-start codeTxt text-white fontPoppins">BACHAY3DP1</span> <span class="copyCode text-end"><img class="copyIMG"
-                                        src="{{ asset('web/images/copy.png') }}" alt="">
+                                        src="{{ asset('public/images/copy.png') }}" alt="">
                                     Copy</span></div>
 
 
@@ -272,14 +171,14 @@
                             <a class="fw-bold" href="">*T&C Apply</a>
                         </div>
                     </div>
-                    <a href=""><img src="{{ asset('web/images/Arrow-right.svg') }}" alt=""></a>
+                    <a href=""><img src="{{ asset('public/images/Arrow-right.svg') }}" alt=""></a>
                 </li>
                 <li class="DashBorderT d-flex justify-content-between align-items-center">
                     <div class="d-flex align-items-center col-11">
                         <div class="CashCouponsFlat offer col-4 me-2">
                             <div class="d-flex align-items-center">
                                 <div class="">
-                                    <img src="{{ asset('web/images/gif.gif') }}" alt="" width="78px"
+                                    <img src="{{ asset('public/images/gif.gif') }}" alt="" width="78px"
                                         height="78px">
 
                                 </div>
@@ -296,7 +195,7 @@
 
                                 <div class="fontPoppins pt-2 pb-2 codde btn d-flex justify-content-around   "><span id="TextToCopy"
                                     class="text-start codeTxt text-white fontPoppins">BACHAY3DP1</span> <span class="copyCode text-end"><img class="copyIMG"
-                                        src="{{ asset('web/images/copy.png') }}" alt="">
+                                        src="{{ asset('public/images/copy.png') }}" alt="">
                                     Copy</span></div>
 
 
@@ -309,7 +208,7 @@
                             <a class="fw-bold" href="">*T&C Apply</a>
                         </div>
                     </div>
-                    <a href=""><img src="{{ asset('web/images/Arrow-right.svg') }}" alt=""></a>
+                    <a href=""><img src="{{ asset('public/images/Arrow-right.svg') }}" alt=""></a>
                 </li>
 
             </div>

@@ -5,144 +5,144 @@
         <div class="col-md-6 col-lg-3">
             <div class="GuaranteedSavings card rounded-4 for-border">
                 <a href="#">
-                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('web/images/savings.png') }}" alt="Flash Sale 1"
+                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('public /images/savings.png') }}" alt="Flash Sale 1"
                         width="100%" height="100%" />
                 </a>
             </div>
             <div class="d-flex justify-content-center">
-                <img class="object-fit-cover" src="{{ asset('web/images/brand1.png') }}" alt="">
+                <img class="object-fit-cover" src="{{ asset('public /images/brand1.png') }}" alt="">
 
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="GuaranteedSavings card rounded-4 for-border">
                 <a href="#">
-                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('web/images/savings2.png') }}" alt="Flash Sale 1"
+                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('public /images/savings2.png') }}" alt="Flash Sale 1"
                         width="100%" height="100%" />
                 </a>
             </div>
             <div class="d-flex justify-content-center">
-                <img class="object-fit-cover" src="{{ asset('web/images/brand2.png') }}" alt="">
+                <img class="object-fit-cover" src="{{ asset('public /images/brand2.png') }}" alt="">
 
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="GuaranteedSavings card rounded-4 for-border">
                 <a href="#">
-                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('web/images/savings3.png') }}" alt="Flash Sale 1"
+                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('public /images/savings3.png') }}" alt="Flash Sale 1"
                         width="100%" height="100%" />
                 </a>
             </div>
             <div class="d-flex justify-content-center">
-                <img class="object-fit-cover" src="{{ asset('web/images/brand3.png') }}" alt="">
+                <img class="object-fit-cover" src="{{ asset('public /images/brand3.png') }}" alt="">
 
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="GuaranteedSavings card rounded-4 for-border">
                 <a href="#">
-                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('web/images/savings4.png') }}" alt="Flash Sale 1"
+                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('public /images/savings4.png') }}" alt="Flash Sale 1"
                         width="100%" height="100%" />
                 </a>
             </div>
             <div class="d-flex justify-content-center">
-                <img class="object-fit-cover" src="{{ asset('web/images/brand4.png') }}" alt="">
+                <img class="object-fit-cover" src="{{ asset('public /images/brand4.png') }}" alt="">
 
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="GuaranteedSavings card rounded-4 for-border">
                 <a href="#">
-                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('web/images/savings.png') }}" alt="Flash Sale 1"
+                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('public /images/savings.png') }}" alt="Flash Sale 1"
                         width="100%" height="100%" />
                 </a>
             </div>
             <div class="d-flex justify-content-center">
-                <img class="object-fit-cover" src="{{ asset('web/images/brand1.png') }}" alt="">
+                <img class="object-fit-cover" src="{{ asset('public /images/brand1.png') }}" alt="">
 
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="GuaranteedSavings card rounded-4 for-border">
                 <a href="#">
-                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('web/images/savings2.png') }}" alt="Flash Sale 1"
+                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('public /images/savings2.png') }}" alt="Flash Sale 1"
                         width="100%" height="100%" />
                 </a>
             </div>
             <div class="d-flex justify-content-center">
-                <img class="object-fit-cover" src="{{ asset('web/images/brand2.png') }}" alt="">
+                <img class="object-fit-cover" src="{{ asset('public /images/brand2.png') }}" alt="">
 
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="GuaranteedSavings card rounded-4 for-border">
                 <a href="#">
-                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('web/images/savings3.png') }}" alt="Flash Sale 1"
+                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('public /images/savings3.png') }}" alt="Flash Sale 1"
                         width="100%" height="100%" />
                 </a>
             </div>
             <div class="d-flex justify-content-center">
-                <img class="object-fit-cover" src="{{ asset('web/images/brand3.png') }}" alt="">
+                <img class="object-fit-cover" src="{{ asset('public /images/brand3.png') }}" alt="">
 
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="GuaranteedSavings card rounded-4 for-border">
                 <a href="#">
-                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('web/images/savings4.png') }}" alt="Flash Sale 1"
+                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('public /images/savings4.png') }}" alt="Flash Sale 1"
                         width="100%" height="100%" />
                 </a>
             </div>
             <div class="d-flex justify-content-center">
-                <img class="object-fit-cover" src="{{ asset('web/images/brand4.png') }}" alt="">
+                <img class="object-fit-cover" src="{{ asset('public /images/brand4.png') }}" alt="">
 
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="GuaranteedSavings card rounded-4 for-border">
                 <a href="#">
-                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('web/images/savings.png') }}" alt="Flash Sale 1"
+                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('public /images/savings.png') }}" alt="Flash Sale 1"
                         width="100%" height="100%" />
                 </a>
             </div>
             <div class="d-flex justify-content-center">
-                <img class="object-fit-cover" src="{{ asset('web/images/brand1.png') }}" alt="">
+                <img class="object-fit-cover" src="{{ asset('public /images/brand1.png') }}" alt="">
 
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="GuaranteedSavings card rounded-4 for-border">
                 <a href="#">
-                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('web/images/savings2.png') }}" alt="Flash Sale 1"
+                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('public /images/savings2.png') }}" alt="Flash Sale 1"
                         width="100%" height="100%" />
                 </a>
             </div>
             <div class="d-flex justify-content-center">
-                <img class="object-fit-cover" src="{{ asset('web/images/brand2.png') }}" alt="">
+                <img class="object-fit-cover" src="{{ asset('public /images/brand2.png') }}" alt="">
 
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="GuaranteedSavings card rounded-4 for-border">
                 <a href="#">
-                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('web/images/savings3.png') }}" alt="Flash Sale 1"
+                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('public /images/savings3.png') }}" alt="Flash Sale 1"
                         width="100%" height="100%" />
                 </a>
             </div>
             <div class="d-flex justify-content-center">
-                <img class="object-fit-cover" src="{{ asset('web/images/brand3.png') }}" alt="">
+                <img class="object-fit-cover" src="{{ asset('public /images/brand3.png') }}" alt="">
 
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
             <div class="GuaranteedSavings card rounded-4 for-border">
                 <a href="#">
-                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('web/images/savings4.png') }}" alt="Flash Sale 1"
+                    <img class="object-fit-cover card-img rounded-4" src="{{ asset('public /images/savings4.png') }}" alt="Flash Sale 1"
                         width="100%" height="100%" />
                 </a>
             </div>
             <div class="d-flex justify-content-center">
-                <img class="object-fit-cover" src="{{ asset('web/images/brand4.png') }}" alt="">
+                <img class="object-fit-cover" src="{{ asset('public /images/brand4.png') }}" alt="">
 
             </div>
         </div>

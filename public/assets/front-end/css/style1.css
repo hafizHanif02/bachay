@@ -2314,8 +2314,9 @@ input:checked + .se:before {
     border: 2px solid #845dc2;
 }
 .StartShopping:hover{
-    border: 2px solid #845dc2;
+    border: 2px solid #845dc2 !important;
     color: #845dc2 !important;
+    background-color: #fff;
 }
 .ForWidth130 img {
     border-radius: 20px;
