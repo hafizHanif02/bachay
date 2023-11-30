@@ -19,6 +19,7 @@ use App\Model\Review;
 use App\Model\Seller;
 use App\Model\ShippingMethod;
 use App\Model\Wishlist;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -241,8 +242,8 @@ class ProductController extends Controller
             $product = Product::findOrFail($id);
             $overallRating = ProductManager::get_overall_rating($product->reviews);
             return response()->json(floatval($overallRating[0]), 200);
-        } catch (\Exception $e) {
-            return response()->json(['errors' => $e], 403);
+        } catch (ModelNotFoundException) {
+            return response()->json(['errors' => 'product not found'], 403);
         }
     }
 
@@ -264,15 +265,15 @@ class ProductController extends Controller
             $link = route('product', $product->slug);
 
             return response()->json($link, 200);
-        } catch (\Exception $e) {
-            return response()->json(['errors' => $e], 403);
+        } catch (ModelNotFoundException) {
+            return response()->json(['errors' => 'Product not found'], 403);
         }
     }
 
     public function submit_product_review(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'product_id' => 'required',
+            'product_id' => ['required','exists:products,id'],
             'comment' => 'required',
             'rating' => 'required',
         ]);
