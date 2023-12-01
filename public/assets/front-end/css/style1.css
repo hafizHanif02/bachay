@@ -784,11 +784,15 @@ h1.text-center.textClr {
     background-color: #f3f3f3;
     
 }
-
+.input-button:hover{
+    border: 1px solid #8b5bc0;
+    background-color: #f3f3f3;
+    color: #8b5bc0;
+}
 .input-button {
     background-color: #8b5bc0;
+    border: 1px solid #8b5bc0;
     color: #fff;
-    border: none;
     border-radius: 5px;
     cursor: pointer;
     padding: 5px 20px;

@@ -191,8 +191,8 @@
             <input type="checkbox" name="myCheckbox"> United State <span class="Reviews"> (51)</span>
         </label> --}}
 
-
-        <button class="m-5 btn text-white rounded-pill" style="background-color: blueviolet" type="submit"> Apply</button>
+        <button class="mt-3 col-6 input-button rounded-pill" type="submit">Apply</button>
+        {{-- <button class="btn text-white rounded-pill" type="submit"> Apply</button> --}}
 
     </form>
 
