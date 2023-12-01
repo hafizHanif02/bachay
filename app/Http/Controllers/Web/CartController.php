@@ -43,6 +43,20 @@ class CartController extends Controller
         return view(VIEW_FILE_NAMES['my-cart-address'],(compact('home_categories')));
 
     }
+
+    public function add_cart(Request $request){
+        // dd($request);
+
+        Cart::create([
+            'product_id' => $request->product_id,
+            'price' => $request->price,
+            'discount' => $request->discount,
+        ]);
+
+        return redirect()->back()->with('message', 'Product Has Been Added to Cart !');
+
+    }
+
     public function cart_added()
     {
         $home_categories = Category::where('home_status', true)->priority()->get();

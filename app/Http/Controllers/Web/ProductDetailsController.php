@@ -48,7 +48,6 @@ class ProductDetailsController extends Controller
         $product = Product::active()->with(['reviews','seller.shop'])->where('id', $id)->first();
         // dd($product->colors);
         if ($product != null) {
-            // dd($product != null);
             $overallRating = ProductManager::get_overall_rating($product->reviews);
             $wishlist_status = Wishlist::where(['product_id'=>$product->id, 'customer_id'=>auth('customer')->id()])->count();
             $reviews_of_product = Review::where('product_id', $product->id)->latest()->paginate(2);
@@ -96,7 +95,7 @@ class ProductDetailsController extends Controller
 
             $choiceOptions = json_decode($product->choice_options, true);
 
-            // Initialize size options
+
             $sizeOptions = [];
 
             $ageOptions = [];
@@ -107,7 +106,6 @@ class ProductDetailsController extends Controller
                         $ageOptions = $choice['options'];
                     }
             }
-            // Check if decoding was successful and get size options
             if ($choiceOptions !== null) {
                 foreach ($choiceOptions as $choice) {
                     if ($choice['title'] === 'Size') {
@@ -130,6 +128,9 @@ class ProductDetailsController extends Controller
         $colorCodes = json_decode($product->colors);
 
         $colors = Color::whereIn('code', $colorCodes)->get();
+
+        // dd(Auth::user());
+        $userData = Auth::user();
     // dd($randomProducts);
 
 
@@ -138,7 +139,7 @@ class ProductDetailsController extends Controller
             // return $product;
             // dd($relatedProducts);
             // dd($product->choice_options);
-            return view(VIEW_FILE_NAMES['product-detail'], compact('colors','randomCategories','randomProducts','ageOptions','sizeOptions','home_categories','categoryId','categoryName','product', 'countWishlist', 'countOrder', 'relatedProducts',
+            return view(VIEW_FILE_NAMES['product-detail'], compact('userData','colors','randomCategories','randomProducts','ageOptions','sizeOptions','home_categories','categoryId','categoryName','product', 'countWishlist', 'countOrder', 'relatedProducts',
                 'deal_of_the_day', 'current_date', 'seller_vacation_start_date', 'seller_vacation_end_date', 'seller_temporary_close',
                 'inhouse_vacation_start_date', 'inhouse_vacation_end_date', 'inhouse_vacation_status', 'inhouse_temporary_close','overallRating',
                 'wishlist_status','reviews_of_product','rating','total_reviews','products_for_review','more_product_from_seller','decimal_point_settings'));

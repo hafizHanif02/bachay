@@ -1,3 +1,4 @@
+
 <div class="products mt-4">
     <div class="row">
 
@@ -37,10 +38,16 @@
             <div class="d-flex  mt-1">
                 <button class="buy-now rounded-pill text-white w-100 pt-4 pb-4 m-2 ms-3 me-3">Buy Now</button>
             </div>
-
+            <form action="{{ route('add-to-cart') }}" method="POST">
+            @csrf
+            <input type="hidden" name="price" id="price" value="{{ $product->unit_price }}">
+            <input type="hidden" name="discount" id="discount" value="{{ $product->discount }}">
+            <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
+            <input type="hidden" name="customer_id" id="customer_id" value="{{ $userData }}">
             <div class="d-flex  mt-1">
-                <button class="rounded-pill text-dark fw-bold w-100 pt-4 pb-4 m-2 ms-3 me-3">Add to Cart</button>
+                <button type="submit" class="rounded-pill text-dark fw-bold w-100 pt-4 pb-4 m-2 ms-3 me-3">Add to Cart</button>
             </div>
+            </form>
         </div>
 
         <div class="col-lg-6 col-md-6 col-sm-12 col-12 ">
@@ -558,11 +565,13 @@
         var discount = $('#variant' + index).data('discount');
         var price = $('#variant' + index).data('price');
         var discountPercentage = parseFloat(discount) / 100;
-        var actual_price = (parseFloat(price) - parseFloat((parseFloat(price) * discountPercentage).toFixed(2)))
-            .toFixed(2);
+        var actual_price = (parseFloat(price) - parseFloat((parseFloat(price) * discountPercentage).toFixed(1)))
+            .toFixed(1);
         $('#discounted_price').html('Rs. ' + actual_price);
         $('#actual_price').html('Rs. ' + price);
         $('#discount').html('-' + discount);
+
+        $('#price').val(price);
 
 
     }

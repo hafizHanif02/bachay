@@ -94,6 +94,7 @@ Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('main
 
 
     Route::get('my-cart-address', 'CartController@cart_address')->name('my-cart-address');
+    Route::post('add-to-cart', 'CartController@add_cart')->name('add-to-cart');
     Route::get('my-cart-added', 'CartController@cart_added')->name('my-cart-added');
     Route::get('add-payment', 'CartController@add_payment')->name('add-payment');
     Route::get('my-shortlist', 'CartController@my_shortlist')->name('my-shortlist');

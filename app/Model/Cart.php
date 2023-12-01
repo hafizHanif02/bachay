@@ -7,6 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 class Cart extends Model
 {
 
+    protected $fillable = [
+        'product_id',
+        'price',
+        'discount',
+    ];
+
+    
     protected $casts = [
         'price' => 'float',
         'discount' => 'float',
