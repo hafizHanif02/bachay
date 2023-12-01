@@ -19,13 +19,23 @@
                 </h6>
             </div>
             <div class="btn-con mt-4 col-12 row justify-content-between ps-3 pe-5">
-                <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Bank Account Details</button>
-                <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-white text-purple border-0">Save Cards & Wallets</button>
+                <a class="col-5" href="{{ route('my-payment-detail-added') }}">
+                    <button class="col-12 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Bank Account Details</button>
+                
+                </a>
+                <a class="col-5" href="{{ route('save-cards') }}">
+                    <button class="col-12 mt-2 btn-f rounded-pill p-3 bg-white text-purple border-0">Save Cards & Wallets</button>
+                
+                </a>
             </div>
             <div class="text-center mt-5 font-poppins">
                 <img src="{{ asset('public/images/union.svg') }}" alt="">
                 <h6 class="re-order mt-4">You have not added any bank account details yet!</h6>
-                <button class="btn-f StartShopping bg-white text-purple rounded-pill border-0">+ Add New Bank Account</button>
+                <a href="#">
+
+                    <button class="btn-f StartShopping bg-white text-purple rounded-pill border-0">+ Add New Bank Account</button>
+
+                </a>
             </div>
 
         </div>

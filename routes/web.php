@@ -123,7 +123,7 @@ Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('main
     route::get('invites-credits', 'WebController@invites_credits')->name('invites-credits');
     route::get('my-reviews-upload', 'WebController@my_reviews_upload')->name('my-reviews-upload');
 
-
+    
 
 
     Route::get('orderDetails', 'WebController@orderdetails')->name('orderdetails');

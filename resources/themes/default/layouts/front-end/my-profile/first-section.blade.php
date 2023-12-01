@@ -20,7 +20,7 @@
                     My Profile
                 </h6>
             </div>
-            <div class="d-flex justify-content-between align-items-center mt-5">
+            <div id="personalDetails" class="d-flex justify-content-between align-items-center mt-5">
                 <div class="MyProfile-con d-flex align-items-center">
                     <div class="MyProfile-img col-4 rounded-circle me-3">
                         <img class="object-fit-cover rounded-circle" src="{{ asset('public/images/profile-img.png') }}"
@@ -43,7 +43,7 @@
                             alt=""> Edit</a>
                 </div>
             </div>
-            <div class="MyContact mt-5 font-poppins d-flex justify-content-between align-items-center rounded-pill">
+            <div id="contactDetails" class="MyContact mt-5 font-poppins d-flex justify-content-between align-items-center rounded-pill">
                 <h6 class="fw-bold m-0  ps-4">
                     My Account
                 </h6>
@@ -84,7 +84,7 @@
                 </ul>
             </div>
 
-            <div class="MyContact mt-5 font-poppins d-flex justify-content-between align-items-center rounded-pill">
+            <div id="childDetails" class="MyContact mt-5 font-poppins d-flex justify-content-between align-items-center rounded-pill">
                 <h6 class="fw-bold m-0  ps-4">
                     Child Details
                 </h6>
@@ -275,7 +275,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="MyAccount font-poppins mt-5">
+            <div id="myAddress" class="MyAccount font-poppins mt-5">
                 <h6 class="fw-bold m-0 rounded-pill">
                     My Address Book
                 </h6>
@@ -307,7 +307,7 @@
                 </form>
             </div>
 
-            <div class="MyAccount font-poppins mt-5">
+            <div id="changePassword" class="MyAccount font-poppins mt-5">
                 <h6 class="fw-bold m-0 rounded-pill">
                     Change Password
                 </h6>
@@ -338,7 +338,7 @@
                 </form>
             </div>
 
-            <div class="MyAccount font-poppins mt-5">
+            <div id="manageSubs" class="MyAccount font-poppins mt-5">
                 <h6 class="fw-bold m-0 rounded-pill">
                     My Subscription
                 </h6>

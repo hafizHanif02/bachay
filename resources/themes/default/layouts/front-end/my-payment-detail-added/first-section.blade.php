@@ -19,8 +19,14 @@
                 </h6>
             </div>
             <div class="btn-con mt-4 col-12 row justify-content-between ps-3">
-                <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Bank Account Details</button>
-                <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-white text-purple border-0">Save Cards & Wallets</button>
+                <a class="col-5" href="{{ route('my-payment-detail-added') }}">
+                    <button class="col-12 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Bank Account Details</button>
+
+                </a>
+                <a class="col-5" href="{{ route('save-cards') }}">
+                    <button class="col-12 mt-2 btn-f rounded-pill p-3 bg-white text-purple border-0">Save Cards & Wallets</button>
+                
+                </a>
             </div>
             <div class="for-border3 rounded-pill d-flex align-items-center justify-content-between mt-5 pt-3 pb-3 ps-4 pe-4">
                 <div class="d-flex align-items-center">
