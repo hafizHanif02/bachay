@@ -3,9 +3,9 @@
         <h5> <img src="{{ asset('web/images/cart-img.svg') }}" alt=""> Check Delivery Details</h5>
         <i class="bi bi-exclamation-circle-fill"></i>
     </div>
-    <div class="input-bar mt-2 position-relative p-2">
+    <div class="input-bar mt-2 position-relative p-2 rounded-pill">
         <input type="text" class="input-field" placeholder="Enter Pin Code">
-        <button class="input-button position-absolute">Check</button>
+        <button class="input-button position-absolute rounded-pill">Check</button>
     </div>
     <div class="filter-by d-flex justify-content-between align-items-center pt-2 pb-2 mt-3">
         <h5>

@@ -115,8 +115,6 @@
             <li><a href="">My Shortlist</a></li>
         </ul>
     </div>
-
-
     <div class="MyProfile mt-2">
         <form action="#" method="POST">
             @csrf

@@ -2120,12 +2120,11 @@ input:checked + .se:before {
     align-items: center;
     position: relative;
 }
-
 .main-image {
     width: 100%;
+    /* height: 700px; */
     position: relative;
 }
-
 .small-images {
     position: absolute;
     bottom: 55px;

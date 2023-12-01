@@ -13,14 +13,14 @@
 
                 <div class="small-images">
                     @foreach (json_decode($product->color_image) as $key => $photo)
-                        <img class="small-image" id="image-#{{ ($photo->color) ? $photo->color : '' }}"
+                        <img class="small-image" id="image-#{{ $photo->color ? $photo->color : '' }}"
                             src="{{ asset('storage/app/public/product/' . $photo->image_name) }}"
                             data-url='{{ asset('storage/app/public/product/' . $photo->image_name) }}'
                             alt="Small Image {{ $key + 1 }}">
                     @endforeach
                 </div>
 
-                {{-- <img class="small-image" src="{{ asset('storage/app/public/product/images' . $photo) }}"
+                {{-- <img class="small-image" src="{{ asset('sstytorage/app/public/product/images' . $photo) }}"
                                 alt="Small Image 1"> --}}
 
                 {{-- <img class="small-image " src="{{ asset('public/images/Frame 134 (2).png') }}" alt="Small Image 2">
@@ -124,15 +124,16 @@
 
                     </div>
                 </div> --}}
-                @if($colors->isNotEmpty())
-                {{-- {{ dd($colors) }} --}}
-                <div class="ProductColors col-12 d-flex align-items-center pb-4">
-                    <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Colors</p>
-                    @foreach($colors as $color)
-                        <input type="radio" class="me-3" style="background-color: {{ $color->code }}"
-                            id="btn{{ $loop->iteration }}" onchange="changepicture('{{ $color->code }}')" name="Btn">
-                    @endforeach
-                </div>
+                @if ($colors->isNotEmpty())
+                    {{-- {{ dd($colors) }} --}}
+                    <div class="ProductColors col-12 d-flex align-items-center pb-4">
+                        <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Colors</p>
+                        @foreach ($colors as $color)
+                            <input type="radio" class="me-3" style="background-color: {{ $color->code }}"
+                                id="btn{{ $loop->iteration }}" onchange="changepicture('{{ $color->code }}')"
+                                name="Btn">
+                        @endforeach
+                    </div>
                 @endif
                 <div class="col-12 d-flex align-items-center pb-2">
                     {{-- <p class="text-dark simpleText fs-6 mb-0 pe-4 fontPoppins">Size Basics</p>
@@ -179,13 +180,16 @@
                 {{-- {{ dd($product->variation) }} --}}
                 <div class="Sizesbtn col-12 pt-2 d-flex align-items-center mb-3">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size</p>
-                    @foreach(json_decode($product->variation) as $variant)
-                        @if($variant->qty > 0)
-                            <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins" type="button"
-                                value="{{ $variant->type }}" data-price="{{ $variant->price }}" onclick="InsertVariant('{{ $loop->iteration }}')" data-discount={{ $product->discount }} id="variant{{ $loop->iteration }}">
+                    @foreach (json_decode($product->variation) as $variant)
+                        @if ($variant->qty > 0)
+                            <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
+                                type="button" value="{{ $variant->type }}" data-price="{{ $variant->price }}"
+                                onclick="InsertVariant('{{ $loop->iteration }}')"
+                                data-discount={{ $product->discount }} id="variant{{ $loop->iteration }}">
                         @elseif($variant->qty <= 0)
-                        <input class="bg-danger text-white square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins" disabled title="Not Available" type="button"
-                                value="{{ $variant->type }}">
+                            <input
+                                class="bg-danger text-white square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
+                                disabled title="Not Available" type="button" value="{{ $variant->type }}">
                         @endif
                     @endforeach
                     {{-- <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins" type="button"
@@ -485,7 +489,7 @@
                                 </div>
                                 <div class="col-12">
                                     <p class="fontPoppins noteTerms">
-                                        <span class="fw-bold">Note :</span> Mix of 0  Taxes and discount may change
+                                        <span class="fw-bold">Note :</span> Mix of 0 Taxes and discount may change
                                         depending the amount of tax being
                                         borne by the Company. However, the final price as charged from customer will
                                         remain same. Taxes collected against every transaction will be paid to the
@@ -539,25 +543,27 @@
 </div>
 
 <script>
-function changepicture(code) {
-    $('.active').removeClass('active');
-    var imageSrc = $('#image-' + code).attr('data-url');
-    console.log(code, imageSrc);
+    function changepicture(code) {
+        $('.active').removeClass('active');
+        var imageSrc = $('#image-' + code).attr('data-url');
+        console.log(code, imageSrc);
 
 
-    $('#main-image').attr('src', imageSrc);
-    $('#image-' + code).addClass('active');
-}
-function InsertVariant(index) {
+        $('#main-image').attr('src', imageSrc);
+        $('#image-' + code).addClass('active');
+    }
 
-    var discount = $('#variant' + index).data('discount');
-    var price = $('#variant' + index).data('price');
-    var discountPercentage = parseFloat(discount) / 100;
-    var actual_price = (parseFloat(price) - parseFloat((parseFloat(price) * discountPercentage).toFixed(2))).toFixed(2);
-    $('#discounted_price').html('Rs. ' + actual_price);
-    $('#actual_price').html('Rs. ' + price);
-    $('#discount').html('-' + discount);
-    
+    function InsertVariant(index) {
 
-}
+        var discount = $('#variant' + index).data('discount');
+        var price = $('#variant' + index).data('price');
+        var discountPercentage = parseFloat(discount) / 100;
+        var actual_price = (parseFloat(price) - parseFloat((parseFloat(price) * discountPercentage).toFixed(2)))
+            .toFixed(2);
+        $('#discounted_price').html('Rs. ' + actual_price);
+        $('#actual_price').html('Rs. ' + price);
+        $('#discount').html('-' + discount);
+
+
+    }
 </script>
