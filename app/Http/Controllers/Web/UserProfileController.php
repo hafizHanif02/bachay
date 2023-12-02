@@ -2,40 +2,41 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\User;
+use Carbon\Carbon;
 use App\CPU\Convert;
-use App\CPU\CustomerManager;
 use App\CPU\Helpers;
-use App\CPU\ImageManager;
-use App\CPU\OrderManager;
-use App\Http\Controllers\Controller;
-use App\Model\Category;
-use App\Model\Coupon;
-use App\Model\DeliveryCountryCode;
-use App\Model\DeliveryMan;
-use App\Model\DeliveryZipCode;
 use App\Model\Order;
-use App\Model\OrderDetail;
-use App\Model\Product;
-use App\Model\ProductCompare;
-use App\Model\RefundRequest;
+use App\Model\Coupon;
 use App\Model\Review;
 use App\Model\Seller;
-use App\Model\ShippingAddress;
-use App\Model\SupportTicket;
+use App\Model\Product;
+use App\Model\Category;
 use App\Model\Wishlist;
+use App\CPU\ImageManager;
+use App\CPU\OrderManager;
+use App\Model\DeliveryMan;
+use App\Model\OrderDetail;
 use App\Traits\CommonTrait;
-use App\User;
-use Barryvdh\DomPDF\Facade as PDF;
-use Brian2694\Toastr\Facades\Toastr;
-use Carbon\Carbon;
+use App\CPU\CustomerManager;
+use App\Model\RefundRequest;
+use App\Model\SupportTicket;
+use Illuminate\Http\Request;
+use App\Model\ProductCompare;
+use App\Model\DeliveryZipCode;
+use App\Model\ShippingAddress;
 use function App\CPU\translate;
 use function React\Promise\all;
-use Illuminate\Http\Request;
+use App\Model\DeliveryCountryCode;
+use Barryvdh\DomPDF\Facade as PDF;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Auth;
 
-use Illuminate\Support\Facades\Validator;
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Validator;
 
 class UserProfileController extends Controller
 {
@@ -73,6 +74,7 @@ class UserProfileController extends Controller
     }
     public function my_profile()
     {
+        $userData = Auth::guard('customer')->user();
         $home_categories = Category::where('home_status', true)->priority()->get();
                 $home_categories->map(function ($data) {
                     $id = '"' . $data['id'] . '"';
@@ -80,7 +82,8 @@ class UserProfileController extends Controller
                         ->where('category_ids', 'like', "%{$id}%")
                         ->inRandomOrder()->take(12)->get();
                 });
-        return view(VIEW_FILE_NAMES['my-profile'],compact('home_categories'));
+        return view(VIEW_FILE_NAMES['my-profile'],compact('userData','home_categories'));
+
     }
 
     public function user_account(Request $request)

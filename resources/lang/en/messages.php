@@ -6707,4 +6707,6 @@
   'girl' => 'Girl',
   'boy' => 'Boy',
   'attribute_added_successfully' => 'Attribute added successfully',
+  'Toggle navigation' => 'Toggle navigation',
+  'captcha_failed' => 'Captcha failed',
 );

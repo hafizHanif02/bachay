@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
 <head>
     <meta charset="utf-8">
@@ -27,6 +28,8 @@
     {{--dont touch this--}}
     <!--to make http ajax request to https-->
     <!--<meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">-->
+
+
 
 
     @php($google_tag_manager_id = \App\CPU\Helpers::get_business_settings('google_tag_manager_id'))
@@ -65,6 +68,24 @@
 </head>
 <!-- Body-->
 <body class="toolbar-enabled">
+   
+
+    <!-- The Success Modal -->
+    <div class="modal fade" id="successModal" tabindex="-1" role="dialog" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-body">
+                    <div class="tick-container">
+                        <div class="tick"></div>
+                    </div>
+                    <br>
+                    <p id="modalMessage"></p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
     @if($google_tag_manager_id)
         <!-- Google Tag Manager (noscript) -->
         <noscript><iframe src="https://www.googletagmanager.com/ns.html?id={{$google_tag_manager_id}}"
@@ -142,3 +163,53 @@
 
 </body>
 </html>
+
+<style>
+    .tick-container {
+        width: 50px;
+        height: 50px;
+        position: relative;
+    }
+
+    .tick {
+        width: 20px;
+        height: 40px;
+        border-bottom: 5px solid #28a745; /* Bootstrap success color */
+        border-right: 5px solid #28a745;
+        transform: rotate(45deg);
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        animation: tickAnimation 1.5s ease-in-out;
+    }
+
+    @keyframes tickAnimation {
+        0% {
+            transform: rotate(45deg) scale(0);
+        }
+        50% {
+            transform: rotate(45deg) scale(1.2);
+        }
+        100% {
+            transform: rotate(45deg) scale(1);
+        }
+    }
+</style>
+
+<script>
+    // Check if there is a message in the session
+    var message = "{{ session('message') }}";
+
+    if (message) {
+        // Set the message in the modal
+        $('#modalMessage').text(message);
+
+        // Trigger the modal
+        $('#successModal').modal('show');
+
+        // Close the modal after 3 seconds with animation
+        setTimeout(function () {
+            $('#successModal').modal('hide');
+        }, 3000);
+    }
+</script>

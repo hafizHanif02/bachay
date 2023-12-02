@@ -63,6 +63,8 @@ class ProductListController extends Controller
 
     public function default_theme(Request $request){
         // dd($request);   
+        // $user = Auth::guard('customer')->user();
+        // dd($user);  
         
         
         if(isset($request)){

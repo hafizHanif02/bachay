@@ -28,7 +28,7 @@
                     </div>
                     <div class="MyProfile-info font-poppins">
                         <h4 class="fw-bold m-0">
-                            Alexandra Dddario
+                            {{ $userData->f_name.' '.$userData->l_name }}
                         </h4>
                         <h6 class="m-0">
                             <img src="{{ asset('public/images/mother-icon.svg') }}" alt=""> Mother Of 03
@@ -61,8 +61,8 @@
                                 <h6 class="mb-4"> Mobile No:</h6>
                             </div>
                             <div class="ms-5 font-color">
-                                <h6 class="mb-4">emailnumber@hotmail.com</h6>
-                                <h6 class="mb-4">021 111 567 8987</h6>
+                                <h6 class="mb-4">{{ $userData->email }}</h6>
+                                <h6 class="mb-4">{{ (!empty($userData->mobile)?$userData->mobile:'-') }}</h6>
 
                             </div>
                         </div>

@@ -52,7 +52,39 @@
                             </a>
                         </li>
                     @endauth
-                    @guest
+                    @auth('customer')
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Track Order</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Parenting</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-heart"></i> Wishlist</a>
+                    </li>
+                    <li class="nav-item position-relative">
+                        <a class="nav-link" href="{{ route('my-cart-address') }}">
+                            @if (isset(auth('customer')->user()->cart))
+                                <div class="red-dot bg-warning position-absolute rounded-circle cart-w-h ms-2">
+                                </div>
+                            @endif
+                            <i class="bi bi-cart3"></i> Cart
+                        </a>
+                    </li>
+                    <li class="nav-item d-flex align-items-center ms-2 ">
+                        <a class="nav-link px-0 text-primary" href="{{ route('my-profile') }}">{{ auth('customer')->user()->f_name.' '.auth('customer')->user()->l_name}}</a>
+                        <span class="px-1">/</span>
+                        <a class="nav-link px-0 text-primary" href="{{ route('customer.auth.logout') }}">Logout</a>
+                    </li>
+                    @else
+                    <li class="nav-item d-flex align-items-center ms-2 ">
+                        <a class="nav-link px-0 text-primary" href="{{route('customer.auth.login')}}">Login</a>
+                        <span class="px-1">/</span>
+                        <a class="nav-link px-0 text-primary" href="{{route('customer.auth.sign-up')}}">Register</a>
+                    </li>
+                    @endauth
+                    
+                    {{-- @guest
                         <li class="nav-item d-flex align-items-center ms-2 ">
                             <a class="nav-link px-0 text-primary" href="{{route('customer.auth.login')}}">Login</a>
                             <span class="px-1">/</span>
@@ -78,7 +110,7 @@
                                 </div>
                             </div>
                         </li>
-                    @endguest
+                    @endguest --}}
                 </ul>
             </div>
         </nav>

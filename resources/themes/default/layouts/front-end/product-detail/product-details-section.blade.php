@@ -43,7 +43,8 @@
             <input type="hidden" name="price" id="price" value="{{ $product->unit_price }}">
             <input type="hidden" name="discount" id="discount" value="{{ $product->discount }}">
             <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
-            <input type="hidden" name="customer_id" id="customer_id" value="{{ $userData }}">
+            <input type="hidden" name="customer_id" id="customer_id" value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
+
             <div class="d-flex  mt-1">
                 <button type="submit" class="rounded-pill text-dark fw-bold w-100 pt-4 pb-4 m-2 ms-3 me-3">Add to Cart</button>
             </div>

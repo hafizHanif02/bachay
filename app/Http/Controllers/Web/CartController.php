@@ -45,13 +45,24 @@ class CartController extends Controller
     }
 
     public function add_cart(Request $request){
-        // dd($request);
-
-        Cart::create([
-            'product_id' => $request->product_id,
-            'price' => $request->price,
-            'discount' => $request->discount,
-        ]);
+        $CartAllDatas = Cart::get();
+        foreach($CartAllDatas as $CartAllData){
+            if($CartAllData->customer_id == $request->customer_id && $CartAllData->product_id == $request->product_id){
+                Cart::update([
+                    'product_id' => $request->product_id,
+                    'price' => $request->price,
+                    'discount' => $request->discount,
+                    'customer_id' => $request->customer_id,
+                ]);
+            }else{
+                Cart::update([
+                    'product_id' => $request->product_id,
+                    'price' => $request->price,
+                    'discount' => $request->discount,
+                    'customer_id' => $request->customer_id,
+                ]);
+            }
+        }
 
         return redirect()->back()->with('message', 'Product Has Been Added to Cart !');
 

@@ -8,9 +8,29 @@ class Cart extends Model
 {
 
     protected $fillable = [
+        'cart_group_id',
+        'customer_id',
         'product_id',
+        'product_type',
+        'digital_product_type',
+        'color',
+        'choices',
+        'variations',
+        'variant',
+        'quantity',
         'price',
+        'tax',
         'discount',
+        'slug',
+        'name',
+        'thumbnail',
+        'seller_id',
+        'seller_is',
+        'shop_info',
+        'shipping_cost',
+        'shipping_type',
+        'is_guest',
+
     ];
 
     

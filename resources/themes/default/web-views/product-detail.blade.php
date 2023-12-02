@@ -1,5 +1,6 @@
 @extends('layouts.front-end.layout')
 
+
 @section('title', $web_config['name']->value.' '.translate('online_Shopping').' | '.$web_config['name']->value.' '.translate('ecommerce'))
 
 @push('css_or_js')
