@@ -21,14 +21,19 @@
                 <h5 class="fw-semibold m-0 font-poppins">
                     {{ $Cartproduct->product->name }}
                 </h5>
+                
                 <div class="d-flex align-items-center mt-3">
-                    <p class="m-0 fw-semibold font-poppins me-2">Colors</p>
-                    <div class="bg-danger danger-circle rounded-circle p-2 me-3 "></div>
-                    <p class="m-0 fw-semibold font-poppins me-4">size</p>
+                    @if($Cartproduct->color != null)
+                        <p class="m-0 fw-semibold font-poppins me-2">Color</p>
+                        <div class="danger-circle rounded-circle p-2 me-3" style="background-color: {{ $Cartproduct->color }}"></div>
+                    @endif
+                    @if($Cartproduct->variant != null)
+                    <p class="m-0 fw-semibold font-poppins me-4">Size</p>
 
                     <p class="font-poppins m-0 sizes-btn rounded-2 p-1 fs-6">
-                        <span class="fw-bold">UK 12</span> <span class="text-secondary">(19.5 CM)</span>
+                        <span class="fw-bold"></span> <span class="text-secondary">{{ $Cartproduct->variant }}</span>
                     </p>
+                    @endif
 
                 </div>
                 <div class="mt-3">
@@ -71,16 +76,18 @@
             </div>
             <div class="col-4">
                 <h3 class="product-price mb-1">
-                    Rs. 1999
+                    Rs. {{ $Cartproduct->price - ($Cartproduct->discount/100)*$Cartproduct->price }}
                 </h3>
 
                 <div class="d-flex align-items-center">
-                    <h6 class="text-decoration-line-through m-0 discount-off">Rs. 3999</h6>
-                    <span class="text-success fw-bold font-poppins"> - 85% Off</span>
+                    <h6 class="text-decoration-line-through m-0 discount-off">Rs. {{ $Cartproduct->price }}</h6>
+                    <span class="text-success fw-bold font-poppins"> - {{ $Cartproduct->discount  }}% Off</span>
                 </div>
                 <p class="taxes mt-1 mb-2">
                     MRP Includes all taxes
                 </p>
+                <input type="hidden" id="price{{ $loop->iteration }}" value="{{ $Cartproduct->price }}">
+                <input type="hidden" id="discount{{ $loop->iteration }}" value="{{($Cartproduct->discount/100)*$Cartproduct->price }}">
 
                 <div class="blue-cart row align-items-center">
                     <div class="img col-3">
@@ -101,7 +108,7 @@
                 </div> --}}
                 <div class="number rounded-pill mt-3 d-flex justify-content-between col-12">
                     <span class="minus rounded-circle col-2 text-center"><i class="bi bi-dash-lg"></i></span>
-                    <input name="value1" id="Value1" class="border-0 text-center col-8 col-sm-6" type="text"
+                    <input name="value{{ $loop->iteration }}" id="Value{{ $loop->iteration }}" onchange="changeValue({{ $loop->iteration }})" class="border-0 text-center col-8 col-sm-6" type="number"
                         value="1" />
                     <span class="plus rounded-circle col-2 text-center"><i class="bi bi-plus-lg"></i></span>
                 </div>
@@ -312,3 +319,9 @@
     </div>
 
 </div>
+
+<script>
+    function changeValue(index){
+
+    }
+</script>

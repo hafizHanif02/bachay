@@ -33,6 +33,7 @@ class CartController extends Controller
 {
     public function cart_address()
     {
+        
         $home_categories = Category::where('home_status', true)->priority()->get();
             $home_categories->map(function ($data) {
                 $id = '"' . $data['id'] . '"';
@@ -56,13 +57,22 @@ class CartController extends Controller
         $existingCart->update([
             'price' => $request->price,
             'discount' => $request->discount,
+            'color'=>$request->color,
+            'variant'=>$request->variant,
         ]);
     } else {
         Cart::create([
             'product_id' => $request->product_id,
+            'customer_id' => $request->customer_id,
+            'name'=> $request->name,
             'price' => $request->price,
             'discount' => $request->discount,
-            'customer_id' => $request->customer_id,
+            'tax' => (($request->tax!=null)?$request->tax:0),
+            'thumbnail'=> $request->thumbnail,
+            'color'=>$request->color,
+            'variant'=>$request->variant,
+            'slug' => $request->slug,
+            'shipping_cost' => $request->shipping_cost,
         ]);
     }
 
