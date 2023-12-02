@@ -36,33 +36,36 @@ class CartController extends Controller
         $home_categories = Category::where('home_status', true)->priority()->get();
             $home_categories->map(function ($data) {
                 $id = '"' . $data['id'] . '"';
-                $data['products'] = Product::active()
-                    ->where('category_ids', 'like', "%{$id}%")
-                    ->inRandomOrder()->take(12)->get();
+                // $data['products'] = Product::active()
+                //     ->where('category_ids', 'like', "%{$id}%")
+                //     ->inRandomOrder()->take(12)->get();
             });
-        return view(VIEW_FILE_NAMES['my-cart-address'],(compact('home_categories')));
+
+            $myCartProducts = Cart::where('customer_id',Auth::guard('customer')->user()->id)->with('product')->get();
+        return view(VIEW_FILE_NAMES['my-cart-address'],(compact('myCartProducts','home_categories')));
 
     }
 
     public function add_cart(Request $request){
-        $CartAllDatas = Cart::get();
-        foreach($CartAllDatas as $CartAllData){
-            if($CartAllData->customer_id == $request->customer_id && $CartAllData->product_id == $request->product_id){
-                Cart::update([
-                    'product_id' => $request->product_id,
-                    'price' => $request->price,
-                    'discount' => $request->discount,
-                    'customer_id' => $request->customer_id,
-                ]);
-            }else{
-                Cart::update([
-                    'product_id' => $request->product_id,
-                    'price' => $request->price,
-                    'discount' => $request->discount,
-                    'customer_id' => $request->customer_id,
-                ]);
-            }
-        }
+
+        $existingCart = Cart::where('customer_id', $request->customer_id)
+                        ->where('product_id', $request->product_id)
+                        ->first();
+
+    if ($existingCart) {
+        $existingCart->update([
+            'price' => $request->price,
+            'discount' => $request->discount,
+        ]);
+    } 
+    else {
+        Cart::create([
+            'product_id' => $request->product_id,
+            'price' => $request->price,
+            'discount' => $request->discount,
+            'customer_id' => $request->customer_id,
+        ]);
+    }
 
         return redirect()->back()->with('message', 'Product Has Been Added to Cart !');
 

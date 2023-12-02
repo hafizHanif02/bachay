@@ -22,6 +22,7 @@
     @includeIf('layouts.front-end.home.' . $layout->section_name)
 @endforeach --}}
 
+
 @include('layouts.front-end.my-cart-address.first-section')
 @include('layouts.front-end.my-cart-address.card-slider')
 
