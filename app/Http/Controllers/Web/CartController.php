@@ -57,8 +57,7 @@ class CartController extends Controller
             'price' => $request->price,
             'discount' => $request->discount,
         ]);
-    } 
-    else {
+    } else {
         Cart::create([
             'product_id' => $request->product_id,
             'price' => $request->price,
