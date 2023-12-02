@@ -43,7 +43,17 @@ class CartController extends Controller
             });
 
             $myCartProducts = Cart::where('customer_id',Auth::guard('customer')->user()->id)->with('product')->get();
-        return view(VIEW_FILE_NAMES['my-cart-address'],(compact('myCartProducts','home_categories')));
+            $total_product_price = Cart::where('customer_id', Auth::guard('customer')->user()->id)
+            ->with('product')
+            ->sum('price');
+            $totalDiscount = Cart::where('customer_id', Auth::guard('customer')->user()->id)
+            ->with('product')
+            ->selectRaw('SUM(price * discount / 100) as total_discount')
+            ->first()
+            ->total_discount;
+
+
+        return view(VIEW_FILE_NAMES['my-cart-address'],(compact('totalDiscount','total_product_price','myCartProducts','home_categories')));
 
     }
 

@@ -2,7 +2,7 @@
 <div class="row col-12 my-cart pb-5 mt-4">
     <div class="col-8 border-right">
         <div class="btn-con col-12 d-flex justify-content-between">
-            <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Shopping Cart (03)</button>
+            <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Shopping Cart ({{ count($myCartProducts) }})</button>
             <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">My Shortlist</button>
         </div>
         <div class="inputBar col-12 p-2 rounded-pill mt-4 d-flex justify-content-between">
@@ -280,13 +280,13 @@
                 <div class="listDown font-poppinns">
                     <p>Value of Product(s)</p>
                     <p>Discount</p>
-                    <p>Estimated GST (+)</p>
+                    {{-- <p>Estimated GST (+)</p> --}}
                     <p>Shipping (+)</p>
                 </div>
                 <div class="listDown">
-                    <p class="fw-bold">Rs. 48900</p>
-                    <p class="text-success fw-bold">Rs. 1247</p>
-                    <p class="text-danger fw-bold">Rs. 390.74</p>
+                    <p class="fw-bold">Rs. {{ $total_product_price }}</p>
+                    <p class="text-success fw-bold">Rs. {{ $totalDiscount }}</p>
+                    {{-- <p class="text-danger fw-bold">Rs. 390.74</p> --}}
                     <p class="text-success fw-bold">FREE</p>
                 </div>
 
@@ -297,7 +297,7 @@
 
                 </div>
                 <div>
-                    <p class="m-0 fw-bold">Rs.3946.26</p>
+                    <p class="m-0 fw-bold" id="sub-total-down">Rs.{{ $total_product_price - $totalDiscount }}</p>
 
                 </div>
 
@@ -308,7 +308,7 @@
 
                 </div>
                 <div>
-                    <p class="fw-bold">Rs.3946.02</p>
+                    <p class="fw-bold" id="final-payment">Rs.{{ $total_product_price - $totalDiscount }}</p>
 
                 </div>
 
@@ -322,6 +322,8 @@
 
 <script>
     function changeValue(index){
-
+        var price = $('#price'+index).val();
+        var price = $('#discount'+index).val();
+        
     }
 </script>
