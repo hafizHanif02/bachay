@@ -33,6 +33,7 @@ Route::group(['namespace' => 'Customer', 'prefix' => 'customer', 'as' => 'custom
 
         Route::get('sign-up', 'RegisterController@register')->name('sign-up');
         Route::post('sign-up', 'RegisterController@submit');
+        Route::post('address', 'RegisterController@addressstore')->name('address.store');
 
         Route::get('check/{id}', 'RegisterController@check')->name('check');
 

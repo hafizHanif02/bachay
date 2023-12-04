@@ -1,3 +1,4 @@
+
 <h3 class="mt-4 mb-3 text-center text-lg-left mobile-fs-20">{{ translate('shopping_cart')}}</h3>
 
 @php($shippingMethod=\App\CPU\Helpers::get_business_settings('shipping_method'))
@@ -157,7 +158,7 @@
                                     <td class="__w-45">
                                         <div class="d-flex gap-3">
                                             <div class="">
-                                                <a href="{{ $product_status == 1 ? route('product',$cartItem['slug']) : 'javascript:'}}" class="position-relative overflow-hidden">
+                                                <a href="{{ $product_status == 1 ? route('product-detail',$cartItem['slug']) : 'javascript:'}}" class="position-relative overflow-hidden">
                                                     <img class="rounded __img-62 {{ $product_status == 0?'blur-section':'' }}"
                                                             onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
                                                             src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$cartItem['thumbnail']}}"
@@ -171,7 +172,7 @@
                                             </div>
                                             <div class="d-flex flex-column gap-1">
                                                 <div class="text-break __line-2 __w-18rem {{ $product_status == 0?'blur-section':'' }}">
-                                                    <a href="{{ $product_status == 1 ? route('product',$cartItem['slug']) : 'javascript:'}}">{{$cartItem['name']}}</a>
+                                                    <a href="{{ $product_status == 1 ? route('product-detail',$cartItem['slug']) : 'javascript:'}}">{{$cartItem['name']}}</a>
                                                 </div>
 
                                                 <div class="d-flex flex-wrap gap-2 {{ $product_status == 0?'blur-section':'' }}">
@@ -380,7 +381,7 @@
                     <div class="d-flex justify-content-between gap-3 p-3 fs-12  {{count($group)-1 == $cart_key ? '' :'border-bottom border-aliceblue'}}">
                         <div class="d-flex gap-3">
                             <div class="">
-                                <a href="{{ $product_status == 1 ? route('product',$cartItem['slug']) : 'javascript:'}}" class="position-relative overflow-hidden">
+                                <a href="{{ $product_status == 1 ? route('product-detail',$cartItem['slug']) : 'javascript:'}}" class="position-relative overflow-hidden">
                                     <img class="rounded __img-48 {{ $product_status == 0?'blur-section':'' }}"
                                             onerror="this.src='{{asset('public/assets/front-end/img/image-place-holder.png')}}'"
                                             src="{{\App\CPU\ProductManager::product_image_path('thumbnail')}}/{{$cartItem['thumbnail']}}"

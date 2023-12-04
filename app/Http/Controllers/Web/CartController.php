@@ -3,22 +3,23 @@
 namespace App\Http\Controllers\Web;
 
 
-use App\CPU\CartManager;
-use App\CPU\Helpers;
-use App\CPU\OrderManager;
-use App\CPU\ProductManager;
-use App\Http\Controllers\Controller;
 use App\Model\Cart;
-use App\Model\Category;
+use App\Model\Shop;
+use App\CPU\Helpers;
 use App\Model\Color;
 use App\Model\Order;
-use App\Model\OrderDetail;
 use App\Model\Product;
+use App\Model\Category;
+use App\CPU\CartManager;
+use App\CPU\OrderManager;
+use App\Model\OrderDetail;
+use App\CPU\ProductManager;
 use App\Model\ShippingType;
-use App\Model\Shop;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 // class CartController extends Controller
 // {
@@ -41,7 +42,6 @@ class CartController extends Controller
                 //     ->where('category_ids', 'like', "%{$id}%")
                 //     ->inRandomOrder()->take(12)->get();
             });
-
             $myCartProducts = Cart::where('customer_id',Auth::guard('customer')->user()->id)->with('product')->get();
             $total_product_price = Cart::where('customer_id', Auth::guard('customer')->user()->id)
             ->with('product')
@@ -53,7 +53,12 @@ class CartController extends Controller
             ->total_discount;
 
 
-        return view(VIEW_FILE_NAMES['my-cart-address'],(compact('totalDiscount','total_product_price','myCartProducts','home_categories')));
+        $userData = DB::table('users')->where('id',Auth::guard('customer')->user()->id)->first();
+        $shippingAddress = DB::table('shipping_addresses')->where('customer_id',Auth::guard('customer')->user()->id)->first();
+        // dd($userData);
+
+
+        return view(VIEW_FILE_NAMES['my-cart-address'],(compact('shippingAddress','totalDiscount','total_product_price','myCartProducts','home_categories')));
 
     }
 

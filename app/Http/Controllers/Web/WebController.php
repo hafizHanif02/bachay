@@ -567,6 +567,7 @@ class WebController extends Controller
     public function checkout_details(Request $request)
     {
 
+        // dd($request);
         if (
             (!auth('customer')->check() || Cart::where(['customer_id' => auth('customer')->id()])->count() < 1)
             && (!Helpers::get_business_settings('guest_checkout') || !session()->has('guest_id') || !session('guest_id'))
@@ -580,14 +581,18 @@ class WebController extends Controller
 
         $verify_status = OrderManager::minimum_order_amount_verify($request);
 
+        
         if($verify_status['status'] == 0){
             Toastr::info(translate('check_Minimum_Order_Amount_Requirment'));
             return redirect()->route('shop-cart');
         }
-
+        
         $cartItems = Cart::where(['customer_id' => auth('customer')->id()])->withCount(['all_product'=>function($query){
             return $query->where('status', 0);
         }])->get();
+        
+        
+        
         foreach($cartItems as $cart)
         {
             if(isset($cart->all_product_count) && $cart->all_product_count != 0)
@@ -610,7 +615,7 @@ class WebController extends Controller
 
         foreach($cart_group_ids as $group_id) {
             $carts = Cart::where('cart_group_id', $group_id)->get();
-
+            
             $physical_product = false;
             foreach ($carts as $cart) {
                 if ($cart->product_type == 'physical') {
@@ -635,6 +640,7 @@ class WebController extends Controller
                     if ($physical_product && $shipping_type == 'order_wise') {
                         $cart_shipping = CartShipping::where('cart_group_id', $cart->cart_group_id)->first();
                         if (!isset($cart_shipping)) {
+                            dd($cart_shipping);
                             Toastr::info(translate('select_shipping_method_first'));
                             return redirect('shop-cart');
                         }
