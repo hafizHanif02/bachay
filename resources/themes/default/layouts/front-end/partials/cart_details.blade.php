@@ -1,8 +1,8 @@
 
 <h3 class="mt-4 mb-3 text-center text-lg-left mobile-fs-20">{{ translate('shopping_cart')}}</h3>
 
-@php($shippingMethod=\App\CPU\Helpers::get_business_settings('shipping_method'))
-@php($cart=\App\Model\Cart::where(['customer_id' => (auth('customer')->check() ? auth('customer')->id() : session('guest_id'))])->get()->groupBy('cart_group_id'))
+@php($shippingMethod=\App\CPU\Helpers::get_business_settings('shipping_method'))@endphp
+@php($cart=\App\Model\Cart::where(['customer_id' => (auth('customer')->check() ? auth('customer')->id() : session('guest_id'))])->get()->groupBy('cart_group_id'))@endphp
 
 <div class="row g-3 mx-max-md-0">
     <!-- List of items-->
@@ -395,7 +395,7 @@
                             </div>
                             <div class="d-flex flex-column gap-1">
                                 <div class="text-break __line-2 {{ $product_status == 0?'blur-section':'' }}">
-                                    <a href="{{ $product_status == 1 ? route('product',$cartItem['slug']) : 'javascript:'}}">{{$cartItem['name']}}</a>
+                                    <a href="{{ $product_status == 1 ? route('product-detail',$cartItem['id']) : 'javascript:'}}">{{$cartItem['name']}}</a>
                                 </div>
 
                                 <div class="d-flex flex-wrap column-gap-2 {{ $product_status == 0?'blur-section':'' }}">
@@ -554,6 +554,7 @@
             </form>
         </div>
     </section>
+
 
     <!-- Sidebar-->
     @include('web-views.partials._order-summary')

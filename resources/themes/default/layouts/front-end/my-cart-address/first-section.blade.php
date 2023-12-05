@@ -1,5 +1,5 @@
 
-<form action="{{ route('checkout-details') }}" method="GET">
+<form action="{{ route('cart.updateQuantity') }}" method="POST">
     @csrf
 <div class="row col-12 my-cart pb-5 mt-4">
     <input type="hidden" name="customer_id" value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
@@ -121,7 +121,7 @@
                 </div> --}}
                 <div class="number rounded-pill mt-3 d-flex justify-content-between col-12">
                     <span class="minus rounded-circle col-2 text-center"><i class="bi bi-dash-lg"></i></span>
-                    <input name="product[{{ $loop->iteration }}][qty]" id="Value{{ $loop->iteration }}" onchange="changeValue({{ $loop->iteration }})" class="border-0 text-center col-8 col-sm-6" type="number"
+                    <input name="product[{{ $loop->iteration }}][quantity]" id="Value{{ $loop->iteration }}" onchange="changeValue({{ $loop->iteration }})" class="border-0 text-center col-8 col-sm-6" type="number"
                         value="1" />
                     <span class="plus rounded-circle col-2 text-center"><i class="bi bi-plus-lg"></i></span>
                 </div>

@@ -38,7 +38,7 @@
             <div class="d-flex  mt-1">
                 <button class="buy-now rounded-pill text-white w-100 pt-4 pb-4 m-2 ms-3 me-3">Buy Now</button>
             </div>
-            <form action="{{ route('add-to-cart') }}" method="POST">
+            <form action="{{ route('cart.add') }}" method="POST">
             @csrf
             <input type="hidden" name="price" id="price" value="{{ $product->unit_price }}">
             <input type="hidden" name="discount" id="discount" value="{{ $product->discount }}">
@@ -46,6 +46,7 @@
             <input type="hidden" name="thumbnail" value="{{ $product->thumbnail }}">
             <input type="hidden" name="name" value="{{ $product->name }}">
             <input type="hidden" name="tax" value="{{ $tax }}">
+            <input type="hidden" name="quantity" value="1">
             <input type="hidden" name="shipping_cost" value="{{ $product->shipping_cost }}">
             <input type="hidden" name="color" id="color" >
             <input type="hidden" name="variant" id="variant">
@@ -578,6 +579,7 @@
         var actual_price = (parseFloat(price) - parseFloat((parseFloat(price) * discountPercentage).toFixed(1)))
             .toFixed(1);
         $('#discounted_price').html('Rs. ' + actual_price);
+        $('#price').val(price);
         $('#actual_price').html('Rs. ' + price);
         $('#discount').html('-' + discount);
         $('#variant').val(variant_type);
