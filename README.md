@@ -6,7 +6,7 @@ first command
 composer update
 ```
 
-secondly copy paste .env.example to .env
+secondly copy paste .env
 
 then run
 
