@@ -52,16 +52,17 @@
     float: right;
     cursor: pointer;
 }
-.imgMAin{
+.imgMAin {
     height: 193px;
 }
-.imgMAinH{
+.imgMAinH {
     height: 244px;
 }
 .myfont {
     font-family: myfont;
 }
-header , footer {
+header,
+footer {
     padding: 10px 50px;
 }
 body {
@@ -71,13 +72,15 @@ body {
     font-family: "poppins";
     font-size: 10px;
 }
-.form-control , .form-control:focus {
-    background-color: #F3F3F3;
+.form-control,
+.form-control:focus {
+    background-color: #f3f3f3;
 }
 ul.navbar-nav li {
     border-right: 1px solid #ccc;
 }
-a.dropbtn.nav-link , a.nav-link {
+a.dropbtn.nav-link,
+a.nav-link {
     padding: 0;
 }
 ul.navbar-nav li:last-child {
@@ -393,12 +396,12 @@ button.slick-prev.slick-arrow {
     cursor: pointer;
 }
 .dropdown-content {
+    padding: 10px 0px 2px 0px;
     display: none;
     position: absolute;
     right: 0;
-    width: auto;
     background-color: #f1f1f1;
-    min-width: 160px;
+    min-width: -webkit-fill-available;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 9999;
 }
@@ -424,7 +427,7 @@ h1.text-center.textClr {
 .card1 {
     position: relative;
 }
-.imgCon{
+.imgCon {
     height: 280px;
 }
 .image-container {
@@ -528,8 +531,6 @@ h1.text-center.textClr {
     border-radius: 14.497px;
     position: relative;
     border: 3px solid #845dc2;
-   
-   
 }
 .border-purple {
     border: 3px solid #845dc2;
@@ -552,7 +553,7 @@ h1.text-center.textClr {
 .text-purple {
     color: #845dc2 !important;
 }
-.ParentingTool{
+.ParentingTool {
     display: grid;
     grid-template-columns: repeat(5, 1fr);
 
@@ -569,7 +570,7 @@ h1.text-center.textClr {
     }
 
     @media (max-width: 576px) {
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr;
     }
 }
 .card-1 {
@@ -723,8 +724,7 @@ h1.text-center.textClr {
     padding: 50px 0 30px 0;
 }
 
-
-.for-sizing{
+.for-sizing {
     width: 155px;
     height: 155px;
 }
@@ -782,9 +782,8 @@ h1.text-center.textClr {
     border: none;
     outline: none;
     background-color: #f3f3f3;
-    
 }
-.input-button:hover{
+.input-button:hover {
     border: 1px solid #8b5bc0;
     background-color: #f3f3f3;
     color: #8b5bc0;
@@ -798,7 +797,7 @@ h1.text-center.textClr {
     padding: 5px 20px;
     right: 5px;
 }
-.imgMAinCon{
+.imgMAinCon {
     height: 230px;
 }
 .filter-by {
@@ -2112,7 +2111,7 @@ input:checked + .se:before {
 #searchPin:hover {
     box-shadow: 6px 4px 10px #7777;
 }
-.ProductImgH img{
+.ProductImgH img {
     height: 220px;
 }
 .relatedLinks {
@@ -2318,7 +2317,7 @@ input:checked + .se:before {
     margin-top: 40px;
     border: 2px solid #845dc2;
 }
-.StartShopping:hover{
+.StartShopping:hover {
     border: 2px solid #845dc2 !important;
     color: #845dc2 !important;
     background-color: #fff;
@@ -2432,7 +2431,7 @@ details[open] summary::after {
 
     .circleCard {
         margin: 0 25px 0 0;
-       
+
         &-image {
             position: relative;
             display: block;
@@ -2458,7 +2457,7 @@ details[open] summary::after {
         }
     }
 }
-.NewSeasonBorder{
+.NewSeasonBorder {
     border: 2px solid var(--Primary-Gradient, #292d32);
     padding: 3px;
 }
@@ -2546,7 +2545,7 @@ details[open] summary::after {
     }
 
     @media (max-width: 576px) {
-        grid-template-columns: 1fr; 
+        grid-template-columns: 1fr;
     }
 }
 /* #readmore{
@@ -2556,27 +2555,28 @@ details[open] summary::after {
     display: none;
 } */
 
-  
-
-
-
-
 /* Tablets (landscape and portrait) */
 @media only screen and (min-width: 768px) and (max-width: 1024px) {
-    header, footer {
+    header,
+    footer {
         padding: 10px 20px;
     }
-    
 }
-@media screen and (max-width: 768px){
-    #mega-menu{
+@media screen and (max-width: 768px) {
+    #mega-menu {
         display: none;
     }
-    .new-arival, .slider-container, .benefitsOfSavings , .sub-banner, .flash-sales-container , .flash-sales-cart, .sub-contain, .SavingsOffer{
+    .new-arival,
+    .slider-container,
+    .benefitsOfSavings,
+    .sub-banner,
+    .flash-sales-container,
+    .flash-sales-cart,
+    .sub-contain,
+    .SavingsOffer {
         padding: 0 10px;
     }
     /* header{
         display: none;
     } */
-
 }

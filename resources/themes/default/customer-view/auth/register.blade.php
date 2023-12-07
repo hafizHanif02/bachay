@@ -67,7 +67,7 @@
                                         style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};"
                                         placeholder="{{ translate('minimum_8_characters_long') }}" required>
                                     <label class="password-toggle-btn mt-2">
-                                        <input class="custom-control-input" type="checkbox"><i
+                                        <input class="custom-control-input me-1" type="checkbox"><i
                                             class="tio-hidden password-toggle-indicator"></i><span
                                             class="sr-only">{{ translate('show_password') }} </span>
                                     </label>
@@ -84,7 +84,7 @@
                                         placeholder="{{ translate('minimum_8_characters_long') }}" id="si-password"
                                         required>
                                     <label class="password-toggle-btn mt-2">
-                                        <input class="custom-control-input" type="checkbox"
+                                        <input class="custom-control-input me-1" type="checkbox"
                                             style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};"><i
                                             class="tio-hidden password-toggle-indicator"></i><span
                                             class="sr-only">{{ translate('show_password') }} </span>
@@ -111,7 +111,7 @@
                             <div class="col-sm-6">
                                 <div class="rtl mt-2">
                                     <label class="custom-control custom-checkbox m-0 d-flex">
-                                        <input type="checkbox" class="custom-control-input" name="remember"
+                                        <input type="checkbox" class="custom-control-input me-1" name="remember"
                                             id="inputCheckd">
                                         <span class="custom-control-label">
                                             <span>{{ translate('i_agree_to_Your') }}</span> <a class="font-size-sm"
@@ -147,7 +147,7 @@
                     </div>
                     <div style="direction: {{ Session::get('direction') }}">
                         <div class="mx-auto mt-4 __max-w-356">
-                            <button class="w-100 btn btn-primary" id="sign-up" type="submit">
+                            <button style="background: var( --greadient-normal, linear-gradient( 270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17% ) );" class="col-12 text-light border-0 p-2 rounded-pill" id="sign-up" type="submit">
                                 {{ translate('sign_up') }}
                             </button>
                         </div>

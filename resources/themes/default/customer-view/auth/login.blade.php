@@ -6,6 +6,7 @@
         .password-toggle-btn .custom-control-input:checked~.password-toggle-indicator {
             color: {{ $web_config['primary_color'] }};
         }
+        
     </style>
 @endpush
 @section('content')
@@ -159,7 +160,7 @@
                             </div>
                         </div>
                     @endif
-                    <button class="btn btn-primary btn-block btn-shadow" type="submit">{{ translate('log_in') }}</button>
+                    <button style="background: var( --greadient-normal, linear-gradient( 270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17% ) );" class="loginBtn custom-btn btn btn-block btn-shadow text-light border-none col-12 rounded-pill mt-2" type="submit">{{ translate('log_in') }}</button>
                 </form>
                 <div class="text-center my-3 text-black-50">
                     <small>{{ translate('or_continue_with') }}</small>

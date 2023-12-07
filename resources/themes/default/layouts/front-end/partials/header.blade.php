@@ -23,9 +23,8 @@
                         <div class="dropdown">
                             <a class="dropbtn nav-link  ">Stores <i class="bi bi-caret-down-fill"></i></a>
                             <div class="dropdown-content">
-                                <a href="#">Link 1</a>
-                                <a href="#">Link 2</a>
-                                <a href="#">Link 3</a>
+                                <a href="#">Boys Clothing</a>
+                                <a href="#">Girls Clothing</a>
                             </div>
                         </div>
                     </li>
@@ -73,7 +72,7 @@
                         </li>
                         {{-- {{ dd(asset('assets/images/customers/'.auth('customer')->user()->image)) }} --}}
 
-                        <li class="nav-item d-flex align-items-center ms-2 ">
+                        {{-- <li class="nav-item d-flex align-items-center ms-2 ">
                             <a class="nav-link d-flex align-items-center gap-1 px-0  " href="{{ route('my-profile') }}">
                                 <img class="rounded-circle" src="{{ asset('public/assets/images/customers/'.auth('customer')->user()->image) }}" alt="user avatar" height="30" width="30">
 
@@ -91,6 +90,29 @@
                             </a>
                             <span class="px-1">/</span>
                             <a class="nav-link px-0  " href="{{ route('customer.auth.logout') }}">Logout</a>
+                        </li> --}}
+                        <li class="nav-item d-flex align-items-center ms-2">
+                            <div class="dropdown">
+                                <a class="nav-link d-flex align-items-center gap-1 px-0  " href="{{ route('my-profile') }}">
+                                    <img class="rounded-circle" src="{{ asset('public/images/useravatar.png') }}"
+                                        alt="user avatar" height="30" width="30">
+                                   
+                                        @if (strlen(auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name) <= 15)
+                                            <p class="card-text m-0">
+                                                {{ auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name }}
+                                            </p>
+                                        @else
+                                            <p class="card-text m-0">
+                                                {{ substr(auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name, 0, 15) }}...
+                                            </p>
+                                        @endif
+                                    
+                                </a>
+                                <div class="dropdown-content">
+                                    <a class="nav-link px-0 text-center" href="{{ route('customer.auth.logout') }}">Logout</a>
+                                    
+                                </div>
+                            </div>
                         </li>
                     @else
                         <li class="nav-item d-flex align-items-center ms-2 ">
