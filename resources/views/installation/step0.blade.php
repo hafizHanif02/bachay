@@ -28,7 +28,7 @@
                     <h6 class="fw-bold text-uppercase fs m-0 letter-spacing" style="--fs: 14px">Required
                         Database Information
                     </h6>
-                    <a href="https://docs.6amtech.com/docs-six-valley/admin-panel/install-on-server"
+                    <a href="https://docs.bachay.com/docs-six-valley/admin-panel/install-on-server"
                        target="_blank">Where to get this information?</a>
                 </div>
 

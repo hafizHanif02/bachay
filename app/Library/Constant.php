@@ -249,6 +249,7 @@ const COUNTRIES = [
 
 //telephone code country wise
 const TELEPHONE_CODES = [
+    ["name" => 'Pakistan (+92)', "code" => '92'],
     ["name" => 'UK (+44)', "code" => '44'],
     ["name" => 'USA (+1)', "code" => '1'],
     ["name" => 'Algeria (+213)', "code" => '213'],

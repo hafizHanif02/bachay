@@ -893,6 +893,14 @@
                                     <span class="text-truncate">{{translate('subscribers')}} </span>
                                 </a>
                             </li>
+
+                            <li class="navbar-vertical-aside-has-menu {{Request::is('admin/customer/parenting')?'active':''}}">
+                                <a class="nav-link " href="{{route('admin.customer.parenting')}}"
+                                   title="Parenting">
+                                    <span class="tio-user nav-icon"></span>
+                                    <span class="text-truncate">Parenting</span>
+                                </a>
+                            </li>
                         @endif
                         <!--User management end-->
 

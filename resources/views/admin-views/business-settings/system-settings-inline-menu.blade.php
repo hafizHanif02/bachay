@@ -13,9 +13,9 @@
                 href="{{route('admin.business-settings.language.index')}}">{{translate('language')}}</a></li>
 
         <li class="{{ Request::is('admin/currency/view') ?'active':'' }}"><a href="{{route('admin.currency.view')}}">{{translate('Currency')}}</a></li>
-        <li class="{{ Request::is('admin/system-settings/software-update') ?'active':'' }}">
+        {{-- <li class="{{ Request::is('admin/system-settings/software-update') ?'active':'' }}">
                 <a href="{{route('admin.system-settings.software-update')}}">{{translate('software_update')}}</a>
-        </li>
+        </li> --}}
 
         <li class="{{ Request::is('admin/business-settings/web-config/mysitemap') ?'active':'' }}"><a
                 href="{{route('admin.business-settings.web-config.mysitemap')}}">{{translate('Generate_Site_Map')}}</a>

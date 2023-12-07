@@ -8,6 +8,7 @@ use App\Exports\CustomerListExport;
 use App\Exports\SubscriberListExport;
 use App\Http\Controllers\Controller;
 use App\Model\Order;
+use App\Models\familyRelation;
 use App\User;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Http\Request;
@@ -252,4 +253,55 @@ class CustomerController extends Controller
         return Excel::download(new SubscriberListExport($data), 'Subscriber-list.xlsx');
     }
 
+    public function parenting(Request $request){
+        $query_param = [];
+        $search = $request['search'];
+        if ($request->has('search')) {
+            $key = explode(' ', $request['search']);
+            $customers = User::with(['orders'])
+                ->where(function ($q) use ($key) {
+                    foreach ($key as $value) {
+                        $q->orWhere('f_name', 'like', "%{$value}%")
+                            ->orWhere('l_name', 'like', "%{$value}%")
+                            ->orWhere('phone', 'like', "%{$value}%")
+                            ->orWhere('email', 'like', "%{$value}%");
+                    }
+                });
+            $query_param = ['search' => $request['search']];
+        } else {
+            $customers = User::with(['orders']);
+        }
+        $customers = $customers->latest()->paginate(Helpers::pagination_limit())->appends($query_param);
+        return view('admin-views.customer.parenting', compact('customers', 'search'));
+    }
+
+    public function parentView(Request $request, $id) {
+
+        $customer = User::find($id);
+        if (isset($customer)) {
+            $query_param = [];
+            $search = $request['search'];
+            $orders = Order::where(['customer_id' => $id, 'is_guest'=>'0']);
+            if ($request->has('search')) {
+
+                $orders = $orders->where('id', 'like', "%{$search}%");
+                $query_param = ['search' => $request['search']];
+            }
+            $orders = $orders->latest()->paginate(Helpers::pagination_limit())->appends($query_param);
+            return view('admin-views.customer.parent-view', compact('customer', 'orders', 'search'));
+        }
+        Toastr::error(translate('customer_not_found'));
+        return back();
+    }
+
+    public function parentAddNewChild(Request $request, $id) {
+
+        $telephone_codes = TELEPHONE_CODES;
+        $customer = User::find($id);
+        if (isset($customer)) {
+            return view('admin-views.customer.addNewChild', compact('customer', 'telephone_codes'));
+        }
+        Toastr::error(translate('customer_not_found'));
+        return back();
+    }
 }

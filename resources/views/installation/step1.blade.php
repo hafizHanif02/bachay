@@ -21,7 +21,7 @@
     <div class="card mt-4">
         <div class="p-4 mb-md-3 mx-xl-4 px-md-5">
             <div class="d-flex justify-content-end mb-2">
-                <a href="https://docs.6amtech.com/docs-six-valley/intro/" class="d-flex align-items-center gap-1"
+                <a href="https://docs.bachay.com/docs-six-valley/intro/" class="d-flex align-items-center gap-1"
                    target="_blank">
                     Read Documentation
                     <span data-bs-toggle="tooltip" data-bs-placement="top" data-bs-custom-class="custom-tooltip"
