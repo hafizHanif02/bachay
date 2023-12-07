@@ -28,11 +28,7 @@
                     </div>
                     <div class="MyProfile-info font-poppins">
                         <h4 class="fw-bold m-0">
-                            
-                            {{ $userData->f_name }}
-                            @dd()
-                            
-                         
+                            {{ $userData->f_name.' '.$userData->l_name }}
                         </h4>
                         <h6 class="m-0">
                             <img src="{{ asset('public/images/mother-icon.svg') }}" alt=""> Mother Of 03
