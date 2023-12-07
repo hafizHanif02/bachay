@@ -62,7 +62,7 @@
                             </div>
                             <div class="ms-5 font-color">
                                 <h6 class="mb-4">{{ $userData->email }}</h6>
-                                <h6 class="mb-4">{{ (!empty($userData->mobile)?$userData->mobile:'-') }}</h6>
+                                <h6 class="mb-4">{{ (!empty($userData->phone)?$userData->phone:'-') }}</h6>
 
                             </div>
                         </div>
