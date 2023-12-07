@@ -23,7 +23,7 @@
             <div id="personalDetails" class="d-flex justify-content-between align-items-center mt-5">
                 <div class="MyProfile-con d-flex align-items-center">
                     <div class="MyProfile-img col-4 rounded-circle me-3">
-                        <img class="object-fit-cover rounded-circle" src="{{ asset('public/images/profile-img.png') }}"
+                        <img class="object-fit-cover rounded-circle" src="{{ asset('public/assets/images/customers/'.auth('customer')->user()->image) }}"
                             alt="" width="100%" height="100%">
                     </div>
                     <div class="MyProfile-info font-poppins">

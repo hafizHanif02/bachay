@@ -6710,4 +6710,6 @@
   'Toggle navigation' => 'Toggle navigation',
   'captcha_failed' => 'Captcha failed',
   'too_many_attempts._please_try_again_after_' => 'Too many attempts. please try again after ',
+  'Enter_image' => 'Enter image',
+  'please_enter_valid_image' => 'Please enter valid image',
 );

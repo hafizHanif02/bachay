@@ -71,11 +71,12 @@
                                 <i class="bi bi-cart3"></i> Cart
                             </a>
                         </li>
-                        <li class="nav-item d-flex align-items-center ms-2 ">
+                        {{-- {{ dd(asset('assets/images/customers/'.auth('customer')->user()->image)) }} --}}
 
+                        <li class="nav-item d-flex align-items-center ms-2 ">
                             <a class="nav-link d-flex align-items-center gap-1 px-0  " href="{{ route('my-profile') }}">
-                                <img class="rounded-circle" src="{{ asset('public/images/useravatar.png') }}"
-                                    alt="user avatar" height="30" width="30">
+                                <img class="rounded-circle" src="{{ asset('public/assets/images/customers/'.auth('customer')->user()->image) }}" alt="user avatar" height="30" width="30">
+
                                
                                     @if (strlen(auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name) <= 15)
                                         <p class="card-text m-0">

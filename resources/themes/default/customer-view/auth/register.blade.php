@@ -8,7 +8,7 @@
         <div class="login-card shadow p-4">
             <div class="mx-auto __max-w-760">
                 <h2 class="text-center h4 mb-4 font-bold text-capitalize fs-18-mobile">{{ translate('sign_up') }}</h2>
-                <form class="needs-validation_" id="form-id" action="{{ route('customer.auth.sign-up') }}" method="post"
+                <form class="needs-validation_" id="form-id" action="{{ route('customer.auth.sign-up') }}" enctype="multipart/form-data" method="post"
                     id="sign-up-form">
                     @csrf
                     <div class="row">
@@ -48,6 +48,15 @@
                                     style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};"
                                     placeholder="{{ translate('enter_phone_number') }}" required>
                                 <div class="invalid-feedback">{{ translate('please_enter_your_phone_number') }}!</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="form-label font-semibold">{{ translate('image') }}</label>
+                                <input class="form-control" type="file" value="{{ old('image') }}" name="image"
+                                    style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};"
+                                    placeholder="{{ translate('Enter_image') }}" autocomplete="off" required>
+                                <div class="invalid-feedback">{{ translate('please_enter_valid_image') }}!</div>
                             </div>
                         </div>
                         <div class="col-sm-6">
