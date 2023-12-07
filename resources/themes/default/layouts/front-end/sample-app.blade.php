@@ -29,11 +29,14 @@
 
 <body>
     <div id="app">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="{{ url('/') }}">
+        <nav class="navbar navbar-expand-md navbar-light bg-white">
+            <div class="container d-flex justify-content-center">
+                {{-- <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
-                </a>
+                </a> --}}
+                <a class="navbar-brand" href="{{ url('/') }}">
+                    <img src="{{ asset('public/images/logo.png') }}" alt="Logo">
+                </a>                
                 {{-- <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="{{ translate('Toggle navigation') }}">

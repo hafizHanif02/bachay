@@ -3,8 +3,9 @@
 
         <nav class="navbar navbar-expand-md d-flex justify-content-between align-items-center col-12">
             <div class="d-flex col-md-5">
-                <a class="navbar-brand col-3" href=""><img
-                        src="{{ asset("public/images/bachay-logo.png") }}" alt="Logo"></a>
+                <a class="navbar-brand col-3" href="{{ url('/') }}">
+                    <img src="{{ asset('public/images/logo.png') }}" alt="Logo">
+                </a>                
                 <form class="form-inline my-2 my-lg-0 col-9">
                     <div class="search1 search-bar pt-2 pb-3 col-12">
                         <input class="form-control pt-2 pb-2 mr-sm-2 search-input" type="text" name="search"
