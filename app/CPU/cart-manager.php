@@ -257,20 +257,21 @@ class CartManager
 
     public static function add_to_cart($request, $from_api = false)
     {
+        // dd($request);
         $str = '';
         $variations = [];
         $price = 0;
 
         $user = Helpers::get_customer($request);
-        $product = Product::find($request->id);
+        $product = Product::find($request->product_id);
         $guest_id = session('guest_id') ?? ($request->guest_id ?? 0);
 
         //check the color enabled or disabled for the product
-        if ($request->has('color')) {
+        if (!empty($request->color) && $request->has('color')) {
             $str = Color::where('code', $request['color'])->first()->name;
             $variations['color'] = $str;
         }
-
+        
         //Gets all the choice values of customer choice option and generate a string like Black-S-Cotton
         $choices = [];
         foreach (json_decode($product->choice_options) as $key => $choice) {
@@ -282,6 +283,7 @@ class CartManager
                 $str .= str_replace(' ', '', $request[$choice->name]);
             }
         }
+
 
         if ($user == 'offline') {
             $cart = Cart::where(['product_id' => $request->id, 'customer_id' => $guest_id, 'is_guest'=>1, 'variant' => $str])->first();
@@ -337,12 +339,15 @@ class CartManager
             }
         } else {
             $price = $product->unit_price;
+            // dd($price);
         }
 
         $tax = Helpers::tax_calculation($price, $product['tax'], 'percent');
+        // dd($tax);
 
         //generate group id
         if ($user == 'offline') {
+        dd($tax);
             $cart_check = Cart::where([
                 'customer_id' => $guest_id,
                 'is_guest'=>1,
@@ -350,19 +355,21 @@ class CartManager
                 'seller_is' => $product->added_by])->first();
 
         } else {
+            
             $cart_check = Cart::where([
                 'customer_id' => $user->id,
                 'is_guest'=>'0',
                 'seller_id' => ($product->added_by == 'admin') ? 1 : $product->user_id,
                 'seller_is' => $product->added_by])->first();
-        }
-
-        if (isset($cart_check)) {
-            $cart['cart_group_id'] = $cart_check['cart_group_id'];
-        } else {
-            $cart['cart_group_id'] = ($user == 'offline' ? 'guest' : $user->id) . '-' . Str::random(5) . '-' . time();
-        }
-        //generate group id end
+            }
+            
+            if (isset($cart_check)) {
+                $cart['cart_group_id'] = $cart_check['cart_group_id'];
+            } else {
+                $cart['cart_group_id'] = ($user == 'offline' ? 'guest' : $user->id) . '-' . Str::random(5) . '-' . time();
+            }
+            //generate group id end
+            // dd($price);
 
         $cart['customer_id'] = ($user == 'offline' ? $guest_id : $user->id);
         $cart['is_guest'] = ($user == 'offline' ? 1 : 0);
@@ -400,45 +407,57 @@ class CartManager
             }
         }
         $cart['shipping_type']=$shipping_type;
+        // dd($cart);   
         $cart->save();
 
         return [
             'status' => 1,
             'message' => translate('successfully_added!')
         ];
+        // return redirect('product-detail/'.$product->id)->with('message', 'Product Has Been Added to Cart !');
+
     }
 
     public static function update_cart_qty($request)
     {
-        $user = Helpers::get_customer($request);
+        // dd($request);
+        $user = Helpers::get_customer($request->customer_id);
         $guest_id = session('guest_id') ?? ($request->guest_id ?? 0);
         $status = 1;
         $qty = 0;
-        $cart = Cart::where(['id' => $request->key, 'customer_id' => ($user=='offline' ? $guest_id : $user->id)])->first();
-
-        $product = Product::find($cart['product_id']);
-        $count = count(json_decode($product->variation));
-        if ($count) {
-            for ($i = 0; $i < $count; $i++) {
-                if (json_decode($product->variation)[$i]->type == $cart['variant']) {
-                    if (json_decode($product->variation)[$i]->qty < $request->quantity) {
-                        $status = 0;
-                        $qty = $cart['quantity'];
-                    }
+        $carts = Cart::where([ 'customer_id' => ($user=='offline' ? $guest_id : $user->id)])->get();
+        foreach($carts as $cart)
+        {
+            // dd($cart['variant']);
+            $product = Product::find($cart['product_id']);
+            $count = count(($request->product));
+            if ($count) {
+                for ($i = 1; $i <= $count; $i++) {
+                    
+                    // dd($product->variation[$i]);
+                //     if (json_decode($product->variation)->type == $cart['variant']) {
+                //     // dd($product->variation);
+                //     if (json_decode($product->variation)->qty < $request->product[$i]['quantity']) {
+                //         $status = 0;
+                //         $qty = $cart['quantity'];
+                //     }
+                // }
+                if ($status) {
+                    // dd($request->product[$i]['quantity']);
+                    $qty = $request->product[$i]['quantity'];
+                    $cart['quantity'] = $request->product[$i]['quantity'];
+                    $cart['shipping_cost'] =  CartManager::get_shipping_cost_for_product_category_wise($product,$request->product[$i]['quantity']);
                 }
+        
+                // dd($cart);
+                $cart->save();
             }
-        } else if (($product['product_type'] == 'physical') && $product['current_stock'] < $request->quantity) {
+        } else if (($product['product_type'] == 'physical') && $product['current_stock'] < $request->product[$i]['quantity']) {
             $status = 0;
             $qty = $cart['quantity'];
         }
 
-        if ($status) {
-            $qty = $request->quantity;
-            $cart['quantity'] = $request->quantity;
-            $cart['shipping_cost'] =  CartManager::get_shipping_cost_for_product_category_wise($product,$request->quantity);
-        }
-
-        $cart->save();
+    }
 
         return [
             'status' => $status,

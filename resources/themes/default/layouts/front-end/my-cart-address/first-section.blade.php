@@ -1,5 +1,9 @@
 
+<form action="{{ route('cart.updateQuantity') }}" method="POST">
+    @csrf
 <div class="row col-12 my-cart pb-5 mt-4">
+    <input type="hidden" name="customer_id" value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
+    <input type="hidden" name="shipping_address" value="{{ auth('customer')->check() ? $shippingAddress->id : '' }}">
     <div class="col-8 border-right">
         <div class="btn-con col-12 d-flex justify-content-between">
             <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Shopping Cart ({{ count($myCartProducts) }})</button>
@@ -20,18 +24,26 @@
             <div class="col-5 border-right">
                 <h5 class="fw-semibold m-0 font-poppins">
                     {{ $Cartproduct->product->name }}
+                    <input type="hidden" name="product[{{ $loop->iteration }}][product_id]" value="{{ $Cartproduct->product_id }}">
+                    <input type="hidden" name="product[{{ $loop->iteration }}][product_details]" value="{{ $Cartproduct->product->description }}">
+                    <input type="hidden" name="product[{{ $loop->iteration }}][tax]" value="{{ $Cartproduct->product->tax }}">
+                    <input type="hidden" name="product[{{ $loop->iteration }}][discount]" value="{{ $Cartproduct->product->discount }}">
+                    <input type="hidden" name="product[{{ $loop->iteration }}][tax_model]" value="{{ $Cartproduct->product->tax_model }}">
                 </h5>
                 
                 <div class="d-flex align-items-center mt-3">
                     @if($Cartproduct->color != null)
                         <p class="m-0 fw-semibold font-poppins me-2">Color</p>
                         <div class="danger-circle rounded-circle p-2 me-3" style="background-color: {{ $Cartproduct->color }}"></div>
+                        <input type="hidden" name="product[{{ $loop->iteration }}][color]" value="{{ $Cartproduct->color }}">
+
                     @endif
                     @if($Cartproduct->variant != null)
                     <p class="m-0 fw-semibold font-poppins me-4">Size</p>
 
                     <p class="font-poppins m-0 sizes-btn rounded-2 p-1 fs-6">
                         <span class="fw-bold"></span> <span class="text-secondary">{{ $Cartproduct->variant }}</span>
+                        <input type="hidden" name="product[{{ $loop->iteration }}][variant]" value="{{ $Cartproduct->variant }}">
                     </p>
                     @endif
 
@@ -82,12 +94,13 @@
                 <div class="d-flex align-items-center">
                     <h6 class="text-decoration-line-through m-0 discount-off">Rs. {{ $Cartproduct->price }}</h6>
                     <span class="text-success fw-bold font-poppins"> - {{ $Cartproduct->discount  }}% Off</span>
+
                 </div>
                 <p class="taxes mt-1 mb-2">
                     MRP Includes all taxes
                 </p>
-                <input type="hidden" id="price{{ $loop->iteration }}" value="{{ $Cartproduct->price }}">
-                <input type="hidden" id="discount{{ $loop->iteration }}" value="{{($Cartproduct->discount/100)*$Cartproduct->price }}">
+                <input type="hidden" id="price{{ $loop->iteration }}" value="{{ $Cartproduct->price }}" name="product[{{ $loop->iteration }}][price]">
+                <input type="hidden" id="discount{{ $loop->iteration }}" value="{{($Cartproduct->discount/100)*$Cartproduct->price }}" name="product[{{ $loop->iteration }}][discount]">
 
                 <div class="blue-cart row align-items-center">
                     <div class="img col-3">
@@ -108,7 +121,7 @@
                 </div> --}}
                 <div class="number rounded-pill mt-3 d-flex justify-content-between col-12">
                     <span class="minus rounded-circle col-2 text-center"><i class="bi bi-dash-lg"></i></span>
-                    <input name="value{{ $loop->iteration }}" id="Value{{ $loop->iteration }}" onchange="changeValue({{ $loop->iteration }})" class="border-0 text-center col-8 col-sm-6" type="number"
+                    <input name="product[{{ $loop->iteration }}][quantity]" id="Value{{ $loop->iteration }}" onchange="changeValue({{ $loop->iteration }})" class="border-0 text-center col-8 col-sm-6" type="number"
                         value="1" />
                     <span class="plus rounded-circle col-2 text-center"><i class="bi bi-plus-lg"></i></span>
                 </div>
@@ -125,9 +138,14 @@
        
 
         <div class="btn-con col-12 d-flex justify-content-between mt-4">
-            <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Add Address</button>
-            <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Place Order</button>
+            @if(!empty($shippingAddress))
+                <a class="col-5 mt-2 btn-f rounded-pill text-center p-3 bg-purple text-white border-0" href="{{ route('my-profile') }}" style="text-decoration: none">Change Address</a>
+            @else
+            <a class="col-5 mt-2 btn-f rounded-pill p-3 text-center bg-purple text-white border-0" href="{{ route('my-profile') }}" style="text-decoration: none">Add Address</a>
+            @endif
+            <button type="submit" class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Place Order</button>
         </div>
+        
 
         <h5 class="font-poppins fw-bold mt-5">
             Shop With Confidence
@@ -285,7 +303,9 @@
                 </div>
                 <div class="listDown">
                     <p class="fw-bold">Rs. {{ $total_product_price }}</p>
+                    <input type="hidden" name="total_price" value="{{ $total_product_price }}">
                     <p class="text-success fw-bold">Rs. {{ $totalDiscount }}</p>
+                    <input type="hidden" name="discount_amount" value="{{ $totalDiscount }}">
                     {{-- <p class="text-danger fw-bold">Rs. 390.74</p> --}}
                     <p class="text-success fw-bold">FREE</p>
                 </div>
@@ -298,7 +318,6 @@
                 </div>
                 <div>
                     <p class="m-0 fw-bold" id="sub-total-down">Rs.{{ $total_product_price - $totalDiscount }}</p>
-
                 </div>
 
             </div>
@@ -309,6 +328,7 @@
                 </div>
                 <div>
                     <p class="fw-bold" id="final-payment">Rs.{{ $total_product_price - $totalDiscount }}</p>
+                    <input type="hidden" name="final_payment" value="{{ $total_product_price - $totalDiscount }}">
 
                 </div>
 
@@ -319,6 +339,7 @@
     </div>
 
 </div>
+</form>
 
 <script>
     function changeValue(index){

@@ -3,13 +3,13 @@
 
         <nav class="navbar navbar-expand-md d-flex justify-content-between align-items-center col-12">
             <div class="d-flex col-md-5">
-                <a class="navbar-brand col-3" href=""><img
-                        src="{{ asset("public/images/bachay-logo.png") }}" alt="Logo"></a>
-                <form class="form-inline my-2 my-lg-0 col-9">
+                <a class="navbar-brand col-4" href="{{ url('/') }}">
+                    <img src="{{ asset('public/images/logo.png') }}" alt="Logo">
+                </a>
+                <form class="form-inline my-2 my-lg-0 col-7">
                     <div class="search1 search-bar pt-2 pb-3 col-12">
                         <input class="form-control pt-2 pb-2 mr-sm-2 search-input" type="text" name="search"
-                            id="search" placeholder="Search for a Category, Brand or Product"
-                            aria-label="Search" />
+                            id="search" placeholder="Search for a Category, Brand or Product" aria-label="Search" />
                         <ul class="results" id="search-result"></ul>
                         <div class="search-icon2">
                             <i class="bi bi-search"></i>
@@ -21,7 +21,7 @@
                 <ul class="navbar-nav mr-auto align-items-center gap-1 ">
                     <li class="nav-item">
                         <div class="dropdown">
-                            <a class="dropbtn nav-link text-primary">Stores <i class="bi bi-caret-down-fill"></i></a>
+                            <a class="dropbtn nav-link  ">Stores <i class="bi bi-caret-down-fill"></i></a>
                             <div class="dropdown-content">
                                 <a href="#">Link 1</a>
                                 <a href="#">Link 2</a>
@@ -30,7 +30,7 @@
                         </div>
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link text-primary" href="#">Support</a>
+                        <a class="nav-link  " href="#">Support</a>
                     </li>
                     @auth
                         <li class="nav-item">
@@ -53,42 +53,58 @@
                         </li>
                     @endauth
                     @auth('customer')
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Track Order</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Parenting</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-heart"></i> Wishlist</a>
-                    </li>
-                    <li class="nav-item position-relative">
-                        <a class="nav-link" href="{{ route('my-cart-address') }}">
-                            @if (isset(auth('customer')->user()->cart))
-                                <div class="red-dot bg-warning position-absolute rounded-circle cart-w-h ms-2">
-                                </div>
-                            @endif
-                            <i class="bi bi-cart3"></i> Cart
-                        </a>
-                    </li>
-                    <li class="nav-item d-flex align-items-center ms-2 ">
-                        <a class="nav-link px-0 text-primary" href="{{ route('my-profile') }}">{{ auth('customer')->user()->f_name.' '.auth('customer')->user()->l_name}}</a>
-                        <span class="px-1">/</span>
-                        <a class="nav-link px-0 text-primary" href="{{ route('customer.auth.logout') }}">Logout</a>
-                    </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Track Order</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Parenting</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#"><i class="bi bi-heart"></i> Wishlist</a>
+                        </li>
+                        <li class="nav-item position-relative">
+                            <a class="nav-link" href="{{ route('my-cart-address') }}">
+                                @if (isset(auth('customer')->user()->cart))
+                                    <div class="red-dot bg-warning position-absolute rounded-circle cart-w-h ms-2">
+                                    </div>
+                                @endif
+                                <i class="bi bi-cart3"></i> Cart
+                            </a>
+                        </li>
+                        {{-- {{ dd(asset('assets/images/customers/'.auth('customer')->user()->image)) }} --}}
+
+                        <li class="nav-item d-flex align-items-center ms-2 ">
+                            <a class="nav-link d-flex align-items-center gap-1 px-0  " href="{{ route('my-profile') }}">
+                                <img class="rounded-circle" src="{{ asset('public/assets/images/customers/'.auth('customer')->user()->image) }}" alt="user avatar" height="30" width="30">
+
+                               
+                                    @if (strlen(auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name) <= 15)
+                                        <p class="card-text m-0">
+                                            {{ auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name }}
+                                        </p>
+                                    @else
+                                        <p class="card-text m-0">
+                                            {{ substr(auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name, 0, 15) }}...
+                                        </p>
+                                    @endif
+                                
+                            </a>
+                            <span class="px-1">/</span>
+                            <a class="nav-link px-0  " href="{{ route('customer.auth.logout') }}">Logout</a>
+                        </li>
                     @else
-                    <li class="nav-item d-flex align-items-center ms-2 ">
-                        <a class="nav-link px-0 text-primary" href="{{route('customer.auth.login')}}">Login</a>
-                        <span class="px-1">/</span>
-                        <a class="nav-link px-0 text-primary" href="{{route('customer.auth.sign-up')}}">Register</a>
-                    </li>
+                        <li class="nav-item d-flex align-items-center ms-2 ">
+                            <a class="nav-link px-0  " href="{{ route('customer.auth.login') }}">Login</a>
+                            <span class="px-1">/</span>
+                            <a class="nav-link px-0  " href="{{ route('customer.auth.sign-up') }}">Register</a>
+                        </li>
                     @endauth
-                    
+
                     {{-- @guest
                         <li class="nav-item d-flex align-items-center ms-2 ">
-                            <a class="nav-link px-0 text-primary" href="{{route('customer.auth.login')}}">Login</a>
+                            <a class="nav-link px-0  " href="{{route('customer.auth.login')}}">Login</a>
                             <span class="px-1">/</span>
-                            <a class="nav-link px-0 text-primary" href="{{route('customer.auth.sign-up')}}">Register</a>
+                            <a class="nav-link px-0  " href="{{route('customer.auth.sign-up')}}">Register</a>
                         </li>
                     @else
                         <li class="nav-item">
@@ -128,7 +144,8 @@
                                         <h4>SHOP BY CATEGORY</h4>
                                     </li>
                                     @foreach ($home_categories as $category)
-                                    <li><a href="#">{{ $category->name }} <span class="color">NEW</span></a></li>
+                                        <li><a href="#">{{ $category->name }} <span class="color">NEW</span></a>
+                                        </li>
                                     @endforeach
                                     {{-- <li><a href="#">Sets & Suits <span class="color">NEW</span></a></li>
                                     <li><a href="#">T-shirts <span class="color">NEW</span></a></li>
@@ -171,8 +188,8 @@
                                     <li><a href="#">Sunglasses</a></li>
                                     <li><a href="#">Summer Caps <span class="color">NEW</span></a></li>
                                     <li><a href="#">Watches <span class="color">NEW</span></a></li>
-                                    <li><a href="#">Ties, Belts & Suspenders <span
-                                                class="color">NEW</span></a></li>
+                                    <li><a href="#">Ties, Belts & Suspenders <span class="color">NEW</span></a>
+                                    </li>
                                     <li><a href="#">Bags</a></li>
                                     <li><a href="#">Kids Umbrellas</a></li>
                                     <div class="box"></div>
@@ -180,8 +197,8 @@
                                         <h4>FOOTWEAR</h4>
                                     </li>
                                     <li><a href="#">Casual Shoes <span class="color">NEW</span></a></li>
-                                    <li><a href="#">Sneakers & Sports Shoes <span
-                                                class="color">NEW</span></a></li>
+                                    <li><a href="#">Sneakers & Sports Shoes <span class="color">NEW</span></a>
+                                    </li>
                                     <li><a href="#">Formal & Partywear <span class="color">NEW</span></a>
                                     </li>
                                     <li><a href="#">Booties</a></li>
@@ -311,8 +328,8 @@
                                     <li><a href="#">Sunglasses</a></li>
                                     <li><a href="#">Summer Caps <span class="color">NEW</span></a></li>
                                     <li><a href="#">Watches <span class="color">NEW</span></a></li>
-                                    <li><a href="#">Ties, Belts & Suspenders <span
-                                                class="color">NEW</span></a></li>
+                                    <li><a href="#">Ties, Belts & Suspenders <span class="color">NEW</span></a>
+                                    </li>
                                     <li><a href="#">Bags</a></li>
                                     <li><a href="#">Kids Umbrellas</a></li>
                                     <div class="box"></div>
@@ -320,8 +337,8 @@
                                         <h4>FOOTWEAR</h4>
                                     </li>
                                     <li><a href="#">Casual Shoes <span class="color">NEW</span></a></li>
-                                    <li><a href="#">Sneakers & Sports Shoes <span
-                                                class="color">NEW</span></a></li>
+                                    <li><a href="#">Sneakers & Sports Shoes <span class="color">NEW</span></a>
+                                    </li>
                                     <li><a href="#">Formal & Partywear <span class="color">NEW</span></a>
                                     </li>
                                     <li><a href="#">Booties</a></li>
@@ -449,8 +466,8 @@
                                     <li><a href="#">Sunglasses</a></li>
                                     <li><a href="#">Summer Caps <span class="color">NEW</span></a></li>
                                     <li><a href="#">Watches <span class="color">NEW</span></a></li>
-                                    <li><a href="#">Ties, Belts & Suspenders <span
-                                                class="color">NEW</span></a></li>
+                                    <li><a href="#">Ties, Belts & Suspenders <span class="color">NEW</span></a>
+                                    </li>
                                     <li><a href="#">Bags</a></li>
                                     <li><a href="#">Kids Umbrellas</a></li>
                                     <div class="box"></div>
@@ -458,8 +475,8 @@
                                         <h4>FOOTWEAR</h4>
                                     </li>
                                     <li><a href="#">Casual Shoes <span class="color">NEW</span></a></li>
-                                    <li><a href="#">Sneakers & Sports Shoes <span
-                                                class="color">NEW</span></a></li>
+                                    <li><a href="#">Sneakers & Sports Shoes <span class="color">NEW</span></a>
+                                    </li>
                                     <li><a href="#">Formal & Partywear <span class="color">NEW</span></a>
                                     </li>
                                     <li><a href="#">Booties</a></li>
@@ -548,10 +565,10 @@
                                         <h4>SHOP BY CATEGORY</h4>
                                     </li>
                                     <li><a href="#">Casual Shoes <span class="color">NEW</span></a></li>
-                                    <li><a href="#">Sneakers & Sports Shoess <span
-                                                class="color">NEW</span></a></li>
-                                    <li><a href="#">Mojaris/Ethnic Footwear <span
-                                                class="color">NEW</span></a></li>
+                                    <li><a href="#">Sneakers & Sports Shoess <span class="color">NEW</span></a>
+                                    </li>
+                                    <li><a href="#">Mojaris/Ethnic Footwear <span class="color">NEW</span></a>
+                                    </li>
                                     <li><a href="#">Formal & Party Wear <span class="color">NEW</span></a>
                                     </li>
                                     <li><a href="#">Booties</a></li>

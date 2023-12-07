@@ -14,11 +14,21 @@
             <div class="card1">
                 <div class="first-sec card1">
                     <div class="image-container">
-                        @foreach (json_decode($related->images) as $key => $photo)
-                        <img src="{{ asset("storage/app/public/product/$photo")  }}" alt="" class="img-fluid"
-                            width="100%" height="100%">
-                            @break($loop->first)
-                        @endforeach
+                        <div class="imgMAinCon">
+                            {{-- @foreach (json_decode($product->thumbnail) as $key => $photo) --}}
+                            <img src="{{ asset("storage/app/public/product/thumbnail/$related->thumbnail") }}"
+                                alt="" class="object-fit-cover rounded-2" width="100%"
+                                height="100%">
+                            {{-- @endforeach --}}
+                        </div>
+                        {{-- <div class="imgMAin">
+                            @foreach (json_decode($related->images) as $key => $photo)
+                            <img src="{{ asset("storage/app/public/product/$photo")  }}" alt="" class="ob"
+                                width="100%" height="100%">
+                                @break($loop->first)
+                            @endforeach
+
+                        </div> --}}
 
                         <div class="sec-best-seller mt-3">
                             <p>Best Seller</p>
@@ -66,6 +76,7 @@
             </div>
         </div>
     </div>
+   
     @endforeach
 
     {{-- <div class="mb-4 pb-3 me-3">

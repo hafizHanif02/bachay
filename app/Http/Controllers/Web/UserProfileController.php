@@ -34,6 +34,7 @@ use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\Hash;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -84,6 +85,51 @@ class UserProfileController extends Controller
                 });
         return view(VIEW_FILE_NAMES['my-profile'],compact('userData','home_categories'));
 
+    }
+
+    public function AddressStore(Request $request){
+        // dd($request);
+        $existing_user = DB::table('users')->where('id', $request->customer_id)->first();
+
+        if ($existing_user) {
+            DB::table('users')->where('id', $request->customer_id)->update([
+                'street_address' => $request->street_address,
+                'country' => $request->country,
+                'city' => $request->city,
+                'zip' => $request->zip,
+                'house_no' => $request->house_no,
+                'apartment_no' => $request->apartment_no,
+            ]);
+            $shippingaddress = DB::table('shipping_addresses')->where('customer_id', $request->customer_id)->first();
+            if($shippingaddress){
+                DB::table('shipping_addresses')->where('customer_id', $request->customer_id)->update([
+                    'address'=> $request->house_no.' '.$request->street_address.' , '.$request->city.' '.$request->state,
+                    'city' => $request->city,
+                    'zip' => $request->zip,
+                    'address_type' => $request->address_type,
+                    'phone'=> $existing_user->phone,
+                    'country' => $request->country,
+                    'state' => $request->state,
+                ]);
+            }else{
+                DB::table('shipping_addresses')->insert([
+                    'customer_id' => $existing_user->id,
+                    'contact_person_name'=> $existing_user->f_name.' '.$existing_user->l_name,
+                    'email' => $existing_user->email,
+                    'address'=> $request->house_no.' '.$request->street_address.' '.$request->city.' ,'.$request->state,
+                    'city' => $request->city,
+                    'address_type' => $request->address_type,
+                    'zip' => $request->zip,
+                    'phone'=> $existing_user->phone,
+                    'country' => $request->country,
+                    'state' => $request->state,
+                ]);
+            }
+        
+            return redirect()->back()->with('message', 'Address Has Been Updated!');
+        } else {
+            return redirect()->back()->with('message', 'User is not Logged In');
+        }
     }
 
     public function user_account(Request $request)
@@ -842,5 +888,25 @@ class UserProfileController extends Controller
                     ->paginate(8);
 
         return view(VIEW_FILE_NAMES['user_coupons'], compact('coupons'));
+    }
+
+
+    public function changePassword(Request $request){
+        $existing_user = DB::table('users')->where('id', $request->customer_id)->first();
+        $currentPassword = DB::table('users')->where('id', $request->customer_id)->pluck('password')->first();
+        if($existing_user){
+            if(Hash::check($request->current_password, $currentPassword)){
+                $existing_user = DB::table('users')->where('id', $request->customer_id)->update([
+                    'password' => Hash::make($request->new_password),
+                ]);
+                return redirect()->back()->with('message', 'Password has been Changed !');
+            }else{
+                return redirect()->back()->with('message', 'Current Password is not correct');
+            }
+            
+        }else{                
+            return redirect()->back()->with('message', 'User is not found');
+
+        }
     }
 }

@@ -174,9 +174,9 @@
                                                         @endif
                                                     </div>
                                                     <div class="media-body d-flex gap-1 flex-column {{ $product->status == 0?'blur-section':'' }}">
-                                                        <h6 class="text-truncate text-capitalize" style="--width: 20ch">
+                                                        {{-- <h6 class="text-truncate text-capitalize" style="--width: 20ch">
                                                             <a href="{{ $product->status == 1?route('product',$cartItem['slug']):'javascript:' }}">{{$cartItem['name']}}</a>
-                                                        </h6>
+                                                        </h6> --}}
                                                         @foreach(json_decode($cartItem['variations'],true) as $key1 =>$variation)
                                                             <div class="fs-12">{{$key1}} : {{$variation}}</div>
                                                         @endforeach
@@ -261,9 +261,9 @@
                                             @endif
                                         </div>
                                         <div class="media-body d-flex gap-1 flex-column {{ $product->status == 0?'blur-section':'' }}">
-                                            <h6 class="text-truncate text-capitalize" style="--width: 20ch">
+                                            {{-- <h6 class="text-truncate text-capitalize" style="--width: 20ch">
                                                 <a href="{{route('product',$cartItem['slug'])}}">{{$cartItem['name']}}</a>
-                                            </h6>
+                                            </h6> --}}
                                             @foreach(json_decode($cartItem['variations'],true) as $key1 =>$variation)
                                                 <div class="fs-12">{{$key1}} : {{$variation}}</div>
                                             @endforeach

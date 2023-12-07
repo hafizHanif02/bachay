@@ -38,6 +38,7 @@ class RegisterController extends Controller
 
     public function submit(Request $request)
     {
+        
         $validator = Validator::make($request->all(), [
             'f_name' => 'required',
             'email' => 'required|email|unique:users',
@@ -49,6 +50,12 @@ class RegisterController extends Controller
             'phone.unique' => translate('phone_number_already_has_been_taken'),
         ]);
 
+        $file = $request->file('image');
+        $extension = $file->getClientOriginalExtension();
+        $filename = $file->getClientOriginalName();
+        $picture = $request->image->move(public_path('assets/images/customers'), $filename);
+
+        
         if($request->ajax()) {
             if ($validator->fails()) {
                 return response()->json([
@@ -57,9 +64,8 @@ class RegisterController extends Controller
             }
         }else {
             $validator->validate();
-        }
+        } 
 
-        //recaptcha validation
         $recaptcha = Helpers::get_business_settings('recaptcha');
         if ($recaptcha['status'] != 1 && strtolower($request->default_recaptcha_value_customer_regi) != strtolower(Session('default_recaptcha_id_customer_regi'))) {
             Session::forget('default_recaptcha_id_customer_regi');
@@ -76,11 +82,13 @@ class RegisterController extends Controller
             $refer_user = User::where(['referral_code' => $request->referral_code])->first();
         }
 
+
         $user = User::create([
             'f_name' => $request['f_name'],
             'l_name' => $request['l_name'],
             'email' => $request['email'],
             'phone' => $request['phone'],
+            'image' => $filename,
             'is_active' => 1,
             'password' => bcrypt($request['password']),
             'referral_code' => Helpers::generate_referer_code(),

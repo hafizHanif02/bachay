@@ -27,9 +27,16 @@
                                     <p>Best Seller</p>
                                 </div>
                                 <div class="wish-list mt-3 me-2">
+                                    <button id="wishlist-btn" class="p-0 bg-transparent rounded-circle forBorder">
+                                        <i class="bi bi-heart text-danger"></i>
+                                        {{-- <i
+                                class="bi {{ in_array($product->id, $wishlistProducts) ? 'bi-heart-fill' : 'bi-heart' }} text-danger"></i> --}}
+                                    </button>
+                                </div>
+                                {{-- <div class="wish-list mt-3 me-2">
                                     <a href=""><img src="{{ asset('public/images/heart.svg') }}"
                                             alt=""></a>
-                                </div>
+                                </div> --}}
                                 <p class="card-text mt-3" id="productDescription">
                                     @if (strlen($products->name) <= 20)
                                         {{ $products->name }}

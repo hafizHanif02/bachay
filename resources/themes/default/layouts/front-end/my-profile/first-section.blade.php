@@ -23,7 +23,7 @@
             <div id="personalDetails" class="d-flex justify-content-between align-items-center mt-5">
                 <div class="MyProfile-con d-flex align-items-center">
                     <div class="MyProfile-img col-4 rounded-circle me-3">
-                        <img class="object-fit-cover rounded-circle" src="{{ asset('public/images/profile-img.png') }}"
+                        <img class="object-fit-cover rounded-circle" src="{{ asset('public/assets/images/customers/'.auth('customer')->user()->image) }}"
                             alt="" width="100%" height="100%">
                     </div>
                     <div class="MyProfile-info font-poppins">
@@ -286,21 +286,28 @@
                 </ul>
             </div>
             <div class="">
-                <form class="MyProfileForm font-poppins">
-                    <input type="text" id="full-name" name="full-name" placeholder="Name" required><br>
-                    <input type="text" id="house" name="house" placeholder="Flat/House No/Building"
+                <form class="MyProfileForm font-poppins" id="addAddressForm" action="{{ route('address.store') }}" method="POST" >
+                    @csrf
+                    @auth('customer')
+                    <input type="hidden" name="customer_id" value="{{ auth('customer')->user()->id }}">
+                    @endauth
+                    <input type="text" id="house_no" name="house_no" value="{{$userData->house_no}}" placeholder="Flat/House No/Building"
                         required><br>
-                    <input type="text" id="street" name="street" placeholder="Street Address/Colony"
+                    <input type="text" id="street_address" name="street_address" value="{{$userData->street_address}}" placeholder="Street Address/Colony"
                         required><br>
-                    <input type="text" id="landmark" name="landmark" placeholder="Landmark (Optional)"
+                    <input type="text" id="country" name="country" value="{{$userData->country}}"  placeholder="Country"
+                        required><br>
+                    <input type="text" id="state" name="state" value="Pakistan"  placeholder="State"
+                        required><br>
+                    <input type="text" id="state" name="address_type"   placeholder="Address Type"
                         required><br>
                     <div class="form-group">
-                        <input type="text" id="pincode" name="pincode" placeholder="Pincode" required>
-                        <input type="text" id="city" name="city" placeholder="City" required>
+                        <input type="text" id="zip" name="zip" value="{{$userData->zip}}"  placeholder="Zip" required>
+                        <input type="text" id="city" name="city" value="{{$userData->city}}"  placeholder="City" required>
                     </div>
-                    <input type="text" id="mobile" name="mobile" placeholder="+92" required><br>
+                    <input type="text" id="apartment_no" name="apartment_no" value="{{$userData->apartment_no}}"  placeholder="Apartment No" required><br>
                     <div class="form-group">
-                        <button class="rounded-pill text-white" type="submit">Save</button>
+                        <button type="submit" class="rounded-pill text-white" type="submit">Save</button>
                         <button class="rounded-pill fw-semibold" type="button">Cancel</button>
 
                     </div>
@@ -314,23 +321,26 @@
             </div>
 
             <div class="ChangePassword mt-5 font-poppins">
-                <form action="">
+                <form action="{{ route('change-password') }}" method="POST" >
+                    @csrf
+                    <input type="hidden" name="customer_id" value="{{ auth('customer')->user()->id }}">
                     <div class="currentPassword d-flex justify-content-between align-items-center mb-3">
                         <label for="currentPassword">Current Password</label>
-                        <input type="password" id="currentPassword" name="currentPassword" required>
+                        <input type="password" id="currentPassword" name="current_password" placeholder="Previous Password" required>
                     </div>
                     <div class="newPassword d-flex justify-content-between align-items-center mb-3">
                         <label for="newPassword">New Password</label>
-                        <input type="password" id="newPassword" name="newPassword" required>
+                        <input type="password" id="newPassword" name="new_password" placeholder="New Password"  required>
                     </div>
                     <div class="confirmPassword d-flex justify-content-between align-items-center mb-3">
                         <label for="confirmPassword">Confirm Password</label>
-                        <input type="password" id="confirmPassword" name="confirmPassword" required>
+                        <input type="password" id="confirmPassword" name="confirm_password" placeholder="Re-type Password" required>
                     </div>
+                    <div id="passwordMatchError" style="color: red;"></div>
                     <a class="text-decoration-none text-purple fw-semibold" href="">Note: Password must be at
                         least 8 characters long with 1 Uppercase, 1 Lowercase & 1 Numeric character.</a>
                     <div class="form-group mt-4">
-                        <button class="rounded-pill text-white" type="submit">Save</button>
+                        <button type="submit" class="rounded-pill text-white" type="submit">Save</button>
                         <button class="rounded-pill fw-semibold" type="button">Cancel</button>
 
                     </div>
@@ -364,3 +374,20 @@
         </div>
     </div>
 </div>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        $("#confirmPassword").keyup(function () {
+            var newPassword = $("#newPassword").val();
+            var confirmPassword = $(this).val();
+
+            if (newPassword !== confirmPassword) {
+                $("#passwordMatchError").text("Password does not match").css("color", "red");
+            } else {
+                $("#passwordMatchError").text(""); // Clear the error message
+            }
+        });
+    });
+</script>
+
