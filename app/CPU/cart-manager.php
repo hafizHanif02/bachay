@@ -323,6 +323,9 @@ class CartManager
         $cart['variations'] = json_encode($variations);
         $cart['variant'] = $str;
 
+            // dd($cart);
+
+
         //Check the string and decreases quantity for the stock
         if ($str != null) {
             $count = count(json_decode($product->variation));
@@ -347,7 +350,7 @@ class CartManager
 
         //generate group id
         if ($user == 'offline') {
-        dd($tax);
+        // dd($tax);
             $cart_check = Cart::where([
                 'customer_id' => $guest_id,
                 'is_guest'=>1,
@@ -369,12 +372,12 @@ class CartManager
                 $cart['cart_group_id'] = ($user == 'offline' ? 'guest' : $user->id) . '-' . Str::random(5) . '-' . time();
             }
             //generate group id end
-            // dd($price);
+            // dd($request['price']);
 
         $cart['customer_id'] = ($user == 'offline' ? $guest_id : $user->id);
         $cart['is_guest'] = ($user == 'offline' ? 1 : 0);
         $cart['quantity'] = $request['quantity'];
-        $cart['price'] = $price;
+        $cart['price'] = $request['price'];
         $cart['tax'] = $tax;
         $cart['tax_model'] = $product->tax_model;
         $cart['slug'] = $product->slug;

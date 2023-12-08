@@ -214,7 +214,8 @@ class CartController extends Controller
         session()->forget('coupon_bearer');
         session()->forget('coupon_discount');
         session()->forget('coupon_seller_id');
-        return response()->json($cart);
+        // return response()->json($cart);
+        return redirect()->back()->with('message', 'Product Has Been Added to Cart !');
     }
 
     public function updateNavCart()

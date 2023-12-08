@@ -3,7 +3,7 @@
     @csrf
 <div class="row col-12 my-cart pb-5 mt-4">
     <input type="hidden" name="customer_id" value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
-    <input type="hidden" name="shipping_address" value="{{ auth('customer')->check() ? $shippingAddress->id : '' }}">
+    <input type="hidden" name="shipping_address" value="{{ auth('customer')->check() ? ($shippingAddress? $shippingAddress->id : '') : '' }}">
     <div class="col-8 border-right">
         <div class="btn-con col-12 d-flex justify-content-between">
             <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Shopping Cart ({{ count($myCartProducts) }})</button>
@@ -87,7 +87,7 @@
 
             </div>
             <div class="col-4">
-                <h3 class="product-price mb-1">
+                <h3 class="product-price mb-1" id="showedprice{{ $loop->iteration }}">
                     Rs. {{ $Cartproduct->price - ($Cartproduct->discount/100)*$Cartproduct->price }}
                 </h3>
 
@@ -99,8 +99,9 @@
                 <p class="taxes mt-1 mb-2">
                     MRP Includes all taxes
                 </p>
-                <input type="hidden" id="price{{ $loop->iteration }}" value="{{ $Cartproduct->price }}" name="product[{{ $loop->iteration }}][price]">
-                <input type="hidden" id="discount{{ $loop->iteration }}" value="{{($Cartproduct->discount/100)*$Cartproduct->price }}" name="product[{{ $loop->iteration }}][discount]">
+                <input type="hidden" class="price" id="price{{ $loop->iteration }}" value="{{ $Cartproduct->price }}" name="product[{{ $loop->iteration }}][price]">
+                <input type="hidden"  id="pricejs{{ $loop->iteration }}" value="{{ $Cartproduct->price }}" name="product[{{ $loop->iteration }}][price]">
+                <input type="hidden" id="discount{{ $loop->iteration }}" value="{{($Cartproduct->discount)}}" name="product[{{ $loop->iteration }}][discount]">
 
                 <div class="blue-cart row align-items-center">
                     <div class="img col-3">
@@ -121,7 +122,7 @@
                 </div> --}}
                 <div class="number rounded-pill mt-3 d-flex justify-content-between col-12">
                     <span class="minus rounded-circle col-2 text-center"><i class="bi bi-dash-lg"></i></span>
-                    <input name="product[{{ $loop->iteration }}][quantity]" id="Value{{ $loop->iteration }}" onchange="changeValue({{ $loop->iteration }})" class="border-0 text-center col-8 col-sm-6" type="number"
+                    <input name="product[{{ $loop->iteration }}][quantity]" id="quantity{{ $loop->iteration }}" onchange="changeValue({{ $loop->iteration }})" class="border-0 text-center col-8 col-sm-6" type="number"
                         value="1" />
                     <span class="plus rounded-circle col-2 text-center"><i class="bi bi-plus-lg"></i></span>
                 </div>
@@ -327,13 +328,14 @@
 
                 </div>
                 <div>
-                    <p class="fw-bold" id="final-payment">Rs.{{ $total_product_price - $totalDiscount }}</p>
-                    <input type="hidden" name="final_payment" value="{{ $total_product_price - $totalDiscount }}">
+                    <p class="fw-bold" id="final-paymentp">Rs.{{ $total_product_price - $totalDiscount }}</p>
+                    <input type="hidden" name="final_payment" id="final-payment" value="{{ $total_product_price - $totalDiscount }}">
 
                 </div>
 
             </div>
         </div>
+        <input type="hidden" class="discount_amount" id="discount_amount" value="{{ $totalDiscount }}">
 
 
     </div>
@@ -343,8 +345,27 @@
 
 <script>
     function changeValue(index){
-        var price = $('#price'+index).val();
-        var price = $('#discount'+index).val();
-        
+        var price = $('#pricejs'+index).val();
+        var discount = $('#discount'+index).val();
+        var quantity = $('#quantity'+index).val();
+
+        var total = ((price - (discount/100)*price) * quantity).toFixed(1);
+        var discount_amount = (((discount/100)*price) * quantity).toFixed(1);
+        $('#price'+index).val(total);
+        $('#discount_amount'+index).val(total);
+
+        $('#showedprice'+index).text('Rs. '+total);
+        ChangeValues();
+    }
+    function ChangeValues() {
+        var totalAmount = 0;
+        $('#final-payment').val();
+        $("[class^='price']").each(function() {
+            if ($(this).val() != '') {
+                totalAmount += parseFloat($(this).val());
+            }
+        }); 
+        $('#final-payment').val(totalAmount);
+        $('#final-paymentp').text('Rs. ' + totalAmount);
     }
 </script>
