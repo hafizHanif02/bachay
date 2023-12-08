@@ -567,7 +567,14 @@ class WebController extends Controller
     public function checkout_details(Request $request)
     {
 
-        // dd($request);
+        
+        $exsisting_cart_shipping = DB::table('cart_shippings')->where('cart_group_id', $request->cart_group_id)->first();
+        if(!($exsisting_cart_shipping)){
+            DB::table('cart_shippings')->insert([
+                'cart_group_id' => $request->cart_group_id,
+                'shipping_cost' => $request->customer_id,
+            ]);
+        }
         if (
             (!auth('customer')->check() || Cart::where(['customer_id' => auth('customer')->id()])->count() < 1)
             && (!Helpers::get_business_settings('guest_checkout') || !session()->has('guest_id') || !session('guest_id'))
@@ -636,11 +643,11 @@ class WebController extends Controller
                             $shipping_type = isset($seller_shipping) == true ? $seller_shipping->shipping_type : 'order_wise';
                         }
                     }
-
+                    
+                    // dd('Test');
                     if ($physical_product && $shipping_type == 'order_wise') {
                         $cart_shipping = CartShipping::where('cart_group_id', $cart->cart_group_id)->first();
                         if (!isset($cart_shipping)) {
-                            // dd($cart_shipping);
                             Toastr::info(translate('select_shipping_method_first'));
                             return redirect('shop-cart');
                         }
@@ -681,7 +688,8 @@ class WebController extends Controller
         ])->get();
 
         if (count($cart_group_ids) > 0) {
-            return view(VIEW_FILE_NAMES['order_shipping'], compact('physical_product_view', 'zip_codes', 'country_restrict_status',
+            $data = $request;
+            return view(VIEW_FILE_NAMES['order_shipping'], compact('data','physical_product_view', 'zip_codes', 'country_restrict_status',
                 'zip_restrict_status', 'countries','billing_input_by_customer','default_location','shipping_addresses','billing_addresses'));
 
         }
@@ -954,6 +962,8 @@ class WebController extends Controller
 
     public function shop_cart(Request $request)
     {
+    // dd($request); 
+
         $top_rated_shops = [];
         $new_sellers = [] ;
         $current_date = date('Y-m-d H:i:s');

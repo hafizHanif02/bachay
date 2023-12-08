@@ -1,9 +1,10 @@
 
-<form action="{{ route('cart.updateQuantity') }}" method="POST">
+<form action="{{ route('checkout-details') }}" method="GET">
     @csrf
 <div class="row col-12 my-cart pb-5 mt-4">
     <input type="hidden" name="customer_id" value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
     <input type="hidden" name="shipping_address" value="{{ auth('customer')->check() ? ($shippingAddress? $shippingAddress->id : '') : '' }}">
+    <input type="hidden" name="cart_group_id" value="{{ $cartGroupId }}">
     <div class="col-8 border-right">
         <div class="btn-con col-12 d-flex justify-content-between">
             <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Shopping Cart ({{ count($myCartProducts) }})</button>
@@ -101,8 +102,9 @@
                 </p>
                 <input type="hidden" class="price" id="price{{ $loop->iteration }}" value="{{ $Cartproduct->price }}" name="product[{{ $loop->iteration }}][price]">
                 <input type="hidden"  id="pricejs{{ $loop->iteration }}" value="{{ $Cartproduct->price }}" name="product[{{ $loop->iteration }}][price]">
+                <input type="hidden"  id="actual_price{{ $loop->iteration }}" value="{{ $Cartproduct->price }}" name="product[{{ $loop->iteration }}][actual_price]" class="actual_price">
                 <input type="hidden" id="discount{{ $loop->iteration }}" value="{{($Cartproduct->discount)}}" name="product[{{ $loop->iteration }}][discount]">
-
+                <input type="hidden" class="discount_amountget" id="discount_amountget{{ $loop->iteration  }}" name="product[{{ $loop->iteration }}][discount_amount]" value="{{ $totalDiscount }}">
                 <div class="blue-cart row align-items-center">
                     <div class="img col-3">
                         <img class="object-fit-cover" src="{{ asset('public/images/blue-cart-img.png') }}" alt=""
@@ -124,6 +126,7 @@
                     <span class="minus rounded-circle col-2 text-center"><i class="bi bi-dash-lg"></i></span>
                     <input name="product[{{ $loop->iteration }}][quantity]" id="quantity{{ $loop->iteration }}" onchange="changeValue({{ $loop->iteration }})" class="border-0 text-center col-8 col-sm-6" type="number"
                         value="1" />
+                        
                     <span class="plus rounded-circle col-2 text-center"><i class="bi bi-plus-lg"></i></span>
                 </div>
 
@@ -304,9 +307,8 @@
                 </div>
                 <div class="listDown">
                     <p class="fw-bold">Rs. {{ $total_product_price }}</p>
-                    <input type="hidden" name="total_price" value="{{ $total_product_price }}">
-                    <p class="text-success fw-bold">Rs. {{ $totalDiscount }}</p>
-                    <input type="hidden" name="discount_amount" value="{{ $totalDiscount }}">
+                    <input type="hidden" name="total_price" id="total_price" value="{{ $total_product_price }}">
+                    <p class="text-success fw-bold" id="discount-amountp">Rs. {{ $totalDiscount }}</p>
                     {{-- <p class="text-danger fw-bold">Rs. 390.74</p> --}}
                     <p class="text-success fw-bold">FREE</p>
                 </div>
@@ -330,12 +332,12 @@
                 <div>
                     <p class="fw-bold" id="final-paymentp">Rs.{{ $total_product_price - $totalDiscount }}</p>
                     <input type="hidden" name="final_payment" id="final-payment" value="{{ $total_product_price - $totalDiscount }}">
-
+                    <input type="hidden" name="discount_amount" class="discount_amount_total" id="discount_amount_total"  value="{{ $totalDiscount }}">
                 </div>
 
             </div>
         </div>
-        <input type="hidden" class="discount_amount" id="discount_amount" value="{{ $totalDiscount }}">
+
 
 
     </div>
@@ -348,24 +350,42 @@
         var price = $('#pricejs'+index).val();
         var discount = $('#discount'+index).val();
         var quantity = $('#quantity'+index).val();
-
         var total = ((price - (discount/100)*price) * quantity).toFixed(1);
         var discount_amount = (((discount/100)*price) * quantity).toFixed(1);
+        var actual_amount = (price * quantity).toFixed(1);
+        
+        $('#actual_price'+index).val(actual_amount);
         $('#price'+index).val(total);
-        $('#discount_amount'+index).val(total);
-
+        $('#discount_amountget'+index).val(discount_amount);
         $('#showedprice'+index).text('Rs. '+total);
         ChangeValues();
     }
     function ChangeValues() {
         var totalAmount = 0;
+        var totalActual = 0;
+        var totalDiscount = 0;
         $('#final-payment').val();
         $("[class^='price']").each(function() {
             if ($(this).val() != '') {
                 totalAmount += parseFloat($(this).val());
             }
         }); 
-        $('#final-payment').val(totalAmount);
-        $('#final-paymentp').text('Rs. ' + totalAmount);
+        $("[class^='discount_amountget']").each(function() {
+            if ($(this).val() != '') {
+                totalDiscount += parseFloat($(this).val());
+            }
+        }); 
+        $("[class^='actual_price']").each(function() {
+            if ($(this).val() != '') {
+                totalActual += parseFloat($(this).val());
+            }
+        });
+        // console.log(totalDiscount);
+        $('#final-payment').val(totalAmount.toFixed(1));
+        $('#total_price').val(totalActual.toFixed(1));
+        $('#final-paymentp').text('Rs. ' + totalAmount.toFixed(1));
+        $('#sub-total-down').text('Rs. ' + totalAmount.toFixed(1));
+        $('#discount-amountp').text('Rs. ' + totalDiscount.toFixed(1));
+        $('#discount_amount_total').val(totalDiscount.toFixed(1));
     }
 </script>

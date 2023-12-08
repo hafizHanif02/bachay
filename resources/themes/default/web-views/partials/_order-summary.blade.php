@@ -61,14 +61,14 @@
             @if($total_discount_on_product > 0)
             <h6 class="text-center text-primary mb-4 d-flex align-items-center justify-content-center gap-2">
                 <img src="{{asset('public/assets/front-end/img/icons/offer.svg')}}" alt="">
-                {{translate('you_have_Saved')}} <strong>{{\App\CPU\Helpers::currency_converter($total_discount_on_product)}}!</strong>
+                {{translate('you_have_Saved')}} <strong>{{\App\CPU\Helpers::currency_converter($data->discount_amount)}}!</strong>
             </h6>
             @endif
 
             <div class="d-flex justify-content-between">
                 <span class="cart_title">{{translate('sub_total')}}</span>
                 <span class="cart_value">
-                    {{\App\CPU\Helpers::currency_converter($sub_total)}}
+                    {{\App\CPU\Helpers::currency_converter($data->total_price)}}
                 </span>
             </div>
             <div class="d-flex justify-content-between">
@@ -86,7 +86,7 @@
             <div class="d-flex justify-content-between">
                 <span class="cart_title">{{translate('discount_on_product')}}</span>
                 <span class="cart_value">
-                    - {{\App\CPU\Helpers::currency_converter($total_discount_on_product)}}
+                    - {{\App\CPU\Helpers::currency_converter($data->discount_amount)}}
                 </span>
             </div>
             @php($coupon_dis=0)
@@ -118,7 +118,8 @@
             <div class="d-flex justify-content-between">
                 <span class="cart_title text-primary font-weight-bold">{{translate('total')}}</span>
                 <span class="cart_value">
-                {{\App\CPU\Helpers::currency_converter($sub_total+$total_tax+$total_shipping_cost-$coupon_dis-$total_discount_on_product-$order_wise_shipping_discount)}}
+                {{-- {{\App\CPU\Helpers::currency_converter($sub_total+$total_tax+$total_shipping_cost-$coupon_dis-$total_discount_on_product-$order_wise_shipping_discount)}} --}}
+                {{\App\CPU\Helpers::currency_converter($data->final_payment)}}
                 </span>
             </div>
         </div>
@@ -141,7 +142,7 @@
 
         <div class="mt-4">
             @if($web_config['guest_checkout_status'] || auth('customer')->check())
-                <a onclick="checkout()" class="btn btn--primary btn-block proceed_to_next_button {{$cart->count() <= 0 ? 'disabled' : ''}}" >{{translate('proceed_to_Next')}}</a>
+                <a style="background-color: #1b7fed; color:white" onclick="checkout()" class="btn btn--primary btn-block proceed_to_next_button {{$cart->count() <= 0 ? 'disabled' : ''}}" >{{translate('proceed_to_Next')}}</a>
             @else
                 <a href="{{route('customer.auth.login')}}" class="btn btn--primary btn-block proceed_to_next_button {{$cart->count() <= 0 ? 'disabled' : ''}}" >{{translate('proceed_to_Next')}}</a>
             @endif

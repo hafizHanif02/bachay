@@ -24,9 +24,9 @@
             border-color: {{$web_config['primary_color']}}    !important;
         }
 
-        /*#location_map_canvas {*/
-        /*    height: 100%;*/
-        /*}*/
+        /* #location_map_canvas {
+           height: 100%;
+        } */
 
         .filter-option {
             display: block;
@@ -54,7 +54,7 @@
 
 @section('content')
 @php($billing_input_by_customer=\App\CPU\Helpers::get_business_settings('billing_input_by_customer'))
-    <div class="container py-4 rtl __inline-56 px-0 px-md-3" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
+    <div class="container py-4 rtl __inline-56 px-0 px-md-3" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};background-color: #f6f6f6; border: 1px solid #ddd; box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);">
         <div class="row mx-max-md-0">
             <div class="col-md-12 mb-3">
                 <h3 class="font-weight-bold text-center text-lg-left">{{translate('checkout')}}</h3>
@@ -296,7 +296,7 @@
                                                                     <span
                                                                         class="text-danger">*</span></label>
                                                                 <input type="text" class="form-control"
-                                                                    name="billing_phone" id="billing_phone" {{$billing_addresses->count()==0?'required':''}}>
+           total                                                          name="billing_phone" id="billing_phone" {{$billing_addresses->count()==0?'required':''}}>
                                                             </div>
                                                         </div>
                                                         @if(!auth('customer')->check())

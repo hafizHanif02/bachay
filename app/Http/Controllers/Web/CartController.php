@@ -43,6 +43,12 @@ class CartController extends Controller
                 //     ->inRandomOrder()->take(12)->get();
             });
             $myCartProducts = Cart::where('customer_id',Auth::guard('customer')->user()->id)->with('product')->get();
+            $cartGroupIds = Cart::where('customer_id', Auth::guard('customer')->user()->id)
+            ->first()
+            ->pluck('cart_group_id');
+
+            $cartGroupId = $cartGroupIds[1];
+
             $total_product_price = Cart::where('customer_id', Auth::guard('customer')->user()->id)
             ->with('product')
             ->sum('price');
@@ -58,7 +64,7 @@ class CartController extends Controller
         // dd($userData);
 
 
-        return view(VIEW_FILE_NAMES['my-cart-address'],(compact('shippingAddress','totalDiscount','total_product_price','myCartProducts','home_categories')));
+        return view(VIEW_FILE_NAMES['my-cart-address'],(compact('cartGroupId','shippingAddress','totalDiscount','total_product_price','myCartProducts','home_categories')));
 
     }
 
