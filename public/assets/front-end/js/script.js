@@ -22,6 +22,30 @@ $(".slider").slick({
     ],
 });
 
+$(".sliderForSmall").slick({
+    autoplay: true,
+    arrows: false,
+    autoplaySpeed: 5000,
+    slidesToShow: 6,
+    infinite: true,
+    responsive: [
+        {
+            breakpoint: 768,
+            settings: {
+                slidesToShow: 2,
+            },
+        },
+        {
+            breakpoint: 480,
+            settings: {
+                slidesToShow: 1.06,
+                centerMode: true,
+                centerPadding: "5%",
+            },
+        },
+    ],
+});
+
 const $readMoreButton = $("#read-more");
 const $readLessButton = $("#read-less");
 const $moreContent = $(".more-content");

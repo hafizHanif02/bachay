@@ -13,6 +13,7 @@
             <div class="card1">
                 <div class="first-sec card1">
                     <div class="image-container">
+                        
                         <img src="{{ asset('public/images/card.png') }}" alt="" class="img-fluid"
                             width="100%" height="100%">
                         <div class="sec-best-seller mt-3">

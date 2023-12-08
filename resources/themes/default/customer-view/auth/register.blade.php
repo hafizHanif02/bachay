@@ -4,7 +4,7 @@
 @section('title', translate('register'))
 
 @section('content')
-    <div class="container py-4 __inline-7" style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};">
+    <div class="container  __inline-7" style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};">
         <div class="login-card shadow p-4">
             <div class="mx-auto __max-w-760">
                 <h2 class="text-center h4 mb-4 font-bold text-capitalize fs-18-mobile">{{ translate('sign_up') }}</h2>

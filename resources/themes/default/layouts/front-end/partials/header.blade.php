@@ -29,16 +29,18 @@
                     <li class="nav-item active">
                         <a class="nav-link  " href="#">Support</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Parenting</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Track Order</a>
+                    </li>
+                    
+                    <li class="nav-item">
+                        <a class="nav-link" href="#"><i class="bi bi-heart"></i> Wishlist</a>
+                    </li>
                     @auth
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Track Order</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Parenting</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#"><i class="bi bi-heart"></i> Wishlist</a>
-                        </li>
+                        
                         <li class="nav-item position-relative">
                             <a class="nav-link" href="">
                                 @if (isset(auth()->user()->cart))
@@ -50,7 +52,7 @@
                         </li>
                     @endauth
                     @auth('customer')
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="#">Track Order</a>
                         </li>
                         <li class="nav-item">
@@ -58,7 +60,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="bi bi-heart"></i> Wishlist</a>
-                        </li>
+                        </li> --}}
                         <li class="nav-item position-relative">
                             <a class="nav-link" href="{{ route('my-cart-address') }}">
                                 @if (isset(auth('customer')->user()->cart))

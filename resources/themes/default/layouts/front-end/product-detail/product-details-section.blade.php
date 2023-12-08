@@ -1,4 +1,3 @@
-
 <div class="products mt-4">
     <div class="row">
 
@@ -8,8 +7,9 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-12 d-flex flex-column fixedProduct">
             <div class="product-container">
                 <div class="main-image">
-                    <img id="main-image" class="detailed-product-img p-3"
-                        src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}" alt="Main Image">
+                    <img id="main-image" class="detailed-product-img p-3 object-fit-cover"
+                        src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}" alt="Main Image"
+                        width="100%" height="100%">
                 </div>
 
                 <div class="small-images">
@@ -19,7 +19,14 @@
                             data-url='{{ asset('storage/app/public/product/' . $photo->image_name) }}'
                             alt="Small Image {{ $key + 1 }}">
                     @endforeach
+                    @foreach (json_decode($product->images) as $key => $photo)
+                        <img class="small-image" src="{{ asset('storage/app/public/product/' . $photo) }}"
+                            data-url='{{ asset('storage/app/public/product/' . $photo) }}'
+                            alt="Small Image {{ $key + 1 }}">
+                    @endforeach
                 </div>
+
+
 
                 {{-- <img class="small-image" src="{{ asset('sstytorage/app/public/product/images' . $photo) }}"
                                 alt="Small Image 1"> --}}
@@ -39,23 +46,25 @@
                 <button class="buy-now rounded-pill text-white w-100 pt-4 pb-4 m-2 ms-3 me-3">Buy Now</button>
             </div>
             <form action="{{ route('cart.add') }}" method="POST">
-            @csrf
-            <input type="hidden" name="price" id="price" value="{{ $product->unit_price }}">
-            <input type="hidden" name="discount" id="discount" value="{{ $product->discount }}">
-            <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">  
-            <input type="hidden" name="thumbnail" value="{{ $product->thumbnail }}">
-            <input type="hidden" name="name" value="{{ $product->name }}">
-            <input type="hidden" name="tax" value="{{ $tax }}">
-            <input type="hidden" name="quantity" value="1">
-            <input type="hidden" name="shipping_cost" value="{{ $product->shipping_cost }}">
-            <input type="hidden" name="color" id="color" >
-            <input type="hidden" name="variant" id="variant">
-            <input type="hidden" name="slug" id="slug" value="{{ $product->slug }}">
-            <input type="hidden" name="customer_id" id="customer_id" value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
+                @csrf
+                <input type="hidden" name="price" id="price" value="{{ $product->unit_price }}">
+                <input type="hidden" name="discount" id="discount" value="{{ $product->discount }}">
+                <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
+                <input type="hidden" name="thumbnail" value="{{ $product->thumbnail }}">
+                <input type="hidden" name="name" value="{{ $product->name }}">
+                <input type="hidden" name="tax" value="{{ $tax }}">
+                <input type="hidden" name="quantity" value="1">
+                <input type="hidden" name="shipping_cost" value="{{ $product->shipping_cost }}">
+                <input type="hidden" name="color" id="color">
+                <input type="hidden" name="variant" id="variant">
+                <input type="hidden" name="slug" id="slug" value="{{ $product->slug }}">
+                <input type="hidden" name="customer_id" id="customer_id"
+                    value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
 
-            <div class="d-flex  mt-1">
-                <button type="submit" class="rounded-pill text-dark fw-bold w-100 pt-4 pb-4 m-2 ms-3 me-3">Add to Cart</button>
-            </div>
+                <div class="d-flex  mt-1">
+                    <button type="submit" class="rounded-pill text-dark fw-bold w-100 pt-4 pb-4 m-2 ms-3 me-3">Add to
+                        Cart</button>
+                </div>
             </form>
         </div>
 

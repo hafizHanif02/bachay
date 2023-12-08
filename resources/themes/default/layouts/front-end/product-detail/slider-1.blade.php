@@ -7,21 +7,19 @@
 
 <div class="mt-5 card-slider">
 
-    @foreach ($relatedProducts as $related )
-
-    <div class="mb-4 pb-3 me-3">
-        <div class="rounded-3">
-            <div class="card1">
-                <div class="first-sec card1">
-                    <div class="image-container">
-                        <div class="imgMAinCon">
-                            {{-- @foreach (json_decode($product->thumbnail) as $key => $photo) --}}
-                            <img src="{{ asset("storage/app/public/product/thumbnail/$related->thumbnail") }}"
-                                alt="" class="object-fit-cover rounded-2" width="100%"
-                                height="100%">
-                            {{-- @endforeach --}}
-                        </div>
-                        {{-- <div class="imgMAin">
+    @foreach ($relatedProducts as $related)
+        <div class="mb-4 pb-3 me-3">
+            <div class="rounded-3">
+                <div class="card1">
+                    <div class="first-sec card1">
+                        <div class="image-container">
+                            <div class="imgMAinCon">
+                                {{-- @foreach (json_decode($product->thumbnail) as $key => $photo) --}}
+                                <img src="{{ asset("storage/app/public/product/thumbnail/$related->thumbnail") }}"
+                                    alt="" class="object-fit-cover rounded-2" width="100%" height="100%">
+                                {{-- @endforeach --}}
+                            </div>
+                            {{-- <div class="imgMAin">
                             @foreach (json_decode($related->images) as $key => $photo)
                             <img src="{{ asset("storage/app/public/product/$photo")  }}" alt="" class="ob"
                                 width="100%" height="100%">
@@ -30,53 +28,67 @@
 
                         </div> --}}
 
-                        <div class="sec-best-seller mt-3">
-                            <p>Best Seller</p>
-                        </div>
-                        <div class="wish-list mt-3 me-2">
-                            <a href=""><img src="{{ asset('public/images/heart.svg') }}"
-                                    alt=""></a>
-                        </div>
-                        <p class="product-text mt-3">
-                            @if (strlen($related->name) <= 25)
-                                        {{ $related->name }}
-                                    @else
-                                        {{ substr($related->name, 0, 25) }}<span id="dots"> ....</span>
-                                    @endif
-
-                        </p>
-
-
-                        <div class="d-flex">
-                            <p class="product-price me-2">Rs. {{ $related->unit_price - ($related->unit_price * $related->discount) / 100 }}</p>
-                            <p class="card-text"><span class="discount">Rs. {{ $related->unit_price }}</span> <span
-                                    class="text-success">-{{ $related->discount }}% Off</span></p>
-
-                        </div>
-
-                        <div class="d-flex justify-content-between for-border-g">
-                            <div class="ratings-reviews d-flex">
-                                <img class="me-2" src="{{ asset('public/images/vector-star.svg') }}"
-                                    alt="">
-                                    @foreach ($related->reviews as $reviews)
-                                    <p class="m-0">{{ $reviews }}<span
-                                            class="Reviews">({{ $related->reviews_count }})</span></p>
-                                @endforeach
+                            <div class="sec-best-seller mt-3">
+                                <p>Best Seller</p>
                             </div>
-                            <a href="#" class="delivery-btn">Standard Delivery</a>
-                        </div>
+                            <div class="wish-list mt-3 me-2">
+                                <button id="wishlist-btn" class="p-0 bg-transparent rounded-circle forBorder">
+                                    <i class="bi bi-heart text-danger"></i>
+                                    {{-- <i
+                        class="bi {{ in_array($product->id, $wishlistProducts) ? 'bi-heart-fill' : 'bi-heart' }} text-danger"></i> --}}
+                                </button>
+                            </div>
+                            <p class="product-text mt-3">
+                                @if (strlen($related->name) <= 25)
+                                    {{ $related->name }}
+                                @else
+                                    {{ substr($related->name, 0, 25) }}<span id="dots"> ....</span>
+                                @endif
 
-                        <div class="d-flex justify-content-between mt-3">
-                            <button class="buy-now rounded-pill text-white">Buy Now</button>
-                          <a href=""><img src="{{ asset('public/images/cart-image.svg') }}" alt=""></a>
+                            </p>
 
+
+                            <div class="d-flex">
+                                <p class="product-price me-2">Rs.
+                                    {{ $related->unit_price - ($related->unit_price * $related->discount) / 100 }}</p>
+                                <p class="card-text"><span class="discount">Rs. {{ $related->unit_price }}</span> <span
+                                        class="text-success">-{{ $related->discount }}% Off</span></p>
+
+                            </div>
+                            <div class="d-flex justify-content-between for-border-g">
+                                <div class="ratings-reviews d-flex">
+                                    <img class="me-2" src="{{ asset('public/images/vector-star.svg') }}"
+                                        alt="">
+                                    {{-- <p class="m-0">{{ $random->reviews }}<span --}}
+                                    <p class="m-0"><span
+
+                                            class="Reviews">({{ $related->reviews_count }})</span></p>
+                                </div>
+                                <a href="#" class="delivery-btn">Standard Delivery</a>
+                            </div>
+                            {{-- <div class="d-flex justify-content-between for-border-g">
+                                <div class="ratings-reviews d-flex">
+                                    <img class="me-2" src="{{ asset('public/images/vector-star.svg') }}"
+                                        alt="">
+                                    @foreach ($related->reviews as $reviews)
+                                        <p class="m-0">{{ $reviews }}<span
+                                                class="Reviews">({{ $related->reviews_count }})</span></p>
+                                    @endforeach
+                                </div>
+                                <a href="#" class="delivery-btn">Standard Delivery</a>
+                            </div> --}}
+
+                            <div class="d-flex justify-content-between mt-3">
+                                <button class="buy-now rounded-pill text-white">Buy Now</button>
+                                <a href=""><img src="{{ asset('public/images/cart-image.svg') }}"
+                                        alt=""></a>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-   
     @endforeach
 
     {{-- <div class="mb-4 pb-3 me-3">
@@ -533,65 +545,68 @@
 <div class="mt-5 card-slider">
 
     @foreach ($randomProducts as $random)
-    {{-- {{ $random }} --}}
-    <div class="mb-4 pb-3 me-3">
-        <div class="rounded-3">
-            <div class="card1">
-                <div class="first-sec card1">
-                    <div class="image-container">
-                        @foreach (json_decode($random->images) as $key => $photo)
-                        <img src="{{ asset("storage/app/public/product/$photo")  }}" alt="" class="img-fluid"
-                            width="100%" height="100%">
-                            @break($loop->first)
-                        @endforeach
-
-                        <div class="sec-best-seller mt-3">
-                            <p>Best Seller</p>
-                        </div>
-                        <div class="wish-list mt-3 me-2">
-                            <a href=""><img src="{{ asset('public/images/heart.svg') }}"
-                                    alt=""></a>
-                        </div>
-                        <p class="product-text mt-3">
-                            @if (strlen($random->name) <= 25)
-                                        {{ $random->name }}
-                                    @else
-                                        {{ substr($random->name, 0, 25) }}<span id="dots"> ....</span>
-                                    @endif
-
-                        </p>
-
-
-                        <div class="d-flex">
-                            <p class="product-price me-2">Rs. {{ $random->unit_price - ($random->unit_price * $random->discount) / 100 }}</p>
-                            <p class="card-text"><span class="discount">Rs. {{ $random->unit_price }}</span> <span
-                                    class="text-success">-{{ $random->discount }}% Off</span></p>
-
-                        </div>
-
-                        <div class="d-flex justify-content-between for-border-g">
-                            <div class="ratings-reviews d-flex">
-                                <img class="me-2" src="{{ asset('public/images/vector-star.svg') }}"
-                                    alt="">
-                                    @foreach ($random->reviews as $reviews)
-                                    <p class="m-0">{{ $reviews }}<span
-                                            class="Reviews">({{ $random->reviews_count }})</span></p>
-                                @endforeach
+        <div class="mb-4 pb-3 me-3">
+            <div class="rounded-3">
+                <div class="card1">
+                    <div class="first-sec card1">
+                        <div class="image-container">
+                            <div class="imgMAinCon">
+                                <img src="{{ asset("storage/app/public/product/thumbnail/$random->thumbnail") }}"
+                                    alt="" class="object-fit-cover rounded-2" width="100%" height="100%">
                             </div>
-                            <a href="#" class="delivery-btn">Standard Delivery</a>
-                        </div>
 
-                        <div class="d-flex justify-content-between mt-3">
-                            <button class="buy-now rounded-pill text-white">Buy Now</button>
-                          <a href=""><img src="{{ asset('public/images/cart-image.svg') }}" alt=""></a>
+                            <div class="sec-best-seller mt-3">
+                                <p>Best Seller</p>
+                            </div>
 
+                            <div class="wish-list mt-3 me-2">
+                                <button class="p-0 bg-transparent rounded-circle forBorder wishlist-btn">
+                                    <i class="bi bi-heart text-danger"></i>
+                                </button>
+                            </div>
+
+                            <p class="product-text mt-3">
+                                @if (strlen($random->name) <= 25)
+                                    {{ $random->name }}
+                                @else
+                                    {{ substr($random->name, 0, 25) }}<span id="dots"> ....</span>
+                                @endif
+                            </p>
+
+                            <div class="d-flex">
+                                <p class="product-price me-2">Rs.
+                                    {{ $random->unit_price - ($random->unit_price * $random->discount) / 100 }}
+                                </p>
+                                <p class="card-text">
+                                    <span class="discount">Rs. {{ $random->unit_price }}</span>
+                                    <span class="text-success">-{{ $random->discount }}% Off</span>
+                                </p>
+                            </div>
+
+                            <div class="d-flex justify-content-between for-border-g">
+                                <div class="ratings-reviews d-flex">
+                                    <img class="me-2" src="{{ asset('public/images/vector-star.svg') }}"
+                                        alt="">
+                                    {{-- <p class="m-0">{{ $random->reviews }}<span --}}
+                                    <p class="m-0"><span
+
+                                            class="Reviews">({{ $random->reviews_count }})</span></p>
+                                </div>
+                                <a href="#" class="delivery-btn">Standard Delivery</a>
+                            </div>
+
+                            <div class="d-flex justify-content-between mt-3">
+                                <button class="buy-now rounded-pill text-white">Buy Now</button>
+                                <a href=""><img src="{{ asset('public/images/cart-image.svg') }}"
+                                        alt=""></a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
     @endforeach
+
 
     {{-- <div class="mb-4 pb-3 me-3">
         <div class="rounded-3">
@@ -1532,7 +1547,3 @@
     </div>
 
 </div> --}}
-
-
-
-
