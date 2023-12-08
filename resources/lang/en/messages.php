@@ -6713,4 +6713,5 @@
   'Enter_image' => 'Enter image',
   'please_enter_valid_image' => 'Please enter valid image',
   'parenting' => 'Parenting',
+  'discount_can_not_be_more_or_equal_to_the_price' => 'Discount can not be more or equal to the price',
 );
