@@ -12,16 +12,15 @@
     <div class="row">
         @foreach ($latest_products as $products)
             <div class="col-md-6 col-lg-3 mb-4">
+                <a class="text-decoration-none" target="_blank" href="{{ route('product-detail', $products->id) }}">
                 <div class="sub-card rounded-3 p-4">
                     <div class="card1">
                         <div class="first-sec card1">
                             <div class="image-container">
                                 <div class="imgCon">
-                                    {{-- @foreach (json_decode($products->images) as $key => $photo) --}}
                                     <img class="object-fit-cover rounded-3"
                                         src="{{ asset("storage/app/public/product/thumbnail/$products->thumbnail") }}"
                                         alt="" class="img-fluid" width="100%" height="100%">
-                                    {{-- @endforeach --}}
                                 </div>
                                 <div class="sec-best-seller mt-3">
                                     <p>Best Seller</p>
@@ -68,6 +67,7 @@
                     </div>
 
                 </div>
+                </a>
             </div>
         @endforeach
         {{-- <div class="col-md-6 col-lg-3 mb-4">

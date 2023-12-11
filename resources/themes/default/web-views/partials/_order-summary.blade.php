@@ -29,8 +29,18 @@
     }
     /**/
 </style>
-@endpush
 
+@endpush
+<style>
+    .textClr {
+        font-family: 'Poppins';
+        background: linear-gradient(90.27deg, #845dc2 -27.96%, #f99327 -27.94%, #d55fad 28.41%, #845dc2 82.13%, #845dc2 130.57%);
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: normal;
+    }
+</style>
 <aside class="col-lg-4 pt-4 pt-lg-2 px-max-md-0">
     <div class="__cart-total __cart-total_sticky">
         <div class="cart_total p-0">
@@ -59,8 +69,8 @@
             @endif
 
             @if($total_discount_on_product > 0)
-            <h6 class="text-center text-primary mb-4 d-flex align-items-center justify-content-center gap-2">
-                <img src="{{asset('public/assets/front-end/img/icons/offer.svg')}}" alt="">
+            <h6 class="textClr text-center text-primary mb-4 d-flex align-items-center justify-content-center gap-2">
+                <img src="{{asset('public/images/offer_pic.png')}}" alt="" width="30px" height="30px">
                 {{translate('you_have_Saved')}} <strong>{{\App\CPU\Helpers::currency_converter($data->discount_amount)}}!</strong>
             </h6>
             @endif
@@ -116,7 +126,7 @@
             @endif
             <hr class="my-2">
             <div class="d-flex justify-content-between">
-                <span class="cart_title text-primary font-weight-bold">{{translate('total')}}</span>
+                <span class="textClr cart_title text-primary font-weight-bold">{{translate('total')}}</span>
                 <span class="cart_value">
                 {{-- {{\App\CPU\Helpers::currency_converter($sub_total+$total_tax+$total_shipping_cost-$coupon_dis-$total_discount_on_product-$order_wise_shipping_discount)}} --}}
                 {{\App\CPU\Helpers::currency_converter($data->final_payment)}}
@@ -139,21 +149,26 @@
                 </div>
             </div>
         @endif
-
+        {{-- <button onclick="SubmitShippingAddress()" class="btn btn-primary rounded-pill mt-2"  id="address_submit">Update Address</button> --}}
         <div class="mt-4">
             @if($web_config['guest_checkout_status'] || auth('customer')->check())
-                <a style="background-color: #1b7fed; color:white" onclick="checkout()" class="btn btn--primary btn-block proceed_to_next_button {{$cart->count() <= 0 ? 'disabled' : ''}}" >{{translate('proceed_to_Next')}}</a>
+                <a style="background: var( --greadient-normal, linear-gradient( 270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17% ) ); border: 0px;" onclick="checkout()" class="col-12 btn btn--primary rounded-pill text-light btn-block proceed_to_next_button {{$cart->count() <= 0 ? 'disabled' : ''}}" >{{translate('proceed_to_Next')}}</a>
             @else
                 <a href="{{route('customer.auth.login')}}" class="btn btn--primary btn-block proceed_to_next_button {{$cart->count() <= 0 ? 'disabled' : ''}}" >{{translate('proceed_to_Next')}}</a>
             @endif
         </div>
         @if( $cart->count() != 0)
 
-            <div class="d-flex justify-content-center mt-3">
-                <a href="{{route('home')}}" class="d-flex align-items-center gap-2 text-primary font-weight-bold">
-                    <i class="tio-back-ui fs-12"></i> {{translate('continue_Shopping')}}
+        <div class="d-flex justify-content-center mt-3">
+            <h5 class="border rounded-pill col-12">
+                <a style="background: var( --greadient-normal, linear-gradient( 270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17% ) ); border: 0px;" href="{{ route('home') }}" class="d-flex align-items-center justify-content-center text-decoration-none gap-2 font-weight-bold text-light rounded-pill p-2">
+                    <i class="tio-back-ui fs-12"></i>
+                    {{ translate('continue_Shopping') }}
                 </a>
-            </div>
+
+            </h5>
+        </div>
+        
         @endif
 
     </div>

@@ -1,16 +1,16 @@
 @font-face {
     font-family: myfont;
-    src: url(/web/font-family/AristotelicaDisplayDemiBoldTrial.ttf);
+    src: url(/public/fonts/AristotelicaDisplayDemiBoldTrial.ttf);
 }
 
 @font-face {
     font-family: mylightfont;
-    src: url(/web/font-family/AristotelicaDisplayExtraLightTrial.ttf);
+    src: url(/public/fonts/AristotelicaDisplayExtraLightTrial.ttf);
 }
 
 @font-face {
     font-family: mysmallcapsfont;
-    src: url(/web/font-family/AristotelicaSmallCaps-Regular.ttf);
+    src: url(/public/fonts/AristotelicaSmallCapsRegular.ttf);
 }
 .LocationsSearchBar {
     padding-left: 40px !important;
@@ -1425,11 +1425,11 @@ input:checked + .se:before {
 /* detailed Porduct Page */
 .detailed-product-img {
     width: 100%;
-    border-radius: 20px;
-    object-fit: cover;
+    border-radius: 30px;
+    /* object-fit: cover; */
 }
 .boysClothes {
-    font-size: 14px;
+    font-size: 12px;
 }
 .share {
     color: #845dc2;
@@ -2478,8 +2478,8 @@ details[open] summary::after {
     line-height: normal;
 }
 .small-image {
-    width: 70px;
-    height: auto;
+    /* width: 70px;
+    height: auto; */
     cursor: pointer;
     border-radius: 10px;
 }
