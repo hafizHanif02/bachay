@@ -6714,4 +6714,9 @@
   'please_enter_valid_image' => 'Please enter valid image',
   'parenting' => 'Parenting',
   'discount_can_not_be_more_or_equal_to_the_price' => 'Discount can not be more or equal to the price',
+  'email_is_not_configured' => 'Email is not configured',
+  'contact_with_the_administrator' => 'Contact with the administrator',
+  'temporary_token_mismatch' => 'Temporary token mismatch',
+  'invalid_otp' => 'Invalid otp',
+  'otp_verified' => 'Otp verified',
 );
