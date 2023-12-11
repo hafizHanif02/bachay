@@ -299,8 +299,13 @@
                         required><br>
                     <input type="text" id="state" name="state" value="Pakistan"  placeholder="State"
                         required><br>
-                    <input type="text" id="state" name="address_type"   placeholder="Address Type"
-                        required><br>
+                        <select name="address_type" id="address_type">
+                            <option value="permanent" selected>Permanent</option>
+                            <option value="home">Home</option>
+                            <option value="other">Other</option>
+                        </select><br>
+                    {{-- <input type="text" id="state" name="address_type"   placeholder="Address Type"
+                        required><br> --}}
                     <div class="form-group">
                         <input type="text" id="zip" name="zip" value="{{$userData->zip}}"  placeholder="Zip" required>
                         <input type="text" id="city" name="city" value="{{$userData->city}}"  placeholder="City" required>

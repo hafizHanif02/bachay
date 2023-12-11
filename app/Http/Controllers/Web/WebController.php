@@ -688,8 +688,11 @@ class WebController extends Controller
         ])->get();
 
         if (count($cart_group_ids) > 0) {
+            $shipping_address = DB::table('shipping_addresses')->where('customer_id', $request->customer_id)->first();
+            $customer_data = DB::table('users')->where('id', $request->customer_id)->first();
             $data = $request;
-            return view(VIEW_FILE_NAMES['order_shipping'], compact('data','physical_product_view', 'zip_codes', 'country_restrict_status',
+            // dd($shipping_addresses);    
+            return view(VIEW_FILE_NAMES['order_shipping'], compact('shipping_address','customer_data','data','physical_product_view', 'zip_codes', 'country_restrict_status',
                 'zip_restrict_status', 'countries','billing_input_by_customer','default_location','shipping_addresses','billing_addresses'));
 
         }

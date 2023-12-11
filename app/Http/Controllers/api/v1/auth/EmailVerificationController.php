@@ -62,6 +62,7 @@ class EmailVerificationController extends Controller
             $response= translate('email_failed');
         }
 
+
         return response()->json([
             'message' => $response,
             'token' => 'active',

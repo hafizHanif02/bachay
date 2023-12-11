@@ -75,7 +75,7 @@
                         </div>
 
                         @php($shipping_addresses=\App\Model\ShippingAddress::where(['customer_id'=>auth('customer')->id(), 'is_billing'=>0, 'is_guest'=>0])->get())
-                        <form method="post" class="card __card" id="address-form">
+                        <form action="{{ route('checkout-payment') }}" method="get" class="card __card" id="address-form">
                             <div class="card-body p-0">
                                 <ul class="list-group">
                                     <li class="list-group-item" onclick="anotherAddress()">
@@ -114,7 +114,7 @@
                                                             <div class="form-group">
                                                                 <label>{{ translate('contact_person_name')}}
                                                                     <span class="text-danger">*</span></label>
-                                                                <input type="text" class="form-control" name="contact_person_name" {{$shipping_addresses->count()==0?'required':''}} id="name">
+                                                                <input type="text" class="form-control" name="contact_person_name" {{$shipping_addresses->count()==0?'required':''}} value="{{$customer_data->f_name.' '.$customer_data->l_name}}" id="name">
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
@@ -122,19 +122,18 @@
                                                                 <label>{{ translate('phone')}}
                                                                     <span
                                                                         class="text-danger">*</span></label>
-                                                                <input type="text" class="form-control" name="phone"  id="phone" {{$shipping_addresses->count()==0?'required':''}}>
+                                                                <input type="text" class="form-control" name="phone" value="{{$customer_data->phone}}"  id="phone" {{$shipping_addresses->count()==0?'required':''}}>
                                                             </div>
                                                         </div>
-                                                        @if(!auth('customer')->check())
+                                                        {{-- @if(!auth('customer')->check()) --}}
                                                             <div class="col-sm-12">
                                                                 <div class="form-group">
-                                                                    <label
-                                                                        for="exampleInputEmail1">{{ translate('email')}}
+                                                                    <label for="exampleInputEmail1">{{ translate('email')}}
                                                                         <span class="text-danger">*</span></label>
-                                                                    <input type="email" class="form-control"  name="email" id="email" {{$shipping_addresses->count()==0?'required':''}}>
+                                                                    <input type="email" class="form-control"  name="email" id="email" value="{{$customer_data->email}}"  {{$shipping_addresses->count()==0?'required':''}}>
                                                                 </div>
                                                             </div>
-                                                        @endif
+                                                        {{-- @endif --}}
                                                         <div class="col-12">
                                                             <div class="form-group">
                                                                 <label>{{ translate('address_type')}}</label>
@@ -153,7 +152,7 @@
                                                                     <span class="text-danger">*</span></label>
                                                                 <select name="country" id="country" class="form-control selectpicker" data-live-search="true" required>
                                                                     @forelse($countries as $country)
-                                                                        <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
+                                                                        <option {{ ($country['name'] == 'Pakistan') ? 'selected' : '' }} value="{{ $country['name'] }}">{{ $country['name'] }}</option>
                                                                     @empty
                                                                         <option value="">{{ translate('no_country_to_deliver') }}</option>
                                                                     @endforelse
@@ -163,7 +162,7 @@
                                                         <div class="col-6">
                                                             <div class="form-group">
                                                                 <label>{{ translate('city')}}<span  class="text-danger">*</span></label>
-                                                                <input type="text" class="form-control" name="city" id="city" {{$shipping_addresses->count()==0?'required':''}}>
+                                                                <input type="text" class="form-control" name="city" value="{{ $customer_data->city }}" id="city" {{$shipping_addresses->count()==0?'required':''}}>
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
@@ -175,11 +174,11 @@
                                                                         @forelse($zip_codes as $code)
                                                                         <option value="{{ $code->zipcode }}">{{ $code->zipcode }}</option>
                                                                         @empty
-                                                                            <option value="">{{ translate('no_zip_to_deliver') }}</option>
+                                                                            <option >{{ translate('no_zip_to_deliver') }}</option>
                                                                         @endforelse
                                                                     </select>
                                                                 @else
-                                                                <input type="text" class="form-control"
+                                                                <input type="text" class="form-control" value="{{ $customer_data->zip }}"
                                                                        name="zip" id="zip" {{$shipping_addresses->count()==0?'required':''}}>
                                                                 @endif
                                                             </div>
@@ -187,7 +186,7 @@
                                                         <div class="col-12">
                                                             <div class="form-group">
                                                                 <label>{{ translate('address')}}<span class="text-danger">*</span></label>
-                                                                <textarea class="form-control" id="address" type="text" name="address" id="address" {{$shipping_addresses->count()==0?'required':''}}></textarea>
+                                                                <textarea  value="{{ $shipping_address->address }}" class="form-control" id="address" type="text" name="address" id="address" {{$shipping_addresses->count()==0?'required':''}}>{{ $shipping_address->address }}</textarea>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -218,8 +217,8 @@
                                                            value="{{$default_location?$default_location['lng']:0}}" required
                                                            readonly>
 
-                                                    <button type="submit" class="btn btn--primary" style="display: none"
-                                                            id="address_submit"></button>
+                                                    <button onclick="SubmitShippingAddress()" class="btn btn--primary" style="background-color: rgb(94, 94, 221);color:white;"
+                                                            id="address_submit">Update Address</button>
                                                 </div>
                                             </div>
                                         </div>
@@ -287,7 +286,7 @@
                                                             <div class="form-group">
                                                                 <label>{{ translate('contact_person_name')}}<span class="text-danger">*</span></label>
                                                                 <input type="text" class="form-control"
-                                                                    name="billing_contact_person_name" id="billing_contact_person_name"  {{$billing_addresses->count()==0?'required':''}}>
+                                                                    name="billing_contact_person_name" value="{{ $customer_data->f_name.' '.$customer_data->l_name }}" id="billing_contact_person_name"  {{$billing_addresses->count()==0?'required':''}}>
                                                             </div>
                                                         </div>
                                                         <div class="col-sm-6">
@@ -296,19 +295,19 @@
                                                                     <span
                                                                         class="text-danger">*</span></label>
                                                                 <input type="text" class="form-control"
-           total                                                          name="billing_phone" id="billing_phone" {{$billing_addresses->count()==0?'required':''}}>
+           total                                                          name="billing_phone" id="billing_phone" value="{{ $customer_data->phone}}" {{$billing_addresses->count()==0?'required':''}}>
                                                             </div>
                                                         </div>
                                                         @if(!auth('customer')->check())
-                                                            <div class="col-sm-12">
-                                                                <div class="form-group">
-                                                                    <label
-                                                                        for="exampleInputEmail1">{{ translate('email')}}
-                                                                        <span class="text-danger">*</span></label>
-                                                                    <input type="text" class="form-control"
-                                                                        name="billing_contact_email" id="billing_contact_email" id {{$billing_addresses->count()==0?'required':''}}>
-                                                                </div>
+                                                        <div class="col-sm-12">
+                                                            <div class="form-group">
+                                                                <label
+                                                                for="exampleInputEmail1">{{ translate('email')}}
+                                                                <span class="text-danger">*</span></label>
+                                                                <input type="text" class="form-control"
+                                                                name="billing_contact_email" value="{{ $customer_data->email}}" id="billing_contact_email" id {{$billing_addresses->count()==0?'required':''}}>
                                                             </div>
+                                                        </div>
                                                         @endif
                                                         <div class="col-12">
                                                             <div class="form-group">
@@ -325,7 +324,7 @@
                                                                 <label>{{ translate('country')}}<span class="text-danger">*</span></label>
                                                                 <select name="billing_country" id="" class="form-control selectpicker" data-live-search="true" id="billing_country">
                                                                     @foreach($countries as $country)
-                                                                        <option value="{{ $country['name'] }}">{{ $country['name'] }}</option>
+                                                                        <option {{ $country['name'] == 'Pakistan' ? 'selected' : '' }} value="{{ $country['name'] }}">{{ $country['name'] }}</option>
                                                                     @endforeach
                                                                 </select>
                                                             </div>
@@ -335,7 +334,7 @@
                                                                 <label for="exampleInputEmail1">{{ translate('city')}}<span
                                                                         class="text-danger">*</span></label>
                                                                 <input type="text" class="form-control" id="billing_city"
-                                                                    name="billing_city" {{$billing_addresses->count()==0?'required':''}}>
+                                                                    name="billing_city" value="{{ $customer_data->city}}" {{$billing_addresses->count()==0?'required':''}}>
                                                             </div>
                                                         </div>
                                                         <div class="col-6">
@@ -350,7 +349,7 @@
                                                                     </select>
                                                                 @else
                                                                     <input type="text" class="form-control" id="billing_zip"
-                                                                           name="billing_zip" {{$billing_addresses->count()==0?'required':''}}>
+                                                                          value="{{ $customer_data->zip }}" name="billing_zip" {{$billing_addresses->count()==0?'required':''}}>
                                                                 @endif
                                                             </div>
                                                         </div>
@@ -359,7 +358,7 @@
 
                                                     <div class="form-group">
                                                         <label>{{ translate('address')}}<span class="text-danger">*</span></label>
-                                                        <textarea class="form-control" id="billing_address" type="billing_text" name="billing_address" id="billing_address" {{$billing_addresses->count()==0?'required':''}}></textarea>
+                                                        <textarea  class="form-control" id="billing_address" value="{{ $shipping_address->address }}" type="billing_text" name="billing_address" id="billing_address" {{$billing_addresses->count()==0?'required':''}}>{{ $shipping_address->address }}</textarea>
                                                     </div>
 
                                                     <div class="form-group">
@@ -392,7 +391,7 @@
                                                         value="{{$default_location?$default_location['lng']:0}}" required
                                                         readonly>
 
-                                                    <button type="submit" class="btn btn--primary" style="display: none"
+                                                    <button type="submit" class="btn btn--primary" style="background-color:rgb(69, 69, 236);color:white;"
                                                             id="address_submit"></button>
                                                 </div>
                                             </div>
