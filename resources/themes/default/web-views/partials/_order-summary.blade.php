@@ -114,7 +114,7 @@
                     <div class="pt-2">
                         <form class="needs-validation coupon-code-form" action="javascript:" method="post" novalidate id="coupon-code-ajax">
                             <div class="d-flex form-control rounded-pill pl-3 p-1">
-                                <img width="24" src="{{asset('public/assets/front-end/img/icons/coupon.svg')}}" alt="">
+                                <img src="http://localhost/public /images/gif.gif" alt="" width="35px" height="35px">
                                 <input class="input_code border-0 px-2 text-dark bg-transparent outline-0 w-100" type="text" name="code" placeholder="{{translate('coupon_code')}}" required>
                                 <button class="btn btn--primary rounded-pill text-uppercase py-1 fs-12" type="button" onclick="couponCode()">{{translate('apply')}}</button>
                             </div>
