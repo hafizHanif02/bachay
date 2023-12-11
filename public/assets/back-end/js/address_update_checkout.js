@@ -1,9 +1,24 @@
 function SubmitShippingAddress() {
-    console.log('Function called!');
     var formData = $('#shipping_address_form').serialize();
 
 $.ajax({
     url: '/update_shipping_address',
+    method: 'POST',
+    data: formData,
+    success: function (response) {
+        showSuccessPopup(response.message);
+    },
+    error: function (error) {
+        console.log(error);
+    }
+});
+}
+
+function UpdateBillingAddress(){
+    var formData = $('#billing_address_form').serialize();
+
+$.ajax({
+    url: '/update_billing_address',
     method: 'POST',
     data: formData,
     success: function (response) {

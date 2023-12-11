@@ -718,6 +718,39 @@ class WebController extends Controller
             return response()->json(['message' => 'Address updated successfully']);
 
     }
+
+    public function update_billing_address(Request $request){  
+
+        $existing_billing_address = DB::table('billing_addresses')->where('customer_id', $request->customer_id)->first();
+        if(empty($existing_billing_address)){
+            DB::table('billing_addresses')
+                ->insert([
+                    'customer_id'=> $request->customer_id,
+                    'contact_person_name' => $request->billing_contact_person_name,
+                    'address_type' => $request->billing_address_type,
+                    'phone' => $request->billing_phone,
+                    'country' => $request->billing_country,
+                    'address' => $request->billing_address,
+                    'city' => $request->billing_city,
+                    'zip' => $request->billing_zip,
+                ]);
+        }else{
+            DB::table('billing_addresses')
+            ->where('customer_id', $request->customer_id)
+            ->update([
+                'customer_id'=> $request->customer_id,
+                'contact_person_name' => $request->billing_contact_person_name,
+                'address_type' => $request->billing_address_type,
+                'phone' => $request->billing_phone,
+                'country' => $request->billing_country,
+                'address' => $request->billing_address,
+                'city' => $request->billing_city,
+                'zip' => $request->billing_zip,
+            ]);
+        }
+            return response()->json(['message' => 'Address updated successfully']);
+
+    }
     public function checkout_payment(Request $request)
     {
         if (
