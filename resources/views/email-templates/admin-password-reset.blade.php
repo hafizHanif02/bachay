@@ -108,9 +108,8 @@
         {{\App\CPU\translate('Reset Your password')}}.
     </div>
     <div class="card-body">
-        <a style="background: darkblue" class="btn btn--primary" href="{{$url}}">
-            {{\App\CPU\translate('Click to Reset')}}
-        </a>
+        Your Reset Password Code is {{$url}}
+        
     </div>
 </div>
 

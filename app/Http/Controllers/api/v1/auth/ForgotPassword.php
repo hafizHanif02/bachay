@@ -42,6 +42,7 @@ class ForgotPassword extends Controller
                     return response()->json(['message' => translate('please_try_again_after_') .  CarbonInterval::seconds($time)->cascade()->forHumans()], 200);
                 }else {
                     $token = Str::random(4);
+                    $token =  random_int(1000, 9999);
                     $reset_data = PasswordReset::where(['identity' => $customer['email']])->latest()->first();
                     if($reset_data){
                         $reset_data->token = $token;
@@ -59,7 +60,7 @@ class ForgotPassword extends Controller
                     }
 
                     //$reset_url = url('/') . '/customer/auth/reset-password?token=' . $token;
-                    $reset_url = 'Your Reset Password Code is : ' . $token;
+                    $reset_url = $token;
                     $emailServices_smtp = Helpers::get_business_settings('mail_config');
                     if ($emailServices_smtp['status'] == 0) {
                         $emailServices_smtp = Helpers::get_business_settings('mail_config_sendgrid');
