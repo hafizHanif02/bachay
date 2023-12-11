@@ -47,6 +47,7 @@ Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('main
 
     Route::get('checkout-details', 'WebController@checkout_details')->name('checkout-details');
     Route::post('update_shipping_address', 'WebController@update_shipping_address')->name('update_shipping_address');
+    Route::post('update_billing_address', 'WebController@update_billing_address')->name('update_billing_address');
     Route::get('checkout-shipping', 'WebController@checkout_shipping')->name('checkout-shipping');
     Route::get('checkout-payment', 'WebController@checkout_payment')->name('checkout-payment');
     Route::get('checkout-review', 'WebController@checkout_review')->name('checkout-review');

@@ -317,7 +317,9 @@
                             @endif
                         </div>
 
-                        <form method="post" class="card __card" id="billing-address-form">
+                        <form  class="card __card" id="billing_address_form">
+                            @csrf
+                            <input type="hidden" value="{{ $customer_data->id }}" name="customer_id">
                             <div id="hide_billing_address" class="">
                                 <ul class="list-group">
 
@@ -505,10 +507,10 @@
                                                         id="billing_longitude"
                                                         value="{{ $default_location ? $default_location['lng'] : 0 }}"
                                                         required readonly>
-                                                    <button type="submit"
+                                                    <button type="button" onclick="UpdateBillingAddress()"
                                                         class="col-12 btn btn-primary rounded-pill mt-2"
                                                         style="background: var( --greadient-normal, linear-gradient( 270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17% ) ); border: 0px;"
-                                                        id="address_submit">{{ translate('submit') }}</button>
+                                                        id="address_submit">Update Address</button>
                                                 </div>
                                             </div>
                                         </div>
