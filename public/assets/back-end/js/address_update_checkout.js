@@ -15,22 +15,22 @@ $.ajax({
 });
 }
 
-function billing-address-form() {
-    console.log('Function called!');
-    var formData = $('#shipping_address_form').serialize();
+// function billing-address-form() {
+//     console.log('Function called!');
+//     var formData = $('#shipping_address_form').serialize();
 
-$.ajax({
-    url: '/update_shipping_address',
-    method: 'POST',
-    data: formData,
-    success: function (response) {
-        showSuccessPopup(response.message);
-    },
-    error: function (error) {
-        console.log(error);
-    }
-});
-}
+// $.ajax({
+//     url: '/update_shipping_address',
+//     method: 'POST',
+//     data: formData,
+//     success: function (response) {
+//         showSuccessPopup(response.message);
+//     },
+//     error: function (error) {
+//         console.log(error);
+//     }
+// });
+// }
 
 function showSuccessPopup(message) {
 var popup = $('<div class="popup">').html(`<div class="tick-animation"></div><p> ${message} </p>
