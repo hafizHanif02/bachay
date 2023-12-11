@@ -701,6 +701,23 @@ class WebController extends Controller
         return redirect('/');
     }
 
+    public function update_shipping_address(Request $request){  
+        DB::table('shipping_addresses')
+            ->where('customer_id', $request->customer_id)
+            ->update([
+                'contact_person_name' => $request->contact_person_name,
+                'phone' => $request->phone,
+                'email' => $request->email,
+                'address_type' => $request->address_type,
+                'country' => $request->country,
+                'city' => $request->city,
+                'zip' => $request->zip,
+                'address' => $request->address,
+            ]);
+    
+            return response()->json(['message' => 'Address updated successfully']);
+
+    }
     public function checkout_payment(Request $request)
     {
         if (
