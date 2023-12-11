@@ -690,8 +690,7 @@ class WebController extends Controller
         if (count($cart_group_ids) > 0) {
             $shipping_address = DB::table('shipping_addresses')->where('customer_id', $request->customer_id)->first();
             $customer_data = DB::table('users')->where('id', $request->customer_id)->first();
-            $data = $request;
-            // dd($shipping_addresses);    
+            $data = $request;   
             return view(VIEW_FILE_NAMES['order_shipping'], compact('shipping_address','customer_data','data','physical_product_view', 'zip_codes', 'country_restrict_status',
                 'zip_restrict_status', 'countries','billing_input_by_customer','default_location','shipping_addresses','billing_addresses'));
 
@@ -753,25 +752,96 @@ class WebController extends Controller
     }
     public function checkout_payment(Request $request)
     {
-        if (
-            (!auth('customer')->check() || Cart::where(['customer_id' => auth('customer')->id()])->count() < 1)
-            && (!Helpers::get_business_settings('guest_checkout') || !session()->has('guest_id') || !session('guest_id'))
-        ){
-            Toastr::error(translate('invalid_access'));
-            return redirect('/');
+
+        // dd($request);
+        // dd($request);
+        // if (
+        //     (!auth('customer')->check() || Cart::where(['customer_id' => auth('customer')->id()])->count() < 1)
+        //     && (!Helpers::get_business_settings('guest_checkout') || !session()->has('guest_id') || !session('guest_id'))
+        // ){
+        //     Toastr::error(translate('invalid_access'));
+        //     return redirect('/');
+        // }
+
+        $order = DB::table('orders')->insertGetId([
+            'customer_id' => $request->customer_id,
+            // 'customer_type',			
+            // 'payment_status',			
+            // 'order_status',
+            'payment_method' => $request->payment_method,
+            // 'transaction_ref',
+            'payment_by' => $request->payment_by,
+            // 'payment_note',
+            'order_amount' => $request->final_payment,
+            // 'admin_commission',
+            // 'is_pause',
+            // 'cause',
+            'discount_amount' => $request->discount_amount,
+            // 'discount_type' ,
+            // 'coupon_code',
+            // 'coupon_discount_bearer',
+            // 'shipping_method_id' ,
+            // 'shipping_cost',
+            // 'is_shipping_free',
+            // 'order_group_id' ,
+            // 'verification_code',
+            // 'verification_status',
+            'seller_id' => $request->seller_id,
+            'seller_is' => $request->seller_is,
+            'shipping_address' =>$request->shipping_address ,
+            'shipping_address_data' => $request->shipping_address_data,
+            // 'delivery_man_id',
+            // 'deliveryman_charge',
+            // 'expected_delivery_date',
+            // 'order_note',
+            'billing_address' => $request->billing_address,
+            'billing_address_data' => $request->billing_address_data,
+            // 'order_type',
+            // 'extra_discount',
+            // 'extra_discount_type',
+            // 'checked',
+            // 'shipping_type',
+            // 'delivery_type',
+            // 'delivery_service_name',
+            // 'third_party_delivery_tracking_id',
+        ]);
+        foreach($request->product as $product){
+            DB::table('order_details')->insert([
+                'order_id' => $order, 
+                'product_id' => $product['product_id'], 
+                'seller_id' => 1, 
+                // 'digital_file_after_sell' => $product[', 
+                // 'product_details' => $product['product_details'], 
+                'qty' => $product['quantity'], 
+                'price' => $product['price'], 
+                'tax' => $product['tax'], 
+                'discount' => $product['discount'], 
+                'tax_model' => $product['tax_model'], 
+                // 'delivery_status' => $product[', 
+                // 'payment_status' => $product[', 
+                // 'shipping_method_id' => $product[', 
+                'variant' => $product['variant'], 
+                // 'variation' => $product[', 
+                // 'discount_type' => $product[', 
+                'is_stock_decreased' => $product['quantity'], 
+                // 'refund_request' => $product[''], 
+            ]);
         }
 
+
+
         $cart_group_ids = CartManager::get_cart_group_ids();
+
         $shippingMethod = Helpers::get_business_settings('shipping_method');
-
-
+        
+        
         $verify_status = OrderManager::minimum_order_amount_verify($request);
-
+        
         if($verify_status['status'] == 0){
             Toastr::info(translate('check_Minimum_Order_Amount_Requirment'));
             return redirect()->route('shop-cart');
         }
-
+        
         $cartItems = Cart::where(['customer_id' => auth('customer')->id()])->withCount(['all_product'=>function($query){
             return $query->where('status', 0);
         }])->get();
@@ -783,7 +853,7 @@ class WebController extends Controller
                 return redirect()->route('shop-cart');
             }
         }
-
+        
         $physical_products[] = false;
         foreach($cart_group_ids as $group_id) {
             $carts = Cart::where('cart_group_id', $group_id)->get();
@@ -798,6 +868,7 @@ class WebController extends Controller
         unset($physical_products[0]);
 
         $cod_not_show = in_array(false, $physical_products);
+
 
         foreach($cart_group_ids as $group_id) {
             $carts = Cart::where('cart_group_id', $group_id)->get();
@@ -833,8 +904,9 @@ class WebController extends Controller
                 }
             }
         }
-
-        $order = Order::find(session('order_id'));
+        
+        // $order = Order::find(session('order_id'));
+        // dd($order);
         $coupon_discount = session()->has('coupon_discount') ? session('coupon_discount') : 0;
         $order_wise_shipping_discount = CartManager::order_wise_shipping_discount();
         $get_shipping_cost_saved_for_free_delivery = CartManager::get_shipping_cost_saved_for_free_delivery();
@@ -842,7 +914,8 @@ class WebController extends Controller
         $inr=Currency::where(['symbol'=>'₹'])->first();
         $usd=Currency::where(['code'=>'USD'])->first();
         $myr=Currency::where(['code'=>'MYR'])->first();
-
+        
+        // dd($coupon_discount);
         $cash_on_delivery = Helpers::get_business_settings('cash_on_delivery');
         $digital_payment = Helpers::get_business_settings('digital_payment');
         $wallet_status = Helpers::get_business_settings('wallet_status');
@@ -854,17 +927,18 @@ class WebController extends Controller
         $payment_published_status = config('get_payment_publish_status');
         $payment_gateway_published_status = isset($payment_published_status[0]['is_published']) ? $payment_published_status[0]['is_published'] : 0;
 
-        if (session()->has('address_id') && session()->has('billing_address_id') && count($cart_group_ids) > 0) {
+        $data = $request;
+        // if (session()->has('address_id') && session()->has('billing_address_id') && count($cart_group_ids) > 0) {
             return view(
-                VIEW_FILE_NAMES['payment_details'],
-                compact(
+                VIEW_FILE_NAMES['order_complete'],
+                compact('data',
                     'cod_not_show','order','cash_on_delivery','digital_payment','offline_payment',
                     'wallet_status','coupon_discount','amount','inr','usd','myr','payment_gateway_published_status','payment_gateways_list','offline_payment_methods'
                 ));
-        }
+        // }
 
-        Toastr::error(translate('incomplete_info'));
-        return back();
+        // Toastr::error(translate('incomplete_info'));
+        // return back();
     }
 
     public function checkout_complete(Request $request)

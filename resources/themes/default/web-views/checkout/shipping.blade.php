@@ -248,7 +248,7 @@
                                                             <div class="form-group">
                                                                 <label>{{ translate('address') }}<span
                                                                         class="text-danger">*</span></label>
-                                                                <textarea value="{{ $shipping_address->address }}" class="form-control rounded-pill" id="address" type="text"
+                                                                <textarea value="{{ $shipping_address->address }}" class="form-control rounded-pill" id="shipping_address_input" type="text"
                                                                     name="address" id="address" {{ $shipping_addresses->count() == 0 ? 'required' : '' }}>{{ $shipping_address->address }}</textarea>
                                                             </div>
                                                         </div>
@@ -470,8 +470,8 @@
                                                     <div class="form-group">
                                                         <label>{{ translate('address') }}<span
                                                                 class="text-danger">*</span></label>
-                                                        <textarea class="form-control rounded-pill" id="billing_address" value="{{ $shipping_address->address }}"
-                                                            type="billing_text" name="billing_address" id="billing_address"
+                                                        <textarea class="form-control rounded-pill" value="{{ $shipping_address->address }}"
+                                                            type="billing_text" name="billing_address" id="billing_address_input"
                                                             {{ $billing_addresses->count() == 0 ? 'required' : '' }}>{{ $shipping_address->address }}</textarea>
                                                     </div>
 

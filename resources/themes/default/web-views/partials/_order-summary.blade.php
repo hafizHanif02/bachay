@@ -150,13 +150,51 @@
             </div>
         @endif
         {{-- <button onclick="SubmitShippingAddress()" class="btn btn-primary rounded-pill mt-2"  id="address_submit">Update Address</button> --}}
-        <div class="mt-4">
-            @if($web_config['guest_checkout_status'] || auth('customer')->check())
-                <a style="background: var( --greadient-normal, linear-gradient( 270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17% ) ); border: 0px;" onclick="checkout()" class="col-12 btn btn--primary rounded-pill text-light btn-block proceed_to_next_button {{$cart->count() <= 0 ? 'disabled' : ''}}" >{{translate('Place_order')}}</a>
-            @else
-                <a href="{{route('customer.auth.login')}}" class="btn btn--primary btn-block proceed_to_next_button {{$cart->count() <= 0 ? 'disabled' : ''}}" >{{translate('Place_order')}}</a>
-            @endif
-        </div>
+        <form action="{{ 'checkout-payment' }}" id="order-form" method="Get">
+            @csrf
+            <input type="hidden" name="seller_id" value="1">
+            <input type="hidden" name="seller_is" value="admin">
+            <div class="row justify-content-center g-4 mt-4 mb-2">
+                <div class="deal-title">Payment Method</div>
+                        <div class="col-sm-12 px-0 text-center mobile-padding">
+                            <select class="form-control" name="payment_method" id="">
+                                <option value="cash" selected>Cash On Delivery</option>
+                                <option value="card">Card Payment</option>
+                            </select>
+                        </div>
+            </div>
+            <input type="hidden" name="customer_id" value="{{ $data->customer_id }}">
+            <input type="hidden" name="cart_group_id" value="{{ $data->cart_group_id }}">
+            <input type="hidden" name="shipping_address" id="shipping_address" >
+            <input type="hidden" name="shipping_address_data" id="shipping_address_data" >
+            <input type="hidden" name="billing_address" id="billing_address" >
+            <input type="hidden" name="billing_address_data" id="billing_address_data" >
+            <input type="hidden" name="total_price" value="{{ $data->total_price }}">
+            <input type="hidden" name="final_payment" value="{{ $data->final_payment }}">
+            <input type="hidden" name="discount_amount" value="{{ $data->discount_amount }}">
+            @foreach($data->product as $product)
+            {{-- {{ dd($product) }} --}}
+            <input type="hidden" name="product[{{ $loop->iteration }}][product_id]" value="{{ $product['product_id'] }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][tax]" value="{{ $product['tax'] }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][tax_model]" value="{{ $product['tax_model'] }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][color]" value="{{ $product['color'] }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][variant]" value="{{ $product['variant'] }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][discount]" value="{{ $product['discount'] }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][discount_amount]" value="{{ $product['discount_amount'] }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][actual_price]" value="{{ $product['actual_price'] }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][price]" value="{{ $product['price'] }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][quantity]" value="{{ $product['quantity'] }}">      
+            @endforeach
+
+            <div class="mt-4">
+                @if($web_config['guest_checkout_status'] || auth('customer')->check())
+                {{-- <a  style="background: var( --greadient-normal, linear-gradient( 270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17% ) ); border: 0px;" onclick="checkout()" class="col-12 btn btn--primary rounded-pill text-light btn-block proceed_to_next_button {{$cart->count() <= 0 ? 'disabled' : ''}}" >{{translate('proceed_to_Next')}}</a> --}}
+                <button type="button" onclick="CheckoutFormSubmit()"  style="background: var( --greadient-normal, linear-gradient( 270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17% ) ); border: 0px;" onclick="checkout()" class="col-12 btn btn--primary rounded-pill text-light btn-block proceed_to_next_button {{$cart->count() <= 0 ? 'disabled' : ''}}" >Place Order</button>
+                @else
+                    <a href="{{route('customer.auth.login')}}" class="btn btn--primary btn-block proceed_to_next_button {{$cart->count() <= 0 ? 'disabled' : ''}}" >Place Order</a>
+                @endif
+            </div>
+        </form>
         @if( $cart->count() != 0)
 
         <div class="d-flex justify-content-center mt-3">

@@ -6721,4 +6721,9 @@
   'otp_verified' => 'Otp verified',
   'PLace_order' => 'PLace order',
   'Place_order' => 'Place order',
+  'your_order_is_being_processed_and_will_be_completed.' => 'Your order is being processed and will be completed.',
+  'You_will_receive_an_email_confirmation_when_your_order_is_placed.' => 'You will receive an email confirmation when your order is placed.',
+  'your_order' => 'Your order',
+  'order_confirmed' => 'Order confirmed',
+  'preparing_shipment' => 'Preparing shipment',
 );

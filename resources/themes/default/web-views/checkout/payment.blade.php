@@ -1,4 +1,4 @@
-@extends('layouts.front-end.app')
+@extends('layouts.front-end.sample-app')
 
 @section('title', translate('choose_Payment_Method'))
 

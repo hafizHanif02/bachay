@@ -30,6 +30,23 @@ $.ajax({
 });
 }
 
+function CheckoutFormSubmit(){
+    var billing_address_data = $('#billing_address_form').serialize();
+    var shipping_address_data = $('#shipping_address_form').serialize();
+    var billing_address = $('#billing_address_input').val();
+    var shipping_address = $('#shipping_address_input').val();
+
+    // console.log(billing_address);
+
+    $('#shipping_address').val(shipping_address);
+    $('#shipping_address_data').val(shipping_address_data);
+    $('#billing_address').val(billing_address);
+    $('#billing_address_data').val(billing_address_data);
+
+
+    $('#order-form').submit();
+}
+
 // function billing-address-form() {
 //     console.log('Function called!');
 //     var formData = $('#shipping_address_form').serialize();
@@ -48,37 +65,29 @@ $.ajax({
 // }
 
 function showSuccessPopup(message) {
-var popup = $('<div class="popup">').html(`<div class="tick-animation"></div><p> ${message} </p>
-<style>   
-.tick-animation {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 5px solid #28a745; /* Bootstrap success color */
-    border-top: 5px solid transparent;
-    border-right: 5px solid transparent;
-    animation: rotate 1s infinite linear;
+    var popup = $('<div class="popup">').html('<img src="../public/assets/back-end/img/orderPlacedGif.gif" alt="Checked Mark" style="width: 70px; height: 70px;"><div><p>' + message + '</p></div>');
+
+    // Add styles to the popup
+    popup.css({
+        position: 'fixed',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        backgroundColor: '#ffffff',
+        border: '1px solid #ffffff',
+        padding: '15px',
+        boxShadow: '0 0 10px 1px #808080',
+        'border-radius': '5px',
+    });
+    
+    
+
+    // Append the popup to the body
+    $('body').append(popup);
+
+    // Remove the popup after 5 seconds
+    setTimeout(function () {
+        popup.remove();
+    }, 2200);
 }
 
-@keyframes rotate {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-/* Popup styles */
-.popup {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #ffffff;
-    border: 1px solid #28a745;
-    padding: 15px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-</style>`);
-$('body').append(popup);
-setTimeout(function() {
-    popup.remove();
-}, 3000);
-}
