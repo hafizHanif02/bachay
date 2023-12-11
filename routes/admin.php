@@ -239,6 +239,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
             Route::get('parenting', 'CustomerController@parenting')->name('parenting');
             Route::get('parent-view/{user_id}', 'CustomerController@parentView')->name('parent-view');
             Route::get('parent-view/{user_id}/new-child', 'CustomerController@parentAddNewChild')->name('parent-add-new-child');
+            Route::post('parent-view/{user_id}/new-child', 'CustomerController@parentAddNewChildSubmit')->name('parent-add-new-child-submit');
             Route::get('subscriber-list/export', 'CustomerController@subscriber_list_export')->name('subscriber-list.export');
             Route::get('customer-list-search','CustomerController@get_customers')->name('customer-list-search');
 

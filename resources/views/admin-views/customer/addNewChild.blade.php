@@ -12,7 +12,7 @@
         <div class="mb-3">
             <h2 class="h1 mb-0 text-capitalize d-flex align-items-center gap-2">
                 <img src="{{asset('/public/assets/back-end/img/add-new-delivery-man.png')}}" alt="">
-                {{translate('add_new_delivery_man')}}
+                Add new User as child
             </h2>
         </div>
         <!-- End Page Title -->
@@ -31,7 +31,7 @@
                                 {{translate('general_Information')}}
                             </h5>
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
                                         <label class="title-color d-flex" for="f_name">{{translate('first_Name')}}</label>
                                         <input type="text" name="f_name" value="{{old('f_name')}}" class="form-control" placeholder="{{translate('first_Name')}}"
@@ -58,24 +58,6 @@
                                                    required>
                                         </div>
                                     </div>
-
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="title-color d-flex" for="exampleFormControlInput1">{{translate('identity_Type')}}</label>
-                                        <select name="identity_type" class="form-control">
-                                            <option value="passport">{{translate('passport')}}</option>
-                                            <option value="driving_license">{{translate('driving_License')}}</option>
-                                            <option value="nid">{{translate('nid')}}</option>
-                                            <option value="company_id">{{translate('company_ID')}}</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label class="title-color d-flex" for="exampleFormControlInput1">{{translate('identity_Number')}}</label>
-                                        <input value="{{ old('identity_number') }}"  type="text" name="identity_number" class="form-control"
-                                               placeholder="{{translate('ex')}} : DH-23434-LS"
-                                               required>
-                                    </div>
                                     <div class="form-group">
                                         <label class="title-color d-flex" for="exampleFormControlInput1">{{translate('address')}}</label>
                                         <div class="input-group mb-3">
@@ -83,12 +65,13 @@
                                         </div>
                                     </div>
                                 </div>
+
                             </div>
 
                             <div class="row">
-                                <div class="col-md-6">
+                                <div class="col-md-12">
                                     <div class="form-group">
-                                        <label class="title-color">{{translate('deliveryman_image')}}</label>
+                                        <label class="title-color">Profile picture</label>
                                         <span class="text-info">* ( {{translate('ratio')}} 1:1 )</span>
                                         <div class="custom-file">
                                             <input value="{{ old('image') }}" type="file" name="image" id="customFileEg1" class="custom-file-input"
@@ -104,14 +87,7 @@
                                     </div>
 
                                 </div>
-                                <div class="col-md-6">
-                                    <div class="form-group">
-                                        <label class="title-color" for="exampleFormControlInput1">{{translate('identity_image')}}</label>
-                                        <div>
-                                            <div class="row" id="coba"></div>
-                                        </div>
-                                    </div>
-                                </div>
+
                             </div>
                         </div>
                     </div>

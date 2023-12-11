@@ -117,6 +117,7 @@ class MailController extends Controller
     public function send(Request $request)
     {
         $response_flag = 0;
+        $errormsg = "";
         try {
             $emailServices_smtp = Helpers::get_business_settings('mail_config');
             if ($emailServices_smtp['status'] == 0) {
@@ -128,8 +129,9 @@ class MailController extends Controller
             }
         } catch (\Exception $exception) {
             $response_flag = 2;
+            $errormsg = $exception->getMessage();
         }
 
-        return response()->json(['success' => $response_flag]);
+        return response()->json(['success' => $response_flag, 'errormsg' => $errormsg]);
     }
 }

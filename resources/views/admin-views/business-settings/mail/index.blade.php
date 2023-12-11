@@ -481,6 +481,7 @@
                         "email": $('#test-email').val()
                     },
                     success: function (data) {
+                        console.log(data);
                         if (data.success === 2) {
                             toastr.error('{{translate("email_configuration_error")}} !!');
                         } else if (data.success === 1) {

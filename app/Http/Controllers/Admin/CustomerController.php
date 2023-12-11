@@ -304,4 +304,54 @@ class CustomerController extends Controller
         Toastr::error(translate('customer_not_found'));
         return back();
     }
+
+    public function parentAddNewChildSubmit(Request $request, $id) {
+
+        $request->validate([
+            'f_name' => 'required',
+            'l_name' => 'required',
+            'phone' => 'required',
+            'email' => 'required|unique:user,email',
+            'country_code' => 'required',
+            'password' => 'required|same:confirm_password|min:8'
+        ], [
+            'f_name.required' => 'First name is required!',
+            'l_name.required' => 'Last name is required!'
+        ]);
+
+        $phone_combo_exists = DeliveryMan::where(['phone' => $request->phone, 'country_code' => $request->country_code])->exists();
+
+        if ($phone_combo_exists) {
+            Toastr::error(translate('this_phone_number_is_already_taken'));
+            return back();
+        }
+
+        $id_img_names = [];
+        if (!empty($request->file('identity_image'))) {
+            foreach ($request->identity_image as $img) {
+                array_push($id_img_names, ImageManager::upload('delivery-man/', 'webp', $img));
+            }
+            $identity_image = json_encode($id_img_names);
+        } else {
+            $identity_image = json_encode([]);
+        }
+
+        $dm = new DeliveryMan();
+        $dm->seller_id = 0;
+        $dm->f_name = $request->f_name;
+        $dm->l_name = $request->l_name;
+        $dm->address = $request->address;
+        $dm->email = $request->email;
+        $dm->country_code = $request->country_code;
+        $dm->phone = $request->phone;
+        $dm->identity_number = $request->identity_number;
+        $dm->identity_type = $request->identity_type;
+        $dm->identity_image = $identity_image;
+        $dm->image = ImageManager::upload('delivery-man/', 'webp', $request->file('image'));
+        $dm->password = bcrypt($request->password);
+        $dm->save();
+
+        Toastr::success(translate('Delivery_man_added_successfully'));
+        return redirect('admin/delivery-man/list');
+    }
 }
