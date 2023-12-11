@@ -147,7 +147,7 @@
             @else
             <a class="col-5 mt-2 btn-f rounded-pill p-3 text-center bg-purple text-white border-0" href="{{ route('my-profile') }}" style="text-decoration: none">Add Address</a>
             @endif
-            <button type="submit" class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Place Order</button>
+            <button type="submit" class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Proceed to Next</button>
         </div>
         
 

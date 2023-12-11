@@ -37,7 +37,7 @@
                     </li>
                     
                     <li class="nav-item">
-                        <a class="nav-link" href="#"><i class="bi bi-heart"></i> Wishlist</a>
+                        <a class="nav-link" href="{{ route('my-shortlist') }}"><i class="bi bi-heart"></i> Wishlist</a>
                     </li>
                     @auth
                         

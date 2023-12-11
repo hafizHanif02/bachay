@@ -6719,4 +6719,6 @@
   'temporary_token_mismatch' => 'Temporary token mismatch',
   'invalid_otp' => 'Invalid otp',
   'otp_verified' => 'Otp verified',
+  'PLace_order' => 'PLace order',
+  'Place_order' => 'Place order',
 );
