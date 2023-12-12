@@ -212,18 +212,20 @@ class ForgotPassword extends Controller
             'otp' => 'required',
             'password' => 'required|same:confirm_password|min:8',
         ]);
-
+        
         if ($validator->fails()) {
             return response()->json(['errors' => Helpers::error_processor($validator)], 403);
         }
 
+        
+        
         $data = DB::table('password_resets')
-            ->where('user_type','customer')
-            ->where('identity', 'like', "%{$request['identity']}%")
-            ->where(['token' => $request['otp']])->first();
-
+        ->where('user_type','customer')
+        ->where('identity', 'like', "%{$request['identity']}%")
+        ->where(['token' => $request['otp']])->first();
+        
         if (isset($data)) {
-            DB::table('users')->where('phone', 'like', "%{$data->identity}%")
+            DB::table('users')->where('email', 'like', "%{$data->identity}%")
                 ->update([
                     'password' => bcrypt(str_replace(' ', '', $request['password']))
                 ]);
