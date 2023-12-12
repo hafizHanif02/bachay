@@ -26,6 +26,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use function App\CPU\translate;
 
+
 class ProductController extends Controller
 {
     public function __construct(
@@ -60,8 +61,9 @@ class ProductController extends Controller
         return response()->json($products, 200);
     }
 
-    public function show($id){
-        $product = DB::table('products')->where('id',$id)->first();
+    public function show(Request $request){
+        
+        $product = DB::table('products')->where('id',$request->id)->first();
         return response()->json($product, 200);
     }
 
