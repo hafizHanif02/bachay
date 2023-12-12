@@ -49,8 +49,15 @@
                     @endif
 
                 </div>
+                <form action="{{ route('cart.remove') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="customer_id" value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}" >
+                    <input type="hidden" name="product_id" value="{{ $Cartproduct->product_id }}" >
+                    <input type="hidden" name="cart_id" value="{{ $Cartproduct->id }}" >
+                    <input type="hidden" name="cart_group_id" value="{{ $Cartproduct->cart_group_id }}" >
+                    <input type="hidden" name="customer_id" value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}" >
                 <div class="mt-3">
-                    <button class="col-5 mt-2 btn-delete p-2 rounded-pill text-danger">
+                    <button type="submit" class="col-5 mt-2 btn-delete p-2 rounded-pill text-danger">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13"
                             fill="none">
                             <path d="M7.83164 9.71592L6.18164 8.06592" stroke="#EC1515" stroke-miterlimit="10"
@@ -60,7 +67,7 @@
                             <path d="M5.08411 0.5L2.91211 2.678" stroke="#EC1515" stroke-miterlimit="10"
                                 stroke-linecap="round" stroke-linejoin="round" />
                             <path d="M8.91211 0.5L11.0841 2.678" stroke="#EC1515" stroke-miterlimit="10"
-                                stroke-linecap="round" stroke-linejoin="round" />
+                            stroke-linecap="round" stroke-linejoin="round" />
                             <path
                                 d="M1 4.01006C1 2.90006 1.594 2.81006 2.332 2.81006H11.668C12.406 2.81006 13 2.90006 13 4.01006C13 5.30006 12.406 5.21006 11.668 5.21006H2.332C1.594 5.21006 1 5.30006 1 4.01006Z"
                                 stroke="#EC1515" />
@@ -68,10 +75,11 @@
                                 d="M1.90039 5.29999L2.74639 10.484C2.93839 11.648 3.40039 12.5 5.11639 12.5H8.73439C10.6004 12.5 10.8764 11.684 11.0924 10.556L12.1004 5.29999"
                                 stroke="#EC1515" stroke-linecap="round" />
                         </svg> Delete</button>
+                    </form>
 
                     <button class="col-5 mt-2 btn-edit p-2 rounded-pill">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13"
-                            fill="none">
+                        fill="none">
                             <path
                                 d="M5.88862 1.13647H4.80226C2.08636 1.13647 1 2.22283 1 4.93874V8.19782C1 10.9137 2.08636 12.0001 4.80226 12.0001H8.06134C10.7772 12.0001 11.8636 10.9137 11.8636 8.19782V7.11146"
                                 stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" />

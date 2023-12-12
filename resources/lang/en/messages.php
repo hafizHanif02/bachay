@@ -6726,4 +6726,7 @@
   'your_order' => 'Your order',
   'order_confirmed' => 'Order confirmed',
   'preparing_shipment' => 'Preparing shipment',
+  'your_payment_has_been_successfully_processed_and_your_order' => 'Your payment has been successfully processed and your order',
+  'has_been_placed.' => 'Has been placed.',
+  'invalid_Order_Id_or_phone_Number' => 'Invalid Order Id or phone Number',
 );

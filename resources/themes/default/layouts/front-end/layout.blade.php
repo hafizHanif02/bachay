@@ -76,7 +76,7 @@
             <div class="modal-content">
                 <div class="modal-body">
                     <div class="tick-container">
-                        <div class="tick"></div>
+                        <div class="tick" id="tickIcon"></div>
                     </div>
                     <br>
                     <p id="modalMessage"></p>
@@ -163,7 +163,6 @@
 
 </body>
 </html>
-
 <style>
     .tick-container {
         width: 50px;
@@ -174,13 +173,29 @@
     .tick {
         width: 20px;
         height: 40px;
-        border-bottom: 5px solid #28a745; /* Bootstrap success color */
-        border-right: 5px solid #28a745;
-        transform: rotate(45deg);
         position: absolute;
         top: 15px;
         left: 15px;
-        animation: tickAnimation 1.5s ease-in-out;
+        animation-duration: 1.5s;
+    }
+
+    .tick-success {
+        border-bottom: 5px solid #28a745; /* Bootstrap success color */
+        border-right: 5px solid #28a745;
+        transform: rotate(45deg);
+        animation-name: tickAnimation;
+    }
+
+    .tick-failure {
+        background-image: url('../public/assets/back-end/img/stop-message.png'); /* Replace with the correct path to your image */
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
+        width: 50px;
+        height: 50px;
+        transform: scale(0);
+        animation-name: stopSignAnimation;
+        animation-duration: 1.8s;
     }
 
     @keyframes tickAnimation {
@@ -194,15 +209,31 @@
             transform: rotate(45deg) scale(1);
         }
     }
-</style>
 
+    @keyframes stopSignAnimation {
+        0% {
+            transform: scale(0);
+        }
+        50% {
+            transform: scale(1.2);
+        }
+        100% {
+            transform: scale(1);
+        }
+    }
+</style>
 <script>
-    // Check if there is a message in the session
+    // Check if there is a message and status in the session
     var message = "{{ session('message') }}";
+    var status = "{{ session('status') }}";
 
     if (message) {
         // Set the message in the modal
         $('#modalMessage').text(message);
+
+        // Set the appropriate animation class based on the status value
+        var animationClass = (status == 0) ? 'tick-failure' : 'tick-success';
+        $('#tickIcon').addClass(animationClass);
 
         // Trigger the modal
         $('#successModal').modal('show');

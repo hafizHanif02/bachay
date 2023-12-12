@@ -410,7 +410,6 @@ class CartManager
             }
         }
         $cart['shipping_type']=$shipping_type;
-        // dd($cart);   
         $cart->save();
 
         return [
@@ -446,7 +445,6 @@ class CartManager
                 //     }
                 // }
                 if ($status) {
-                    // dd($request->product[$i]['quantity']);
                     $qty = $request->product[$i]['quantity'];
                     $cart['quantity'] = $request->product[$i]['quantity'];
                     $cart['shipping_cost'] =  CartManager::get_shipping_cost_for_product_category_wise($product,$request->product[$i]['quantity']);

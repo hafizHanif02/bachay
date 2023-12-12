@@ -52,7 +52,7 @@
                                 <p class="text-center fs-12">{{ translate('your_order_is_being_processed_and_will_be_completed.') }} {{ translate('You_will_receive_an_email_confirmation_when_your_order_is_placed.') }}</p>
                             @endif
 
-                            <h6 class="font-black fw-bold text-center">ORDER ID: {{ $order }}</h6>
+                  
                             <div class="row mt-4">
                                 <div class="col-12 text-center">
                                     <a href="{{ route('track-order.index') }}" class="btn btn--primary mb-3 text-center">

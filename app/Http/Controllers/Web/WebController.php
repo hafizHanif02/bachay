@@ -763,6 +763,10 @@ class WebController extends Controller
         //     return redirect('/');
         // }
 
+        $existingOrder = DB::table('orders')->pluck('id')->toArray();
+
+        
+
         $order = DB::table('orders')->insertGetId([
             'customer_id' => $request->customer_id,
             // 'customer_type',			
@@ -929,41 +933,43 @@ class WebController extends Controller
 
         $data = $request;
         // if (session()->has('address_id') && session()->has('billing_address_id') && count($cart_group_ids) > 0) {
-            return view(
-                VIEW_FILE_NAMES['order_complete'],
-                compact('data','order',
-                    'cod_not_show','order','cash_on_delivery','digital_payment','offline_payment',
-                    'wallet_status','coupon_discount','amount','inr','usd','myr','payment_gateway_published_status','payment_gateways_list','offline_payment_methods'
-                ));
+            // return view(
+            //     VIEW_FILE_NAMES['order_complete'],
+            //     compact('data','order',
+            //         'cod_not_show','order','cash_on_delivery','digital_payment','offline_payment',
+            //         'wallet_status','coupon_discount','amount','inr','usd','myr','payment_gateway_published_status','payment_gateways_list','offline_payment_methods'
+            //     ));
         // }
-
+        return redirect()->route('checkout-complete');
         // Toastr::error(translate('incomplete_info'));
         // return back();
     }
 
     public function checkout_complete(Request $request)
     {
-        if($request->payment_method != 'cash_on_delivery'){
-            return back()->with('error', 'Something went wrong!');
-        }
+        // dd($request->all());
+        // if($request->payment_method != 'cash_on_delivery'){
+        //     return back()->with('error', 'Something went wrong!');
+        // }
         $unique_id = OrderManager::gen_unique_id();
         $order_ids = [];
         $cart_group_ids = CartManager::get_cart_group_ids();
         $carts = Cart::whereIn('cart_group_id', $cart_group_ids)->get();
 
         $product_stock = CartManager::product_stock_check($carts);
+        
         if(!$product_stock){
             Toastr::error(translate('the_following_items_in_your_cart_are_currently_out_of_stock'));
             return redirect()->route('shop-cart');
         }
-
+        
         $physical_product = false;
         foreach($carts as $cart){
             if($cart->product_type == 'physical'){
                 $physical_product = true;
             }
         }
-
+        
         if($physical_product) {
             foreach ($cart_group_ids as $group_id) {
                 $data = [
@@ -974,13 +980,14 @@ class WebController extends Controller
                     'order_group_id' => $unique_id,
                     'cart_group_id' => $group_id
                 ];
+                // dd($data);
                 $order_id = OrderManager::generate_order($data);
                 array_push($order_ids, $order_id);
             }
 
             CartManager::cart_clean();
 
-
+            // dd($order_id);
             return view(VIEW_FILE_NAMES['order_complete'], compact('order_ids'));
         }
 

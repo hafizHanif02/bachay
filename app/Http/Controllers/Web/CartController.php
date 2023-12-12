@@ -42,14 +42,18 @@ class CartController extends Controller
                 //     ->where('category_ids', 'like', "%{$id}%")
                 //     ->inRandomOrder()->take(12)->get();
             });
+            
             $myCartProducts = Cart::where('customer_id',Auth::guard('customer')->user()->id)->with('product')->get();
             
+            
+
             if($myCartProducts->isNotEmpty()){
                 $cartGroupIds = Cart::where('customer_id', Auth::guard('customer')->user()->id)
                 ->first()
                 ->pluck('cart_group_id');
                 $cartGroupId = $cartGroupIds[0];
-            }else{
+            }
+            else{
                 $cartGroupId = 0;
             }
 
@@ -219,13 +223,16 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         $cart = CartManager::add_to_cart($request);
+        if($cart['message'] == 'Out of stock!'){
+        return redirect()->back()->with(['message'=> 'Product is Out of Stock!', 'status'=> 0]);
+        }
         session()->forget('coupon_code');
         session()->forget('coupon_type');
         session()->forget('coupon_bearer');
         session()->forget('coupon_discount');
         session()->forget('coupon_seller_id');
         // return response()->json($cart);
-        return redirect()->back()->with('message', 'Product Has Been Added to Cart !');
+        return redirect()->back()->with(['message'=> 'Product Has Been Added to Cart !', 'status'=> 1]);
     }
 
     public function updateNavCart()
@@ -245,9 +252,14 @@ class CartController extends Controller
      */
     public function removeFromCart(Request $request)
     {
+        // dd($request);
         $user = Helpers::get_customer();
 
-        Cart::where(['id' => $request->key, 'customer_id' => ($user == 'offline' ? session('guest_id') : auth('customer')->id())])->delete();
+        $cart = Cart::where(['id' => $request->cart_id, 'customer_id' => ($user == 'offline' ? session('guest_id') : auth('customer')->id())])->first();
+
+        $cart->delete();
+
+        // Cart::where(['id' => $request->cart_id, 'customer_id' => ($user == 'offline' ? session('guest_id') : auth('customer')->id())])->delete();
 
         session()->forget('coupon_code');
         session()->forget('coupon_type');
@@ -257,7 +269,8 @@ class CartController extends Controller
         session()->forget('shipping_method_id');
         session()->forget('order_note');
 
-        return response()->json(['data' => view(VIEW_FILE_NAMES['products_cart_details_partials'], compact('request'))->render(), 'message'=>translate('Item_has_been_removed_from_cart')]);
+        // return response()->json(['data' => view(VIEW_FILE_NAMES['products_cart_details_partials'], compact('request'))->render(), 'message'=>translate('Item_has_been_removed_from_cart')]);
+        return redirect()->back()->with(['message'=> 'Product has Been Removed from Cart', 'status'=> 1]);
     }
 
     //updated the quantity for a cart item
