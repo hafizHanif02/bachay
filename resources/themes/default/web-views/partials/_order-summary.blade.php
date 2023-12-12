@@ -174,16 +174,16 @@
             <input type="hidden" name="discount_amount" value="{{ $data->discount_amount }}">
             @foreach($data->product as $product)
             {{-- {{ dd($product) }} --}}
-            <input type="hidden" name="product[{{ $loop->iteration }}][product_id]" value="{{ ($product['product_id'] != null)?$product['product_id']:'' }}">
-            <input type="hidden" name="product[{{ $loop->iteration }}][tax]" value="{{ ($product['tax'] != null)?$product['tax']:'' }}">
-            <input type="hidden" name="product[{{ $loop->iteration }}][tax_model]" value="{{ ($product['tax_model'] != null)?$product['tax_model']:'' }}">
-            <input type="hidden" name="product[{{ $loop->iteration }}][color]" value="{{ ($product['color'] != null)?$product['color']:'' }}">
-            <input type="hidden" name="product[{{ $loop->iteration }}][variant]" value="{{ ($product['variant'] != null)?$product['variant']:'' }}">
-            <input type="hidden" name="product[{{ $loop->iteration }}][discount]" value="{{ ($product['discount'] != null)?$product['discount']:'' }}">
-            <input type="hidden" name="product[{{ $loop->iteration }}][discount_amount]" value="{{ ($product['discount_amount'] != null)?$product['discount_amount']:'' }}">
-            <input type="hidden" name="product[{{ $loop->iteration }}][actual_price]" value="{{ ($product['actual_price'] != null)?$product['actual_price']:'' }}">
-            <input type="hidden" name="product[{{ $loop->iteration }}][price]" value="{{ ($product['price'] != null)?$product['price']:'' }}">
-            <input type="hidden" name="product[{{ $loop->iteration }}][quantity]" value="{{ ($product['quantity'] != null)?$product['quantity']:'' }}">      
+            <input type="hidden" name="product[{{ $loop->iteration }}][product_id]" value="{{ ($product['product_id'] ?? '') }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][tax]" value="{{ ($product['tax'] ?? '') }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][tax_model]" value="{{ ($product['tax_model'] ?? '') }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][color]" value="{{ ($product['color'] ?? '') }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][variant]" value="{{ ($product['variant'] ?? '') }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][discount]" value="{{ ($product['discount'] ?? '') }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][discount_amount]" value="{{ ($product['discount_amount'] ?? '') }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][actual_price]" value="{{ ($product['actual_price'] ?? '') }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][price]" value="{{ ($product['price'] ?? '') }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][quantity]" value="{{ ($product['quantity'] ?? '') }}">      
             @endforeach
 
             <div class="mt-4">

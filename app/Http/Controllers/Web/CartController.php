@@ -43,11 +43,15 @@ class CartController extends Controller
                 //     ->inRandomOrder()->take(12)->get();
             });
             $myCartProducts = Cart::where('customer_id',Auth::guard('customer')->user()->id)->with('product')->get();
-            $cartGroupIds = Cart::where('customer_id', Auth::guard('customer')->user()->id)
-            ->first()
-            ->pluck('cart_group_id');
-
-            $cartGroupId = $cartGroupIds[1];
+            
+            if($myCartProducts->isNotEmpty()){
+                $cartGroupIds = Cart::where('customer_id', Auth::guard('customer')->user()->id)
+                ->first()
+                ->pluck('cart_group_id');
+                $cartGroupId = $cartGroupIds[0];
+            }else{
+                $cartGroupId = 0;
+            }
 
             $total_product_price = Cart::where('customer_id', Auth::guard('customer')->user()->id)
             ->with('product')
