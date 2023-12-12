@@ -51,11 +51,7 @@
                 </div>
                 <form action="{{ route('cart.remove') }}" method="POST">
                     @csrf
-                    <input type="hidden" name="customer_id" value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}" >
-                    <input type="hidden" name="product_id" value="{{ $Cartproduct->product_id }}" >
                     <input type="hidden" name="cart_id" value="{{ $Cartproduct->id }}" >
-                    <input type="hidden" name="cart_group_id" value="{{ $Cartproduct->cart_group_id }}" >
-                    <input type="hidden" name="customer_id" value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}" >
                 <div class="mt-3">
                     <button type="submit" class="col-5 mt-2 btn-delete p-2 rounded-pill text-danger">
                         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13"
@@ -76,8 +72,12 @@
                                 stroke="#EC1515" stroke-linecap="round" />
                         </svg> Delete</button>
                     </form>
-
-                    <button class="col-5 mt-2 btn-edit p-2 rounded-pill">
+                    <form >
+                        @csrf
+                        <input type="hidden" name="is_edit" value="1">
+                        <input type="hidden" name="product_id" value="{{ $Cartproduct->product_id }}">
+                        <input type="hidden" name="cart_id" value="{{ $Cartproduct->id }}">
+                    <button disabled type="submit" class="col-5 mt-2 btn-edit p-2 rounded-pill">
                         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13"
                         fill="none">
                             <path
@@ -90,7 +90,7 @@
                             <path d="M8.0127 2.30426C8.37663 3.60246 9.39237 4.61821 10.696 4.98757" stroke="#292D32"
                                 stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
                         </svg> Edit</button>
-
+                    </form>
 
                 </div>
 

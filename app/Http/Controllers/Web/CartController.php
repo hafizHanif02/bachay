@@ -43,7 +43,11 @@ class CartController extends Controller
                 //     ->inRandomOrder()->take(12)->get();
             });
             
-            $myCartProducts = Cart::where('customer_id',Auth::guard('customer')->user()->id)->with('product')->get();
+            if(Auth::guard('customer')->user()){
+                $myCartProducts = Cart::where('customer_id',Auth::guard('customer')->user()->id)->with('product')->get();
+            }else{
+                return redirect()->back()->with(['message'=> 'Login First', 'status'=> 0]);
+            }
             
             
 
@@ -75,6 +79,8 @@ class CartController extends Controller
         return view(VIEW_FILE_NAMES['my-cart-address'],(compact('cartGroupId','shippingAddress','totalDiscount','total_product_price','myCartProducts','home_categories')));
 
     }
+
+
 
     public function add_cart(Request $request){
 
