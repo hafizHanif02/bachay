@@ -45,11 +45,11 @@
                                         @endif
                                     </p>
                                     <div class="d-flex">
-                                        <h4 class="card-text price">Rs.
+                                        <h6 class="card-text price">Rs.
                                             {{ $prod->unit_price - ($prod->unit_price * $prod->discount) / 100 }}
-                                        </h4>
-                                        <p class="bg-primary rounded-pill ps-2 pe-2 ms-2 text-white units">141 Solds
-                                        </p>
+                                        </h6>
+                                        {{-- <p class="bg-primary rounded-pill ps-2 pe-2 ms-2 text-white units">141 Solds
+                                        </p> --}}
                                     </div>
                                     <p class="card-text"><span class="discount">Rs. {{ $prod->unit_price }}</span> <span
                                             class="text-success">-{{ $prod->discount }}% Off</span></p>

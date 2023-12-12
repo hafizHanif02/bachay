@@ -10,7 +10,7 @@
                         <img class="NewSeasonBorder rounded-5 new-arival-container"
                                 src="{{asset('storage/app/public/category')}}/{{$arrivals['icon']}}" alt="Category image">
 
-                        <h3 class="text-center gradient-text mt-1">{{ $arrivals->name }}</h3>
+                        <h4 class="text-center gradient-text mt-1 mb-0 pb-1">{{ $arrivals->name }}</h4>
                     </a>
                 </div>
             @endforeach
