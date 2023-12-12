@@ -55,6 +55,16 @@ class ProductController extends Controller
         return response()->json($products, 200);
     }
 
+    public function list(){
+        $products = DB::table('products')->get();
+        return response()->json($products, 200);
+    }
+
+    public function show($id){
+        $product = DB::table('products')->where('id',$id)->first();
+        return response()->json($product, 200);
+    }
+
     public function get_searched_products(Request $request)
     {
         $validator = Validator::make($request->all(), [

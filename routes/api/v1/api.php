@@ -13,7 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
  */
 
-Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_lang']], function () {
+ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_lang']], function () {
+   
+    Route::group(['prefix' => 'product'], function () {
+        Route::get('/list', 'ProductController@list')->name('list');
+        Route::get('/detail/{id}', 'ProductController@show')->name('detail');
+    });
+
 
     Route::group(['prefix' => 'auth', 'namespace' => 'auth'], function () {
         Route::post('register', 'PassportAuthController@register');
@@ -72,6 +78,8 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
     Route::group(['prefix' => 'attributes'], function () {
         Route::get('/', 'AttributeController@get_attributes');
     });
+
+
 
     Route::group(['prefix' => 'flash-deals'], function () {
         Route::get('/', 'FlashDealController@get_flash_deal');
