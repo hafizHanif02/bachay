@@ -37,6 +37,7 @@
                             </div>
 
                             <h6 class="font-black fw-bold text-center">{{ translate('order_Placed_Successfully')}}!</h6>
+                           
 
                             @if (isset($order_ids) && count($order_ids) > 0)
                                 <p class="text-center fs-12">{{ translate('your_payment_has_been_successfully_processed_and_your_order') }} -
@@ -51,6 +52,7 @@
                                 <p class="text-center fs-12">{{ translate('your_order_is_being_processed_and_will_be_completed.') }} {{ translate('You_will_receive_an_email_confirmation_when_your_order_is_placed.') }}</p>
                             @endif
 
+                            <h6 class="font-black fw-bold text-center">ORDER ID: {{ $order }}</h6>
                             <div class="row mt-4">
                                 <div class="col-12 text-center">
                                     <a href="{{ route('track-order.index') }}" class="btn btn--primary mb-3 text-center">

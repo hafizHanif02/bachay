@@ -931,7 +931,7 @@ class WebController extends Controller
         // if (session()->has('address_id') && session()->has('billing_address_id') && count($cart_group_ids) > 0) {
             return view(
                 VIEW_FILE_NAMES['order_complete'],
-                compact('data',
+                compact('data','order',
                     'cod_not_show','order','cash_on_delivery','digital_payment','offline_payment',
                     'wallet_status','coupon_discount','amount','inr','usd','myr','payment_gateway_published_status','payment_gateways_list','offline_payment_methods'
                 ));
