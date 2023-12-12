@@ -115,7 +115,7 @@
                                             id="inputCheckd">
                                         <span class="custom-control-label">
                                             <span>{{ translate('i_agree_to_Your') }}</span> <a class="font-size-sm"
-                                                target="_blank"
+                                                
                                                 href="{{ route('terms') }}">{{ translate('terms_and_condition') }}</a>
                                         </span>
                                     </label>

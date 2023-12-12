@@ -105,7 +105,7 @@
                                                 <a class="dropdown-item"
                                                    href="{{route('admin.sellers.order-details',[$order['id'],$seller['id']])}}"><i
                                                         class="tio-visible"></i> {{translate('view')}}</a>
-                                                <a class="dropdown-item" target="_blank"
+                                                <a class="dropdown-item" 
                                                    href="{{route('admin.orders.generate-invoice',[$order->id])}}"><i
                                                         class="tio-download"></i> {{translate('invoice')}}</a>
                                             </div>

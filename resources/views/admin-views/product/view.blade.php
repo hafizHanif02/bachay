@@ -180,7 +180,7 @@
                                 </div>
 
                                 @if ($product_active)
-                                    <a href="{{route('product-list',$product['slug'])}}" class="btn btn-outline--primary mr-1" target="_blank">
+                                    <a href="{{route('product-list',$product['slug'])}}" class="btn btn-outline--primary mr-1" >
                                         <i class="tio-globe"></i>
                                         {{ translate('view_live') }}
                                     </a>

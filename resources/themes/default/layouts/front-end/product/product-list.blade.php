@@ -26,7 +26,7 @@
         @foreach ($products as $product)
             {{-- {{ $product->name }} --}}
             <div class="col-md-6 col-lg-3 mb-4 pb-3">
-                <a class="text-decoration-none" target="_blank" href="{{ route('product-detail', $product->id) }}">
+                <a class="text-decoration-none"  href="{{ route('product-detail', $product->id) }}">
                     <div class="rounded-3">
                         <div class="card1">
                             <div class="first-sec card1">

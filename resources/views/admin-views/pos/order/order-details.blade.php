@@ -33,7 +33,7 @@
                             </div>
                             <div class="text-sm-right">
                                 <div class="d-flex flex-wrap gap-10 justify-content-sm-end">
-                                    <a class="btn btn--primary px-4" target="_blank"
+                                    <a class="btn btn--primary px-4" 
                                     href="{{route('admin.orders.generate-invoice',[$order['id']])}}">
                                         <img src="{{ asset('public/assets/back-end/img/icons/uil_invoice.svg') }}" alt="" class="mr-1">
                                         {{translate('print_Invoice')}}

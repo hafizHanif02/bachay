@@ -141,7 +141,7 @@
                                         href="{{route('admin.pos.order-details',['id'=>$order['id']])}}">
                                         <i class="tio-invisible"></i>
                                     </a>
-                                    <a class="btn btn-outline-info btn-sm" target="_blank" title="{{translate('invoice')}}"
+                                    <a class="btn btn-outline-info btn-sm"  title="{{translate('invoice')}}"
                                         href="{{route('admin.orders.generate-invoice',[$order['id']])}}">
                                         <i class="tio-download"></i>
                                     </a>
