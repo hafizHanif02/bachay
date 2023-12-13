@@ -17,7 +17,7 @@ use Illuminate\Support\Facades\Route;
    
     Route::group(['prefix' => 'product'], function () {
         Route::get('/list', 'ProductController@list')->name('list');
-        Route::get('/detail', 'ProductController@show')->name('detail');
+        Route::get('/detail/{id}', 'ProductController@show')->name('detail');
     });
 
 
