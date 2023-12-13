@@ -1,75 +1,85 @@
-<div class="row mt-5 pb-5 col-12 flash-sales-container d-flex justify-content-between">
-
-    <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-        <a href="#" class="text-decoration-none">
-      <div class="card rounded-circle for-border1">
-        
-          <img class="card-img rounded-circle" src="{{ asset('web/images/cate-img4.png') }}" alt="Flash Sale 1" height="265px" />
-          
-       
-      </div>
-      <h4 class="text-center text-dark">Art & Hobbies</h4>
-    </a>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-        <a href="#" class="text-decoration-none">
-      <div class="card rounded-circle for-border1">
-        
-          <img class="card-img rounded-circle" src="{{ asset('web/images/cate-img2.png') }}" alt="Flash Sale 1" height="265px" />
-          
-       
-      </div>
-      <h4 class="text-center text-dark">Health & Safety</h4>
-    </a>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-        <a href="#" class="text-decoration-none">
-      <div class="card rounded-circle for-border1">
-        
-          <img class="card-img rounded-circle" src="{{ asset('web/images/cate-img3.png') }}" alt="Flash Sale 1" height="265px" />
-          
-       
-      </div>
-      <h4 class="text-center text-dark">Nursing</h4>
-    </a>
-    </div>
-    <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-        <a href="#" class="text-decoration-none">
-      <div class="card rounded-circle for-border1">
-        
-          <img class="card-img rounded-circle" src="{{ asset('web/images/cate-img4.png') }}" alt="Flash Sale 1" height="265px" />
-          
-       
-      </div>
-      <h4 class="text-center text-dark">Entertainment</h4>
-    </a>
-    </div>
-    
-
-    {{-- <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-        <div class="card rounded-circle for-border1">
+<div class="premiumBouquets">
+  <h1 class="text-center textClr pb-2 pt-2">Premium Bouquets</h1>
+  <div class="row mt-5 col-12 flash-sales-container">
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+        <div class="card rounded-5">
           <a href="#">
-            <img class="card-img rounded-circle" src="{{ asset('web/images/cate-img2.png') }}" alt="Flash Sale 1" height="265px" />
+            <div class="deal-alert-circle">-75%</div>
+            <img class="card-img rounded-5" src="{{ asset('public/images/flash-sales1.png') }}" alt="Flash Sale 1" height="411px" />
+            <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
+              <p class="card-text">New Toys For Children</p>
+            </div>
           </a>
         </div>
-      </div> --}}
-
-      {{-- <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-        <div class="card rounded-circle for-border1">
-          <a href="#">
-            <img class="card-img rounded-circle" src="{{ asset('web/images/cate-img3.png') }}" alt="Flash Sale 1" height="265px" />
-          </a>
+      </div>
+  
+      <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card rounded-5">
+            <a href="#">
+              <div class="deal-alert-circle">-15%</div>
+              <img class="card-img rounded-5" src="{{ asset('public/images/flash-sales2.png') }}" alt="Flash Sale 1" height="411px" />
+              <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
+                <p class="card-text">New Toys For Children</p>
+              </div>
+            </a>
+          </div>
         </div>
-      </div> --}}
-{{--       
-      <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-        <div class="card rounded-circle for-border1">
-          <a href="#">
-            <img class="card-img rounded-circle" src="{{ asset('web/images/cate-img4.png') }}" alt="Flash Sale 1" height="265px" />
-          </a>
+  
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card rounded-5">
+            <a href="#">
+              <div class="deal-alert-circle">-25%</div>
+              <img class="card-img rounded-5" src="{{ asset('public/images/flash-sales3.png') }}" alt="Flash Sale 1" height="411px" />
+              <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
+                <p class="card-text">New Toys For Children</p>
+              </div>
+            </a>
+          </div>
         </div>
-      </div> --}}
-
-    
-
+  
+  
+        <div class="for-spacing p-3"></div>
+  
+  
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+          <div class="card rounded-5">
+            <a href="#">
+              <div class="deal-alert-circle">-55%</div>
+              <img class="card-img rounded-5" src="{{ asset('public/images/flash-sales4.png') }}" alt="Flash Sale 1" height="411px" />
+              <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
+                <p class="card-text">New Toys For Children</p>
+              </div>
+            </a>
+          </div>
+        </div>
+  
+        <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card rounded-5">
+              <a href="#">
+                <div class="deal-alert-circle">-85%</div>
+                <img class="card-img rounded-5" src="{{ asset('public/images/flash-sales5.png') }}" alt="Flash Sale 1" height="411px" />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
+                  <p class="card-text">New Toys For Children</p>
+                </div>
+              </a>
+            </div>
+          </div>
+  
+          <div class="col-lg-4 col-md-6 col-sm-12 mb-4">
+            <div class="card rounded-5">
+              <a href="#">
+                <div class="deal-alert-circle">-40%</div>
+                <img class="card-img rounded-5" src="{{ asset('public/images/flash-sales6.png') }}" alt="Flash Sale 1" height="411px" />
+                <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
+                  <p class="card-text">New Toys For Children</p>
+                </div>
+              </a>
+            </div>
+          </div>
+  
+  
+    </div>
+  
   </div>
+  
+  

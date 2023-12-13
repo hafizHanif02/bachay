@@ -6,7 +6,7 @@
         @foreach ($productsInFlashDeal as $products)
             <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
                 <div class="card rounded-5">
-                    <a href="#">
+                    <a href="{{ route('product-detail', $products->id) }}">
                         <div class="deal-alert-circle">-{{ $products->discount }}%</div>
                         <div class="forHeight">
                             {{-- @foreach (json_decode($products->images) as $key => $photo) --}}

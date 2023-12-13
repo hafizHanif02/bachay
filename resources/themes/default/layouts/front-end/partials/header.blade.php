@@ -1,4 +1,4 @@
-<header>
+    <header>
     <div class="desktop-nav">
 
         <nav class="navbar navbar-expand-md d-flex justify-content-between align-items-center col-12">
@@ -33,7 +33,7 @@
                         <a class="nav-link" href="#">Parenting</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#">Track Order</a>
+                        <a class="nav-link" href="{{ route('track-orders') }}">Track Order</a>
                     </li>
                     
                     <li class="nav-item">

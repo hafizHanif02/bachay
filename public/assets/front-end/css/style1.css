@@ -722,9 +722,9 @@ h1.text-center.textClr {
     padding: 10px 0;
 }
 
-.premiumBouquets {
-    padding: 50px 0 30px 0;
-}
+/* .premiumBouquets {
+    padding: 50px 0 0px 0;
+} */
 
 .for-sizing {
     width: 155px;
