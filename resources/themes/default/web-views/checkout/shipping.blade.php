@@ -51,6 +51,23 @@
         }
     </style>
 @endpush
+<style>
+    @font-face {
+        font-family: myfont;
+        src: url(/public/fonts/AristotelicaDisplayDemiBoldTrial.ttf);
+    }
+    
+    @font-face {
+        font-family: mylightfont;
+        src: url(/public/fonts/AristotelicaDisplayExtraLightTrial.ttf);
+    }
+    
+    @font-face {
+        font-family: mysmallcapsfont;
+        src: url(/public/fonts/AristotelicaSmallCapsRegular.ttf);
+    }
+
+</style>
 <script src="../public/assets/back-end/js/address_update_checkout.js"></script>
 <style>
     .textClr {
@@ -66,18 +83,21 @@
         -webkit-text-fill-color: transparent;
         line-height: normal;
     }
-
+    .myfont {
+        font-family: myfont !important;
+    }
     .Poppins {
         font-family: 'Poppins';
     }
 </style>
+<link href='https://fonts.googleapis.com/css?family=Poppins' rel='stylesheet'>
 @section('content')
     @php($billing_input_by_customer = \App\CPU\Helpers::get_business_settings('billing_input_by_customer'))
     <div class="container py-4 rtl __inline-56 px-0 px-md-3 Poppins"
         style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};background-color: #f6f6f6; border: 1px solid #ddd; box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);">
         <div class="row mx-max-md-0">
             <div class="col-md-12 mb-3">
-                <h1 class="textClr font-weight-bold text-center text-lg-left" style="">{{ translate('checkout') }}</h1>
+                <h1 class="textClr font-weight-bold text-center text-lg-left myfont" style="">{{ translate('checkout') }}</h1>
             </div>
             <section class="col-lg-8 px-max-md-0">
                 <div class="checkout_details">
@@ -237,7 +257,7 @@
                                                                         @endforelse
                                                                     </select>
                                                                 @else
-                                                                    <input type="text" class="form-control"
+                                                                    <input type="text" class="form-control rounded-pill"
                                                                         value="{{ $customer_data->zip }}" name="zip"
                                                                         id="zip"
                                                                         {{ $shipping_addresses->count() == 0 ? 'required' : '' }}>

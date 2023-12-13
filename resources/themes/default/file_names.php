@@ -76,6 +76,10 @@ return [
     'gift-certification'=>'web-views.gift-certification',
     'invites-credits'=>'web-views.invites-credits',
     'my-reviews-upload'=>'web-views.my-reviews-upload',
+    'categories'=>'web-views.categories',
+    'sub-category'=>'web-views.sub-category',
+
+
 
 
 
