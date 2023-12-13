@@ -2,28 +2,29 @@
 
 namespace App\Http\Controllers\api\v1;
 
-use App\CPU\CustomerManager;
-use App\CPU\Helpers;
-use App\CPU\ImageManager;
-use App\Http\Controllers\Controller;
-use App\Model\DeliveryCountryCode;
-use App\Model\DeliveryZipCode;
-use App\Model\GuestUser;
-use App\Model\Order;
-use App\Model\OrderDetail;
-use App\Model\ShippingAddress;
-use App\Model\SupportTicket;
-use App\Model\SupportTicketConv;
-use App\Model\Wishlist;
-use App\Traits\CommonTrait;
 use App\User;
+use App\CPU\Helpers;
+use App\Model\Order;
+use App\Model\Wishlist;
+use App\Model\GuestUser;
+use App\CPU\ImageManager;
+use App\Model\OrderDetail;
+use App\Traits\CommonTrait;
+use App\CPU\CustomerManager;
+use App\Model\SupportTicket;
 use Illuminate\Http\Request;
+use App\Model\DeliveryZipCode;
+use App\Model\ShippingAddress;
 use Illuminate\Support\Carbon;
+use function App\CPU\translate;
+use App\Model\SupportTicketConv;
+use App\Model\DeliveryCountryCode;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use Intervention\Image\Facades\Image;
-use function App\CPU\translate;
 
 class CustomerController extends Controller
 {
@@ -94,6 +95,27 @@ class CustomerController extends Controller
         }else{
             return response()->json(['message' =>'access_denied!!'],403);
         }
+    }
+
+    public function ChangeAvatar(Request $request){
+        if(Auth::guard('customer')->user()){
+            if(isset(Auth::guard('customer')->user()->avatar)) {
+                Storage::disk('public')->delete(auth()->user()->avatar);
+                Storage::disk('public')->save($request->avatar);
+            }
+            auth()->user()->update([
+                'avatar' => $request->file('avatar'),
+            ]);
+    
+            return response()->json([
+                'message' => 'Avatar change successfully',
+                'data' => new UserResource(auth()->user()),
+            ], 200);
+        }
+        else{
+            return response()->json(['message' => 'Please login First'], 200);
+        }
+
     }
 
     public function reply_support_ticket(Request $request, $ticket_id)

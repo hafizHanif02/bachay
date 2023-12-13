@@ -162,6 +162,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
     Route::group(['prefix' => 'customer', 'middleware' => 'auth:api'], function () {
         Route::get('info', 'CustomerController@info');
         Route::put('update-profile', 'CustomerController@update_profile');
+        Route::post('change-avatar', 'CustomerController@ChangeAvatar');
         Route::get('account-delete/{id}','CustomerController@account_delete');
 
         Route::group(['prefix' => 'address'], function () {
