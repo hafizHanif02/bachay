@@ -797,7 +797,8 @@ h1.text-center.textClr {
     border-radius: 5px;
     cursor: pointer;
     padding: 5px 20px;
-    right: 5px;
+    right: 1%;
+    bottom: 8%;
 }
 .imgMAinCon {
     height: 230px;

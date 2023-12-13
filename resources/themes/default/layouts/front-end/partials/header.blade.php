@@ -19,15 +19,19 @@
             </div>
             <div>
                 <ul class="navbar-nav mr-auto align-items-center gap-1 ">
-                    <li class="nav-item dropdown">
+                    
+                    {{-- <li class="nav-item dropdown">
                         <a class="dropbtn nav-link  ">Stores <i class="bi bi-caret-down-fill"></i></a>
                         <div class="dropdown-content">
                             <a href="#">Boys Clothing</a>
                             <a href="#">Girls Clothing</a>
                         </div>
-                    </li>
+                    </li> --}}
                     <li class="nav-item active">
                         <a class="nav-link  " href="#">Support</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link  " href="{{ route('product-list') }}">Products</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="#">Parenting</a>
@@ -136,7 +140,7 @@
 
         <div class="nav-btn" id="mega-menu" class="hide-on-med-and-down">
             <ul class="sub-nav d-flex justify-content-between align-items-baseline pt-4 pb-4">
-                <li><a href="" class="browse-all-cate text-white">
+                <li><a href="{{ route('categories') }}" class="browse-all-cate text-white">
                         <i class="bi bi-grid"></i> Browse All Categories
                     </a>
                     <div class="mega-menu-container">
