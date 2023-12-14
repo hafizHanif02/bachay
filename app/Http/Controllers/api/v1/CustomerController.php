@@ -49,6 +49,10 @@ class CustomerController extends Controller
         return response()->json($user, 200);
     }
 
+    public function AddAdress(Request $request){
+        return $request;
+    } 
+
     public function create_support_ticket(Request $request)
     {
         $validator = Validator::make($request->all(), [

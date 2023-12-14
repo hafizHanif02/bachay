@@ -8,7 +8,7 @@ use App\Http\Controllers\Api\V1\Customer\CMS\HomeController;
 
 
 Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_lang']], function () {
-    Route::get('/', [HomeController::class, 'index']);
+    Route::get('/home', [HomeController::class, 'index']);
 
     Route::group(['prefix' => 'product'], function () {
         Route::get('/list', 'ProductController@list')->name('list');
@@ -161,6 +161,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
     });
     Route::group(['prefix' => 'customer', 'middleware' => 'auth:api'], function () {
         Route::get('info', 'CustomerController@info');
+        Route::psot('add-adress', 'CustomerController@AddAdress');
         Route::put('update-profile', 'CustomerController@update_profile');
         Route::post('change-avatar', 'CustomerController@ChangeAvatar');
         Route::get('account-delete/{id}','CustomerController@account_delete');
