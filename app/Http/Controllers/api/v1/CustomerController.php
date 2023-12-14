@@ -75,21 +75,19 @@ class CustomerController extends Controller
                 DB::table('shipping_addresses')->insert([
                     'customer_id' => $request->customer_id,
                     'contact_person_name' => $customer_data->f_name.' '.$customer_data->l_name,
-                    // 'is_defaullt' => $request->is_defaullt,
                     'email' => $customer_data->email,
                     'address_type' => $request->address_type,
-                    'address' => ($request->apartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').' '.($request->city ?? '').' '.($request->state ?? ''),
-                    // 'flat_no' => $request->flat_no,
-                    // 'house_no' => $request->house_no,
+                    'address' => ($request->apartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').', '.($request->city ?? '').' '.($request->state ?? ''),
+                    'is_default' => false,
                     'city' => $request->city,
                     'zip' => $request->zip,
                     'phone' => $request->phone,
                     'state' => $request->state,
                     'country' => $request->country,
                 ]);
-                if($request->is_default == 1){
+                if($request->is_default == true){
                     DB::table('users')->where('id', $request->customer_id)->update([
-                        'street_address' => $customer->street_address,
+                        'street_address' => $request->street_address,
                         'country' => $request->country,
                         'zip' => $request->zip,
                         'house_no' => $request->house_no,
@@ -103,9 +101,6 @@ class CustomerController extends Controller
             }
            
         }
-
-
-
     } 
 
     public function create_support_ticket(Request $request)
