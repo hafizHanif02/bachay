@@ -396,9 +396,12 @@ class WebController extends Controller
                 ->inRandomOrder()->take(12)->get();
         });
 
-        $categories = Category::all();
-        // C:\xampp\htdocs\resources\themes\default\layouts\front-end\partials\categories.blade.php
-        return view(VIEW_FILE_NAMES['sub-category'],(compact('home_categories')));
+        $main_banner = DB::table('banners')->where('banner_type','Main Banner')->get();
+        $main_section_banner = DB::table('banners')->where('banner_type','Main Section Banner')->get();
+        $productsInFlashDeal = FlashDealProduct::with('product')->get();
+        $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->get();
+       
+        return view(VIEW_FILE_NAMES['sub-category'],(compact('categories','productsInFlashDeal','main_section_banner','main_banner','home_categories')));
 
         // return view('layouts.front-end.partials.sub-category', compact('categories', 'home_categories'));
     }

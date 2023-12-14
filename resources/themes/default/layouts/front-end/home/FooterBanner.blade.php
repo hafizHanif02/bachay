@@ -1,7 +1,7 @@
 <div class="sub-contain mt-5 mb-5">
 
     <div class="row">
-        @foreach ($footer_banner as $banner)
+        @foreach ($footer_banner->take(3) as $banner)
         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 position-relative mb-5">
 
 

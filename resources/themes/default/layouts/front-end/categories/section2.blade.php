@@ -1,7 +1,7 @@
 <div class="premiumBouquets">
     <h1 class="text-center textClr">Premium Bouquets</h1>
     <div class="row mt-5 col-12 flash-sales-container">
-        @foreach ($productsInFlashDeal as $products)
+        @foreach ($productsInFlashDeal->take(6) as $products)
             <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
                 <div class="card rounded-5">
                     <a href="{{ route('product-detail', $products->id) }}">
