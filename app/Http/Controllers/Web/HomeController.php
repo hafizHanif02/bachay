@@ -210,7 +210,6 @@ $footer_banner = $footer_banner ?? [];
 
 
 
-
         // return $flash_deals_products;
 
         return view(VIEW_FILE_NAMES['home'],
