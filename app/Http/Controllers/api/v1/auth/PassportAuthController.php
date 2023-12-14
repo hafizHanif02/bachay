@@ -17,6 +17,15 @@ class PassportAuthController extends Controller
 {
     public function register(Request $request)
     {
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $file->getClientOriginalName();
+            $picture = $request->avatar->move(public_path('assets/images/customers'), $filename);
+        }else{
+            $filename = null;
+        }
+        
         $validator = Validator::make($request->all(), [
             'f_name' => 'required',
             'l_name' => 'required',
@@ -42,6 +51,7 @@ class PassportAuthController extends Controller
             'l_name' => $request->l_name,
             'email' => $request->email,
             'phone' => $request->phone,
+            'image' => $filename,
             'is_active' => 1,
             'password' => bcrypt($request->password),
             'temporary_token' => $temporary_token,

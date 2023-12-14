@@ -34,6 +34,16 @@ class CustomerController extends Controller
         $user = $request->user();
         $referral_user_count = User::where('referred_by', $user->id)->count();
         $user->referral_user_count = $referral_user_count;
+        if($user->image != null){
+            $documentRoot = $_SERVER['DOCUMENT_ROOT'];
+            $scriptName = $_SERVER['SCRIPT_NAME'];
+            $currentPath = str_replace(basename($scriptName), '', $documentRoot . $scriptName);
+            $url = 'http://' . $_SERVER['HTTP_HOST'] . str_replace($documentRoot, '', $currentPath) . '/public/assets/images/customers/' . $user['image'];
+            $user->avatar = $url;
+        }else{
+            $user->avatar = null;
+        }
+
         $user->orders_count = User::withCount('orders')->find($user->id)->orders_count;
 
         return response()->json($user, 200);
@@ -101,14 +111,17 @@ class CustomerController extends Controller
 
         
         if(isset(auth()->user()->avatar)) {
-            $avatarPath = $request->file('avatar')->store('customers', 'public');
+            // $avatarPath = $request->file('avatar')->store('customers', 'public');
             Storage::disk('public')->delete('assets/images/customers/'.auth()->user()->avatar);
         }
-        
-        $file = $request->file('image');
-        $extension = $file->getClientOriginalExtension();
-        $filename = $file->getClientOriginalName();
-        $picture = $request->image->move(public_path('assets/images/customers'), $filename);
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $file->getClientOriginalName();
+            $picture = $request->avatar->move(public_path('assets/images/customers'), $filename);
+        }else {
+            return response()->json(['error' => 'No file uploaded.'], 400);
+        }
         
         DB::table('users')->where(['id' => auth()->user()->id])->update([
             'image' => $filename,
