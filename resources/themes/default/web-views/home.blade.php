@@ -18,23 +18,12 @@
 
 @section('content')
 
-{{-- @foreach ($home_layouts as $layout)
+@foreach ($home_layouts as $layout)
     @includeIf('layouts.front-end.home.' . $layout->section_name)
-@endforeach --}}
-@include('layouts.front-end.home.DiscountCarousel')
-@include('layouts.front-end.home.DiscountSlider')
-@include('layouts.front-end.home.CategoryBannerSlider')
-@include('layouts.front-end.home.ProductSlider')
-@include('layouts.front-end.home.CategorySlider')
-@include('layouts.front-end.home.ParentingTools')
-@include('layouts.front-end.home.FlashDealBanner')
-@include('layouts.front-end.home.UpcomingProducts')
-@include('layouts.front-end.home.FooterBanner')
+@endforeach
 
 @endsection
 
-
-{{-- @include('layouts.front-end.product.side-bar-old') --}}
 @push('script')
 
 @endpush
