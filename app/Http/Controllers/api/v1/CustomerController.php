@@ -60,6 +60,7 @@ class CustomerController extends Controller
                 'street_address' => 'required',
                 // 'landmark' => 'required',
                 'city' => 'required',
+                'state' => 'required',
                 'zip' => 'required',
                 'phone' => 'required',
                 'state' => 'required',
@@ -77,7 +78,7 @@ class CustomerController extends Controller
                     'contact_person_name' => $customer_data->f_name.' '.$customer_data->l_name,
                     'email' => $customer_data->email,
                     'address_type' => $request->address_type,
-                    'address' => ($request->apartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').', '.($request->city ?? '').' '.($request->state ?? ''),
+                    'address' => ($request->apartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').' '.($request->city ?? '').', '.($request->state ?? '').' '.($request->country ?? ''),
                     'is_default' => false,
                     'city' => $request->city,
                     'zip' => $request->zip,
@@ -99,9 +100,55 @@ class CustomerController extends Controller
             }else{
                 return response()->json(['message' => 'Customer not found'], 404);
             }
-           
         }
     } 
+
+    public function GetAdress($id){
+        $shipping_address = DB::table('shipping_addresses')->where('id',$id)->first();
+        if($shipping_address){
+            return response()->json($shipping_address, 200);
+        }else{
+            return response()->json(['message' => 'Address Not Found'], 404);
+        }
+    }
+
+    public function UpdateAdress(Request $request){
+        DB::table('shipping_addresses')->where('id' , $request->id)->update([
+            'customer_id' => $request->customer_id,
+            'contact_person_name' => $request->contact_person_name,
+            'email' => $request->email,
+            'address_type' => $request->address_type,
+            'address' => ($request->apartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').' '.($request->city ?? '').', '.($request->state ?? '').' '.($request->country ?? ''),
+            'is_default' => false,
+            'city' => $request->city,
+            'zip' => $request->zip,
+            'phone' => $request->phone,
+            'state' => $request->state,
+            'country' => $request->country,
+        ]);
+        if($request->is_default == true){
+            DB::table('users')->where('id', $request->customer_id)->update([
+                'street_address' => $request->street_address,
+                'country' => $request->country,
+                'zip' => $request->zip,
+                'house_no' => $request->house_no,
+                'apartment_no' => $request->apartment_no,
+                'city' => $request->city,
+            ]);
+        }
+        return response()->json(['message' => 'Address Has Been Updated'], 404);
+    }
+
+    public function DeleteAddress($id, $customer_id)
+    {
+        $affectedRows = DB::table('shipping_addresses')->where(['id' => $id, 'customer_id' => $customer_id])->delete();
+
+        if ($affectedRows > 0) {
+            return response()->json(['message' => 'Address has been deleted'], 200);
+        } else {
+            return response()->json(['message' => 'Address not found'], 404);
+        }
+    }
 
     public function create_support_ticket(Request $request)
     {
