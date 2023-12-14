@@ -45,9 +45,14 @@ class CustomerController extends Controller
         }
 
         $user->orders_count = User::withCount('orders')->find($user->id)->orders_count;
+        
 
-        return response()->json($user, 200);
+        return response()->json(['user' => $user], 200);
     }
+
+    public function AddAdress(Request $request){
+        return $request;
+    } 
 
     public function create_support_ticket(Request $request)
     {
