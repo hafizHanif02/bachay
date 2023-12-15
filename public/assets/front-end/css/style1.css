@@ -1115,6 +1115,12 @@ input[type="radio"]:checked {
     font-size: 12px;
     font-weight: 500;
 }
+.ImageCOntainer{
+    height: 265px;
+}
+.ImgCon{
+    height: 315px;
+}
 .gift-box {
     width: 60px;
     height: 60px;

@@ -3,71 +3,79 @@
     <div class="row col-12 flash-sales-container d-flex justify-content-center">
 
         <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-            <div class="card rounded-4 for-border">
-                <a href="#">
-                    <img class="card-img rounded-4" src="{{ asset('public/images/premium-b-5.png') }}" alt="Flash Sale 1"
-                        height="315px" />
-                </a>
-            </div>
+            <a href="#">
+                <div class="ImgCon card rounded-4 for-border">
+
+                    <img class="card-img rounded-4 object-fit-cover" src="{{ asset('public/images/premium-b-5.png') }}"
+                        alt="Flash Sale 1" width="100%" height="100%" />
+
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <a href="#">
+                <div class="ImgCon card rounded-4 for-border">
+
+                    <img class="card-img rounded-4 object-fit-cover" src="{{ asset('public/images/premium-b-5.png') }}"
+                        alt="Flash Sale 1" width="100%" height="100%" />
+
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <a href="#">
+                <div class="ImgCon card rounded-4 for-border">
+
+                    <img class="card-img rounded-4 object-fit-cover" src="{{ asset('public/images/premium-b-5.png') }}"
+                        alt="Flash Sale 1" width="100%" height="100%" />
+
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <a href="#">
+                <div class="ImgCon card rounded-4 for-border">
+
+                    <img class="card-img rounded-4 object-fit-cover" src="{{ asset('public/images/premium-b-5.png') }}"
+                        alt="Flash Sale 1" width="100%" height="100%" />
+
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <a href="#">
+                <div class="ImgCon card rounded-4 for-border">
+
+                    <img class="card-img rounded-4 object-fit-cover" src="{{ asset('public/images/premium-b-5.png') }}"
+                        alt="Flash Sale 1" width="100%" height="100%" />
+
+                </div>
+            </a>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
+            <a href="#">
+                <div class="ImgCon card rounded-4 for-border">
+
+                    <img class="card-img rounded-4 object-fit-cover" src="{{ asset('public/images/premium-b-5.png') }}"
+                        alt="Flash Sale 1" width="100%" height="100%" />
+
+                </div>
+            </a>
         </div>
 
         <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-            <div class="card rounded-4 for-border">
-                <a href="#">
-                    <img class="card-img rounded-4" src="{{ asset('public/images/premium-b-2.png') }}"
-                        alt="Flash Sale 1" height="315px" />
-                </a>
-            </div>
-        </div>
+            <a href="#">
+                <div class="ImgCon card rounded-4 for-border">
 
-        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-            <div class="card rounded-4 for-border">
-                <a href="#">
-                    <img class="card-img rounded-4" src="{{ asset('public/images/premium-b-3.png') }}"
-                        alt="Flash Sale 1" height="315px" />
-                </a>
-            </div>
-        </div>
+                    <img class="card-img rounded-4 object-fit-cover" src="{{ asset('public/images/premium-b-5.png') }}"
+                        alt="Flash Sale 1" width="100%" height="100%" />
 
-        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-            <div class="card rounded-4 for-border">
-                <a href="#">
-                    <img class="card-img rounded-4" src="{{ asset('public/images/premium-b-4.png') }}"
-                        alt="Flash Sale 1" height="315px" />
-                </a>
-            </div>
+                </div>
+            </a>
         </div>
 
 
 
-        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-            <div class="card rounded-4 for-border">
-                <a href="#">
-                    <img class="card-img rounded-4" src="{{ asset('public/images/premium-b-5.png') }}"
-                        alt="Flash Sale 1" height="315px" />
-                </a>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-            <div class="card rounded-4 for-border">
-                <a href="#">
-                    <img class="card-img rounded-4" src="{{ asset('public/images/premium-b-6.png') }}"
-                        alt="Flash Sale 1" height="315px" />
-                </a>
-            </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
-            <div class="card rounded-4 for-border">
-                <a href="#">
-                    <img class="card-img rounded-4" src="{{ asset('public/images/premium-b-7.png') }}"
-                        alt="Flash Sale 1" height="315px" />
-                </a>
-            </div>
-        </div>
-
-        
 
     </div>
 
