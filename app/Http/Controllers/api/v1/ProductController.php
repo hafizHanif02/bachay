@@ -58,6 +58,24 @@ class ProductController extends Controller
 
     public function list(){
         $products = DB::table('products')->get();
+
+        foreach ($products as $product) {
+            $thumbnailUrl = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
+            $product->thumbnail = $thumbnailUrl;
+
+            // Decode the JSON string to an array
+            $imagesArray = json_decode($product->images, true);
+
+            $imageUrls = [];
+            if (is_array($imagesArray)) {
+                foreach ($imagesArray as $image) {
+                    $imageUrl = asset('storage/app/public/product/images/' . $image);
+                    $imageUrls[] = $imageUrl;
+                }
+            }
+
+            $product->images = $imageUrls;
+        }
         if($products != null){
             return response()->json($products, 200);
         }else{
