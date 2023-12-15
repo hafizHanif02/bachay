@@ -942,7 +942,7 @@ h1.text-center.textClr {
     font-weight: 600;
     line-height: 16px;
 }
-.btn-f:focus {
+.btn-f:focus , .border-black {
     border: 2px solid #000 !important;
     color: #000 !important;
     background-color: #f3f3f3;

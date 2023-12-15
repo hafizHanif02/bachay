@@ -1,163 +1,186 @@
-
 <form action="{{ route('checkout-details') }}" method="GET">
     @csrf
-<div class="row col-12 my-cart pb-5 mt-4">
-    <input type="hidden" name="customer_id" value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
-    <input type="hidden" name="shipping_address" value="{{ auth('customer')->check() ? ($shippingAddress? $shippingAddress->id : '') : '' }}">
-    <input type="hidden" name="cart_group_id" value="{{ $cartGroupId }}">
-    <div class="col-8 border-right">
-        <div class="btn-con col-12 d-flex justify-content-between">
-            <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Shopping Cart ({{ count($myCartProducts) }})</button>
-            <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">My Shortlist</button>
-        </div>
-        <div class="inputBar col-12 p-2 rounded-pill mt-4 d-flex justify-content-between">
-            <input name="PinCode" id="DelievryPincode" type="text" class="input-field input-w ms-3"
-                placeholder="Delivery Pin Code">
-            <button class="input-button rounded-pill ps-5 pe-5 pt-2 pb-2 col-3">Apply</button>
-        </div>
-
-        @foreach($myCartProducts as $Cartproduct)
-        <div class="parent-card mt-5 pb-5 col-12 d-flex align-items-center bottom-border gap-3">
-            <div class="col-3 for-img">
-                <img class="object-fit-cover rounded-3"  src="{{ asset('storage/app/public/product/thumbnail/'.$Cartproduct->product->thumbnail) }}" alt=""
-                    width="100%" height="100%">
+    <div class="row col-12 my-cart pb-5 mt-4">
+        <input type="hidden" name="customer_id"
+            value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
+        <input type="hidden" name="shipping_address"
+            value="{{ auth('customer')->check() ? ($shippingAddress ? $shippingAddress->id : '') : '' }}">
+        <input type="hidden" name="cart_group_id" value="{{ $cartGroupId }}">
+        <div class="col-8 border-right">
+            <div class="btn-con col-12 d-flex justify-content-between">
+                <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Shopping Cart
+                    ({{ count($myCartProducts) }})</button>
+                <button class="col-5 mt-2 btn-f rounded-pill p-3 border-black">My Shortlist</button>
             </div>
-            <div class="col-5 border-right">
-                <h5 class="fw-semibold m-0 font-poppins">
-                    {{ $Cartproduct->product->name }}
-                    <input type="hidden" name="product[{{ $loop->iteration }}][product_id]" value="{{ $Cartproduct->product_id }}">
-                    <input type="hidden" name="product[{{ $loop->iteration }}][product_details]" value="{{ $Cartproduct->product->description }}">
-                    <input type="hidden" name="product[{{ $loop->iteration }}][tax]" value="{{ $Cartproduct->product->tax }}">
-                    <input type="hidden" name="product[{{ $loop->iteration }}][discount]" value="{{ $Cartproduct->product->discount }}">
-                    <input type="hidden" name="product[{{ $loop->iteration }}][tax_model]" value="{{ $Cartproduct->product->tax_model }}">
-                </h5>
-                
-                <div class="d-flex align-items-center mt-3">
-                    @if($Cartproduct->color != null)
-                        <p class="m-0 fw-semibold font-poppins me-2">Color</p>
-                        <div class="danger-circle rounded-circle p-2 me-3" style="background-color: {{ $Cartproduct->color }}"></div>
-                        <input type="hidden" name="product[{{ $loop->iteration }}][color]" value="{{ $Cartproduct->color }}">
+            <div class="inputBar col-12 p-2 rounded-pill mt-4 d-flex justify-content-between">
+                <input name="PinCode" id="DelievryPincode" type="text" class="input-field input-w ms-3"
+                    placeholder="Delivery Pin Code">
+                <button class="input-button rounded-pill ps-5 pe-5 pt-2 pb-2 col-3">Apply</button>
+            </div>
 
-                    @endif
-                    @if($Cartproduct->variant != null)
-                    <p class="m-0 fw-semibold font-poppins me-4">Size</p>
+            @foreach ($myCartProducts as $Cartproduct)
+                <div class="parent-card mt-5 pb-5 col-12 d-flex align-items-center bottom-border gap-3">
+                    <div class="col-3 for-img">
+                        <img class="object-fit-cover rounded-3"
+                            src="{{ asset('storage/app/public/product/thumbnail/' . $Cartproduct->product->thumbnail) }}"
+                            alt="" width="100%" height="100%">
+                    </div>
+                    <div class="col-5 border-right">
+                        <h5 class="fw-semibold m-0 font-poppins">
+                            {{ $Cartproduct->product->name }}
+                            <input type="hidden" name="product[{{ $loop->iteration }}][product_id]"
+                                value="{{ $Cartproduct->product_id }}">
+                            <input type="hidden" name="product[{{ $loop->iteration }}][product_details]"
+                                value="{{ $Cartproduct->product->description }}">
+                            <input type="hidden" name="product[{{ $loop->iteration }}][tax]"
+                                value="{{ $Cartproduct->product->tax }}">
+                            <input type="hidden" name="product[{{ $loop->iteration }}][discount]"
+                                value="{{ $Cartproduct->product->discount }}">
+                            <input type="hidden" name="product[{{ $loop->iteration }}][tax_model]"
+                                value="{{ $Cartproduct->product->tax_model }}">
+                        </h5>
 
-                    <p class="font-poppins m-0 sizes-btn rounded-2 p-1 fs-6">
-                        <span class="fw-bold"></span> <span class="text-secondary">{{ $Cartproduct->variant }}</span>
-                        <input type="hidden" name="product[{{ $loop->iteration }}][variant]" value="{{ $Cartproduct->variant }}">
+                        <div class="d-flex align-items-center mt-3">
+                            @if ($Cartproduct->color != null)
+                                <p class="m-0 fw-semibold font-poppins me-2">Color</p>
+                                <div class="danger-circle rounded-circle p-2 me-3"
+                                    style="background-color: {{ $Cartproduct->color }}"></div>
+                                <input type="hidden" name="product[{{ $loop->iteration }}][color]"
+                                    value="{{ $Cartproduct->color }}">
+                            @endif
+                            @if ($Cartproduct->variant != null)
+                                <p class="m-0 fw-semibold font-poppins me-4">Size</p>
+
+                                <p class="font-poppins m-0 sizes-btn rounded-2 p-1 fs-6">
+                                    <span class="fw-bold"></span> <span
+                                        class="text-secondary">{{ $Cartproduct->variant }}</span>
+                                    <input type="hidden" name="product[{{ $loop->iteration }}][variant]"
+                                        value="{{ $Cartproduct->variant }}">
+                                </p>
+                            @endif
+
+                        </div>
+                        <form action="{{ route('cart.remove') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="cart_id" value="{{ $Cartproduct->id }}">
+                            <div class="mt-3">
+                                <button type="submit" class="col-5 mt-2 btn-delete p-2 rounded-pill text-danger">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13"
+                                        viewBox="0 0 14 13" fill="none">
+                                        <path d="M7.83164 9.71592L6.18164 8.06592" stroke="#EC1515"
+                                            stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M7.81602 8.08392L6.16602 9.73392" stroke="#EC1515"
+                                            stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M5.08411 0.5L2.91211 2.678" stroke="#EC1515" stroke-miterlimit="10"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                        <path d="M8.91211 0.5L11.0841 2.678" stroke="#EC1515" stroke-miterlimit="10"
+                                            stroke-linecap="round" stroke-linejoin="round" />
+                                        <path
+                                            d="M1 4.01006C1 2.90006 1.594 2.81006 2.332 2.81006H11.668C12.406 2.81006 13 2.90006 13 4.01006C13 5.30006 12.406 5.21006 11.668 5.21006H2.332C1.594 5.21006 1 5.30006 1 4.01006Z"
+                                            stroke="#EC1515" />
+                                        <path
+                                            d="M1.90039 5.29999L2.74639 10.484C2.93839 11.648 3.40039 12.5 5.11639 12.5H8.73439C10.6004 12.5 10.8764 11.684 11.0924 10.556L12.1004 5.29999"
+                                            stroke="#EC1515" stroke-linecap="round" />
+                                    </svg> Delete</button>
+                        </form>
+                        <form>
+                            @csrf
+                            <input type="hidden" name="is_edit" value="1">
+                            <input type="hidden" name="product_id" value="{{ $Cartproduct->product_id }}">
+                            <input type="hidden" name="cart_id" value="{{ $Cartproduct->id }}">
+                            <button disabled type="submit" class="col-5 mt-2 btn-edit p-2 rounded-pill">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13"
+                                    viewBox="0 0 13 13" fill="none">
+                                    <path
+                                        d="M5.88862 1.13647H4.80226C2.08636 1.13647 1 2.22283 1 4.93874V8.19782C1 10.9137 2.08636 12.0001 4.80226 12.0001H8.06134C10.7772 12.0001 11.8636 10.9137 11.8636 8.19782V7.11146"
+                                        stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" />
+                                    <path
+                                        d="M8.62644 1.69051L4.34618 5.97077C4.18322 6.13372 4.02027 6.4542 3.98768 6.68776L3.75411 8.32274C3.6672 8.9148 4.08545 9.32762 4.67752 9.24614L6.31249 9.01258C6.54062 8.97998 6.8611 8.81703 7.02949 8.65408L11.3097 4.37382C12.0485 3.63509 12.3961 2.77687 11.3097 1.69051C10.2234 0.604146 9.36516 0.951781 8.62644 1.69051Z"
+                                        stroke="#292D32" stroke-miterlimit="10" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                    <path d="M8.0127 2.30426C8.37663 3.60246 9.39237 4.61821 10.696 4.98757"
+                                        stroke="#292D32" stroke-miterlimit="10" stroke-linecap="round"
+                                        stroke-linejoin="round" />
+                                </svg> Edit</button>
+                        </form>
+
+                    </div>
+
+                </div>
+                <div class="col-4">
+                    <h3 class="product-price mb-1" id="showedprice{{ $loop->iteration }}">
+                        Rs. {{ $Cartproduct->price - ($Cartproduct->discount / 100) * $Cartproduct->price }}
+                    </h3>
+
+                    <div class="d-flex align-items-center">
+                        <h6 class="text-decoration-line-through m-0 discount-off">Rs. {{ $Cartproduct->price }}</h6>
+                        <span class="text-success fw-bold font-poppins"> - {{ $Cartproduct->discount }}% Off</span>
+
+                    </div>
+                    <p class="taxes mt-1 mb-2">
+                        MRP Includes all taxes
                     </p>
-                    @endif
+                    <input type="hidden" class="price" id="price{{ $loop->iteration }}"
+                        value="{{ $Cartproduct->price }}" name="product[{{ $loop->iteration }}][price]">
+                    <input type="hidden" id="pricejs{{ $loop->iteration }}" value="{{ $Cartproduct->price }}"
+                        name="product[{{ $loop->iteration }}][price]">
+                    <input type="hidden" id="actual_price{{ $loop->iteration }}" value="{{ $Cartproduct->price }}"
+                        name="product[{{ $loop->iteration }}][actual_price]" class="actual_price">
+                    <input type="hidden" id="discount{{ $loop->iteration }}"
+                        value="{{ $Cartproduct->discount }}" name="product[{{ $loop->iteration }}][discount]">
+                    <input type="hidden" class="discount_amountget" id="discount_amountget{{ $loop->iteration }}"
+                        name="product[{{ $loop->iteration }}][discount_amount]" value="{{ $totalDiscount }}">
+                    <div class="blue-cart row align-items-center">
+                        <div class="img col-3">
+                            <img class="object-fit-cover" src="{{ asset('public/images/blue-cart-img.png') }}"
+                                alt="" width="100%" height="auto">
+                        </div>
+                        <div class="text-area col-9 p-0">
+                            <p class="m-0 font-poppins fs-12">Save <span
+                                    class="text-success fw-bold font-poppins">Rs.25.98</span>
+                                With Club</p>
+                            <p class="m-0 font-poppins">Club Price: <span class="fw-bold font-poppins"> Rs 1000</span>
+                            </p>
 
-                </div>
-                <form action="{{ route('cart.remove') }}" method="POST">
-                    @csrf
-                    <input type="hidden" name="cart_id" value="{{ $Cartproduct->id }}" >
-                <div class="mt-3">
-                    <button type="submit" class="col-5 mt-2 btn-delete p-2 rounded-pill text-danger">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13" viewBox="0 0 14 13"
-                            fill="none">
-                            <path d="M7.83164 9.71592L6.18164 8.06592" stroke="#EC1515" stroke-miterlimit="10"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M7.81602 8.08392L6.16602 9.73392" stroke="#EC1515" stroke-miterlimit="10"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M5.08411 0.5L2.91211 2.678" stroke="#EC1515" stroke-miterlimit="10"
-                                stroke-linecap="round" stroke-linejoin="round" />
-                            <path d="M8.91211 0.5L11.0841 2.678" stroke="#EC1515" stroke-miterlimit="10"
-                            stroke-linecap="round" stroke-linejoin="round" />
-                            <path
-                                d="M1 4.01006C1 2.90006 1.594 2.81006 2.332 2.81006H11.668C12.406 2.81006 13 2.90006 13 4.01006C13 5.30006 12.406 5.21006 11.668 5.21006H2.332C1.594 5.21006 1 5.30006 1 4.01006Z"
-                                stroke="#EC1515" />
-                            <path
-                                d="M1.90039 5.29999L2.74639 10.484C2.93839 11.648 3.40039 12.5 5.11639 12.5H8.73439C10.6004 12.5 10.8764 11.684 11.0924 10.556L12.1004 5.29999"
-                                stroke="#EC1515" stroke-linecap="round" />
-                        </svg> Delete</button>
-                    </form>
-                    <form >
-                        @csrf
-                        <input type="hidden" name="is_edit" value="1">
-                        <input type="hidden" name="product_id" value="{{ $Cartproduct->product_id }}">
-                        <input type="hidden" name="cart_id" value="{{ $Cartproduct->id }}">
-                    <button disabled type="submit" class="col-5 mt-2 btn-edit p-2 rounded-pill">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 13 13"
-                        fill="none">
-                            <path
-                                d="M5.88862 1.13647H4.80226C2.08636 1.13647 1 2.22283 1 4.93874V8.19782C1 10.9137 2.08636 12.0001 4.80226 12.0001H8.06134C10.7772 12.0001 11.8636 10.9137 11.8636 8.19782V7.11146"
-                                stroke="#292D32" stroke-linecap="round" stroke-linejoin="round" />
-                            <path
-                                d="M8.62644 1.69051L4.34618 5.97077C4.18322 6.13372 4.02027 6.4542 3.98768 6.68776L3.75411 8.32274C3.6672 8.9148 4.08545 9.32762 4.67752 9.24614L6.31249 9.01258C6.54062 8.97998 6.8611 8.81703 7.02949 8.65408L11.3097 4.37382C12.0485 3.63509 12.3961 2.77687 11.3097 1.69051C10.2234 0.604146 9.36516 0.951781 8.62644 1.69051Z"
-                                stroke="#292D32" stroke-miterlimit="10" stroke-linecap="round"
-                                stroke-linejoin="round" />
-                            <path d="M8.0127 2.30426C8.37663 3.60246 9.39237 4.61821 10.696 4.98757" stroke="#292D32"
-                                stroke-miterlimit="10" stroke-linecap="round" stroke-linejoin="round" />
-                        </svg> Edit</button>
-                    </form>
-
-                </div>
-
-            </div>
-            <div class="col-4">
-                <h3 class="product-price mb-1" id="showedprice{{ $loop->iteration }}">
-                    Rs. {{ $Cartproduct->price - ($Cartproduct->discount/100)*$Cartproduct->price }}
-                </h3>
-
-                <div class="d-flex align-items-center">
-                    <h6 class="text-decoration-line-through m-0 discount-off">Rs. {{ $Cartproduct->price }}</h6>
-                    <span class="text-success fw-bold font-poppins"> - {{ $Cartproduct->discount  }}% Off</span>
-
-                </div>
-                <p class="taxes mt-1 mb-2">
-                    MRP Includes all taxes
-                </p>
-                <input type="hidden" class="price" id="price{{ $loop->iteration }}" value="{{ $Cartproduct->price }}" name="product[{{ $loop->iteration }}][price]">
-                <input type="hidden"  id="pricejs{{ $loop->iteration }}" value="{{ $Cartproduct->price }}" name="product[{{ $loop->iteration }}][price]">
-                <input type="hidden"  id="actual_price{{ $loop->iteration }}" value="{{ $Cartproduct->price }}" name="product[{{ $loop->iteration }}][actual_price]" class="actual_price">
-                <input type="hidden" id="discount{{ $loop->iteration }}" value="{{($Cartproduct->discount)}}" name="product[{{ $loop->iteration }}][discount]">
-                <input type="hidden" class="discount_amountget" id="discount_amountget{{ $loop->iteration  }}" name="product[{{ $loop->iteration }}][discount_amount]" value="{{ $totalDiscount }}">
-                <div class="blue-cart row align-items-center">
-                    <div class="img col-3">
-                        <img class="object-fit-cover" src="{{ asset('public/images/blue-cart-img.png') }}" alt=""
-                            width="100%" height="auto">
+                        </div>
                     </div>
-                    <div class="text-area col-9 p-0">
-                        <p class="m-0 font-poppins fs-12">Save <span class="text-success fw-bold font-poppins">Rs.25.98</span>
-                            With Club</p>
-                        <p class="m-0 font-poppins">Club Price: <span class="fw-bold font-poppins"> Rs 1000</span></p>
-
-                    </div>
-                </div>
-                {{-- <div class="number rounded-pill mt-3 col-12">
+                    {{-- <div class="number rounded-pill mt-3 col-12">
                     <span class="minus rounded-circle col-2"><i class="bi bi-dash-lg"></i></span>
                     <input name="value1" id="Value1" class="border-0 text-center col-9 col-sm-6" type="text" value="1" />
                     <span class="plus rounded-circle col-2"><i class="bi bi-plus-lg"></i></span>
                 </div> --}}
-                <div class="number rounded-pill mt-3 d-flex justify-content-between col-12">
-                    <span class="minus rounded-circle col-2 text-center"><i class="bi bi-dash-lg"></i></span>
-                    <input name="product[{{ $loop->iteration }}][quantity]" id="quantity{{ $loop->iteration }}" onchange="changeValue({{ $loop->iteration }})" class="border-0 text-center col-8 col-sm-6" type="number"
-                        value="1" />
-                        
-                    <span class="plus rounded-circle col-2 text-center"><i class="bi bi-plus-lg"></i></span>
+                    <div class="number rounded-pill mt-3 d-flex justify-content-between col-12">
+                        <span class="minus rounded-circle col-2 text-center"><i class="bi bi-dash-lg"></i></span>
+                        <input name="product[{{ $loop->iteration }}][quantity]" id="quantity{{ $loop->iteration }}"
+                            onchange="changeValue({{ $loop->iteration }})"
+                            class="border-0 text-center col-8 col-sm-6" type="number" value="1" />
+
+                        <span class="plus rounded-circle col-2 text-center"><i class="bi bi-plus-lg"></i></span>
+                    </div>
+
+
+
                 </div>
-
-
-
-            </div>
 
         </div>
         @endforeach
-        
-       
-      
-       
+
+
+
+
 
         <div class="btn-con col-12 d-flex justify-content-between mt-4">
-            @if(!empty($shippingAddress))
-                <a class="col-5 mt-2 btn-f rounded-pill text-center p-3 bg-purple text-white border-0" href="{{ route('my-profile') }}" style="text-decoration: none">Change Address</a>
+            @if (!empty($shippingAddress))
+                <a class="col-5 mt-2 btn-f rounded-pill text-center p-3 bg-purple text-white border-0"
+                    href="{{ route('my-profile') }}" style="text-decoration: none">Change Address</a>
             @else
-            <a class="col-5 mt-2 btn-f rounded-pill p-3 text-center bg-purple text-white border-0" href="{{ route('my-profile') }}" style="text-decoration: none">Add Address</a>
+                <a class="col-5 mt-2 btn-f rounded-pill p-3 text-center bg-purple text-white border-0"
+                    href="{{ route('my-profile') }}" style="text-decoration: none">Add Address</a>
             @endif
-            <button type="submit" class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Proceed to Next</button>
+            <button type="submit" class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Proceed to
+                Next</button>
         </div>
-        
+
 
         <h5 class="font-poppins fw-bold mt-5">
             Shop With Confidence
@@ -189,8 +212,8 @@
         <div class="bottom-border pb-4">
             <div class="cashback rounded-4 p-2 d-flex align-items-center">
                 <div class="col-4 subCon rounded-4 p-3 me-3">
-                    <img class="object-fit-cover" src="{{ asset('public/images/smpl-cashback.png') }}" alt=""
-                        width="100%" height="100%">
+                    <img class="object-fit-cover" src="{{ asset('public/images/smpl-cashback.png') }}"
+                        alt="" width="100%" height="100%">
 
                 </div>
                 <div>
@@ -339,8 +362,10 @@
                 </div>
                 <div>
                     <p class="fw-bold" id="final-paymentp">Rs.{{ $total_product_price - $totalDiscount }}</p>
-                    <input type="hidden" name="final_payment" id="final-payment" value="{{ $total_product_price - $totalDiscount }}">
-                    <input type="hidden" name="discount_amount" class="discount_amount_total" id="discount_amount_total"  value="{{ $totalDiscount }}">
+                    <input type="hidden" name="final_payment" id="final-payment"
+                        value="{{ $total_product_price - $totalDiscount }}">
+                    <input type="hidden" name="discount_amount" class="discount_amount_total"
+                        id="discount_amount_total" value="{{ $totalDiscount }}">
                 </div>
 
             </div>
@@ -350,24 +375,25 @@
 
     </div>
 
-</div>
+    </div>
 </form>
 
 <script>
-    function changeValue(index){
-        var price = $('#pricejs'+index).val();
-        var discount = $('#discount'+index).val();
-        var quantity = $('#quantity'+index).val();
-        var total = ((price - (discount/100)*price) * quantity).toFixed(1);
-        var discount_amount = (((discount/100)*price) * quantity).toFixed(1);
+    function changeValue(index) {
+        var price = $('#pricejs' + index).val();
+        var discount = $('#discount' + index).val();
+        var quantity = $('#quantity' + index).val();
+        var total = ((price - (discount / 100) * price) * quantity).toFixed(1);
+        var discount_amount = (((discount / 100) * price) * quantity).toFixed(1);
         var actual_amount = (price * quantity).toFixed(1);
-        
-        $('#actual_price'+index).val(actual_amount);
-        $('#price'+index).val(total);
-        $('#discount_amountget'+index).val(discount_amount);
-        $('#showedprice'+index).text('Rs. '+total);
+
+        $('#actual_price' + index).val(actual_amount);
+        $('#price' + index).val(total);
+        $('#discount_amountget' + index).val(discount_amount);
+        $('#showedprice' + index).text('Rs. ' + total);
         ChangeValues();
     }
+
     function ChangeValues() {
         var totalAmount = 0;
         var totalActual = 0;
@@ -377,12 +403,12 @@
             if ($(this).val() != '') {
                 totalAmount += parseFloat($(this).val());
             }
-        }); 
+        });
         $("[class^='discount_amountget']").each(function() {
             if ($(this).val() != '') {
                 totalDiscount += parseFloat($(this).val());
             }
-        }); 
+        });
         $("[class^='actual_price']").each(function() {
             if ($(this).val() != '') {
                 totalActual += parseFloat($(this).val());

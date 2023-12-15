@@ -2,7 +2,7 @@
     <div class="col-8 border-right">
         <div class="btn-con col-12 d-flex justify-content-between">
             <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Shopping Cart (03)</button>
-            <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">My Shortlist</button>
+            <button class="col-5 mt-2 btn-f rounded-pill p-3 border-black">My Shortlist</button>
         </div>
         <div class="inputBar col-12 p-2 rounded-pill mt-4 d-flex justify-content-between">
             <input name="PinCode" id="DelievryPincode" type="text" class="input-field input-w ms-3"
