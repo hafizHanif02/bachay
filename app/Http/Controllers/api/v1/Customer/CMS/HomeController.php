@@ -17,11 +17,11 @@ class HomeController extends Controller
     public function NewArrtival(){
         $toparrivalcategorys = DB::table('categories')->orderBy('id', 'desc')->take(10)->get();
         foreach($toparrivalcategorys as $categoryavatar){
-            $url = asset('storage/app/public/banner/' . $categoryavatar->icon);
+            $url = asset('storage/app/public/category/' . $categoryavatar->icon);
             $categoryavatar->image = $url;
         }
         $latestCategory = DB::table('categories')->orderBy('id', 'desc')->first();
-        $url = asset('storage/app/public/banner/' . $latestCategory->icon);
+        $url = asset('storage/app/public/category/' . $latestCategory->icon);
         $latestCategory->image = $url;
         return response()->json(['new-arrival' => $toparrivalcategorys,'latest' => $latestCategory], 200);
     }
