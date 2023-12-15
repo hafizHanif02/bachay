@@ -10,6 +10,8 @@ use App\Http\Controllers\Api\V1\Customer\CMS\HomeController;
 Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_lang']], function () {
     
     Route::get('/home', [HomeController::class, 'index']);
+    Route::get('/new-arrival', [HomeController::class, 'NewArrtival']);
+    Route::get('/main-banner', [HomeController::class, 'MainBanner']);
 
     Route::group(['prefix' => 'product'], function () {
         Route::get('/list', 'ProductController@list')->name('list');

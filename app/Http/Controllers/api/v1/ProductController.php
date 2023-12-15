@@ -58,7 +58,13 @@ class ProductController extends Controller
 
     public function list(){
         $products = DB::table('products')->get();
-        return response()->json($products, 200);
+        if($products != null){
+            return response()->json($products, 200);
+        }else{
+            return response()->json([
+                'error' => ['message' => 'Product not found!']
+            ], 404);
+        }
     }
 
     public function show($id){
