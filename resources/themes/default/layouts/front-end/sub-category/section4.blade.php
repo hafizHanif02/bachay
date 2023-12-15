@@ -1,7 +1,11 @@
+
+@php
+    $shuffledProducts = $productsInFlashDeal->shuffle()->take(7);
+@endphp
 <div class="premiumBouquets">
     <h1 class="text-center textClr pb-5">Premium Bouquets</h1>
     <div class="row col-12 flash-sales-container d-flex justify-content-center">
-        @foreach ($productsInFlashDeal->take(7) as $products)
+        @foreach ($shuffledProducts as $products)
             <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
                 <a href="#">
                     <div class="ImgCon card rounded-4 for-border">
