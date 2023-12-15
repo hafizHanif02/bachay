@@ -63,7 +63,7 @@ class ProductController extends Controller
             $thumbnailUrl = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
             $product->thumbnail = $thumbnailUrl;
 
-            // Decode the JSON string to an array
+            
             $imagesArray = json_decode($product->images, true);
 
             $imageUrls = [];
@@ -88,7 +88,29 @@ class ProductController extends Controller
     public function show($id){
         
         $product = DB::table('products')->where('id',$id)->first();
-        return response()->json($product, 200);
+
+        if($product != null){
+            $imagesArray = json_decode($product->images, true);
+    
+            $imageUrls = [];
+            if (is_array($imagesArray)) {
+                foreach ($imagesArray as $image) {
+                    $imageUrl = asset('storage/app/public/product/images/' . $image);
+                    $imageUrls[] = $imageUrl;
+                }
+            }
+    
+            $thumbnailUrl = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
+            
+            $product->thumbnail = $thumbnailUrl;
+            $product->images = $imageUrls;
+    
+            return response()->json($product, 200);
+        }else{
+            return response()->json([
+                'error' => ['message' => 'Product not found!']
+            ], 404);
+        }
     }
 
     public function get_searched_products(Request $request)
