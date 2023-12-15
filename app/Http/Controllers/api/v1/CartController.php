@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers\api\v1;
 
-use App\CPU\CartManager;
-use App\CPU\Helpers;
-use App\CPU\OrderManager;
-use App\Http\Controllers\Controller;
 use App\Model\Cart;
-use App\Model\MostDemanded;
+use App\CPU\Helpers;
 use App\Model\Order;
 use App\Model\Product;
+use App\CPU\CartManager;
+use App\CPU\OrderManager;
+use App\Model\MostDemanded;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use function App\CPU\translate;
+use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
 {
@@ -39,6 +41,12 @@ class CartController extends Controller
 
                     unset($cart[$key]);
                 }
+                foreach($cart as $cartproduct){
+                    $thumbnailUrl = asset('storage/app/public/product/thumbnail/' . $cartproduct->thumbnail);
+                    $cartproduct->thumbnail = $thumbnailUrl;
+                }
+            
+
             }
 
             $cart->map(function ($data) use($request) {
@@ -79,12 +87,14 @@ class CartController extends Controller
 
     public function add_to_cart(Request $request)
     {
-        dd($request);
+        // return $request;
+        
         $validator = Validator::make($request->all(), [
-            'id' => ['required','exists:products,id'],
+            'product_id' => ['required','exists:products,id'],
             'quantity' => 'required',
+            'customer_id' => 'required',
         ], [
-            'id.required' => translate('Product ID is required!')
+            'product_id.required' => translate('Product ID is required!')
         ]);
 
         if ($validator->errors()->count() > 0) {
@@ -98,19 +108,35 @@ class CartController extends Controller
     public function update_cart(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'key' => ['required','exists:carts,id'],
-            'quantity' => 'required',
+            'key' => ['required', 'exists:carts,id'],
+            'customer_id' => ['required', 'exists:users,id'],
+            'product_id' => [
+                'required',
+                Rule::exists('carts', 'product_id')->where(function ($query) use ($request) {
+                    $query->where(['customer_id'=> $request->customer_id, 'product_id' => $request->product_id]);
+                }),
+            ],
+            'quantity' => ['required', 'numeric'], 
         ], [
-            'key.required' => translate('Cart key or ID is required!')
+            'key.required' => translate('Cart key or ID is required!'),
         ]);
 
-        if ($validator->errors()->count() > 0) {
+        if ($validator->fails()) {
             return response()->json(['errors' => Helpers::error_processor($validator)]);
         }
 
-        $response = CartManager::update_cart_qty($request);
+        DB::table('carts')->where([
+            'id' => $request->key,
+            'product_id' => $request->product_id,
+            'customer_id' => $request->customer_id,
+        ])->update([
+            'quantity' => $request->quantity,
+        ]);
+
+        $response = 'Cart has been Updated';
         return response()->json($response);
     }
+
 
     public function remove_from_cart(Request $request)
     {
@@ -151,4 +177,6 @@ class CartController extends Controller
         ])->delete();
         return response()->json(translate('successfully_removed'));
     }
+
+
 }

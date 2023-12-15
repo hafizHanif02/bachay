@@ -27,7 +27,40 @@ class HomeController extends Controller
     }
 
     public function MainBanner(){
-        $banner = DB::table('banners')->where('status', 1)->orderBy('id', 'desc')->get();
+        $banners = DB::table('banners')
+        ->where([
+            'published'=> 1,
+            'banner_type'=> 'Main Banner'
+            ])->get();
+        foreach($banners as $banner){
+                $url = asset('storage/app/public/banner/' . $banner->photo);
+                $banner->image = $url;
+        }
+        return response()->json($banners, 200);
+    }
+
+    public function MainBannerSection(){
+        $banners = DB::table('banners')
+        ->where([
+            'published'=> 1,
+            'banner_type'=> 'Main Section Banner'
+            ])->get();
+        foreach($banners as $banner){
+                $url = asset('storage/app/public/banner/' . $banner->photo);
+                $banner->image = $url;
+        }
+        return response()->json($banners, 200);
+    }
+    public function FooterBanner(){
+        $banners = DB::table('banners')
+        ->where([
+            'published'=> 1,
+            'banner_type'=> 'Footer Banner'
+            ])->get();
+        foreach($banners as $banner){
+                $url = asset('storage/app/public/banner/' . $banner->photo);
+                $banner->image = $url;
+        }
         return response()->json($banners, 200);
     }
 }

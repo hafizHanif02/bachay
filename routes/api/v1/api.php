@@ -12,6 +12,8 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
     Route::get('/home', [HomeController::class, 'index']);
     Route::get('/new-arrival', [HomeController::class, 'NewArrtival']);
     Route::get('/main-banner', [HomeController::class, 'MainBanner']);
+    Route::get('/main-banner-section', [HomeController::class, 'MainBannerSection']);
+    Route::get('/footer-banner', [HomeController::class, 'FooterBanner']);
 
     Route::group(['prefix' => 'product'], function () {
         Route::get('/list', 'ProductController@list')->name('list');
@@ -56,14 +58,14 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
     Route::group(['prefix' => 'cart','middleware'=>'apiGuestCheck'], function () {
         Route::get('/', 'CartController@cart');
         Route::post('add', 'CartController@add_to_cart');
-        Route::put('update', 'CartController@update_cart');
+        Route::post('update', 'CartController@update_cart');
         Route::delete('remove', 'CartController@remove_from_cart');
         Route::delete('remove-all','CartController@remove_all_from_cart');
 
     });
 
     Route::group(['prefix' => 'customer/order', 'middleware'=>'apiGuestCheck'], function () {
-        Route::get('get-order-by-id', 'CustomerController@get_order_by_id');
+        Route::get('get-order', 'CustomerController@get_order_by_id');
     });
 
     Route::get('faq', 'GeneralController@faq');
