@@ -69,7 +69,7 @@ class ProductController extends Controller
             $imageUrls = [];
             if (is_array($imagesArray)) {
                 foreach ($imagesArray as $image) {
-                    $imageUrl = asset('storage/app/public/product/images/' . $image);
+                    $imageUrl = asset('storage/app/public/product/' . $image);
                     $imageUrls[] = $imageUrl;
                 }
             }
@@ -95,7 +95,7 @@ class ProductController extends Controller
             $imageUrls = [];
             if (is_array($imagesArray)) {
                 foreach ($imagesArray as $image) {
-                    $imageUrl = asset('storage/app/public/product/images/' . $image);
+                    $imageUrl = asset('storage/app/public/product/' . $image);
                     $imageUrls[] = $imageUrl;
                 }
             }
