@@ -8,10 +8,30 @@ use App\Http\Controllers\Controller;
 
 class HomeController extends Controller
 {
+
     public function index()
     {
         $layouts = DB::table('home_layouts')->where('mobile_status', 1)->orderBy('mobile_order', 'asc')->get();
         return response()->json($layouts, 200);
+    }
+
+    public function SwitchUser($id){
+        if($id == 0){
+            return redirect()->route('home');
+        }else{
+            $child = DB::table('family_relation')->where('id', $id)->first();
+            if($child){
+                // Male
+                if($child->gender == 1){
+                    return response()->json(['errors' => 'Child is Boy.'], 200);
+                }elseif($child->gender == 0){
+                    return response()->json(['errors' => 'Child is Girl.'], 200);
+                }
+            }else{
+                return response()->json(['errors' => 'Child not found.'], 200);
+            }
+            
+        }
     }
 
     public function NewArrtival(){

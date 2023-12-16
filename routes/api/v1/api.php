@@ -9,16 +9,21 @@ use App\Http\Controllers\Api\V1\Customer\CMS\HomeController;
 
 Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_lang']], function () {
     
-    Route::get('/home', [HomeController::class, 'index']);
+    Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/new-arrival', [HomeController::class, 'NewArrtival']);
     Route::get('/main-banner', [HomeController::class, 'MainBanner']);
     Route::get('/main-banner-section', [HomeController::class, 'MainBannerSection']);
     Route::get('/footer-banner', [HomeController::class, 'FooterBanner']);
+    
+    Route::group(['middleware' => 'auth:api'], function () {
+        Route::get('switch-user/{id}',[HomeController::class, 'SwitchUser']);
+    });
 
     Route::group(['prefix' => 'product'], function () {
         Route::get('/list', 'ProductController@list')->name('list');
         Route::get('/detail/{id}', 'ProductController@show')->name('detail');
     });
+
 
 
     Route::group(['prefix' => 'auth', 'namespace' => 'auth'], function () {
