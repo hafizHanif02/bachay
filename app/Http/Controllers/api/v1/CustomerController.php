@@ -112,6 +112,82 @@ class CustomerController extends Controller
         }
     }
 
+    public function Mychild(){
+        if(Auth::user()){
+            $childerens = DB::table('family_relation')->where('user_id', Auth::user()->id)->get();
+            foreach($childerens as $child){
+                if($child->profile_picture != null){
+                $childImageUrl = url('public/assets/images/customers/child/' . $child->profile_picture);
+                $child->avatar = $childImageUrl;
+                }
+            }
+            return response()->json($childerens, 200);
+        }else{
+            return response()->json(['message' => 'Please Login First'], 404);
+        }
+    }
+
+    public function Addchild(Request $request){
+        $validator = Validator::make($request->all(), [
+            'name' => 'required',
+            'relation_type' => 'required',
+            'dob' => 'required',
+            'gender' => 'required',
+            'profile_picture' => 'required',
+        ]);
+        
+        if ($validator->fails()) {
+            return response()->json(['errors' => Helpers::error_processor($validator)], 403);
+        }else{
+            if ($request->hasFile('profile_picture')) {
+                $file = $request->file('profile_picture');
+                $extension = $file->getClientOriginalExtension();
+                $filename = $file->getClientOriginalName();
+                $file->move(public_path('assets/images/customers/child'), $filename);
+            } else {
+                $filename = null;
+            }
+            DB::table('family_relation')->insert([
+                'user_id' => Auth::user()->id,
+                'relation_type' => $request->relation_type,
+                'dob' => $request->dob,
+                'gender' => $request->gender,
+                'profile_picture' => ($filename ?? ''),
+            ]);
+            return response()->json(['message' => 'Child Has Been Added'], 403);
+            
+        }
+    }
+
+    public function Detailchild($id){
+        $child = DB::table('family_relation')->where('id', $id)->first();
+        if($child != null){
+            if($child->profile_picture != null){
+            $childImageUrl = url('public/assets/images/customers/child/' . $child->profile_picture);
+                $child->avatar = $childImageUrl;
+            }
+            return response()->json($child, 200);
+        }else{
+            return response()->json(['message' => 'Child Not Found'], 404);
+        }
+
+    }
+
+    public function Updatechild(Request $request){
+        dd($request);
+    }
+
+    public function Deletechild($id){
+        $child = DB::table('family_relation')->where('id', $id)->first();
+        if($child){
+            DB::table('family_relation')->where('id', $id)->delete();
+            return response()->json(['message' => 'Child Has Been Deleted'], 200);
+        }else{
+            return response()->json(['message' => 'Child Not Found'], 200);
+        }
+    }
+
+
     public function UpdateAdress(Request $request){
         DB::table('shipping_addresses')->where('id' , $request->id)->update([
             'customer_id' => $request->customer_id,

@@ -162,8 +162,12 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
         });
     });
 
-    Route::group(['prefix' => 'auth', 'middleware' => 'auth:api'], function () {
-        Route::get('user', 'CustomerController@info');
+    Route::group(['prefix' => 'child', 'middleware' => 'auth:api'], function () {
+        Route::get('/', 'CustomerController@Mychild');
+        Route::post('add-child', 'CustomerController@Addchild');
+        Route::get('detail/{id}', 'CustomerController@Detailchild');
+        Route::post('update', 'CustomerController@Updatechild');
+        Route::delete('delete/{id}', 'CustomerController@Deletechild');  
     });
     Route::group(['prefix' => 'customer', 'middleware' => 'auth:api'], function () {
         Route::get('info', 'CustomerController@info');
@@ -230,6 +234,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
             Route::post('loyalty-exchange-currency', 'UserLoyaltyController@loyalty_exchange_currency');
         });
     });
+    
 
     Route::group(['prefix' => 'customer', 'middleware' => 'apiGuestCheck'], function () {
         Route::group(['prefix' => 'order'], function () {
