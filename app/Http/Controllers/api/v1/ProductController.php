@@ -2,29 +2,30 @@
 
 namespace App\Http\Controllers\api\v1;
 
-use App\CPU\CategoryManager;
 use App\CPU\Helpers;
-use App\CPU\ImageManager;
-use App\CPU\ProductManager;
-use App\Http\Controllers\Controller;
-use App\Model\Banner;
 use App\Model\Brand;
-use App\Model\Category;
-use App\Model\DealOfTheDay;
-use App\Model\MostDemanded;
 use App\Model\Order;
-use App\Model\OrderDetail;
-use App\Model\Product;
+use App\Model\Banner;
 use App\Model\Review;
 use App\Model\Seller;
-use App\Model\ShippingMethod;
+use App\Model\Product;
+use App\Model\Category;
 use App\Model\Wishlist;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\CPU\ImageManager;
+use App\Model\OrderDetail;
+use App\CPU\ProductManager;
+use App\Model\DealOfTheDay;
+use App\Model\MostDemanded;
+use Illuminate\Support\Str;
+use App\CPU\CategoryManager;
 use Illuminate\Http\Request;
+use App\Model\ShippingMethod;
+use function App\CPU\translate;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
-use function App\CPU\translate;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 
 class ProductController extends Controller
@@ -57,11 +58,12 @@ class ProductController extends Controller
     }
 
     public function list(){
-        $products = DB::table('products')->get();
+        $products = Product::with('brand')->get();
 
         foreach ($products as $product) {
             $thumbnailUrl = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
             $product->thumbnail = $thumbnailUrl;
+
 
             
             $imagesArray = json_decode($product->images, true);
@@ -73,9 +75,16 @@ class ProductController extends Controller
                     $imageUrls[] = $imageUrl;
                 }
             }
-
             $product->images = $imageUrls;
         }
+        foreach ($products as $product) {
+            $brandImageUrl = $product->brand->image;
+            if (!Str::startsWith($brandImageUrl, ['http://', 'https://'])) {
+                $brandImageUrl = url('storage/app/public/brand/' . $brandImageUrl);
+            }
+            $product->brand->image = $brandImageUrl;
+        }
+        
         if($products != null){
             return response()->json($products, 200);
         }else{
@@ -87,7 +96,10 @@ class ProductController extends Controller
 
     public function show($id){
         
-        $product = DB::table('products')->where('id',$id)->first();
+        $product = Product::where('id',$id)->with('brand')->first();
+
+        $brandImageUrl = url('storage/app/public/brand/' . $product->brand->image);
+        $product->brand->image = $brandImageUrl;
 
         if($product != null){
             $imagesArray = json_decode($product->images, true);

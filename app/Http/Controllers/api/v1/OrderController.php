@@ -25,12 +25,14 @@ use App\Model\RefundRequest;
 use Illuminate\Http\Request;
 use App\Model\ShippingAddress;
 use function App\CPU\translate;
+use Illuminate\Support\Facades\DB;
 use App\Model\OfflinePaymentMethod;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Validator;
 use App\Model\DigitalProductOtpVerification;
-use Illuminate\Support\Facades\File;
 
 class OrderController extends Controller
 {
@@ -69,6 +71,31 @@ class OrderController extends Controller
 
         return response()->json(translate('status_not_changable_now'), 302);
     }
+
+    public function ProcedeToNext(){
+        $shippingAddress = ShippingAddress::where(['customer_id'=>Auth::user()->id,'is_default'=>1])->first();
+        if($shippingAddress != null){
+            DB::table('billing_addresses')->insert([
+                'customer_id' => Auth::user()->id,
+                'contact_person_name' => $shippingAddress->contact_person_name,
+                'address_type' => $shippingAddress->address_type,
+                'address' => $shippingAddress->address,
+                'city' => $shippingAddress->city,
+                'zip' => $shippingAddress->zip,
+                'phone' => $shippingAddress->phone,
+                'state' => $shippingAddress->state,
+                'country' => $shippingAddress->country,
+            ]);
+            $shippingAddress->update([
+                'is_billing' => 1
+            ]);
+            return response()->json(['message' => 'Procede to next'], 403);
+        }
+        else{
+            return response()->json(['message' => 'Please add address fisrt'], 403);
+        }
+    }
+
     public function place_order(Request $request)
     {
         $user = Helpers::get_customer($request);

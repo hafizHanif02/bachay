@@ -79,14 +79,14 @@ class CustomerController extends Controller
                     'email' => $customer_data->email,
                     'address_type' => $request->address_type,
                     'address' => ($request->apartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').' '.($request->city ?? '').', '.($request->state ?? '').' '.($request->country ?? ''),
-                    'is_default' => false,
+                    'is_default' => 0,
                     'city' => $request->city,
                     'zip' => $request->zip,
                     'phone' => $request->phone,
                     'state' => $request->state,
                     'country' => $request->country,
                 ]);
-                if($request->is_default == true){
+                if($request->is_default == 1){
                     DB::table('users')->where('id', $request->customer_id)->update([
                         'street_address' => $request->street_address,
                         'country' => $request->country,
@@ -119,14 +119,14 @@ class CustomerController extends Controller
             'email' => $request->email,
             'address_type' => $request->address_type,
             'address' => ($request->apartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').' '.($request->city ?? '').', '.($request->state ?? '').' '.($request->country ?? ''),
-            'is_default' => false,
+            'is_default' => $request->is_default,
             'city' => $request->city,
             'zip' => $request->zip,
             'phone' => $request->phone,
             'state' => $request->state,
             'country' => $request->country,
         ]);
-        if($request->is_default == true){
+        if($request->is_default == 1){
             DB::table('users')->where('id', $request->customer_id)->update([
                 'street_address' => $request->street_address,
                 'country' => $request->country,

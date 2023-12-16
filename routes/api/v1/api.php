@@ -103,7 +103,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::post('reviews/submit', 'ProductController@submit_product_review')->middleware('auth:api');
     });
 
-    Route::group(['middleware' => 'apiGuestCheck'], function () {
+    Route::group(['middleware' => 'auth:api'], function () {
         Route::group(['prefix' => 'products'], function () {
             Route::get('latest', 'ProductController@get_latest_products');
             Route::get('featured', 'ProductController@get_featured_products');
@@ -153,7 +153,8 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
             });
 
             Route::group(['prefix' => 'order'], function () {
-                Route::get('place', 'OrderController@place_order');
+                Route::get('procede-to-next', 'OrderController@ProcedeToNext');
+                Route::post('place', 'OrderController@place_order');
                 Route::get('offline-payment-method-list', 'OrderController@offline_payment_method_list');
                 Route::post('place-by-offline-payment', 'OrderController@place_order_by_offline_payment');
                 Route::get('details', 'CustomerController@get_order_details');

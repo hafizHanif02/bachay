@@ -91,7 +91,7 @@ class Product extends Model
 
     public function brand()
     {
-        return $this->belongsTo(Brand::class);
+        return $this->hasOne(Brand::class, 'id', 'brand_id');
     }
 
     public function scopeStatus($query)
