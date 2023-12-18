@@ -13,6 +13,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
     Route::get('/categories', [HomeController::class, 'NewArrtival']);
     Route::get('/main-banner', [HomeController::class, 'MainBanner']);
     Route::get('/main-banner-section', [HomeController::class, 'MainBannerSection']);
+    Route::get('/flash-deals', [HomeController::class, 'FlashDeals']);
     Route::get('/footer-banner', [HomeController::class, 'FooterBanner']);
     Route::get('/all-category', [HomeController::class, 'AllCategory']);
     
@@ -88,10 +89,10 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
 
 
 
-    Route::group(['prefix' => 'flash-deals'], function () {
-        Route::get('/', 'FlashDealController@get_flash_deal');
-        Route::get('products/{deal_id}', 'FlashDealController@get_products');
-    });
+    // Route::group(['prefix' => 'flash-deals'], function () {
+    //     Route::get('/', 'FlashDealController@get_flash_deal');
+    //     Route::get('products/{deal_id}', 'FlashDealController@get_products');
+    // });
 
     Route::group(['prefix' => 'deals'], function () {
         Route::get('featured', 'DealController@get_featured_deal');

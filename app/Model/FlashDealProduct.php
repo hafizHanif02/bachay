@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class FlashDealProduct extends Model
 {
+    protected $table = 'flash_deal_products';
     protected $casts = [
 
         'product_id'    => 'integer',
