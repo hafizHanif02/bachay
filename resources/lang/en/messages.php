@@ -6729,4 +6729,11 @@
   'your_payment_has_been_successfully_processed_and_your_order' => 'Your payment has been successfully processed and your order',
   'has_been_placed.' => 'Has been placed.',
   'invalid_Order_Id_or_phone_Number' => 'Invalid Order Id or phone Number',
+  'send_article' => 'Send article',
+  'push_article_table' => 'Push article table',
+  'article_count' => 'Article count',
+  'Want_to_Turn_ON_article_Status' => 'Want to Turn ON article Status',
+  'Want_to_Turn_OFF_article_Status' => 'Want to Turn OFF article Status',
+  'if_enabled_customers_will_receive_articles_on_their_devices' => 'If enabled customers will receive articles on their devices',
+  'if_disabled_customers_will_not_receive_articles_on_their_devices' => 'If disabled customers will not receive articles on their devices',
 );

@@ -2,22 +2,23 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Carbon\Carbon;
 use App\CPU\Helpers;
-use App\CPU\ImageManager;
-use App\Http\Controllers\Controller;
-use App\Model\BusinessSetting;
-use App\Models\HomeLayout;
-use App\Model\Currency;
-use App\Model\SocialMedia;
-use App\Http\Controllers\Admin\Log;
-use Brian2694\Toastr\Facades\Toastr;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
-use Illuminate\Http\RedirectResponse;
+use App\Model\Currency;
+use App\Models\Article;
+use App\CPU\ImageManager;
+use App\Model\SocialMedia;
+use App\Models\HomeLayout;
 use Illuminate\Http\Request;
+use App\Model\BusinessSetting;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Admin\Log;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Http\RedirectResponse;
 use phpseclib3\Crypt\RSA\Formats\Keys\JWK;
-use Carbon\Carbon;
 
 class BusinessSettingsController extends Controller
 {
@@ -187,6 +188,14 @@ class BusinessSettingsController extends Controller
         return view('admin-views.business-settings.terms-condition', compact('terms_condition'));
     }
 
+    public function article()
+    {
+        $articles = Article::with('category')->get();
+        $categories = DB::table('categories')->get();
+        // $terms_condition = BusinessSetting::where('type', 'article')->first();
+        return view('admin-views.business-settings.article',compact('articles','categories'));
+    }
+
     public function home_layout()
     {
 
@@ -256,6 +265,20 @@ class BusinessSettingsController extends Controller
             'value' => 'required',
         ]);
         BusinessSetting::where('type', 'terms_condition')->update(['value' => $data->value]);
+        Toastr::success(translate('Terms_and_Condition_Updated_successfully'));
+        return redirect()->back();
+    }
+
+    public function updateArticle(Request $data)
+    {
+        return $data;
+        $validatedData = $data->validate([
+            'value' => 'required',
+        ]);
+        // BusinessSetting::where('type', 'terms_condition')->update(['value' => $data->value]);
+        DB::table('article')->insert([
+            'data' => $data,
+        ]);
         Toastr::success(translate('Terms_and_Condition_Updated_successfully'));
         return redirect()->back();
     }
@@ -1231,6 +1254,28 @@ class BusinessSettingsController extends Controller
             'value' => json_encode($item),
         ]);
         return redirect()->back();
+    }
+
+    public function ArticleStore(Request $request)
+    {
+        $request->validate([
+            'title' => 'required|string|max:255',
+            'text' => 'required|string',
+            'thumbnail' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'category_id' => 'required|integer|exists:categories,id',
+        ]);
+        if ($request->file('thumbnail')) {
+            $file = $request->file('thumbnail');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('assets/images/articles/thumbnail'), $filename);
+        }
+        DB::table('articles')->insert([
+            'title' => $request->title,
+            'text' => $request->text,
+            'thumbnail' => ($filename ?? ''),
+            'category_id' => $request->category_id,
+        ]);
     }
 
 }
