@@ -56,23 +56,24 @@ class HomeController extends Controller
 
     public function FlashDeals(){
         $flashdeals = FlashDealProduct::with('product')->get();
-        $imageUrls = [];
-        $discount = [];
-        $name = [];
-        
+        $formattedFlashDeals = [];
+    
         foreach($flashdeals as $flashdeal){
             $url = asset('storage/app/public/product/thumbnail/' . $flashdeal->product->thumbnail);
-            $imageUrls[] = $url;
-            $discount[] = $flashdeal->discount;
-            $name[] = $flashdeal->product->name;
-        }
-        
-        $imageUrls = array_values($imageUrls);
-        $discount = array_values($discount);
-        $name = array_values($name);
     
-        return response()->json(['image'=>$imageUrls,'discount'=> $discount,'name'=> $name], 200);
+            $formattedFlashDeal = [
+                'id' => $flashdeal->product->id,
+                'name' => $flashdeal->product->name,
+                'image' => $url,
+                'discount' => $flashdeal->discount,
+            ];
+    
+            $formattedFlashDeals[] = $formattedFlashDeal;
+        }
+    
+        return response()->json($formattedFlashDeals, 200);
     }
+    
 
     public function AllCategory(){
         $toparrivalcategorys = DB::table('categories')->orderBy('id', 'desc')->get();
