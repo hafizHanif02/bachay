@@ -59,11 +59,14 @@ class HomeController extends Controller
             'published'=> 1,
             'banner_type'=> 'Main Banner'
             ])->get();
+            $imageUrls = [];
         foreach($banners as $banner){
                 $url = asset('storage/app/public/banner/' . $banner->photo);
                 $banner->image = $url;
+                $imageUrls[] = $url;
         }
-        return response()->json($banners, 200);
+        $imageUrls = array_values($imageUrls);
+        return response()->json($imageUrls, 200);
     }
 
     public function MainBannerSection(){
@@ -72,11 +75,14 @@ class HomeController extends Controller
             'published'=> 1,
             'banner_type'=> 'Main Section Banner'
             ])->get();
+            $imageUrls = [];
         foreach($banners as $banner){
                 $url = asset('storage/app/public/banner/' . $banner->photo);
                 $banner->image = $url;
+                $imageUrls[] = $url;
         }
-        return response()->json($banners, 200);
+        $imageUrls = array_values($imageUrls);
+        return response()->json($imageUrls, 200);
     }
     public function FooterBanner(){
         $banners = DB::table('banners')
