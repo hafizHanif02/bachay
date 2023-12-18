@@ -53,6 +53,18 @@ class HomeController extends Controller
         return response()->json(['image'=>$imageUrls,'name'=> $nameArray], 200);
     }
 
+    public function AllCategory(){
+        $toparrivalcategorys = DB::table('categories')->orderBy('id', 'desc')->get();
+        $imageUrls = [];
+        foreach($toparrivalcategorys as $categoryavatar){
+            $url = asset('storage/app/public/category/' . $categoryavatar->icon);
+            $categoryavatar->image = $url;
+            $imageUrls[] = $url;
+        }
+        $imageUrls = array_values($imageUrls);
+        return response()->json($imageUrls, 200);
+    }
+
     public function MainBanner(){
         $banners = DB::table('banners')
         ->where([
