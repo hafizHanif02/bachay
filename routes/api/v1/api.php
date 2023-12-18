@@ -27,6 +27,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
 
 
     Route::group(['prefix' => 'auth', 'namespace' => 'auth'], function () {
+        Route::get('user', 'PassportAuthController@details');
         Route::post('register', 'PassportAuthController@register');
         Route::post('login', 'PassportAuthController@login');
         Route::post('logout', 'PassportAuthController@logout')->middleware('auth:api');
@@ -165,6 +166,9 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
                 Route::get('details', 'CustomerController@get_order_details');
             });
         });
+    });
+    Route::group(['prefix' => 'auth', 'middleware' => 'auth:api'], function () {
+        Route::get('user', 'CustomerController@info');
     });
 
     Route::group(['prefix' => 'child', 'middleware' => 'auth:api'], function () {
