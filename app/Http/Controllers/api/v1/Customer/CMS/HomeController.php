@@ -43,7 +43,7 @@ class HomeController extends Controller
         $latestCategory = DB::table('categories')->orderBy('id', 'desc')->first();
         $url = asset('storage/app/public/category/' . $latestCategory->icon);
         $latestCategory->image = $url;
-        return response()->json(['new-arrival' => $toparrivalcategorys,'latest' => $latestCategory], 200);
+        return response()->json(['newarrival' => $toparrivalcategorys,'latest' => $latestCategory], 200);
     }
 
     public function MainBanner(){
