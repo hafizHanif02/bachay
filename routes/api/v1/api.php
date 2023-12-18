@@ -10,10 +10,12 @@ use App\Http\Controllers\Api\V1\Customer\CMS\HomeController;
 Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_lang']], function () {
     
     Route::get('/home', [HomeController::class, 'index'])->name('home');
-    Route::get('/new-arrival', [HomeController::class, 'NewArrtival']);
+    Route::get('/categories', [HomeController::class, 'NewArrtival']);
     Route::get('/main-banner', [HomeController::class, 'MainBanner']);
     Route::get('/main-banner-section', [HomeController::class, 'MainBannerSection']);
+    Route::get('/flash-deals', [HomeController::class, 'FlashDeals']);
     Route::get('/footer-banner', [HomeController::class, 'FooterBanner']);
+    Route::get('/all-category', [HomeController::class, 'AllCategory']);
     
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('switch-user/{id}',[HomeController::class, 'SwitchUser']);
@@ -27,6 +29,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
 
 
     Route::group(['prefix' => 'auth', 'namespace' => 'auth'], function () {
+        Route::get('user', 'PassportAuthController@details');
         Route::post('register', 'PassportAuthController@register');
         Route::post('login', 'PassportAuthController@login');
         Route::post('logout', 'PassportAuthController@logout')->middleware('auth:api');
@@ -86,10 +89,10 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
 
 
 
-    Route::group(['prefix' => 'flash-deals'], function () {
-        Route::get('/', 'FlashDealController@get_flash_deal');
-        Route::get('products/{deal_id}', 'FlashDealController@get_products');
-    });
+    // Route::group(['prefix' => 'flash-deals'], function () {
+    //     Route::get('/', 'FlashDealController@get_flash_deal');
+    //     Route::get('products/{deal_id}', 'FlashDealController@get_products');
+    // });
 
     Route::group(['prefix' => 'deals'], function () {
         Route::get('featured', 'DealController@get_featured_deal');
@@ -134,11 +137,11 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
             Route::get('{seller_id}/seller-recommended-products', 'SellerController@get_sellers_recommended_products');
         });
 
-        Route::group(['prefix' => 'categories'], function () {
-            Route::get('/', 'CategoryController@get_categories');
-            Route::get('products/{category_id}', 'CategoryController@get_products');
-            Route::get('/find-what-you-need', 'CategoryController@find_what_you_need');
-        });
+        // Route::group(['prefix' => 'categories'], function () {
+        //     Route::get('/', 'CategoryController@get_categories');
+        //     Route::get('products/{category_id}', 'CategoryController@get_products');
+        //     Route::get('/find-what-you-need', 'CategoryController@find_what_you_need');
+        // });
 
         Route::group(['prefix' => 'brands'], function () {
             Route::get('/', 'BrandController@get_brands');
@@ -166,6 +169,9 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
             });
         });
     });
+    Route::group(['prefix' => 'auth', 'middleware' => 'auth:api'], function () {
+        Route::get('user', 'CustomerController@info');
+    });
 
     Route::group(['prefix' => 'child', 'middleware' => 'auth:api'], function () {
         Route::get('/', 'CustomerController@Mychild');
@@ -179,7 +185,8 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::post('add-address', 'CustomerController@AddAdress');
         Route::post('update-address', 'CustomerController@UpdateAdress');
         Route::delete('delete-address/{id}/{customer_id}', 'CustomerController@DeleteAddress');
-        Route::get('get-address/{id}', 'CustomerController@GetAdress');
+        Route::get('address-detail/{id}', 'CustomerController@GetAdress');
+        Route::get('address', 'CustomerController@Address');
         Route::put('update-profile', 'CustomerController@update_profile');
         Route::post('change-avatar', 'CustomerController@ChangeAvatar');
         Route::get('account-delete/{id}','CustomerController@account_delete');

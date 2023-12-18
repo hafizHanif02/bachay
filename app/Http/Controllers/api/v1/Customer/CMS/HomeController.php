@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Customer\CMS;
 
 use Illuminate\Http\Request;
+use App\Model\FlashDealProduct;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
@@ -36,14 +37,54 @@ class HomeController extends Controller
 
     public function NewArrtival(){
         $toparrivalcategorys = DB::table('categories')->orderBy('id', 'desc')->take(10)->get();
+        $imageUrls = [];
+        $name = [];
         foreach($toparrivalcategorys as $categoryavatar){
             $url = asset('storage/app/public/category/' . $categoryavatar->icon);
             $categoryavatar->image = $url;
+            $imageUrls[] = $url;
+            $name[] = $categoryavatar->name;
         }
-        $latestCategory = DB::table('categories')->orderBy('id', 'desc')->first();
-        $url = asset('storage/app/public/category/' . $latestCategory->icon);
-        $latestCategory->image = $url;
-        return response()->json(['new-arrival' => $toparrivalcategorys,'latest' => $latestCategory], 200);
+        $imageUrls = array_values($imageUrls);
+        $nameArray = array_values($name);
+        // $latestCategory = DB::table('categories')->orderBy('id', 'desc')->first();
+        // $url = asset('storage/app/public/category/' . $latestCategory->icon);
+        // $latestCategory->image = $url;
+
+        return response()->json(['image'=>$imageUrls,'name'=> $nameArray], 200);
+    }
+
+    public function FlashDeals(){
+        $flashdeals = FlashDealProduct::with('product')->get();
+        $formattedFlashDeals = [];
+    
+        foreach($flashdeals as $flashdeal){
+            $url = asset('storage/app/public/product/thumbnail/' . $flashdeal->product->thumbnail);
+    
+            $formattedFlashDeal = [
+                'id' => $flashdeal->product->id,
+                'name' => $flashdeal->product->name,
+                'image' => $url,
+                'discount' => $flashdeal->discount,
+            ];
+    
+            $formattedFlashDeals[] = $formattedFlashDeal;
+        }
+    
+        return response()->json($formattedFlashDeals, 200);
+    }
+    
+
+    public function AllCategory(){
+        $toparrivalcategorys = DB::table('categories')->orderBy('id', 'desc')->get();
+        $imageUrls = [];
+        foreach($toparrivalcategorys as $categoryavatar){
+            $url = asset('storage/app/public/category/' . $categoryavatar->icon);
+            $categoryavatar->image = $url;
+            $imageUrls[] = $url;
+        }
+        $imageUrls = array_values($imageUrls);
+        return response()->json($imageUrls, 200);
     }
 
     public function MainBanner(){
@@ -52,11 +93,14 @@ class HomeController extends Controller
             'published'=> 1,
             'banner_type'=> 'Main Banner'
             ])->get();
+            $imageUrls = [];
         foreach($banners as $banner){
                 $url = asset('storage/app/public/banner/' . $banner->photo);
                 $banner->image = $url;
+                $imageUrls[] = $url;
         }
-        return response()->json($banners, 200);
+        $imageUrls = array_values($imageUrls);
+        return response()->json($imageUrls, 200);
     }
 
     public function MainBannerSection(){
@@ -65,22 +109,32 @@ class HomeController extends Controller
             'published'=> 1,
             'banner_type'=> 'Main Section Banner'
             ])->get();
+            $imageUrls = [];
         foreach($banners as $banner){
                 $url = asset('storage/app/public/banner/' . $banner->photo);
                 $banner->image = $url;
+                $imageUrls[] = $url;
         }
-        return response()->json($banners, 200);
+        $imageUrls = array_values($imageUrls);
+        return response()->json($imageUrls, 200);
     }
     public function FooterBanner(){
         $banners = DB::table('banners')
-        ->where([
-            'published'=> 1,
-            'banner_type'=> 'Footer Banner'
+            ->where([
+                'published'=> 1,
+                'banner_type'=> 'Footer Banner'
             ])->get();
+    
+        $imageUrls = [];
+    
         foreach($banners as $banner){
-                $url = asset('storage/app/public/banner/' . $banner->photo);
-                $banner->image = $url;
+            $url = asset('storage/app/public/banner/' . $banner->photo);
+            $imageUrls[] = $url;
         }
-        return response()->json($banners, 200);
+    
+        $imageUrls = array_values($imageUrls);
+    
+        return response()->json($imageUrls, 200);
     }
+    
 }

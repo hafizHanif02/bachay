@@ -2,16 +2,17 @@
 
 namespace App\Http\Controllers\api\v1\auth;
 
-use App\CPU\CartManager;
-use App\CPU\Helpers;
-use App\Http\Controllers\Controller;
 use App\User;
 use Carbon\Carbon;
+use App\CPU\Helpers;
+use App\CPU\CartManager;
 use Carbon\CarbonInterval;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use function App\CPU\translate;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Validator;
 
 class PassportAuthController extends Controller
 {
@@ -213,4 +214,5 @@ class PassportAuthController extends Controller
         }
         return response()->json(['message'=>'Logged out fail'], 403);
     }
+
 }

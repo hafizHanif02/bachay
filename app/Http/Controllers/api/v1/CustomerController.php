@@ -112,6 +112,19 @@ class CustomerController extends Controller
         }
     }
 
+    public function Address(){
+        if(Auth::user()){
+            $addresses = DB::table('shipping_addresses')->where('customer_id', Auth::user()->id)->get();
+            if($addresses->isNotEmpty()){
+                return response()->json($addresses, 200);
+            }else{
+                return response()->json(['message' => 'Address Not Found'], 404);
+            }
+        }else{
+            return response()->json(['message' => 'Please Login First'], 404);
+        }
+    }
+
     public function Mychild(){
         if(Auth::user()){
             $childerens = DB::table('family_relation')->where('user_id', Auth::user()->id)->get();

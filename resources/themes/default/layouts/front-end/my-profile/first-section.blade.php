@@ -23,12 +23,13 @@
             <div id="personalDetails" class="d-flex justify-content-between align-items-center mt-5">
                 <div class="MyProfile-con d-flex align-items-center">
                     <div class="MyProfile-img col-4 rounded-circle me-3">
-                        <img class="object-fit-cover rounded-circle" src="{{ asset('public/assets/images/customers/'.auth('customer')->user()->image) }}"
+                        <img class="object-fit-cover rounded-circle"
+                            src="{{ asset('public/assets/images/customers/' . auth('customer')->user()->image) }}"
                             alt="" width="100%" height="100%">
                     </div>
                     <div class="MyProfile-info font-poppins">
                         <h4 class="fw-bold m-0">
-                            {{ $userData->f_name.' '.$userData->l_name }}
+                            {{ $userData->f_name . ' ' . $userData->l_name }}
                         </h4>
                         <h6 class="m-0">
                             <img src="{{ asset('public/images/mother-icon.svg') }}" alt=""> Mother Of 03
@@ -43,7 +44,8 @@
                             alt=""> Edit</a>
                 </div>
             </div>
-            <div id="contactDetails" class="MyContact mt-5 font-poppins d-flex justify-content-between align-items-center rounded-pill">
+            <div id="contactDetails"
+                class="MyContact mt-5 font-poppins d-flex justify-content-between align-items-center rounded-pill">
                 <h6 class="fw-bold m-0  ps-4">
                     My Account
                 </h6>
@@ -62,7 +64,7 @@
                             </div>
                             <div class="ms-5 font-color">
                                 <h6 class="mb-4">{{ $userData->email }}</h6>
-                                <h6 class="mb-4">{{ (!empty($userData->phone)?$userData->phone:'-') }}</h6>
+                                <h6 class="mb-4">{{ !empty($userData->phone) ? $userData->phone : '-' }}</h6>
 
                             </div>
                         </div>
@@ -84,7 +86,8 @@
                 </ul>
             </div>
 
-            <div id="childDetails" class="MyContact mt-5 font-poppins d-flex justify-content-between align-items-center rounded-pill">
+            {{-- <div id="childDetails"
+                class="MyContact mt-5 font-poppins d-flex justify-content-between align-items-center rounded-pill">
                 <h6 class="fw-bold m-0  ps-4">
                     Child Details
                 </h6>
@@ -92,8 +95,21 @@
                     <a class="font-poppins me-4" href=""> <img class="cntct-edit"
                             src="{{ asset('public/images/plus-sign.svg') }}" alt=""> Add Child</a>
                 </div>
+            </div> --}}
+            <div id="childDetails"
+                class="MyContact mt-5 font-poppins d-flex justify-content-between align-items-center rounded-pill">
+                <h6 class="fw-bold m-0  ps-4">
+                    Child Details
+                </h6>
+                <div class="contact-edit">
+                    <button class="font-poppins me-4 border-0 bg-transparent btn" type="button" data-bs-toggle="modal" data-bs-target="#childModalId">
+                        <img class="cntct-edit" src="{{ asset('public/images/plus-sign.svg') }}" alt="Add Child">
+                        Add Child
+                    </button>
+                    
+                </div>
             </div>
-
+            @include('layouts.front-end.my-profile.child-modal')
             <div class=" align-items-center mt-5">
                 <ul class="child-details">
                     <li class="mt-4">
@@ -286,31 +302,35 @@
                 </ul>
             </div>
             <div class="">
-                <form class="MyProfileForm font-poppins" id="addAddressForm" action="{{ route('address.store') }}" method="POST" >
+                <form class="MyProfileForm font-poppins" id="addAddressForm" action="{{ route('address.store') }}"
+                    method="POST">
                     @csrf
                     @auth('customer')
-                    <input type="hidden" name="customer_id" value="{{ auth('customer')->user()->id }}">
+                        <input type="hidden" name="customer_id" value="{{ auth('customer')->user()->id }}">
                     @endauth
-                    <input type="text" id="house_no" name="house_no" value="{{$userData->house_no}}" placeholder="Flat/House No/Building"
+                    <input type="text" id="house_no" name="house_no" value="{{ $userData->house_no }}"
+                        placeholder="Flat/House No/Building" required><br>
+                    <input type="text" id="street_address" name="street_address"
+                        value="{{ $userData->street_address }}" placeholder="Street Address/Colony" required><br>
+                    <input type="text" id="country" name="country" value="{{ $userData->country }}"
+                        placeholder="Country" required><br>
+                    <input type="text" id="state" name="state" value="Pakistan" placeholder="State"
                         required><br>
-                    <input type="text" id="street_address" name="street_address" value="{{$userData->street_address}}" placeholder="Street Address/Colony"
-                        required><br>
-                    <input type="text" id="country" name="country" value="{{$userData->country}}"  placeholder="Country"
-                        required><br>
-                    <input type="text" id="state" name="state" value="Pakistan"  placeholder="State"
-                        required><br>
-                        <select name="address_type" id="address_type">
-                            <option value="permanent" selected>Permanent</option>
-                            <option value="home">Home</option>
-                            <option value="other">Other</option>
-                        </select><br>
+                    <select name="address_type" id="address_type">
+                        <option value="permanent" selected>Permanent</option>
+                        <option value="home">Home</option>
+                        <option value="other">Other</option>
+                    </select><br>
                     {{-- <input type="text" id="state" name="address_type"   placeholder="Address Type"
                         required><br> --}}
                     <div class="form-group">
-                        <input type="text" id="zip" name="zip" value="{{$userData->zip}}"  placeholder="Zip" required>
-                        <input type="text" id="city" name="city" value="{{$userData->city}}"  placeholder="City" required>
+                        <input type="text" id="zip" name="zip" value="{{ $userData->zip }}"
+                            placeholder="Zip" required>
+                        <input type="text" id="city" name="city" value="{{ $userData->city }}"
+                            placeholder="City" required>
                     </div>
-                    <input type="text" id="apartment_no" name="apartment_no" value="{{$userData->apartment_no}}"  placeholder="Apartment No" required><br>
+                    <input type="text" id="apartment_no" name="apartment_no"
+                        value="{{ $userData->apartment_no }}" placeholder="Apartment No" required><br>
                     <div class="form-group">
                         <button type="submit" class="rounded-pill text-white" type="submit">Save</button>
                         <button class="rounded-pill fw-semibold" type="button">Cancel</button>
@@ -326,20 +346,23 @@
             </div>
 
             <div class="ChangePassword mt-5 font-poppins">
-                <form action="{{ route('change-password') }}" method="POST" >
+                <form action="{{ route('change-password') }}" method="POST">
                     @csrf
                     <input type="hidden" name="customer_id" value="{{ auth('customer')->user()->id }}">
                     <div class="currentPassword d-flex justify-content-between align-items-center mb-3">
                         <label for="currentPassword">Current Password</label>
-                        <input type="password" id="currentPassword" name="current_password" placeholder="Previous Password" required>
+                        <input type="password" id="currentPassword" name="current_password"
+                            placeholder="Previous Password" required>
                     </div>
                     <div class="newPassword d-flex justify-content-between align-items-center mb-3">
                         <label for="newPassword">New Password</label>
-                        <input type="password" id="newPassword" name="new_password" placeholder="New Password"  required>
+                        <input type="password" id="newPassword" name="new_password" placeholder="New Password"
+                            required>
                     </div>
                     <div class="confirmPassword d-flex justify-content-between align-items-center mb-3">
                         <label for="confirmPassword">Confirm Password</label>
-                        <input type="password" id="confirmPassword" name="confirm_password" placeholder="Re-type Password" required>
+                        <input type="password" id="confirmPassword" name="confirm_password"
+                            placeholder="Re-type Password" required>
                     </div>
                     <div id="passwordMatchError" style="color: red;"></div>
                     <a class="text-decoration-none text-purple fw-semibold" href="">Note: Password must be at
@@ -382,8 +405,8 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <script>
-    $(document).ready(function () {
-        $("#confirmPassword").keyup(function () {
+    $(document).ready(function() {
+        $("#confirmPassword").keyup(function() {
             var newPassword = $("#newPassword").val();
             var confirmPassword = $(this).val();
 
@@ -395,4 +418,3 @@
         });
     });
 </script>
-
