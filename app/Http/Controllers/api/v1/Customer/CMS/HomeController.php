@@ -37,17 +37,20 @@ class HomeController extends Controller
     public function NewArrtival(){
         $toparrivalcategorys = DB::table('categories')->orderBy('id', 'desc')->take(10)->get();
         $imageUrls = [];
+        $name = [];
         foreach($toparrivalcategorys as $categoryavatar){
             $url = asset('storage/app/public/category/' . $categoryavatar->icon);
             $categoryavatar->image = $url;
             $imageUrls[] = $url;
+            $name[] = $categoryavatar->name;
         }
         $imageUrls = array_values($imageUrls);
+        $nameArray = array_values($name);
         // $latestCategory = DB::table('categories')->orderBy('id', 'desc')->first();
         // $url = asset('storage/app/public/category/' . $latestCategory->icon);
         // $latestCategory->image = $url;
 
-        return response()->json($imageUrls, 200);
+        return response()->json(['image'=>$imageUrls,'name'=> $nameArray], 200);
     }
 
     public function MainBanner(){
