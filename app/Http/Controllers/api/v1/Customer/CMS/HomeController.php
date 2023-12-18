@@ -36,14 +36,18 @@ class HomeController extends Controller
 
     public function NewArrtival(){
         $toparrivalcategorys = DB::table('categories')->orderBy('id', 'desc')->take(10)->get();
+        $imageUrls = [];
         foreach($toparrivalcategorys as $categoryavatar){
             $url = asset('storage/app/public/category/' . $categoryavatar->icon);
             $categoryavatar->image = $url;
+            $imageUrls[] = $url;
         }
-        $latestCategory = DB::table('categories')->orderBy('id', 'desc')->first();
-        $url = asset('storage/app/public/category/' . $latestCategory->icon);
-        $latestCategory->image = $url;
-        return response()->json(['newarrival' => $toparrivalcategorys,'latest' => $latestCategory], 200);
+        $imageUrls = array_values($imageUrls);
+        // $latestCategory = DB::table('categories')->orderBy('id', 'desc')->first();
+        // $url = asset('storage/app/public/category/' . $latestCategory->icon);
+        // $latestCategory->image = $url;
+
+        return response()->json($imageUrls, 200);
     }
 
     public function MainBanner(){
@@ -73,14 +77,21 @@ class HomeController extends Controller
     }
     public function FooterBanner(){
         $banners = DB::table('banners')
-        ->where([
-            'published'=> 1,
-            'banner_type'=> 'Footer Banner'
+            ->where([
+                'published'=> 1,
+                'banner_type'=> 'Footer Banner'
             ])->get();
+    
+        $imageUrls = [];
+    
         foreach($banners as $banner){
-                $url = asset('storage/app/public/banner/' . $banner->photo);
-                $banner->image = $url;
+            $url = asset('storage/app/public/banner/' . $banner->photo);
+            $imageUrls[] = $url;
         }
-        return response()->json($banners, 200);
+    
+        $imageUrls = array_values($imageUrls);
+    
+        return response()->json($imageUrls, 200);
     }
+    
 }
