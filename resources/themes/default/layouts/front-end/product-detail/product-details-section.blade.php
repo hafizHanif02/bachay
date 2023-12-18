@@ -12,7 +12,7 @@
                         width="100%" height="100%">
                 </div>
 
-                <div class="small-images">
+                {{-- <div class="small-images">
                     <div class="SmallImageCon">
                         @foreach (json_decode($product->color_image) as $key => $photo)
                             <img class="small-image object-fit-cover" id="image-#{{ $photo->color ? $photo->color : '' }}"
@@ -27,7 +27,8 @@
                         @endforeach
 
                     </div>
-                </div>
+                </div> --}}
+               
 
 
 
