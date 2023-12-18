@@ -34,10 +34,10 @@
                             <h5>Login</h5>
                         </a></li>
                     <li class="poppins"><a href="#" class="text-decoration-none">
-                            <h5>View Card</h5>
+                            <h5>View Cart</h5>
                         </a></li>
                     <li class="poppins"><a href="#" class="text-decoration-none">
-                            <h5>My Whishlist</h5>
+                            <h5>My Wishlist</h5>
                         </a></li>
                     <li class="poppins"><a href="#" class="text-decoration-none">
                             <h5>Track My Order</h5>
@@ -95,18 +95,16 @@
             </div>
             <div class="col list-group">
                 <ul>
-                    <li><a href="#" class="text-decoration-none"><img
-                                src="{{ asset("public/images/logo.png") }}" alt="Logo"></a></li>
+                    <li><a href="#" class="text-decoration-none"><img src="{{ asset('public/images/logo.png') }}"
+                                alt="Logo"></a></li>
 
                     <li class="mt-4 poppins"><a href="#" class="text-decoration-none">
                             <h6><i class="bi bi-geo-alt"></i> Morem ipsum dolor sit amet.</h6>
                         </a></li>
-                    <li class="poppins mt-3"><a href="tel:"
-                            class="text-decoration-none">
-                            <h6><i class="bi bi-telephone"></i> 0000-000-0000   </h6>
+                    <li class="poppins mt-3"><a href="tel:" class="text-decoration-none">
+                            <h6><i class="bi bi-telephone"></i> 0000-000-0000 </h6>
                         </a></li>
-                    <li class="poppins mt-3"><a href="mailto:"
-                            class="text-decoration-none">
+                    <li class="poppins mt-3"><a href="mailto:" class="text-decoration-none">
                             <h6><i class="bi bi-envelope"></i> bac@company.com</h6>
                         </a></li>
                 </ul>

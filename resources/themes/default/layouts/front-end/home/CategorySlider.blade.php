@@ -1,14 +1,14 @@
 <div class="new-arival mt-4">
     <div class="sub-container bg-white pt-5 pb-5 rounded-5">
 
-        <h1 class="text-center textClr">Early Breeze New Arival</h1>
+        <h1 class="text-center textClr">Early Breeze New Arrivals</h1>
         <div class="row justify-content-evenly ps-5 pe-5 pt-5">
             @foreach ($new_arrivals_categories as $arrivals)
                 <div class="col-lg-2 col-md-4 col-sm-6 col-12 p-0">
                     <a href="#" class="text-decoration-none">
 
                         <img class="NewSeasonBorder rounded-5 new-arival-container"
-                                src="{{asset('storage/app/public/category')}}/{{$arrivals['icon']}}" alt="Category image">
+                            src="{{ asset('storage/app/public/category') }}/{{ $arrivals['icon'] }}" alt="Category image">
 
                         <h4 class="text-center gradient-text mt-1 mb-0 pb-1">{{ $arrivals->name }}</h4>
                     </a>

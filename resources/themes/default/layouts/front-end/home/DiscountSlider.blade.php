@@ -1,5 +1,5 @@
 <div class="flash-sales">
-    <h1 class="text-center textClr">Flash Sales For Child Product Get Crazy Discounts</h1>
+    <h1 class="text-center textClr">Flash Sales For Child Products Get Crazy Discounts</h1>
 
     <div class="row mt-5 col-12 flash-sales-container">
 
@@ -10,9 +10,9 @@
                         <div class="deal-alert-circle">-{{ $products->discount }}%</div>
                         <div class="forHeight">
                             {{-- @foreach (json_decode($products->images) as $key => $photo) --}}
-                                <img class="object-fit-cover card-img rounded-5"
-                                    src="{{ asset("storage/app/public/product/thumbnail/$products->thumbnail") }}  " alt="Flash Sale"
-                                    width="100%" height="100%" />
+                            <img class="object-fit-cover card-img rounded-5"
+                                src="{{ asset("storage/app/public/product/thumbnail/$products->thumbnail") }}  "
+                                alt="Flash Sale" width="100%" height="100%" />
                             {{-- @endforeach --}}
                         </div>
                         <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">

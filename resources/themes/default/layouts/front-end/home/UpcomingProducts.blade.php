@@ -1,7 +1,7 @@
 <div class="sub-contain">
     <div class="row">
         <div class="col-12 d-flex justify-content-between align-items-center">
-            <h1 class="textClr m-0">Upcoming</h1>
+            <h1 class="textClr m-0 pb-1">Upcomings</h1>
             <a class="d-flex align-items-center text-dark" href="{{ route('product-list') }}">
                 <h5 class="m-0">See All</h5>
             </a>
@@ -12,62 +12,63 @@
             @foreach ($products as $prod)
                 <div class="col-md-6 col-lg-3 mb-4">
                     <a class="text-decoration-none" target="_blank" href="{{ route('product-detail', $prod->id) }}">
-                    <div class="sub-card rounded-3 p-4">
-                        <div class="card1">
-                            <div class="first-sec card1">
-                                <div class="image-container">
-                                    <div class="imgCon">
-                                        {{-- @foreach (json_decode($prod->images) as $key => $photo) --}}
+                        <div class="sub-card rounded-3 p-4">
+                            <div class="card1">
+                                <div class="first-sec card1">
+                                    <div class="image-container">
+                                        <div class="imgCon">
+                                            {{-- @foreach (json_decode($prod->images) as $key => $photo) --}}
                                             <img class="object-fit-cover rounded-3"
-                                                src="{{ asset("storage/app/public/product/thumbnail/$prod->thumbnail") }}" alt=""
-                                                class="img-fluid" width="100%" height="100%">
-                                        {{-- @endforeach --}}
-                                    </div>
-                                    <div class="sec-best-seller mt-3">
-                                        <p>Best Seller</p>
-                                    </div>
-                                    <div class="wish-list mt-3 me-2">
-                                        <button id="wishlist-btn" class="p-0 bg-transparent rounded-circle forBorder">
-                                            <i class="bi bi-heart text-danger"></i>
-                                            {{-- <i
+                                                src="{{ asset("storage/app/public/product/thumbnail/$prod->thumbnail") }}"
+                                                alt="" class="img-fluid" width="100%" height="100%">
+                                            {{-- @endforeach --}}
+                                        </div>
+                                        <div class="sec-best-seller mt-3">
+                                            <p>Best Seller</p>
+                                        </div>
+                                        <div class="wish-list mt-3 me-2">
+                                            <button id="wishlist-btn"
+                                                class="p-0 bg-transparent rounded-circle forBorder">
+                                                <i class="bi bi-heart text-danger"></i>
+                                                {{-- <i
                                     class="bi {{ in_array($product->id, $wishlistProducts) ? 'bi-heart-fill' : 'bi-heart' }} text-danger"></i> --}}
-                                        </button>
-                                    </div>
-                                    {{-- <div class="wish-list mt-3 me-2">
+                                            </button>
+                                        </div>
+                                        {{-- <div class="wish-list mt-3 me-2">
                                         <a href=""><img src="{{ asset('public/images/heart.svg') }}"
                                                 alt=""></a>
                                     </div> --}}
-                                    <p class="card-text mt-3" id="productDescription">
-                                        @if (strlen($prod->name) <= 20)
-                                            {{ $prod->name }}
-                                        @else
-                                            {{ substr($prod->name, 0, 20) }}<span id="dots"> ....</span>
-                                        @endif
-                                    </p>
-                                    <div class="d-flex">
-                                        <h6 class="card-text price">Rs.
-                                            {{ $prod->unit_price - ($prod->unit_price * $prod->discount) / 100 }}
-                                        </h6>
-                                        {{-- <p class="bg-primary rounded-pill ps-2 pe-2 ms-2 text-white units">141 Solds
+                                        <p class="card-text mt-3" id="productDescription">
+                                            @if (strlen($prod->name) <= 20)
+                                                {{ $prod->name }}
+                                            @else
+                                                {{ substr($prod->name, 0, 20) }}<span id="dots"> ....</span>
+                                            @endif
+                                        </p>
+                                        <div class="d-flex">
+                                            <h6 class="card-text price">Rs.
+                                                {{ $prod->unit_price - ($prod->unit_price * $prod->discount) / 100 }}
+                                            </h6>
+                                            {{-- <p class="bg-primary rounded-pill ps-2 pe-2 ms-2 text-white units">141 Solds
                                         </p> --}}
-                                    </div>
-                                    <p class="card-text"><span class="discount">Rs. {{ $prod->unit_price }}</span> <span
-                                            class="text-success">-{{ $prod->discount }}% Off</span></p>
-                                    <div class="subdiv d-flex justify-content-between">
-                                        <a href="#">Standard Delivery</a>
-                                        @foreach ($prod->reviews as $reviews)
-                                            <p class="rounded-pill text-white">{{ $reviews }} <img
-                                                    src="{{ asset('public/images/star.svg') }}" alt=""></p>
-                                        @endforeach
+                                        </div>
+                                        <p class="card-text"><span class="discount">Rs. {{ $prod->unit_price }}</span>
+                                            <span class="text-success">-{{ $prod->discount }}% Off</span></p>
+                                        <div class="subdiv d-flex justify-content-between">
+                                            <a href="#">Standard Delivery</a>
+                                            @foreach ($prod->reviews as $reviews)
+                                                <p class="rounded-pill text-white">{{ $reviews }} <img
+                                                        src="{{ asset('public/images/star.svg') }}" alt=""></p>
+                                            @endforeach
 
-                                        <h5>({{ $prod->reviews_count }})</h5>
-                                    </div>
+                                            <h5>({{ $prod->reviews_count }})</h5>
+                                        </div>
 
+                                    </div>
                                 </div>
                             </div>
-                        </div>
 
-                    </div>
+                        </div>
                     </a>
                 </div>
             @endforeach
@@ -75,7 +76,7 @@
         </div>
     </div>
 </div>
-    {{-- <div class="sub-contain">
+{{-- <div class="sub-contain">
     <div class="row">
         <div class="col-12 d-flex justify-content-between">
             <h1 class="textClr">{{ $data->pageSectionHeading->heading }}</h1>

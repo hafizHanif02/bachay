@@ -34,129 +34,349 @@ class CartController extends Controller
 {
     public function cart_address()
     {
-        
-        $home_categories = Category::where('home_status', true)->priority()->get();
-            $home_categories->map(function ($data) {
-                $id = '"' . $data['id'] . '"';
-                // $data['products'] = Product::active()
-                //     ->where('category_ids', 'like', "%{$id}%")
-                //     ->inRandomOrder()->take(12)->get();
-            });
-            
-            if(Auth::guard('customer')->user()){
-                $myCartProducts = Cart::where('customer_id',Auth::guard('customer')->user()->id)->with('product')->get();
-            }else{
-                return redirect()->back()->with(['message'=> 'Login First', 'status'=> 0]);
-            }
-            
-            
 
-            if($myCartProducts->isNotEmpty()){
-                $cartGroupIds = Cart::where('customer_id', Auth::guard('customer')->user()->id)
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            // $data['products'] = Product::active()
+            //     ->where('category_ids', 'like', "%{$id}%")
+            //     ->inRandomOrder()->take(12)->get();
+        });
+
+        if (Auth::guard('customer')->user()) {
+            $myCartProducts = Cart::where('customer_id', Auth::guard('customer')->user()->id)->with('product')->get();
+        } else {
+            return redirect()->back()->with(['message' => 'Login First', 'status' => 0]);
+        }
+
+
+
+        if ($myCartProducts->isNotEmpty()) {
+            $cartGroupIds = Cart::where('customer_id', Auth::guard('customer')->user()->id)
                 ->first()
                 ->pluck('cart_group_id');
-                $cartGroupId = $cartGroupIds[0];
-            }
-            else{
-                $cartGroupId = 0;
-            }
+            $cartGroupId = $cartGroupIds[0];
+        } else {
+            $cartGroupId = 0;
+        }
 
-            $total_product_price = Cart::where('customer_id', Auth::guard('customer')->user()->id)
+        $total_product_price = Cart::where('customer_id', Auth::guard('customer')->user()->id)
             ->with('product')
             ->sum('price');
-            $totalDiscount = Cart::where('customer_id', Auth::guard('customer')->user()->id)
+        $totalDiscount = Cart::where('customer_id', Auth::guard('customer')->user()->id)
             ->with('product')
             ->selectRaw('SUM(price * discount / 100) as total_discount')
             ->first()
             ->total_discount;
 
 
-        $userData = DB::table('users')->where('id',Auth::guard('customer')->user()->id)->first();
-        $shippingAddress = DB::table('shipping_addresses')->where('customer_id',Auth::guard('customer')->user()->id)->first();
+        $userData = DB::table('users')->where('id', Auth::guard('customer')->user()->id)->first();
+        $shippingAddress = DB::table('shipping_addresses')->where('customer_id', Auth::guard('customer')->user()->id)->first();
         // dd($userData);
+        if (isset($request->filter) && isset($request->filterprice)) {
+            $brandIds = [];
+            $shippings = [];
+            $colors = [];
+            $tag = [];
 
 
-        return view(VIEW_FILE_NAMES['my-cart-address'],(compact('cartGroupId','shippingAddress','totalDiscount','total_product_price','myCartProducts','home_categories')));
+            foreach ($request->filter as $tagFilter) {
+                if (isset($tagFilter['tag'])) {
+                    if (is_array($tagFilter['tag'])) {
+                        $tag = array_merge($tag, $tagFilter['tag']);
+                    } else {
+                        $tag[] = $tagFilter['tag'];
+                    }
+                }
+            }
 
+
+            foreach ($request->filter as $colorFilter) {
+                if (isset($colorFilter['color'])) {
+                    if (is_array($colorFilter['color'])) {
+                        $colors = array_merge($colors, $colorFilter['color']);
+                    } else {
+                        $colors[] = $colorFilter['color'];
+                    }
+                }
+            }
+
+
+
+
+
+
+            foreach ($request->filter as $filter) {
+                if (isset($filter['brand_id'])) {
+                    if (is_array($filter['brand_id'])) {
+                        $brandIds = array_merge($brandIds, $filter['brand_id']);
+                    } else {
+                        $brandIds[] = $filter['brand_id'];
+                    }
+                }
+
+                if (isset($filter['free_shipping'])) {
+                    if (is_array($filter['free_shipping'])) {
+                        $shippings = array_merge($shippings, $filter['free_shipping']);
+                    } else {
+                        $shippings[] = $filter['free_shipping'];
+                    }
+                }
+            }
+
+            $max_price = intval(explode("-", $request->filterprice)[1]);
+            $min_price = intval(explode("-", $request->filterprice)[0]);
+
+            if (!empty($shippings) && !empty($brandIds) && !empty($colors) && !empty($tag)) {
+                $products = Product::whereIn('brand_id', $brandIds)
+                    ->whereIn('free_shipping', $shippings)
+                    ->whereJsonContains('colors', $colors)
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->where(function ($query) use ($tag) {
+                        foreach ($tag as $tagValue) {
+                            $data =  $query->orWhereJsonContains('choice_options', ['title' => $tagValue]);
+                        }
+                    })
+                    ->with(['reviews', 'brand'])
+                    ->get();
+            } elseif (!empty($shippings) && !empty($brandIds) && empty($colors) && !empty($tag)) {
+                $products = Product::whereIn('free_shipping', $shippings)
+                    ->whereIn('brand_id', $brandIds)
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->where(function ($query) use ($tag) {
+                        foreach ($tag as $tagValue) {
+                            $data =  $query->orWhereJsonContains('choice_options', ['title' => $tagValue]);
+                        }
+                    })
+                    ->with(['reviews', 'brand'])
+                    ->get();
+            } elseif (!empty($shippings) && !empty($brandIds) && empty($colors) && empty($tag)) {
+                $products = Product::whereIn('brand_id', $brandIds)
+                    ->whereIn('free_shipping', $shippings)
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->with(['reviews', 'brand'])->get();
+            } elseif (!empty($shippings) && empty($brandIds) && !empty($colors) && !empty($tag)) {
+                $products = Product::whereIn('free_shipping', $shippings)
+                    ->whereJsonContains('colors', $colors)
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->where(function ($query) use ($tag) {
+                        foreach ($tag as $tagValue) {
+                            $data =  $query->orWhereJsonContains('choice_options', ['title' => $tagValue]);
+                        }
+                    })
+                    ->with(['reviews', 'brand'])
+                    ->get();
+            } elseif (!empty($shippings) && empty($brandIds) && !empty($colors) && empty($tag)) {
+                $products = Product::whereIn('free_shipping', $shippings)
+                    ->whereJsonContains('colors', $colors)
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->with(['reviews', 'brand'])->get();
+            } elseif (!empty($shippings) && empty($brandIds) && empty($colors) && empty($tag)) {
+                $products = Product::whereIn('free_shipping', $shippings)
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->with(['reviews', 'brand'])->get();
+            } elseif (empty($shippings) && !empty($brandIds) && !empty($colors) && !empty($tag)) {
+                $products = Product::whereIn('brand_id', $brandIds)
+                    ->whereJsonContains('colors', $colors)
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->where(function ($query) use ($tag) {
+                        foreach ($tag as $tagValue) {
+                            $data =  $query->orWhereJsonContains('choice_options', ['title' => $tagValue]);
+                        }
+                    })
+                    ->with(['reviews', 'brand'])->get();
+            } elseif (empty($shippings) && !empty($brandIds) && !empty($colors) && empty($tag)) {
+                $products = Product::whereIn('brand_id', $brandIds)
+                    ->whereJsonContains('colors', $colors)
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->with(['reviews', 'brand'])->get();
+            } elseif (empty($shippings) && !empty($brandIds) && empty($colors) && !empty($tag)) {
+                $products = Product::whereIn('brand_id', $brandIds)
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->where(function ($query) use ($tag) {
+                        foreach ($tag as $tagValue) {
+                            $data =  $query->orWhereJsonContains('choice_options', ['title' => $tagValue]);
+                        }
+                    })
+                    ->with(['reviews', 'brand'])->get();
+            } elseif (empty($shippings) && !empty($brandIds) && empty($colors) && empty($tag)) {
+                $products = Product::whereIn('brand_id', $brandIds)
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->with(['reviews', 'brand'])->get();
+            } elseif (empty($shippings) && !empty($brandIds) && !empty($colors) && !empty($tag)) {
+                $products = Product::whereIn('brand_id', $brandIds)
+                    ->whereJsonContains('colors', $colors)
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->where(function ($query) use ($tag) {
+                        foreach ($tag as $tagValue) {
+                            $data =  $query->orWhereJsonContains('choice_options', ['title' => $tagValue]);
+                        }
+                    })
+                    ->with(['reviews', 'brand'])->get();
+            } elseif (empty($shippings) && !empty($brandIds) && !empty($colors) && empty($tag)) {
+                $products = Product::whereIn('brand_id', $brandIds)
+                    ->whereJsonContains('colors', $colors)
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->with(['reviews', 'brand'])->get();
+            } elseif (empty($shippings) && empty($brandIds) && !empty($colors) && !empty($tag)) {
+                $products = Product::whereIn('brand_id', $brandIds)
+                    ->whereJsonContains('colors', $colors)
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->where(function ($query) use ($tag) {
+                        foreach ($tag as $tagValue) {
+                            $data =  $query->orWhereJsonContains('choice_options', ['title' => $tagValue]);
+                        }
+                    })
+                    ->with(['reviews', 'brand'])->get();
+            } elseif (empty($shippings) && empty($brandIds) && !empty($colors) && empty($tag)) {
+                $products = Product::whereJsonContains('colors', $colors)
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->with(['reviews', 'brand'])->get();
+            } elseif (empty($shippings) && empty($brandIds) && empty($colors) && !empty($tag)) {
+                $products = Product::where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->where(function ($query) use ($tag) {
+                        foreach ($tag as $tagValue) {
+                            $data =  $query->orWhereJsonContains('choice_options', ['title' => $tagValue]);
+                        }
+                    })
+                    ->with(['reviews', 'brand'])->get();
+            } else {
+                $products = Product::where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->with(['reviews', 'brand'])->get();
+            }
+        } elseif (isset($request->filter)) {
+            $brandIds = [];
+
+            foreach ($request->filter as $filter) {
+                if (is_array($filter['brand_id'])) {
+                    $brandIds = array_merge($brandIds, $filter['brand_id']);
+                } else {
+                    $brandIds[] = $filter['brand_id'];
+                }
+            }
+            $products = Product::whereIn('brand_id', $brandIds)
+                ->with(['reviews', 'brand'])->active()->orderBy('id')->get();
+        } elseif (isset($request->filterprice)) {
+            $max_price = intval(explode("-", $request->filterprice)[1]);
+            $min_price = intval(explode("-", $request->filterprice)[0]);
+
+            $products = Product::where('unit_price', '>=', $min_price)
+                ->where('unit_price', '<=', $max_price)
+                ->with(['reviews', 'brand'])->get();
+        } else {
+            $products = Product::with(['reviews', 'brand', 'tags'])->active()->orderBy('id')->get();
+
+            // dd($products);
+        }
+
+        $color = [
+            'Red',
+            'Blue',
+            'Purple',
+            'White',
+            'Black',
+            'Aqua',
+            'Amethyst'
+        ];
+
+        // $brands = Brand::get();
+        $colors = Color::whereIn('name', $color)->get();
+        $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
+
+
+
+        return view(VIEW_FILE_NAMES['my-cart-address'], (compact('products', 'cartGroupId', 'shippingAddress', 'totalDiscount', 'total_product_price', 'myCartProducts', 'home_categories')));
     }
 
 
 
-    public function add_cart(Request $request){
+    public function add_cart(Request $request)
+    {
 
         $existingCart = Cart::where('customer_id', $request->customer_id)
-                        ->where('product_id', $request->product_id)
-                        ->first();
+            ->where('product_id', $request->product_id)
+            ->first();
 
-    if ($existingCart) {
-        $existingCart->update([
-            'price' => $request->price,
-            'discount' => $request->discount,
-            'color'=>$request->color,
-            'variant'=>$request->variant,
-        ]);
-    } else {
-        Cart::create([
-            'product_id' => $request->product_id,
-            'customer_id' => $request->customer_id,
-            'name'=> $request->name,
-            'price' => $request->price,
-            'discount' => $request->discount,
-            'tax' => (($request->tax!=null)?$request->tax:0),
-            'thumbnail'=> $request->thumbnail,
-            'color'=>$request->color,
-            'variant'=>$request->variant,
-            'slug' => $request->slug,
-            'shipping_cost' => $request->shipping_cost,
-        ]);
-    }
+        if ($existingCart) {
+            $existingCart->update([
+                'price' => $request->price,
+                'discount' => $request->discount,
+                'color' => $request->color,
+                'variant' => $request->variant,
+            ]);
+        } else {
+            Cart::create([
+                'product_id' => $request->product_id,
+                'customer_id' => $request->customer_id,
+                'name' => $request->name,
+                'price' => $request->price,
+                'discount' => $request->discount,
+                'tax' => (($request->tax != null) ? $request->tax : 0),
+                'thumbnail' => $request->thumbnail,
+                'color' => $request->color,
+                'variant' => $request->variant,
+                'slug' => $request->slug,
+                'shipping_cost' => $request->shipping_cost,
+            ]);
+        }
 
         return redirect()->back()->with('message', 'Product Has Been Added to Cart !');
-
     }
 
     public function cart_added()
     {
         $home_categories = Category::where('home_status', true)->priority()->get();
-            $home_categories->map(function ($data) {
-                $id = '"' . $data['id'] . '"';
-                $data['products'] = Product::active()
-                    ->where('category_ids', 'like', "%{$id}%")
-                    ->inRandomOrder()->take(12)->get();
-            });
-        return view(VIEW_FILE_NAMES['my-cart-added'],(compact('home_categories')));
-
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['my-cart-added'], (compact('home_categories')));
     }
     public function add_payment()
     {
         $home_categories = Category::where('home_status', true)->priority()->get();
-            $home_categories->map(function ($data) {
-                $id = '"' . $data['id'] . '"';
-                $data['products'] = Product::active()
-                    ->where('category_ids', 'like', "%{$id}%")
-                    ->inRandomOrder()->take(12)->get();
-            });
-        return view(VIEW_FILE_NAMES['add-payment'],(compact('home_categories')));
-
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['add-payment'], (compact('home_categories')));
     }
 
     public function my_shortlist()
     {
         $home_categories = Category::where('home_status', true)->priority()->get();
-            $home_categories->map(function ($data) {
-                $id = '"' . $data['id'] . '"';
-                $data['products'] = Product::active()
-                    ->where('category_ids', 'like', "%{$id}%")
-                    ->inRandomOrder()->take(12)->get();
-            });
-        return view(VIEW_FILE_NAMES['my-shortlist'],(compact('home_categories')));
-
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
+        return view(VIEW_FILE_NAMES['my-shortlist'], (compact('home_categories')));
     }
     public function __construct(
         private OrderDetail $order_details,
         private Product $product,
     ) {
-
     }
     public function variant_price(Request $request)
     {
@@ -182,7 +402,7 @@ class CartController extends Controller
             $count = count(json_decode($product->variation));
             for ($i = 0; $i < $count; $i++) {
                 if (json_decode($product->variation)[$i]->type == $str) {
-                    $tax = $product->tax_model=='exclude' ? Helpers::tax_calculation(json_decode($product->variation)[$i]->price, $product['tax'], $product['tax_type']):0;
+                    $tax = $product->tax_model == 'exclude' ? Helpers::tax_calculation(json_decode($product->variation)[$i]->price, $product['tax'], $product['tax_type']) : 0;
                     $update_tax = $tax * $request->quantity;
                     $discount = Helpers::get_product_discount($product, json_decode($product->variation)[$i]->price);
                     $price = json_decode($product->variation)[$i]->price - $discount + $tax;
@@ -191,7 +411,7 @@ class CartController extends Controller
                 }
             }
         } else {
-            $tax = $product->tax_model=='exclude' ? Helpers::tax_calculation($product->unit_price, $product['tax'], $product['tax_type']) : 0;
+            $tax = $product->tax_model == 'exclude' ? Helpers::tax_calculation($product->unit_price, $product['tax'], $product['tax_type']) : 0;
             $update_tax = $tax * $request->quantity;
             $discount = Helpers::get_product_discount($product, $product->unit_price);
             $price = $product->unit_price - $discount + $tax;
@@ -202,11 +422,11 @@ class CartController extends Controller
         $delivery_info = [];
 
         $stock_limit = 0;
-        if(theme_root_path() == 'theme_fashion') {
+        if (theme_root_path() == 'theme_fashion') {
             $delivery_info = ProductManager::get_products_delivery_charge($product, $request->quantity);
-            $stock_limit=\App\Model\BusinessSetting::where('type','stock_limit')->first()->value;
+            $stock_limit = \App\Model\BusinessSetting::where('type', 'stock_limit')->first()->value;
             if ($request->has('color')) {
-                $color_name = Color::where(['code'=>$request->color])->first()->name;
+                $color_name = Color::where(['code' => $request->color])->first()->name;
             }
         }
 
@@ -214,14 +434,14 @@ class CartController extends Controller
             'price' => \App\CPU\Helpers::currency_converter($price * $request->quantity),
             'discount' => \App\CPU\Helpers::currency_converter($discount),
             'discount_amount' => $discount,
-            'tax' => $product->tax_model=='exclude' ? \App\CPU\Helpers::currency_converter($tax) : 'incl.',
-            'update_tax' => $product->tax_model=='exclude' ? \App\CPU\Helpers::currency_converter($update_tax) : 'incl.', // for others theme
+            'tax' => $product->tax_model == 'exclude' ? \App\CPU\Helpers::currency_converter($tax) : 'incl.',
+            'update_tax' => $product->tax_model == 'exclude' ? \App\CPU\Helpers::currency_converter($update_tax) : 'incl.', // for others theme
             'quantity' => $product['product_type'] == 'physical' ? $quantity : 100,
-            'delivery_cost' => isset($delivery_info['delivery_cost']) ? \App\CPU\Helpers::currency_converter($delivery_info['delivery_cost']):0,
-            'unit_price'=>\App\CPU\Helpers::currency_converter($price), //fasion theme
-            'total_unit_price'=>\App\CPU\Helpers::currency_converter($unit_price), //fasion theme
-            'color_name'=>$color_name,
-            'stock_limit'=>$stock_limit,
+            'delivery_cost' => isset($delivery_info['delivery_cost']) ? \App\CPU\Helpers::currency_converter($delivery_info['delivery_cost']) : 0,
+            'unit_price' => \App\CPU\Helpers::currency_converter($price), //fasion theme
+            'total_unit_price' => \App\CPU\Helpers::currency_converter($unit_price), //fasion theme
+            'color_name' => $color_name,
+            'stock_limit' => $stock_limit,
 
         ];
     }
@@ -229,8 +449,8 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         $cart = CartManager::add_to_cart($request);
-        if($cart['message'] == 'Out of stock!'){
-        return redirect()->back()->with(['message'=> 'Product is Out of Stock!', 'status'=> 0]);
+        if ($cart['message'] == 'Out of stock!') {
+            return redirect()->back()->with(['message' => 'Product is Out of Stock!', 'status' => 0]);
         }
         session()->forget('coupon_code');
         session()->forget('coupon_type');
@@ -238,7 +458,7 @@ class CartController extends Controller
         session()->forget('coupon_discount');
         session()->forget('coupon_seller_id');
         // return response()->json($cart);
-        return redirect()->back()->with(['message'=> 'Product Has Been Added to Cart !', 'status'=> 1]);
+        return redirect()->back()->with(['message' => 'Product Has Been Added to Cart !', 'status' => 1]);
     }
 
     public function updateNavCart()
@@ -276,7 +496,7 @@ class CartController extends Controller
         session()->forget('order_note');
 
         // return response()->json(['data' => view(VIEW_FILE_NAMES['products_cart_details_partials'], compact('request'))->render(), 'message'=>translate('Item_has_been_removed_from_cart')]);
-        return redirect()->back()->with(['message'=> 'Product has Been Removed from Cart', 'status'=> 1]);
+        return redirect()->back()->with(['message' => 'Product has Been Removed from Cart', 'status' => 1]);
     }
 
     //updated the quantity for a cart item
@@ -299,9 +519,9 @@ class CartController extends Controller
     //updated the quantity for a cart item
     public function updateQuantity_guest(Request $request)
     {
-        $sub_total=0;
+        $sub_total = 0;
         $response = CartManager::update_cart_qty($request);
-        $cart=CartManager::get_cart();
+        $cart = CartManager::get_cart();
         session()->forget('coupon_code');
         session()->forget('coupon_type');
         session()->forget('coupon_bearer');
@@ -309,45 +529,45 @@ class CartController extends Controller
         session()->forget('coupon_seller_id');
 
         $product = Cart::find($request->key);
-        $quantity_price = Helpers::currency_converter($product['price']*(int)$product['quantity']);
-        $discount_price = Helpers::currency_converter(($product['price']-$product['discount'])*(int)$product['quantity']);
+        $quantity_price = Helpers::currency_converter($product['price'] * (int)$product['quantity']);
+        $discount_price = Helpers::currency_converter(($product['price'] - $product['discount']) * (int)$product['quantity']);
         $total_discount = 0;
-        foreach($cart as $cartItem)
-        {
-            $sub_total+=($cartItem['price']-$cartItem['discount'])*$cartItem['quantity'];
-            $total_discount+=$cartItem['discount']*$cartItem['quantity'];
+        foreach ($cart as $cartItem) {
+            $sub_total += ($cartItem['price'] - $cartItem['discount']) * $cartItem['quantity'];
+            $total_discount += $cartItem['discount'] * $cartItem['quantity'];
         }
         $total_price = Helpers::currency_converter($sub_total);
         $total_discount_price = Helpers::currency_converter($total_discount);
 
         if ($response['status'] == 0) {
             return response()->json([
-                'status'=>$response['status'],
-                'message'=> $response['message'],
-                'qty'=>$response['status'] == 0 ? $response['qty']:$request->quantity,
+                'status' => $response['status'],
+                'message' => $response['message'],
+                'qty' => $response['status'] == 0 ? $response['qty'] : $request->quantity,
             ]);
         }
         /** for default theme nav cart ,showing free delivery amount */
         $free_delivery_status = OrderManager::free_delivery_order_amount($cart[0]->cart_group_id);
 
         return response()->json([
-            'status'=>$response['status'],
-            'message'=> translate('successfully_updated!'),
-            'qty'=>$response['status'] == 0 ? $response['qty']:$request->quantity,
-            'total_price'=>$total_price,
-            'discount_price'=>$discount_price,
-            'quantity_price'=>$quantity_price,
-            'total_discount_price'=>$total_discount_price,
-            'free_delivery_status'=>$free_delivery_status,
+            'status' => $response['status'],
+            'message' => translate('successfully_updated!'),
+            'qty' => $response['status'] == 0 ? $response['qty'] : $request->quantity,
+            'total_price' => $total_price,
+            'discount_price' => $discount_price,
+            'quantity_price' => $quantity_price,
+            'total_discount_price' => $total_discount_price,
+            'free_delivery_status' => $free_delivery_status,
         ]);
     }
 
-    public function order_again(Request $request){
+    public function order_again(Request $request)
+    {
         $data = OrderManager::order_again($request);
         $order_product_count = $data['order_product_count'];
         $add_to_cart_count = $data['add_to_cart_count'];
 
-        if($order_product_count == $add_to_cart_count){
+        if ($order_product_count == $add_to_cart_count) {
             session()->forget('coupon_code');
             session()->forget('coupon_type');
             session()->forget('coupon_bearer');
@@ -362,34 +582,33 @@ class CartController extends Controller
                     'redirect_url' => route('shop-cart'),
                     'message' => translate('added_to_cart_successfully!')
                 ];
-            }else{
+            } else {
                 return response()->json(['message' => 'Added to cart successfully'], 200);
             }
-        }elseif($add_to_cart_count>0){
+        } elseif ($add_to_cart_count > 0) {
             if (auth('customer')->check()) {
                 return [
                     'status' => 1,
                     'redirect_url' => route('shop-cart'),
-                    'message' => translate($add_to_cart_count.'_item_added_to_cart_successfully!')
+                    'message' => translate($add_to_cart_count . '_item_added_to_cart_successfully!')
                 ];
-            }else{
-                return response()->json(['message' => $add_to_cart_count.' item added to cart successfully!'], 200);
+            } else {
+                return response()->json(['message' => $add_to_cart_count . ' item added to cart successfully!'], 200);
             }
-
-        }{
+        } {
             if (auth('customer')->check()) {
                 return [
                     'status' => 0,
                     'message' => translate('all_items_were_not_added_to_cart_as_they_are_currently_unavailable_for_purchase!')
                 ];
-            }else{
+            } else {
                 return response()->json(['message' => 'All items were not added to cart as they are currently unavailable for purchase'], 403);
             }
-
         }
     }
 
-    function update_variation(Request $request){
+    function update_variation(Request $request)
+    {
         $product = Product::find($request->product_id);
         $user = Helpers::get_customer($request);
         $str = '';
@@ -418,14 +637,14 @@ class CartController extends Controller
             $count = count(json_decode($product->variation));
             for ($i = 0; $i < $count; $i++) {
                 if (json_decode($product->variation)[$i]->type == $str) {
-                    $tax = $product->tax_model=='exclude' ? Helpers::tax_calculation(json_decode($product->variation)[$i]->price, $product['tax'], $product['tax_type']):0;
+                    $tax = $product->tax_model == 'exclude' ? Helpers::tax_calculation(json_decode($product->variation)[$i]->price, $product['tax'], $product['tax_type']) : 0;
                     $discount = Helpers::get_product_discount($product, json_decode($product->variation)[$i]->price);
                     $price = json_decode($product->variation)[$i]->price - $discount + $tax;
                     $quantity = json_decode($product->variation)[$i]->qty;
                 }
             }
         } else {
-            $tax = $product->tax_model=='exclude' ? Helpers::tax_calculation($product->unit_price, $product['tax'], $product['tax_type']) : 0;
+            $tax = $product->tax_model == 'exclude' ? Helpers::tax_calculation($product->unit_price, $product['tax'], $product['tax_type']) : 0;
             $discount = Helpers::get_product_discount($product, $product->unit_price);
             $price = $product->unit_price - $discount + $tax;
             $quantity = $product->current_stock;
@@ -471,7 +690,7 @@ class CartController extends Controller
                 'status' => 1,
                 'message' => translate('successfully_added!'),
                 'price' => \App\CPU\Helpers::currency_converter($price),
-                'discount' => \App\CPU\Helpers::currency_converter($discount*$request['quantity']),
+                'discount' => \App\CPU\Helpers::currency_converter($discount * $request['quantity']),
                 'data' => view(VIEW_FILE_NAMES['products_cart_details_partials'], compact('request'))->render()
             ];
         } else {
@@ -481,11 +700,12 @@ class CartController extends Controller
             ];
         }
     }
-    public function remove_all_cart(){
+    public function remove_all_cart()
+    {
         $user = Helpers::get_customer();
 
         Cart::where([
-            'customer_id'=> ($user == 'offline' ? session('guest_id') : auth('customer')->id()),
+            'customer_id' => ($user == 'offline' ? session('guest_id') : auth('customer')->id()),
             'is_guest' => ($user == 'offline' ? 1 : '0'),
         ])->delete();
         return redirect()->back();
