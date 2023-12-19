@@ -35,7 +35,7 @@
                             @enderror
                             <br>
                             <div class="form-group d-flex justify-content-center">
-                                <button class="rounded-pill text-white" type="submit">Update</button>
+                                <button class="rounded-pill text-white w-100" type="submit">Update</button>
                             </div>
                         </form>
                     </div>
