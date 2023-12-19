@@ -51,14 +51,13 @@ class CustomerController extends Controller
     }
 
     public function AddAdress(Request $request){
+        if(Auth::check()){
             $validator = Validator::make($request->all(), [
-                'customer_id' => 'required',
-                // 'is_default' => 'required',
+                'contact_person_name' => 'required',
                 'address_type' => 'required',
-                'apartment_no' => 'nullable|required_without:house_no',
-                'house_no' => 'nullable|required_without:apartment_no',
+                'appartment_no' => 'nullable|required_without:house_no',
+                'house_no' => 'nullable|required_without:appartment_no',
                 'street_address' => 'required',
-                // 'landmark' => 'required',
                 'city' => 'required',
                 'state' => 'required',
                 'zip' => 'required',
@@ -71,15 +70,17 @@ class CustomerController extends Controller
                 return response()->json(['errors' => Helpers::error_processor($validator)], 403);
             }
             else{
-            $customer_data = DB::table('users')->where('id', $request->customer_id)->first();
+            $customer_data = DB::table('users')->where('id', Auth::user()->id)->first();
             if($customer_data){
                 DB::table('shipping_addresses')->insert([
-                    'customer_id' => $request->customer_id,
-                    'contact_person_name' => $customer_data->f_name.' '.$customer_data->l_name,
+                    'customer_id' => $customer_data->id,
+                    'contact_person_name' => ($request->contact_person_name) ? $request->contact_person_name : ($customer_data->f_name.' '.$customer_data->l_name),
                     'email' => $customer_data->email,
                     'address_type' => $request->address_type,
-                    'address' => ($request->apartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').' '.($request->city ?? '').', '.($request->state ?? '').' '.($request->country ?? ''),
+                    'address' => ($request->appartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').' '.($request->city ?? '').', '.($request->state ?? '').' '.($request->country ?? ''),
                     'is_default' => 0,
+                    'appartment_no' => $request->appartment_no,  
+                    'street_address' => $request->street_address,  
                     'city' => $request->city,
                     'zip' => $request->zip,
                     'phone' => $request->phone,
@@ -92,7 +93,7 @@ class CustomerController extends Controller
                         'country' => $request->country,
                         'zip' => $request->zip,
                         'house_no' => $request->house_no,
-                        'apartment_no' => $request->apartment_no,
+                        'apartment_no' => $request->appartment_no,
                         'city' => $request->city,
                     ]);
                 }
@@ -100,6 +101,9 @@ class CustomerController extends Controller
             }else{
                 return response()->json(['message' => 'Customer not found'], 404);
             }
+        }
+        }else{
+            return response()->json(['message' => 'Please Login First'], 404);
         }
     } 
 
@@ -202,31 +206,38 @@ class CustomerController extends Controller
 
 
     public function UpdateAdress(Request $request){
-        DB::table('shipping_addresses')->where('id' , $request->id)->update([
-            'customer_id' => $request->customer_id,
-            'contact_person_name' => $request->contact_person_name,
-            'email' => $request->email,
-            'address_type' => $request->address_type,
-            'address' => ($request->apartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').' '.($request->city ?? '').', '.($request->state ?? '').' '.($request->country ?? ''),
-            'is_default' => $request->is_default,
-            'city' => $request->city,
-            'zip' => $request->zip,
-            'phone' => $request->phone,
-            'state' => $request->state,
-            'country' => $request->country,
-        ]);
-        if($request->is_default == 1){
-            DB::table('users')->where('id', $request->customer_id)->update([
-                'street_address' => $request->street_address,
-                'country' => $request->country,
-                'zip' => $request->zip,
-                'house_no' => $request->house_no,
-                'apartment_no' => $request->apartment_no,
+        if(Auth::check()){
+            DB::table('shipping_addresses')->where('id' , $request->id)->update([
+                'customer_id' => Auth::user()->id,
+                'contact_person_name' => $request->contact_person_name,
+                'email' => $request->email,
+                'address_type' => $request->address_type,
+                'address' => ($request->apartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').' '.($request->city ?? '').', '.($request->state ?? '').' '.($request->country ?? ''),
+                'is_default' => $request->is_default,
+                'appartment_no' => $request->appartment_no,  
+                'street_address' => $request->street_address, 
                 'city' => $request->city,
+                'zip' => $request->zip,
+                'phone' => $request->phone,
+                'state' => $request->state,
+                'country' => $request->country,
             ]);
+            if($request->is_default == 1){
+                DB::table('users')->where('id', $request->customer_id)->update([
+                    'street_address' => $request->street_address,
+                    'country' => $request->country,
+                    'zip' => $request->zip,
+                    'house_no' => $request->house_no,
+                    'apartment_no' => $request->apartment_no,
+                    'city' => $request->city,
+                ]);
+            }
+            return response()->json(['message' => 'Address Has Been Updated'], 404);
+        } else {
+            return response()->json(['message' => 'Please Login First'], 404);
         }
-        return response()->json(['message' => 'Address Has Been Updated'], 404);
     }
+    
 
     public function DeleteAddress($id, $customer_id)
     {
