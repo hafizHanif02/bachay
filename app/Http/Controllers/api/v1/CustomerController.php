@@ -228,7 +228,7 @@ class CustomerController extends Controller
                     'country' => $request->country,
                     'zip' => $request->zip,
                     'house_no' => $request->house_no,
-                    'apartment_no' => $request->apartment_no,
+                    'apartment_no' => $request->appartment_no,
                     'city' => $request->city,
                 ]);
             }

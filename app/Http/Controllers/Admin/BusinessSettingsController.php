@@ -196,6 +196,25 @@ class BusinessSettingsController extends Controller
         return view('admin-views.business-settings.article',compact('articles','categories'));
     }
 
+    public function ArticleStatus(Request $request){
+        if($request->status){
+            DB::table('articles')->where('id',$request->id)->update([
+                'status' => $request->status
+            ]);
+        }else{
+            Article::where('id',$request->id)->update([
+                'status' => 0
+            ]);
+        }
+        return redirect()->back();
+    }
+
+    public function ArticleDelete(Request $request){
+        $article = Article::find($request->id);
+        $article->delete();
+        return redirect()->back();
+    }
+
     public function home_layout()
     {
 

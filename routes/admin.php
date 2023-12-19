@@ -532,6 +532,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
                 Route::post('terms-condition', 'BusinessSettingsController@updateTermsCondition')->name('update-terms');
                 Route::get('article', 'BusinessSettingsController@article')->name('article');
                 Route::post('store', 'BusinessSettingsController@ArticleStore')->name('article.store');
+                Route::post('status', 'BusinessSettingsController@ArticleStatus')->name('article.status');
+                Route::post('delete', 'BusinessSettingsController@ArticleDelete')->name('article.delete');
                 Route::post('article', 'BusinessSettingsController@updateArticle')->name('update-article');
                 Route::get('privacy-policy', 'BusinessSettingsController@privacy_policy')->name('privacy-policy');
                 Route::post('privacy-policy', 'BusinessSettingsController@privacy_policy_update')->name('privacy-policy');

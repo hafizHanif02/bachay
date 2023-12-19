@@ -216,6 +216,14 @@ Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('main
         Route::get('order-wise-result-view', 'UserProfileController@track_order_wise_result')->name('order-wise-result-view');
     });
 
+    // Route::group(['prefix' => 'child', 'middleware' => 'auth:api'], function () {
+    //     Route::get('/', 'CustomerController@Mychild');
+    //     Route::post('add-child', 'CustomerController@Addchild');
+    //     Route::get('detail/{id}', 'CustomerController@Detailchild');
+    //     Route::post('update', 'CustomerController@Updatechild');
+    //     Route::delete('delete/{id}', 'CustomerController@Deletechild');  
+    // });
+
     //sellerShop
     Route::get('shopView/{id}', 'ShopViewController@seller_shop')->name('shopView');
     Route::get('ajax-shop-vacation-check', 'ShopViewController@ajax_shop_vacation_check')->name('ajax-shop-vacation-check');//theme fashion

@@ -144,7 +144,7 @@
                                     </td>
                                     <td>{{ $article->category->name}}</td>
                                     <td>
-                                        <form action="" method="post" id="article_status{{$article->id}}_form" class="article_status_form">
+                                        <form action="{{ route('admin.business-settings.article.status') }}" method="post" id="article_status{{$article->id}}_form" class="article_status_form">
                                             @csrf
                                             <input type="hidden" name="id" value="{{$article->id}}">
                                             <label class="switcher mx-auto">
@@ -161,17 +161,21 @@
                                     </td> --}}
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center gap-2">
-                                            <a class="btn btn-outline--primary btn-sm edit square-btn"
+                                            {{-- <a class="btn btn-outline--primary btn-sm edit square-btn"
                                                title="{{translate('edit')}}"
                                                href="">
                                                 <i class="tio-edit"></i>
-                                            </a>
-                                            <a class="btn btn-outline-danger btn-sm delete"
+                                            </a> --}}
+                                            <form action="{{route('admin.business-settings.article.delete')}}" method="post">
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{$article->id}}">
+                                            <button type="submit" class="btn btn-outline-danger btn-sm delete"
                                                title="{{translate('delete')}}"
                                                href="javascript:"
                                                id="{{$article->id}}')">
                                                 <i class="tio-delete"></i>
-                                            </a>
+                                            </button>
+                                            </form>
                                         </div>
                                     </td>
                                 </tr>
