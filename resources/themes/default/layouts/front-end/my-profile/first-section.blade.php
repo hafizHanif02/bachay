@@ -40,9 +40,15 @@
                     </div>
                 </div>
                 <div class="profile-edit">
+                    <button class="font-poppins border-0 bg-transparent" data-bs-toggle="modal"
+                        data-bs-target="#profileModalId"> <img src="{{ asset('public/images/edit-icon.svg') }}"
+                            alt=""> Edit</button>
+                </div>
+                @include('layouts.front-end.my-profile.profile-edit-modal')
+                {{-- <div class="profile-edit">
                     <a class="font-poppins" href=""> <img src="{{ asset('public/images/edit-icon.svg') }}"
                             alt=""> Edit</a>
-                </div>
+                </div> --}}
             </div>
             <div id="contactDetails"
                 class="MyContact mt-5 font-poppins d-flex justify-content-between align-items-center rounded-pill">
@@ -50,9 +56,11 @@
                     My Account
                 </h6>
                 <div class="contact-edit">
-                    <a class="font-poppins me-4" href=""> <img class="cntct-edit"
-                            src="{{ asset('public/images/edit-colored-icon.svg') }}" alt=""> Edit</a>
+                    <button class="font-poppins me-4 border-0 bg-transparent" data-bs-toggle="modal"
+                        data-bs-target="#emailEditModalId"> <img class="cntct-edit"
+                            src="{{ asset('public/images/edit-colored-icon.svg') }}"> Edit</button>
                 </div>
+                @include('layouts.front-end.my-profile.account-edit-modal')
             </div>
             <div class="contact-details col-12 d-flex mt-4">
                 <ul class="font-poppins col-6 mt-4">
@@ -109,7 +117,7 @@
                     
                 </div>
             </div>
-            @include('layouts.front-end.my-profile.child-modal')
+            @include('layouts.front-end.my-profile.add-child-modal')
             <div class=" align-items-center mt-5">
                 <ul class="child-details">
                     <li class="mt-4">
