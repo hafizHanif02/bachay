@@ -40,9 +40,15 @@
                     </div>
                 </div>
                 <div class="profile-edit">
+                    <button class="font-poppins border-0 bg-transparent" data-bs-toggle="modal"
+                        data-bs-target="#profileModalId"> <img src="{{ asset('public/images/edit-icon.svg') }}"
+                            alt=""> Edit</button>
+                </div>
+                @include('layouts.front-end.my-profile.profile-modal')
+                {{-- <div class="profile-edit">
                     <a class="font-poppins" href=""> <img src="{{ asset('public/images/edit-icon.svg') }}"
                             alt=""> Edit</a>
-                </div>
+                </div> --}}
             </div>
             <div id="contactDetails"
                 class="MyContact mt-5 font-poppins d-flex justify-content-between align-items-center rounded-pill">
