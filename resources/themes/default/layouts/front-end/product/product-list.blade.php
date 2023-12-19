@@ -26,7 +26,7 @@
         @foreach ($products as $product)
             {{-- {{ $product->name }} --}}
             <div class="col-md-6 col-lg-3 mb-4 pb-3">
-                <a class="text-decoration-none"  href="{{ route('product-detail', $product->id) }}">
+                <a class="text-decoration-none" href="{{ route('product-detail', $product->id) }}">
                     <div class="rounded-3">
                         <div class="card1">
                             <div class="first-sec card1">
@@ -71,8 +71,11 @@
 
                                     <div class="d-flex justify-content-between for-border-g">
                                         <div class="ratings-reviews d-flex">
-                                            <img class="me-2" src="{{ asset('web/images/vector-star.svg') }}"
+                                            {{-- <img class="me-2" src="{{ asset('web/images/vector-star.svg') }}"
+                                                alt=""> --}}
+                                            <img class="me-2" src="{{ asset('public/images/vector-star.svg') }}"
                                                 alt="">
+                                            <p class="m-0">5.0<span class="Reviews">(17)</span></p>
                                             @foreach ($product->reviews as $reviews)
                                                 <p class="m-0">{{ $reviews }}<span
                                                         class="Reviews">({{ $products->reviews_count }})</span></p>
