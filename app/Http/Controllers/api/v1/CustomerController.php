@@ -170,6 +170,7 @@ class CustomerController extends Controller
             }
             DB::table('family_relation')->insert([
                 'user_id' => Auth::user()->id,
+                'name' => $request->name,
                 'relation_type' => $request->relation_type,
                 'dob' => $request->dob,
                 'gender' => $request->gender,
