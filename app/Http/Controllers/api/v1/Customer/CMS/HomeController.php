@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Customer\CMS;
 
+use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Model\FlashDealProduct;
 use Illuminate\Support\Facades\DB;
@@ -85,6 +86,17 @@ class HomeController extends Controller
         }
         $imageUrls = array_values($imageUrls);
         return response()->json($imageUrls, 200);
+    }
+
+    public function AllArticle(){
+        $articles = Article::with('category')->get();
+        $imageUrls = [];
+        foreach($articles as $article){
+            $url = asset('/public/assets/images/articles/thumbnail/' . $article->thumbnail);
+            $article->image = $url;
+            $imageUrls[] = $url;
+        }
+        return response()->json($articles, 200);
     }
 
     public function MainBanner(){

@@ -16,6 +16,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
     Route::get('/flash-deals', [HomeController::class, 'FlashDeals']);
     Route::get('/footer-banner', [HomeController::class, 'FooterBanner']);
     Route::get('/all-category', [HomeController::class, 'AllCategory']);
+    Route::get('/all-article', [HomeController::class, 'AllArticle']);
     
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('switch-user/{id}',[HomeController::class, 'SwitchUser']);
