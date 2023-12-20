@@ -52,6 +52,9 @@ class CustomerController extends Controller
 
     public function AddAdress(Request $request){
         if(Auth::check()){
+            DB::table('shipping_addresses')->where('customer_id', Auth::user()->id)->update([
+                'is_default' => false
+            ]);
             $validator = Validator::make($request->all(), [
                 'contact_person_name' => 'required',
                 'address_type' => 'required',
@@ -64,6 +67,7 @@ class CustomerController extends Controller
                 'phone' => 'required',
                 'state' => 'required',
                 'country' => 'required',
+                'is_default' => 'required',
             ]);
 
             if ($validator->fails()) {
@@ -78,7 +82,7 @@ class CustomerController extends Controller
                     'email' => $customer_data->email,
                     'address_type' => $request->address_type,
                     'address' => ($request->appartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').' '.($request->city ?? '').', '.($request->state ?? '').' '.($request->country ?? ''),
-                    'is_default' => ($request->is_default)?1:0,
+                    'is_default' => $request->is_default,
                     'appartment_no' => $request->appartment_no,  
                     'street_address' => $request->street_address,  
                     'city' => $request->city,
@@ -207,13 +211,16 @@ class CustomerController extends Controller
 
     public function UpdateAdress(Request $request){
         if(Auth::check()){
+            DB::table('shipping_addresses')->where('customer_id', Auth::user()->id)->update([
+                'is_default' => false
+            ]);
             DB::table('shipping_addresses')->where('id' , $request->id)->update([
                 'customer_id' => Auth::user()->id,
                 'contact_person_name' => $request->contact_person_name,
                 'email' => $request->email,
                 'address_type' => $request->address_type,
                 'address' => ($request->apartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').' '.($request->city ?? '').', '.($request->state ?? '').' '.($request->country ?? ''),
-                'is_default' => ($request->is_default)?1:0,
+                'is_default' => $request->is_default,
                 'appartment_no' => $request->appartment_no,  
                 'street_address' => $request->street_address, 
                 'city' => $request->city,
