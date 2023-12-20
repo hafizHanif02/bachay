@@ -317,10 +317,6 @@ class ProductController extends Controller
         }
     }
 
-    public function WishlistStore(Request $request){
-        dd($request);
-    }
-
     public function counter($product_id)
     {
         try {

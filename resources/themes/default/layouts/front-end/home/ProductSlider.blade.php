@@ -7,20 +7,22 @@
             </a>
         </div>
     </div>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
     <div class="row">
         @foreach ($latest_products as $products)
             <div class="col-md-6 col-lg-3 mb-4">
-                <a class="text-decoration-none" href="{{ route('product-detail', $products->id) }}">
-                    <div class="sub-card rounded-3 p-4">
-                        <div class="card1">
-                            <div class="first-sec card1">
-                                <div class="image-container">
-                                    <div class="imgCon">
-                                        <img class="object-fit-cover rounded-3"
+                <div class="sub-card rounded-3 p-4">
+                    <div class="card1">
+                        <div class="first-sec card1">
+                            <div class="image-container">
+                                <div class="imgCon">
+                                    <a class="text-decoration-none" href="{{ route('product-detail', $products->id) }}">
+                                    <img class="object-fit-cover rounded-3"
                                             src="{{ asset("storage/app/public/product/thumbnail/$products->thumbnail") }}"
                                             alt="" class="img-fluid" width="100%" height="100%">
+                                    </a>
                                     </div>
                                     <div class="sec-best-seller mt-3">
                                         <p>Best Seller</p>
@@ -69,7 +71,6 @@
                         </div>
 
                     </div>
-                </a>
             </div>
         @endforeach
         {{-- <div class="col-md-6 col-lg-3 mb-4">
@@ -379,32 +380,23 @@
 
 <script>
     function addToWishlist(productId) {
-    $.ajax({
-        type: "POST",
-        url: "/add-to-wishlist",
-        data: {
-            _token: $('meta[name="csrf-token"]').attr("content"),
-            productId: productId,
-        },
-        dataType: "json",
-        success: function (data, status, code) {
-            if (code.status == 200) {
-                $("#wishlist-btn-" + productId + " i").removeClass("bi-heart");
-                $("#wishlist-btn-" + productId + " i").addClass(
-                    "bi-heart-fill"
-                );
-            } else if (code.status === 201) {
-                $("#wishlist-btn-" + productId + " i").removeClass(
-                    "bi-heart-fill"
-                );
-                $("#wishlist-btn-" + productId + " i").addClass("bi-heart");
+        $.ajax({
+            type: "POST",
+            url: "/add-to-wishlist",
+            data: {
+                productId: productId,
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: "json",
+            success: function (data) {
+                // Handle success
+            },
+            error: function (response) {
+                // Handle error
             }
-        },
-        error: function (response) {
-            if (response.status === 401) {
-                window.location = "/customer/auth/login";
-            }
-        },
-    });
+        });
 }
+
 </script>

@@ -10,6 +10,7 @@ use App\Model\Color;
 use App\Model\Order;
 use App\Model\Product;
 use App\Model\Category;
+use App\Model\Wishlist;
 use App\CPU\CartManager;
 use App\CPU\OrderManager;
 use App\Model\OrderDetail;
@@ -1136,8 +1137,9 @@ class CartController extends Controller
 
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
+        $whishlistproducts = Wishlist::where('customer_id', Auth::guard('customer')->user()->id)->with('product')->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-        return view(VIEW_FILE_NAMES['my-shortlist'], (compact('products', 'home_categories')));
+        return view(VIEW_FILE_NAMES['my-shortlist'], (compact('whishlistproducts','products', 'home_categories')));
     }
     public function __construct(
         private OrderDetail $order_details,

@@ -6000,6 +6000,30 @@ class WebController extends Controller
         return view(VIEW_FILE_NAMES['account_wishlist'], compact('wishlists', 'brand_setting'));
     }
 
+    public function addToWishlist(Request $request)
+    {
+            $userId = Auth::guard('customer')->user()->id;
+            $productId = $request->productId;
+        if($userId){
+            if (!Wishlist::where('customer_id', $userId)->where('product_id', $productId)->exists()) {
+                Wishlist::create([
+                    'customer_id' => $userId,
+                    'product_id' => $productId,
+                ]);
+
+                return response()->json(['status' => 'success', 'message' => 'Product added to wishlist']);
+                // return redirect()->back();
+            } else {
+                return response()->json(['status' => 'error', 'message' => 'Product already in wishlist']);
+            }
+        }else{
+            return response()->json(['status' => 'success', 'message' => 'Please Login First']);
+        }
+        
+
+        return response()->json(['status' => 'error', 'message' => 'User not authenticated'], 401);
+    }
+
     public function storeWishlist(Request $request)
     {
         if ($request->ajax()) {
