@@ -78,7 +78,7 @@ class CustomerController extends Controller
                     'email' => $customer_data->email,
                     'address_type' => $request->address_type,
                     'address' => ($request->appartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').' '.($request->city ?? '').', '.($request->state ?? '').' '.($request->country ?? ''),
-                    'is_default' => 0,
+                    'is_default' => ($request->is_default)?1:0,
                     'appartment_no' => $request->appartment_no,  
                     'street_address' => $request->street_address,  
                     'city' => $request->city,
@@ -87,8 +87,8 @@ class CustomerController extends Controller
                     'state' => $request->state,
                     'country' => $request->country,
                 ]);
-                if($request->is_default == 1){
-                    DB::table('users')->where('id', $request->customer_id)->update([
+                if($request->is_default == true){
+                    DB::table('users')->where('id', Auth::user()->id)->update([
                         'street_address' => $request->street_address,
                         'country' => $request->country,
                         'zip' => $request->zip,
@@ -213,7 +213,7 @@ class CustomerController extends Controller
                 'email' => $request->email,
                 'address_type' => $request->address_type,
                 'address' => ($request->apartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').' '.($request->city ?? '').', '.($request->state ?? '').' '.($request->country ?? ''),
-                'is_default' => $request->is_default,
+                'is_default' => ($request->is_default)?1:0,
                 'appartment_no' => $request->appartment_no,  
                 'street_address' => $request->street_address, 
                 'city' => $request->city,
@@ -222,8 +222,8 @@ class CustomerController extends Controller
                 'state' => $request->state,
                 'country' => $request->country,
             ]);
-            if($request->is_default == 1){
-                DB::table('users')->where('id', $request->customer_id)->update([
+            if($request->is_default == true){
+                DB::table('users')->where('id', Auth::user()->id)->update([
                     'street_address' => $request->street_address,
                     'country' => $request->country,
                     'zip' => $request->zip,
