@@ -268,9 +268,9 @@ class CustomerController extends Controller
     }
     
 
-    public function DeleteAddress($id, $customer_id)
+    public function DeleteAddress($id)
     {
-        $affectedRows = DB::table('shipping_addresses')->where(['id' => $id, 'customer_id' => $customer_id])->delete();
+        $affectedRows = DB::table('shipping_addresses')->where('id', $id)->delete();
 
         if ($affectedRows > 0) {
             return response()->json(['message' => 'Address has been deleted'], 200);
