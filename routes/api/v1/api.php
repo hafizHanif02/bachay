@@ -176,6 +176,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
     Route::group(['prefix' => 'child', 'middleware' => 'auth:api'], function () {
         Route::get('/', 'CustomerController@Mychild');
         Route::post('add-child', 'CustomerController@Addchild');
+        Route::put('update/{id}', 'CustomerController@Updatechild');
         Route::get('detail/{id}', 'CustomerController@Detailchild');
         Route::post('update', 'CustomerController@Updatechild');
         Route::delete('delete/{id}', 'CustomerController@Deletechild');  

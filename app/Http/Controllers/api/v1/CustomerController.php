@@ -194,8 +194,23 @@ class CustomerController extends Controller
 
     }
 
-    public function Updatechild(Request $request){
-        dd($request);
+    public function Updatechild(Request $request,$id){
+        if(Auth::check()){
+            $child = DB::table('family_relation')->where('id', $id)->first();
+            if(!empty($child)){
+                DB::table('family_relation')->where('id', $id)->update([
+                    'relation_type' => $request->relation_type,
+                    'dob' => $request->dob,
+                    'gender' => $request->gender,
+                    'name' => $request->name,
+                ]);
+                return response()->json(['message' => 'Child Has Been Updated'], 200);
+            }else{
+                 return response()->json(['message' => 'Child Not Found'], 200);
+            }
+        }else{
+            return response()->json(['message' => 'Please Login First'], 404);
+        }
     }
 
     public function Deletechild($id){
