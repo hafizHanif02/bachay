@@ -53,7 +53,7 @@ class CustomerController extends Controller
     public function AddAdress(Request $request){
         if(Auth::check()){
             DB::table('shipping_addresses')->where('customer_id', Auth::user()->id)->update([
-                'is_default' => false
+                'is_default' => 'false'
             ]);
             $validator = Validator::make($request->all(), [
                 'contact_person_name' => 'required',
@@ -170,6 +170,7 @@ class CustomerController extends Controller
             }
             DB::table('family_relation')->insert([
                 'user_id' => Auth::user()->id,
+                'name' => $request->name,
                 'relation_type' => $request->relation_type,
                 'dob' => $request->dob,
                 'gender' => $request->gender,
@@ -230,7 +231,7 @@ class CustomerController extends Controller
             if(!empty($address)){
                 
                 DB::table('shipping_addresses')->where(['customer_id'=> Auth::user()->id,'id'=>$id])->update([
-                    'is_default' => false
+                    'is_default' => 'false'
                 ]);
                 DB::table('shipping_addresses')->where('id' , $request->id)->update([
                     'customer_id' => Auth::user()->id,
