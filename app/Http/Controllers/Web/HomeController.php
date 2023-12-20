@@ -205,15 +205,16 @@ $footer_banner = $footer_banner ?? [];
 
             $productsInFlashDeal = $this->product->active()->whereIn('id', $productIds)->get();
         }
+        $wishlistProducts = DB::table('wishlists')->pluck('product_id');
 
+        $wishlistProductsArray = $wishlistProducts->toArray();
 
-
-
+        // dd($wishlistProducts);
 
         // return $flash_deals_products;
 
         return view(VIEW_FILE_NAMES['home'],
-            compact(
+            compact('wishlistProductsArray',
                 'featured_products', 'topRated', 'bestSellProduct', 'latest_products', 'categories', 'brands',
                 'deal_of_the_day', 'top_sellers', 'home_categories', 'brand_setting', 'main_banner', 'main_section_banner',
                 'current_date','product','footer_banner', 'home_layouts', 'flash_deal', 'flash_deals_products', 'productIds', 'productsInFlashDeal', 'new_arrivals_categories', 'products','footer_banner',

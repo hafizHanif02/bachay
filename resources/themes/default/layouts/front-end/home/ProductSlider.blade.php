@@ -26,10 +26,12 @@
                                         <p>Best Seller</p>
                                     </div>
                                     <div class="wish-list mt-3 me-2">
-                                        <button id="wishlist-btn" class="p-0 bg-transparent rounded-circle forBorder">
-                                            <i class="bi bi-heart text-danger"></i>
-                                            {{-- <i
-                                class="bi {{ in_array($product->id, $wishlistProducts) ? 'bi-heart-fill' : 'bi-heart' }} text-danger"></i> --}}
+                                        <button type="button"
+                                                    name="wishlist-button-{{ $products->id }}"
+                                                    class="p-0 bg-transparent rounded-circle forBorder"
+                                                    onclick="addToWishlist('{{ $products->id }}')">
+                                                    <i
+                                                        class="bi {{ in_array($products->id, $wishlistProductsArray) ? 'bi-heart-fill' : 'bi-heart' }} text-danger"></i>
                                         </button>
                                     </div>
                                     {{-- <div class="wish-list mt-3 me-2">
@@ -374,3 +376,35 @@
         </div>
     </div>
 </div> --}}
+
+<script>
+    function addToWishlist(productId) {
+    $.ajax({
+        type: "POST",
+        url: "/add-to-wishlist",
+        data: {
+            _token: $('meta[name="csrf-token"]').attr("content"),
+            productId: productId,
+        },
+        dataType: "json",
+        success: function (data, status, code) {
+            if (code.status == 200) {
+                $("#wishlist-btn-" + productId + " i").removeClass("bi-heart");
+                $("#wishlist-btn-" + productId + " i").addClass(
+                    "bi-heart-fill"
+                );
+            } else if (code.status === 201) {
+                $("#wishlist-btn-" + productId + " i").removeClass(
+                    "bi-heart-fill"
+                );
+                $("#wishlist-btn-" + productId + " i").addClass("bi-heart");
+            }
+        },
+        error: function (response) {
+            if (response.status === 401) {
+                window.location = "/customer/auth/login";
+            }
+        },
+    });
+}
+</script>
