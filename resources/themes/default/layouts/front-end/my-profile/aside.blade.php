@@ -116,7 +116,7 @@
         </ul>
     </div>
     <div class="MyProfile mt-2">
-        <form action="#" method="POST">
+        <form action="{{ route('customer.auth.logout') }}" method="GET">
             @csrf
             <button type="submit" class="logout col-12 border-0 rounded-pill text-start p-3 text-white">Logout</button>
         </form>
