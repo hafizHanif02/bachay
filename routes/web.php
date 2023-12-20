@@ -258,7 +258,7 @@ Route::group(['prefix' => 'cart', 'as' => 'cart.', 'namespace' => 'Web'], functi
     Route::post('variant_price', 'CartController@variant_price')->name('variant_price');
     Route::post('add', 'CartController@addToCart')->name('add');
     Route::post('update-variation', 'CartController@update_variation')->name('update-variation'); //theme fashion
-    Route::post('remove', 'CartController@removeFromCart')->name('remove');
+    Route::get('remove/{id}', 'CartController@removeFromCart')->name('remove');
     Route::get('remove-all', 'CartController@remove_all_cart')->name('remove-all'); //theme fashion
     Route::post('nav-cart-items', 'CartController@updateNavCart')->name('nav-cart');
     Route::post('floating-nav-cart-items', 'CartController@update_floating_nav')->name('floating-nav-cart-items'); // theme fashion floating nav

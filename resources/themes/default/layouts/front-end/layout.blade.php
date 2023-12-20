@@ -125,7 +125,7 @@
 
 
 <span id="update_nav_cart_url" data-url="{{route('cart.nav-cart')}}"></span>
-<span id="remove_from_cart_url" data-url="{{ route('cart.remove') }}"></span>
+{{-- <span id="remove_from_cart_url" data-url="{{ route('cart.remove') }}"></span> --}}
 <span id="update_quantity_url" data-url="{{route('cart.updateQuantity.guest')}}"></span>
 <span id="order_again_url" data-url="{{ route('cart.order-again') }}"></span>
 <!-- Footer-->

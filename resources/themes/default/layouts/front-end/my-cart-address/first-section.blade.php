@@ -60,11 +60,11 @@
                             @endif
 
                         </div>
-                        <form action="{{ route('cart.remove') }}" method="POST">
-                            @csrf
-                            <input type="hidden" name="cart_id" value="{{ $Cartproduct->id }}">
+                        {{-- <form action="{{ route('cart.remove') }}" id="deleteform{{ $loop->iteration }}" method="POST">
+                            @csrf --}}
+                            {{-- <input type="hidden" name="cart_id" value="{{ $Cartproduct->id }}"> --}}
                             <div class="mt-3">
-                                <button type="submit" class="col-5 mt-2 btn-delete p-2 rounded-pill text-danger">
+                                <a href="{{ route('cart.remove', ['id' => $Cartproduct->id]) }}" class="col-5 mt-2 btn-delete p-2 rounded-pill text-danger">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="14" height="13"
                                         viewBox="0 0 14 13" fill="none">
                                         <path d="M7.83164 9.71592L6.18164 8.06592" stroke="#EC1515"
@@ -81,8 +81,8 @@
                                         <path
                                             d="M1.90039 5.29999L2.74639 10.484C2.93839 11.648 3.40039 12.5 5.11639 12.5H8.73439C10.6004 12.5 10.8764 11.684 11.0924 10.556L12.1004 5.29999"
                                             stroke="#EC1515" stroke-linecap="round" />
-                                    </svg> Delete</button>
-                        </form>
+                                    </svg> Delete</a>
+                        {{-- </form> --}}
                         <form>
                             @csrf
                             <input type="hidden" name="is_edit" value="1">
@@ -421,5 +421,8 @@
         $('#sub-total-down').text('Rs. ' + totalAmount.toFixed(1));
         $('#discount-amountp').text('Rs. ' + totalDiscount.toFixed(1));
         $('#discount_amount_total').val(totalDiscount.toFixed(1));
+    }
+    function submitdelete(index){
+        $('#deleteform'+index).submit();
     }
 </script>

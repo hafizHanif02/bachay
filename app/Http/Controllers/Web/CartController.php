@@ -1242,12 +1242,12 @@ class CartController extends Controller
     /**
      * removes from Cart
      */
-    public function removeFromCart(Request $request)
+    public function removeFromCart($id)
     {
         // dd($request);
         $user = Helpers::get_customer();
 
-        $cart = Cart::where(['id' => $request->cart_id, 'customer_id' => ($user == 'offline' ? session('guest_id') : auth('customer')->id())])->first();
+        $cart = Cart::where(['id' => $id, 'customer_id' => ($user == 'offline' ? session('guest_id') : auth('customer')->id())])->first();
 
         $cart->delete();
 
