@@ -224,37 +224,43 @@ class CustomerController extends Controller
     }
 
 
-    public function UpdateAdress(Request $request){
+    public function UpdateAdress(Request $request, $id){
         if(Auth::check()){
-            DB::table('shipping_addresses')->where('customer_id', Auth::user()->id)->update([
-                'is_default' => false
-            ]);
-            DB::table('shipping_addresses')->where('id' , $request->id)->update([
-                'customer_id' => Auth::user()->id,
-                'contact_person_name' => $request->contact_person_name,
-                'email' => $request->email,
-                'address_type' => $request->address_type,
-                'address' => ($request->apartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').' '.($request->city ?? '').', '.($request->state ?? '').' '.($request->country ?? ''),
-                'is_default' => $request->is_default,
-                'appartment_no' => $request->appartment_no,  
-                'street_address' => $request->street_address, 
-                'city' => $request->city,
-                'zip' => $request->zip,
-                'phone' => $request->phone,
-                'state' => $request->state,
-                'country' => $request->country,
-            ]);
-            if($request->is_default == true){
-                DB::table('users')->where('id', Auth::user()->id)->update([
-                    'street_address' => $request->street_address,
-                    'country' => $request->country,
-                    'zip' => $request->zip,
-                    'house_no' => $request->house_no,
-                    'apartment_no' => $request->appartment_no,
-                    'city' => $request->city,
+            $address = DB::table('shipping_addresses')->where(['customer_id'=> Auth::user()->id,'id'=>$id])->first();
+            if(!empty($address)){
+                
+                DB::table('shipping_addresses')->where(['customer_id'=> Auth::user()->id,'id'=>$id])->update([
+                    'is_default' => false
                 ]);
+                DB::table('shipping_addresses')->where('id' , $request->id)->update([
+                    'customer_id' => Auth::user()->id,
+                    'contact_person_name' => $request->contact_person_name,
+                    'email' => $request->email,
+                    'address_type' => $request->address_type,
+                    'address' => ($request->apartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').' '.($request->city ?? '').', '.($request->state ?? '').' '.($request->country ?? ''),
+                    'is_default' => $request->is_default,
+                    'appartment_no' => $request->appartment_no,  
+                    'street_address' => $request->street_address, 
+                    'city' => $request->city,
+                    'zip' => $request->zip,
+                    'phone' => $request->phone,
+                    'state' => $request->state,
+                    'country' => $request->country,
+                ]);
+                if($request->is_default == true){
+                    DB::table('users')->where('id', Auth::user()->id)->update([
+                        'street_address' => $request->street_address,
+                        'country' => $request->country,
+                        'zip' => $request->zip,
+                        'house_no' => $request->house_no,
+                        'apartment_no' => $request->appartment_no,
+                        'city' => $request->city,
+                    ]);
+                }
+                return response()->json(['message' => 'Address Has Been Updated'], 404);
+            }else{
+                return response()->json(['message' => 'Address Not Found!'], 404);
             }
-            return response()->json(['message' => 'Address Has Been Updated'], 404);
         } else {
             return response()->json(['message' => 'Please Login First'], 404);
         }
