@@ -196,6 +196,14 @@ class BusinessSettingsController extends Controller
         return view('admin-views.business-settings.article',compact('articles','categories'));
     }
 
+    public function edit_article($id)
+    {
+        $article = Article::where('id',$id)->with('category')->first();
+        $categories = DB::table('categories')->get();
+        // $terms_condition = BusinessSetting::where('type', 'article')->first();
+        return view('admin-views.business-settings.edit-article',compact('article','categories'));
+    }
+
     public function ArticleStatus(Request $request){
         if($request->status){
             DB::table('articles')->where('id',$request->id)->update([
@@ -1295,6 +1303,24 @@ class BusinessSettingsController extends Controller
             'thumbnail' => ($filename ?? ''),
             'category_id' => $request->category_id,
         ]);
+    }
+
+    public function ArticleUpdate(Request $request)
+    {
+        if ($request->file('thumbnail')) {
+            $file = $request->file('thumbnail');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('assets/images/articles/thumbnail'), $filename);
+        }
+        DB::table('articles')->where('id',$request->id)->update([
+            'title' => $request->title,
+            'text' => $request->text,
+            'thumbnail' => ($filename ?? ''),
+            'category_id' => $request->category_id,
+        ]);
+        return redirect()->route('admin.business-settings.article')->with(['message' => 'Article Updated', 'status' => 1]);
+
     }
 
 }

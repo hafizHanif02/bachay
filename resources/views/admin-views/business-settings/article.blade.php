@@ -161,11 +161,11 @@
                                     </td> --}}
                                     <td class="text-center">
                                         <div class="d-flex justify-content-center gap-2">
-                                            {{-- <a class="btn btn-outline--primary btn-sm edit square-btn"
+                                            <a class="btn btn-outline--primary btn-sm edit square-btn"
                                                title="{{translate('edit')}}"
-                                               href="">
+                                               href="{{ route('admin.business-settings.article.edit', $article->id) }}">
                                                 <i class="tio-edit"></i>
-                                            </a> --}}
+                                            </a>
                                             <form action="{{route('admin.business-settings.article.delete')}}" method="post">
                                             @csrf
                                             <input type="hidden" name="id" value="{{$article->id}}">
