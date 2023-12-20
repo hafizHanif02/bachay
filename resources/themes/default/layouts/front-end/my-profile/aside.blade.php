@@ -44,14 +44,16 @@
     <div class="MyProfile mt-2">
 
         <a href="#">
-            <button class="col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs(['club-cash', 'cash-refund', 'my-payment-detail-not-added', 'my-payment-detail-added', 'save-cards', 'cash-coupons', 'cash-back-codes', 'my-refund-no-refund', 'my-bpl-vouchers']) ? 'buttons-active' : 'buttons' }}">Cash in My Account</button>
+            <button
+                class="col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs(['club-cash', 'cash-refund', 'my-payment-detail-not-added', 'my-payment-detail-added', 'save-cards', 'cash-coupons', 'cash-back-codes', 'my-refund-no-refund', 'my-bpl-vouchers']) ? 'buttons-active' : 'buttons' }}">Cash
+                in My Account</button>
 
         </a>
 
     </div>
     <div class="col-12 mt-3">
         <ul class="MyProfile-ul p-0 ps-3">
-            <li><a href="#">Club Cash</a></li>
+            <li><a href="{{ route('club-cash') }}">Club Cash</a></li>
             <li><a class="{{ request()->routeIs('cash-refund') ? 'active' : '' }}"
                     href="{{ route('cash-refund') }}">Cash Refund</a></li>
             <li><a class="{{ request()->routeIs(['my-payment-detail-not-added', 'my-payment-detail-added', 'save-cards']) ? 'active' : '' }}"
@@ -69,19 +71,23 @@
     </div>
     <div class="MyProfile mt-2 mb-4">
         <a href="{{ route('guaranteed-savings') }}">
-            <button class="buttons col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs('guaranteed-savings') ? 'buttons-active' : 'buttons' }}">Guaranteed Savings</button>
+            <button
+                class="buttons col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs('guaranteed-savings') ? 'buttons-active' : 'buttons' }}">Guaranteed
+                Savings</button>
         </a>
     </div>
     <div class="MyProfile mt-2">
         <a href="{{ route('intelli-education') }}">
-            <button class="buttons col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs('intelli-education') ? 'buttons-active' : 'buttons' }} ">Intelli Education</button>
+            <button
+                class="buttons col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs('intelli-education') ? 'buttons-active' : 'buttons' }} ">Intelli
+                Education</button>
         </a>
     </div>
     <div class="col-12 mt-3">
         <ul class="MyProfile-ul p-0 ps-3">
             <li><a class="{{ request()->routeIs('intelli-education') ? 'active' : '' }}"
-                href="{{ route('intelli-education') }}">Intellibaby Subscriptions</a></li>
-          
+                    href="{{ route('intelli-education') }}">Intellibaby Subscriptions</a></li>
+
             <li><a href="">Intellikit Subscriptions</a></li>
         </ul>
     </div>
@@ -94,18 +100,24 @@
     </div>
     <div class="MyProfile mt-2 mb-3">
         <a href="{{ route('gift-certification') }}">
-            <button class="buttons col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs('gift-certification') ? 'buttons-active' : 'buttons' }}">Gift Certificates</button>
+            <button
+                class="buttons col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs('gift-certification') ? 'buttons-active' : 'buttons' }}">Gift
+                Certificates</button>
 
         </a>
     </div>
     <div class="MyProfile mt-2 mb-3">
         <a href="{{ route('invites-credits') }}">
-            <button class="buttons col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs('invites-credits') ? 'buttons-active' : 'buttons' }}">Invites & Credits</button>
+            <button
+                class="buttons col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs('invites-credits') ? 'buttons-active' : 'buttons' }}">Invites
+                & Credits</button>
         </a>
     </div>
     <div class="MyProfile mt-2 mb-3">
         <a href="{{ route('my-reviews-upload') }}">
-            <button class="buttons col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs('my-reviews-upload') ? 'buttons-active' : 'buttons' }}">My Reviews & Uploads</button>
+            <button
+                class="buttons col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs('my-reviews-upload') ? 'buttons-active' : 'buttons' }}">My
+                Reviews & Uploads</button>
         </a>
     </div>
 
