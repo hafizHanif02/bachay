@@ -1,11 +1,12 @@
-<div class="border-t pt-4">
+@Include('layouts.front-end.manage-returns.slider')
+{{-- <div class="border-t pt-4">
     <h5 class="font-poppins slider-heading">
         You May Also Like
     </h5>
-</div>
+</div> --}}
 
 
-<div class="mt-5 card-slider mb-4">
+{{-- <div class="mt-5 card-slider mb-4">
     
     <div class="mb-4 pb-3 me-3">
         <div class="rounded-3">
@@ -492,4 +493,4 @@
         </div>
     </div>
    
-</div>
+</div> --}}
