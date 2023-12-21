@@ -3,7 +3,6 @@
 
 @php($shippingMethod=\App\CPU\Helpers::get_business_settings('shipping_method'))@endphp
 @php($cart=\App\Model\Cart::where(['customer_id' => auth('customer')->id()])->get()->groupBy('cart_group_id'))@endphp
-@php dd($cart); @endphp
  
 
 <div class="row g-3 mx-max-md-0">

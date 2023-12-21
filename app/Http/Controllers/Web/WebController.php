@@ -5395,7 +5395,7 @@ class WebController extends Controller
     public function checkout_payment(Request $request)
     {
 
-        // dd($request);
+
         // dd($request);
         // if (
         //     (!auth('customer')->check() || Cart::where(['customer_id' => auth('customer')->id()])->count() < 1)
@@ -5492,7 +5492,7 @@ class WebController extends Controller
             return $query->where('status', 0);
         }])->get();
         foreach ($cartItems as $cart) {
-            if (isset($cart->all_product_count) && $cart->all_product_count != 0) {
+            if ($cart->all_product_count != 0) {
                 Toastr::info(translate('check_Cart_List_First'));
                 return redirect()->route('shop-cart');
             }
@@ -5540,10 +5540,13 @@ class WebController extends Controller
                     }
                     if ($shipping_type == 'order_wise') {
                         $cart_shipping = CartShipping::where('cart_group_id', $cart->cart_group_id)->first();
-                        if (!isset($cart_shipping)) {
-                            Toastr::info(translate('select_shipping_method_first'));
-                            return redirect('shop-cart');
-                        }
+                        
+                        // dd($cart_shipping);
+                        // if (!isset($cart_shipping)) {
+                        //     dd($cart_shipping);
+                        //     Toastr::info(translate('select_shipping_method_first'));
+                        //     return redirect('shop-cart');
+                        // }
                     }
                 }
             }

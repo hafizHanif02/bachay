@@ -55,6 +55,16 @@
                     <input type="hidden" name="product[1][quantity]" value="1">
                     <input type="hidden" name="product[1][id]" value="{{ $product->id }}">
                     <input type="hidden" name="product[1][price]" value="{{ $product->unit_price }}">
+                    <input type="hidden" name="product[1][product_id]" value="{{ $product->id }}">
+                    <input type="hidden" name="product[1][tax]" value="{{ ($product->tax) }}">
+                    <input type="hidden" name="product[1][tax_model]" value="{{ ($product->tax_model) }}">
+                    <input type="hidden" name="product[1][color]" value="{{ ($product->color) }}">
+                    <input type="hidden" name="product[1][variant]" value="{{ ($product->variant) }}">
+                    <input type="hidden" name="product[1][discount]" value="{{ ($product->discount) }}">
+                    <input type="hidden" name="product[1][discount_amount]" value="{{ (($product->discount*$product->unit_price)/100) }}">
+                    <input type="hidden" name="product[1][actual_price]" value="{{ ($product->unit_price) }}">
+                    <input type="hidden" name="product[1][price]" value="{{ ($product->unit_price) }}">
+                    <input type="hidden" name="product[1][quantity]" value="1">   
                     <button type="submit" class="buy-now rounded-pill text-white w-100 pt-4 pb-4 m-2 ms-3 me-3">Buy Now</button>
                 </form>
             </div>

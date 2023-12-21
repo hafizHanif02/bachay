@@ -150,7 +150,7 @@
             </div>
         @endif
         {{-- <button onclick="SubmitShippingAddress()" class="btn btn-primary rounded-pill mt-2"  id="address_submit">Update Address</button> --}}
-        <form action="{{ 'checkout-payment' }}" id="order-form" method="Get">
+        <form action="{{ 'checkout-payment' }}" id="order-form" method="POST">
             @csrf
             <input type="hidden" name="seller_id" value="1">
             <input type="hidden" name="seller_is" value="admin">

@@ -52,7 +52,8 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestC
     Route::post('update_shipping_address', 'WebController@update_shipping_address')->name('update_shipping_address');
     Route::post('update_billing_address', 'WebController@update_billing_address')->name('update_billing_address');
     Route::get('checkout-shipping', 'WebController@checkout_shipping')->name('checkout-shipping');
-    Route::get('checkout-payment', 'WebController@checkout_payment')->name('checkout-payment');
+    Route::post('checkout-payment', 'WebController@checkout_payment')->name('checkout-payment');
+    Route::post('cart/checkout-payment', 'WebController@checkout_payment')->name('cart.checkout-payment');
     Route::get('checkout-review', 'WebController@checkout_review')->name('checkout-review');
     Route::get('checkout-complete', 'WebController@checkout_complete')->name('checkout-complete');
     Route::post('offline-payment-checkout-complete', 'WebController@offline_payment_checkout_complete')->name('offline-payment-checkout-complete');

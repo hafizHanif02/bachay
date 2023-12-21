@@ -36,14 +36,12 @@ function CheckoutFormSubmit(){
     var billing_address = $('#billing_address_input').val();
     var shipping_address = $('#shipping_address_input').val();
 
-    // console.log(billing_address);
+    console.log('billing address data = '+billing_address_data, 'billing address data = '+shipping_address_data, 'billing address data = '+billing_address, 'billing address data = '+shipping_address);
 
     $('#shipping_address').val(shipping_address);
     $('#shipping_address_data').val(shipping_address_data);
     $('#billing_address').val(billing_address);
     $('#billing_address_data').val(billing_address_data);
-
-
     $('#order-form').submit();
 }
 

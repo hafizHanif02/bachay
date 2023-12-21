@@ -1381,21 +1381,12 @@ class CartController extends Controller
             $shipping_address = DB::table('shipping_addresses')->where('customer_id', Auth::guard('customer')->user()->id)->first();
             $customer_data = DB::table('users')->where('id', Auth::guard('customer')->user()->id)->first();
             $data = $request;
-            // dd($product_data);
             $data->cart_group_id = $cart_group_ids[0];
             $data->total_price = $product_data->unit_price;
             $data->final_payment = ($product_data->unit_price - ($product_data->unit_price * $product_data->discount) / 100);
             $data->discount_amount = (($product_data->unit_price * $product_data->discount) / 100);
             $data->tax = $product_data->tax;
-            // <input type="hidden" name="customer_id" value="{{ $data->customer_id }}">
-            // <input type="hidden" name="cart_group_id" value="{{ $data->cart_group_id }}">
-            // <input type="hidden" name="shipping_address" id="shipping_address" >
-            // <input type="hidden" name="shipping_address_data" id="shipping_address_data" >
-            // <input type="hidden" name="billing_address" id="billing_address" >
-            // <input type="hidden" name="billing_address_data" id="billing_address_data" >
-            // <input type="hidden" name="total_price" value="{{ $data->total_price }}">
-            // <input type="hidden" name="final_payment" value="{{ $data->final_payment }}">
-            // <input type="hidden" name="discount_amount" value="{{ $data->discount_amount }}">
+              
             return view(VIEW_FILE_NAMES['order_shipping'], compact(
                 'shipping_address',
                 'customer_data',
