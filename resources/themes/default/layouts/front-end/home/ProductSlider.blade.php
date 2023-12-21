@@ -381,6 +381,7 @@
 
 <script>
   function addToWishlist(productId) {
+    
     $.ajax({
         type: "POST",
         url: "/add-to-wishlist",
