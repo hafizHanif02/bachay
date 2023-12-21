@@ -24,7 +24,7 @@
 @endforeach --}}
 
     @include('layouts.front-end.club-cash.first-section')
-    {{-- @include('layouts.front-end.order-available.slider') --}}
+    @include('layouts.front-end.club-cash.slider')
 
 
 
