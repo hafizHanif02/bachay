@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use App\Models\QnaQuestion;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class QnaAnswer extends Model
 {
@@ -14,4 +15,15 @@ class QnaAnswer extends Model
         'answer',
         'user_id'
     ];
+
+
+    public function question()
+    {
+        return $this->belongsTo(QnaQuestion::class, 'question_id', 'id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class)->select(['id', 'name','f_name', 'l_name', 'image']);
+    }
 }

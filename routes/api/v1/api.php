@@ -53,13 +53,6 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
         
     });
 
-Route::group(['prefix' => 'auth'], function () {
-    Route::group(['prefix' => 'qna'], function () {
-        Route::post('question/all', 'CustomerController@AddQuestion');
-        Route::post('question/add', 'CustomerController@AddQuestion');
-    });
-});
-
     Route::group(['prefix' => 'config'], function () {
         Route::get('/', 'ConfigController@configuration');
     });
@@ -201,6 +194,11 @@ Route::group(['prefix' => 'auth'], function () {
         Route::put('update-profile', 'CustomerController@update_profile');
         Route::post('change-avatar', 'CustomerController@ChangeAvatar');
         Route::get('account-delete/{id}','CustomerController@account_delete');
+        Route::group(['prefix' => 'qna'], function () {
+            Route::get('question/', 'CustomerController@AllQuestion');
+            Route::post('question/add', 'CustomerController@AddQuestion');
+            Route::post('answer/add', 'CustomerController@AddAnswer');
+        });
 
         Route::group(['prefix' => 'address'], function () {
             Route::get('get/{id}', 'CustomerController@get_address');

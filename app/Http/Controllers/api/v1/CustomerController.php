@@ -8,7 +8,9 @@ use App\Model\Order;
 use App\Model\Wishlist;
 use App\Model\GuestUser;
 use App\CPU\ImageManager;
+use App\Models\QnaAnswer;
 use App\Model\OrderDetail;
+use App\Models\QnaQuestion;
 use App\Traits\CommonTrait;
 use App\CPU\CustomerManager;
 use App\Model\SupportTicket;
@@ -182,23 +184,73 @@ class CustomerController extends Controller
         }
     }
 
-    public function AddQuestion(Request $request){
-        if(Auth::guard('customer')->user()){
-        $validator = Validator::make($request->all(), [
-            'question' => 'required',
-        ]);
-        
-        if ($validator->fails()) {
-            return response()->json(['errors' => Helpers::error_processor($validator)], 403);
-        }else{
-            DB::table('questions')->insert([
-                'user_id' => Auth::guard('customer')->user()->id,
-                'question' => $request->question,
-            ]);
-            return response()->json(['message' => 'Question Has Been Added'], 403);
-            
+    public function AllQuestion()
+    {
+        $questions = QnaQuestion::with('answers.user', 'user')->get();
+    
+        if ($questions->isNotEmpty()) {
+            foreach ($questions as $question) {
+                if ($question->user->image != null) {
+                    $questionImageUrl = asset('public/assets/images/customers/' . $question->user->image);
+                    $question->user->avatar = $questionImageUrl;
+                }
+    
+                foreach ($question->answers as $answer) {
+                    if ($answer->user->image != null) {
+                        $answerImageUrl = asset('public/assets/images/customers/' . $answer->user->image);
+                        $answer->user->avatar = $answerImageUrl;
+                    }
+                }
+            }
+            return response()->json($questions, 200);
+        } else {
+            return response()->json(['message' => 'Question Not Found'], 404);
         }
-        }else{
+    }
+    
+    
+    public function AddQuestion(Request $request){
+        if(Auth::check()){
+            $validator = Validator::make($request->all(), [
+                'question' => 'required',
+            ]);
+            
+            if ($validator->fails()) {
+                return response()->json(['errors' => Helpers::error_processor($validator)], 403);
+            }else{
+                QnaQuestion::create([
+                    'user_id' => Auth::user()->id,
+                    'question' => $request->question,
+                ]);
+                return response()->json(['message' => 'Question Has Been Added'], 403);
+                
+            }
+        }
+        else{
+            return response()->json(['message' => 'Please Login First'], 404);
+        }
+    }
+
+    public function AddAnswer(Request $request){
+        if(Auth::check()){
+            $validator = Validator::make($request->all(), [
+                'question_id' => 'required|exists:qna_question,id',
+                'answer' => 'required',
+            ]);
+            
+            if ($validator->fails()) {
+                return response()->json(['errors' => Helpers::error_processor($validator)], 403);
+            }else{
+                QnaAnswer::create([
+                    'question_id' => $request->question_id,
+                    'answer' => $request->answer,
+                    'user_id' => Auth::user()->id,
+                ]);
+                return response()->json(['message' => 'Answer Has Been Added'], 403);
+                
+            }
+        }
+        else{
             return response()->json(['message' => 'Please Login First'], 404);
         }
     }

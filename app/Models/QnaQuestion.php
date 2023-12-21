@@ -17,13 +17,13 @@ class QnaQuestion extends Model
     ];
 
 
-    public function user()
+    public function answers()
     {
-        return $this->belongsTo(User::class);
+        return $this->hasMany(QnaAnswer::class, 'question_id', 'id');
     }
 
-    public function answer()
+    public function user()
     {
-        return $this->hasMany(QnaAnswer::class, 'id', 'question_id');
+        return $this->belongsTo(User::class)->select(['id', 'name','f_name', 'l_name', 'image']);
     }
 }
