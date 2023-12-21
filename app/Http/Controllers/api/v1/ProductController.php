@@ -18,15 +18,14 @@ use App\Model\DealOfTheDay;
 use App\Model\MostDemanded;
 use Illuminate\Support\Str;
 use App\CPU\CategoryManager;
-use Illuminate\Http\Request;
 use App\Model\ShippingMethod;
 use function App\CPU\translate;
 use Illuminate\Support\Facades\DB;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
