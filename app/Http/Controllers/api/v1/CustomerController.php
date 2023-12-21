@@ -182,6 +182,27 @@ class CustomerController extends Controller
         }
     }
 
+    public function AddQuestion(Request $request){
+        if(Auth::guard('customer')->user()){
+        $validator = Validator::make($request->all(), [
+            'question' => 'required',
+        ]);
+        
+        if ($validator->fails()) {
+            return response()->json(['errors' => Helpers::error_processor($validator)], 403);
+        }else{
+            DB::table('questions')->insert([
+                'user_id' => Auth::guard('customer')->user()->id,
+                'question' => $request->question,
+            ]);
+            return response()->json(['message' => 'Question Has Been Added'], 403);
+            
+        }
+        }else{
+            return response()->json(['message' => 'Please Login First'], 404);
+        }
+    }
+
     public function Detailchild($id){
         $child = DB::table('family_relation')->where('id', $id)->first();
         if($child != null){

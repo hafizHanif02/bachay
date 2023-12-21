@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Customer\CMS;
 
+use App\Model\Category;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Model\FlashDealProduct;
@@ -97,6 +98,24 @@ class HomeController extends Controller
             $imageUrls[] = $url;
         }
         return response()->json($articles, 200);
+    }
+
+    public function ArticleByCategory($id){
+        $articles = Article::where('category_id', $id)->with('category')->get();
+        
+        if(!$articles->isEmpty()){
+            $imageUrls = [];
+            foreach($articles as $article){
+            $url = asset('/public/assets/images/articles/thumbnail/' . $article->thumbnail);
+            $categoryurl = asset('/public/storage/category/' . $article->category->icon);
+            $article->image = $url;
+            $article->category->icon = $categoryurl;
+        }
+            return response()->json($articles, 200);
+        }
+        else {
+            return response()->json(['message' => 'No Article Found'], 200);
+        }
     }
 
     public function MainBanner(){

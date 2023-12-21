@@ -15,8 +15,8 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
     Route::get('/main-banner-section', [HomeController::class, 'MainBannerSection']);
     Route::get('/flash-deals', [HomeController::class, 'FlashDeals']);
     Route::get('/footer-banner', [HomeController::class, 'FooterBanner']);
-    Route::get('/all-category', [HomeController::class, 'AllCategory']);
-    Route::get('/all-article', [HomeController::class, 'AllArticle']);
+    Route::get('/article/category', [HomeController::class, 'AllArticle']);
+    Route::get('/article/category/{id}', [HomeController::class, 'ArticleByCategory']);
     
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('switch-user/{id}',[HomeController::class, 'SwitchUser']);
@@ -49,7 +49,15 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
 
         Route::any('social-login', 'SocialAuthController@social_login');
         Route::post('update-phone', 'SocialAuthController@update_phone');
+        
+        
     });
+
+Route::group(['prefix' => 'auth'], function () {
+    Route::group(['prefix' => 'qna'], function () {
+        Route::post('question/add', 'CustomerController@AddQuestion');
+    });
+});
 
     Route::group(['prefix' => 'config'], function () {
         Route::get('/', 'ConfigController@configuration');

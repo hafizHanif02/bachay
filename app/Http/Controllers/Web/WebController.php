@@ -5540,8 +5540,7 @@ class WebController extends Controller
                     }
                     if ($shipping_type == 'order_wise') {
                         $cart_shipping = CartShipping::where('cart_group_id', $cart->cart_group_id)->first();
-                        
-                        // dd($cart_shipping);
+                    
                         // if (!isset($cart_shipping)) {
                         //     dd($cart_shipping);
                         //     Toastr::info(translate('select_shipping_method_first'));
