@@ -13,24 +13,26 @@
     <div class="row">
         @foreach ($latest_products as $products)
             <div class="col-md-6 col-lg-3 mb-4">
-                <a class="text-decoration-none" href="{{ route('product-detail', $products->id) }}">
-                    <div class="sub-card rounded-3 p-4">
-                        <div class="card1">
-                            <div class="first-sec card1">
-                                <div class="image-container">
-                                    <div class="imgCon">
+                <div class="sub-card rounded-3 p-4">
+                    <div class="card1">
+                        <div class="first-sec card1">
+                            <div class="image-container">
+                                <div class="imgCon">
+                                    <a class="text-decoration-none product-link" href="{{ route('product-detail', $products->id) }}">
                                         <img class="object-fit-cover rounded-3"
-                                            src="{{ asset("storage/app/public/product/thumbnail/$products->thumbnail") }}"
-                                            alt="" class="img-fluid" width="100%" height="100%">
+                                        src="{{ asset("storage/app/public/product/thumbnail/$products->thumbnail") }}"
+                                        alt="" class="img-fluid" width="100%" height="100%">
+                                    </a>
                                     </div>
                                     <div class="sec-best-seller mt-3">
                                         <p>Best Seller</p>
                                     </div>
                                     <div class="wish-list mt-3 me-2">
-                                        <button id="wishlist-btn" class="p-0 bg-transparent rounded-circle forBorder">
-                                            <i class="bi bi-heart text-danger"></i>
-                                            {{-- <i
-                            class="bi {{ in_array($product->id, $wishlistProducts) ? 'bi-heart-fill' : 'bi-heart' }} text-danger"></i> --}}
+                                        <button type="button" name="wishlist-button-{{ $products->id }}"
+                                            class="p-0 bg-transparent rounded-circle forBorder"
+                                            onclick="addToWishlist('{{ $products->id }}')">
+                                            <i id="heartIcon{{ $products->id }}"
+                                                class="bi {{ in_array($products->id, $wishlistProductsArray) ? 'bi-heart-fill' : 'bi-heart' }} text-danger"></i>
                                         </button>
                                     </div>
                                     {{-- <div class="wish-list mt-3 me-2">
@@ -45,10 +47,10 @@
                                         @endif
                                     </p>
                                     <div class="d-flex">
-                                        <h6 class="card-text price">Rs.
+                                        <h6 class="card-text price m-0">Rs.
                                             {{ $products->unit_price - ($products->unit_price * $products->discount) / 100 }}
                                         </h6>
-                                        <p class="bg-primary rounded-pill ps-2 pe-2 ms-2 text-white units">141 Solds
+                                        <p class="bg-primary rounded-pill ps-2 pe-2 ms-2 text-white units m-0">141 Solds
                                         </p>
                                     </div>
                                     <p class="card-text"><span class="discount">Rs. {{ $products->unit_price }}</span>
@@ -71,7 +73,6 @@
                         </div>
 
                     </div>
-                </a>
             </div>
         @endforeach
         {{-- <div class="col-md-6 col-lg-3 mb-4">
@@ -378,10 +379,16 @@
         </div>
     </div>
 </div> --}}
-
+<style>
+    .wish-list{
+        z-index: 999;
+    }
+    .product-link{
+        z-index: -1 !important;
+    }
+</style>
 <script>
     function addToWishlist(productId) {
-
         $.ajax({
             type: "POST",
             url: "/add-to-wishlist",
@@ -394,8 +401,15 @@
             dataType: "json",
             success: function(data, status, xhr) {
                 var heartIcon = $('#heartIcon' + productId);
+
                 if (xhr.status === 200) {
                     heartIcon.toggleClass('bi-heart bi-heart-fill');
+
+                    // Check if the class is now 'bi-heart'
+                    if (heartIcon.hasClass('bi-heart')) {
+                        // Run the delete function
+                        deleteFromWishlist(productId);
+                    }
                 } else if (xhr.status === 201) {
                     alert("Something went wrong");
                 }
@@ -405,4 +419,34 @@
             }
         });
     }
+
+    function deleteFromWishlist(productId) {
+
+        $.ajax({
+            type: "DELETE",
+            url: "/delete-from-wishlist",
+            data: {
+                productId: productId,
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: "json",
+            success: function(data, status, xhr) {
+                if (xhr.status === 200) {
+                    // Handle successful deletion, if needed
+                    alert("Successfully deleted");
+                } else {
+                    alert("Failed to delete from wishlist");
+                }
+            },
+            error: function(response) {
+                // Handle error
+                console.error("Error:", response);
+                alert("Error occurred while trying to delete from wishlist");
+            }
+        });
+
+    }
 </script>
+
