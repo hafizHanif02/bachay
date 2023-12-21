@@ -6532,4 +6532,5 @@ class WebController extends Controller
             'methodHtml' => view(VIEW_FILE_NAMES['pay_offline_method_list_partials'], compact('method'))->render(),
         ]);
     }
+
 }

@@ -122,35 +122,35 @@ $(".card-slider").slick({
     ],
 });
 
-function addToWishlist(productId) {
-    $.ajax({
-        type: "POST",
-        url: "/add-to-wishlist",
-        data: {
-            _token: $('meta[name="csrf-token"]').attr("content"),
-            productId: productId,
-        },
-        dataType: "json",
-        success: function (data, status, code) {
-            if (code.status == 200) {
-                $("#wishlist-btn-" + productId + " i").removeClass("bi-heart");
-                $("#wishlist-btn-" + productId + " i").addClass(
-                    "bi-heart-fill"
-                );
-            } else if (code.status === 201) {
-                $("#wishlist-btn-" + productId + " i").removeClass(
-                    "bi-heart-fill"
-                );
-                $("#wishlist-btn-" + productId + " i").addClass("bi-heart");
-            }
-        },
-        error: function (response) {
-            if (response.status === 401) {
-                window.location = "/customer/auth/login";
-            }
-        },
-    });
-}
+// function addToWishlist(productId) {
+//     $.ajax({
+//         type: "POST",
+//         url: "/add-to-wishlist",
+//         data: {
+//             _token: $('meta[name="csrf-token"]').attr("content"),
+//             productId: productId,
+//         },
+//         dataType: "json",
+//         success: function (data, status, code) {
+//             if (code.status == 200) {
+//                 $("#wishlist-btn-" + productId + " i").removeClass("bi-heart");
+//                 $("#wishlist-btn-" + productId + " i").addClass(
+//                     "bi-heart-fill"
+//                 );
+//             } else if (code.status === 201) {
+//                 $("#wishlist-btn-" + productId + " i").removeClass(
+//                     "bi-heart-fill"
+//                 );
+//                 $("#wishlist-btn-" + productId + " i").addClass("bi-heart");
+//             }
+//         },
+//         error: function (response) {
+//             if (response.status === 401) {
+//                 window.location = "/customer/auth/login";
+//             }
+//         },
+//     });
+// }
 
 $("#location").keydown(function () {
     var area = $("input[name='location']").val();
