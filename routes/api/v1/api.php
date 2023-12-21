@@ -55,6 +55,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
 
 Route::group(['prefix' => 'auth'], function () {
     Route::group(['prefix' => 'qna'], function () {
+        Route::post('question/all', 'CustomerController@AddQuestion');
         Route::post('question/add', 'CustomerController@AddQuestion');
     });
 });
