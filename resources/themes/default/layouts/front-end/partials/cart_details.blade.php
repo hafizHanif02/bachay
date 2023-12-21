@@ -2,7 +2,9 @@
 <h3 class="mt-4 mb-3 text-center text-lg-left mobile-fs-20">{{ translate('shopping_cart')}}</h3>
 
 @php($shippingMethod=\App\CPU\Helpers::get_business_settings('shipping_method'))@endphp
-@php($cart=\App\Model\Cart::where(['customer_id' => (auth('customer')->check() ? auth('customer')->id() : session('guest_id'))])->get()->groupBy('cart_group_id'))@endphp
+@php($cart=\App\Model\Cart::where(['customer_id' => auth('customer')->id()])->get()->groupBy('cart_group_id'))@endphp
+@php dd($cart); @endphp
+ 
 
 <div class="row g-3 mx-max-md-0">
     <!-- List of items-->

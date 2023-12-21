@@ -256,10 +256,12 @@ Route::get('login/{tab}', 'LoginController@login')->name('login');
 Route::post('login_submit', 'LoginController@submit')->name('login_post')->middleware('actch');
 Route::get('auth/captcha/{tmp}', 'LoginController@captcha')->name('auth-default-captcha');
 
+
 //check done
 Route::group(['prefix' => 'cart', 'as' => 'cart.', 'namespace' => 'Web'], function () {
     Route::post('variant_price', 'CartController@variant_price')->name('variant_price');
     Route::post('add', 'CartController@addToCart')->name('add');
+    Route::post('buy-now', 'CartController@BuyNow')->name('buy-now');
     Route::post('update-variation', 'CartController@update_variation')->name('update-variation'); //theme fashion
     Route::get('remove/{id}', 'CartController@removeFromCart')->name('remove');
     Route::get('remove-all', 'CartController@remove_all_cart')->name('remove-all'); //theme fashion

@@ -46,8 +46,17 @@
 
             </div>
             {{-- <img class="detailed-product-img" src="{{ asset('public/images/Frame 83.png') }}" alt=""> --}}
-            <div class="d-flex  mt-1">
-                <button class="buy-now rounded-pill text-white w-100 pt-4 pb-4 m-2 ms-3 me-3">Buy Now</button>
+            <div class="mt-1">
+                <form action="{{ route('cart.buy-now') }}" method="POST">
+                    @csrf
+                    <input type="hidden" name="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="price" id="price" value="{{ $product->unit_price }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="product[1][quantity]" value="1">
+                    <input type="hidden" name="product[1][id]" value="{{ $product->id }}">
+                    <input type="hidden" name="product[1][price]" value="{{ $product->unit_price }}">
+                    <button type="submit" class="buy-now rounded-pill text-white w-100 pt-4 pb-4 m-2 ms-3 me-3">Buy Now</button>
+                </form>
             </div>
             <form action="{{ route('cart.add') }}" method="POST">
                 @csrf
