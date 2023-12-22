@@ -6737,4 +6737,5 @@
   'if_enabled_customers_will_receive_articles_on_their_devices' => 'If enabled customers will receive articles on their devices',
   'if_disabled_customers_will_not_receive_articles_on_their_devices' => 'If disabled customers will not receive articles on their devices',
   'your_order_has_been_canceled' => 'Your order has been canceled',
+  'product_has_been_remove_from_wishlist' => 'Product has been remove from wishlist',
 );

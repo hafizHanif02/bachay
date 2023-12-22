@@ -6025,6 +6025,11 @@ class WebController extends Controller
 
         return response()->json(['status' => 'error', 'message' => 'User not authenticated'], 401);
     }
+   
+
+
+  
+    
 
     public function storeWishlist(Request $request)
     {
@@ -6074,7 +6079,7 @@ class WebController extends Controller
 
     public function deleteWishlist(Request $request)
     {
-        $this->wishlist->where(['product_id' => $request['id'], 'customer_id' => auth('customer')->id()])->delete();
+        $this->wishlist->where(['product_id' => $request->productId, 'customer_id' => auth('customer')->id()])->delete();
         $data = translate('product_has_been_remove_from_wishlist') . '!';
         $wishlists = $this->wishlist->where('customer_id', auth('customer')->id())->paginate(15);
         $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
