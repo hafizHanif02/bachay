@@ -64,9 +64,9 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="sepparator"></div>
                                     @endforeach
                                 </div>
+                                <div class="sepparator"></div>
                                 @endforeach
                             </div>
                         </div>
