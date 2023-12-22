@@ -42,13 +42,14 @@
 
                                     <div class="form-group">
                                         <label class="title-color text-capitalize"
-                                               for="exampleFormControlInput1">Category </label>
-                                        <select class="form-control" name="category_id" id="">
+                                               for="exampleFormControlInput1">Article Category </label>
+                                        <select class="form-control" name="article_category_id">
                                             <option value="" selected disabled>Select Category</option>
                                             @foreach($categories as $category)
                                             <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
                                         </select>
+                                        <button type="button" class="mt-5 btn btn-primary" onclick="openModal()">Add Article Category</button>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -142,7 +143,7 @@
                                         src="{{ asset('public/assets/images/articles/thumbnail/' . $article->thumbnail) }}" alt="Article Thumbnail">
                                    
                                     </td>
-                                    <td>{{ $article->category->name}}</td>
+                                    <td>{{ $article->articlecategory->name}}</td>
                                     <td>
                                         <form action="{{ route('admin.business-settings.article.status') }}" method="post" id="article_status{{$article->id}}_form" class="article_status_form">
                                             @csrf
@@ -194,6 +195,79 @@
             <!-- End Table -->
         </div>
     </div>
+    <div id="myModal" class="modal">
+        <div class="modal-content">
+            <span class="close text-end" onclick="closeModal()">&times;</span>
+            <h2>Add Article Category</h2>
+            <form id="articleForm" action="{{ route('admin.business-settings.article.category.store') }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="row mt-5">
+                    <div class="col-md-6">
+                        <label type="text" class="form-label" for="categoryName">Name</label>
+                        <input class="form-control" placeholder="Enter Category Name" id="categoryName" name="name" required>
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label" for="categoryName">Image</label>
+                        <input type="file" class="form-control" placeholder="Image" id="Image" name="image" required>
+                    </div>
+                </div>
+                <div class="row mt-5">
+                    <div class="col-md-12">
+                        <label class="form-label" for="categoryName">Tag Line</label>
+                        <input type="text" class="form-control" placeholder="Article Category Tag Line" id="tag_line" name="tag_line" required>
+                    </div>
+                </div>
+                <div class="row mt-5">
+
+                </div>
+                <br>
+                <button class="btn btn-primary" type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: #fff;
+            margin: 10% auto;
+            padding: 20px;
+            border-radius: 5px;
+            width: 50%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+    </style>
+
+<script>
+    function openModal() {
+        document.getElementById('myModal').style.display = 'block';
+    }
+
+    function closeModal() {
+        document.getElementById('myModal').style.display = 'none';
+    }
+
+    
+</script>
 @endsection
 
 @push('script')
@@ -207,3 +281,6 @@
     </script>
     {{--ck editor--}}
 @endpush
+
+
+

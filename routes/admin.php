@@ -532,7 +532,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
                 Route::post('terms-condition', 'BusinessSettingsController@updateTermsCondition')->name('update-terms');
                 Route::get('article', 'BusinessSettingsController@article')->name('article');
                 Route::get('article/edit/{id}', 'BusinessSettingsController@edit_article')->name('article.edit');
-                Route::post('store', 'BusinessSettingsController@ArticleStore')->name('article.store');
+                Route::post('article/store', 'BusinessSettingsController@ArticleStore')->name('article.store');
+                Route::post('article/category/store', 'BusinessSettingsController@ArticleCategoryStore')->name('article.category.store');
                 Route::post('update', 'BusinessSettingsController@ArticleUpdate')->name('article.update');
                 Route::post('status', 'BusinessSettingsController@ArticleStatus')->name('article.status');
                 Route::post('delete', 'BusinessSettingsController@ArticleDelete')->name('article.delete');

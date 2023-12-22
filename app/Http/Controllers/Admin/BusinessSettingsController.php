@@ -13,6 +13,7 @@ use App\Model\SocialMedia;
 use App\Models\HomeLayout;
 use Illuminate\Http\Request;
 use App\Model\BusinessSetting;
+use App\Models\ArticleCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Admin\Log;
 use App\Http\Controllers\Controller;
@@ -190,9 +191,9 @@ class BusinessSettingsController extends Controller
 
     public function article()
     {
-        $articles = Article::with('category')->get();
-        $categories = DB::table('categories')->get();
-        // $terms_condition = BusinessSetting::where('type', 'article')->first();
+        $articles = Article::with('articlecategory')->get();
+        $categories = ArticleCategory::get();
+        // $categories = ArticleCategory::with('articles')->get();
         return view('admin-views.business-settings.article',compact('articles','categories'));
     }
 
@@ -221,6 +222,27 @@ class BusinessSettingsController extends Controller
         $article = Article::find($request->id);
         $article->delete();
         return redirect()->back();
+    }
+
+    public function ArticleCategoryStore(Request $request){
+        $request->validate([
+            'name' => 'required|string',
+            'tag_line' => 'required|string|max:255',
+            'image' => 'image|mimes:jpeg,png,jpg,gif',
+        ]);
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('assets/images/articles/category/thumbnail'), $filename);
+        }
+        DB::table('article_category')->insert([
+            'name' => $request->name,
+            'tag_line' => $request->tag_line,
+            'image' => ($filename ?? ''),
+        ]);
+        Toastr::success('Article Category Added');
+        return back();
     }
 
     public function home_layout()
@@ -1289,7 +1311,7 @@ class BusinessSettingsController extends Controller
             'title' => 'required|string|max:255',
             'text' => 'required|string',
             'thumbnail' => 'image|mimes:jpeg,png,jpg,gif|max:2048',
-            'category_id' => 'required|integer|exists:categories,id',
+            'article_category_id' => 'required|integer|exists:article_category,id',
         ]);
         if ($request->file('thumbnail')) {
             $file = $request->file('thumbnail');
@@ -1301,8 +1323,11 @@ class BusinessSettingsController extends Controller
             'title' => $request->title,
             'text' => $request->text,
             'thumbnail' => ($filename ?? ''),
-            'category_id' => $request->category_id,
+            'article_category_id' => $request->article_category_id,
         ]);
+
+        Toastr::success('Article Added !');
+        return back();
     }
 
     public function ArticleUpdate(Request $request)

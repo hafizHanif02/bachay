@@ -6,6 +6,7 @@ use App\Model\Category;
 use App\Models\Article;
 use Illuminate\Http\Request;
 use App\Model\FlashDealProduct;
+use App\Models\ArticleCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 
@@ -100,23 +101,51 @@ class HomeController extends Controller
         return response()->json($articles, 200);
     }
 
-    public function ArticleByCategory($id){
-        $articles = Article::where('category_id', $id)->with('category')->get();
-        
-        if(!$articles->isEmpty()){
-            $imageUrls = [];
-            foreach($articles as $article){
-            $url = asset('/public/assets/images/articles/thumbnail/' . $article->thumbnail);
-            $categoryurl = asset('/public/storage/category/' . $article->category->icon);
-            $article->image = $url;
-            $article->category->icon = $categoryurl;
-        }
-            return response()->json($articles, 200);
+    public function allCategoryArticle(){
+        $allCategorys = ArticleCategory::with('articles')->get();
+        if(!$allCategorys->isEmpty()){
+            foreach($allCategorys as $category){
+                $url = asset('/public/assets/images/articles/category/thumbnail/' . $category->image);
+                $category->image = $url;
+                foreach($category->articles as $article){
+                    $url = asset('/public/assets/images/articles/thumbnail/' . $article->thumbnail);
+                    $article->thumbnail = $url;
+                }
+            }
+            return response()->json($allCategorys, 200);
         }
         else {
             return response()->json(['message' => 'No Article Found'], 200);
         }
     }
+
+    public function ArticleByCategory($id){
+        $categoryArticle = ArticleCategory::where('id',$id)->with('articles')->first();
+        if($categoryArticle){
+            $url = asset('/public/assets/images/articles/category/thumbnail/' . $categoryArticle->image);
+            $categoryArticle->image = $url;
+            foreach($categoryArticle->articles as $article){
+                $url = asset('/public/assets/images/articles/thumbnail/' . $article->thumbnail);
+                $article->thumbnail = $url;
+            }
+            return response()->json($categoryArticle, 200);
+        }else{
+            return response()->json(['message' => 'No Article Category Found'], 200);
+        }
+    }
+
+    public function ArticleDetail($id){
+        $article = Article::where('id',$id)->with('articlecategory')->first();
+        if($article){
+            $url = asset('/public/assets/images/articles/thumbnail/' . $article->thumbnail);
+            $article->thumbnail = $url;
+            return response()->json($article, 200);
+        }else{
+            return response()->json(['message' => 'No Article Found'], 200);
+        }
+    }
+
+   
 
     public function MainBanner(){
         $banners = DB::table('banners')

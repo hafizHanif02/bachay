@@ -15,9 +15,11 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
     Route::get('/main-banner-section', [HomeController::class, 'MainBannerSection']);
     Route::get('/flash-deals', [HomeController::class, 'FlashDeals']);
     Route::get('/footer-banner', [HomeController::class, 'FooterBanner']);
-    Route::get('/article/category', [HomeController::class, 'AllArticle']);
-    Route::get('/article/category/{id}', [HomeController::class, 'ArticleByCategory']);
-    
+    Route::group(['prefix' => 'article'], function () {
+        Route::get('category/all', [HomeController::class, 'allCategoryArticle']);
+        Route::get('category/{id}', [HomeController::class, 'ArticleByCategory']);
+        Route::get('/{id}', [HomeController::class, 'ArticleDetail']);
+    });
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('switch-user/{id}',[HomeController::class, 'SwitchUser']);
     });
