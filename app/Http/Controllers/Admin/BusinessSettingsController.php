@@ -11,6 +11,7 @@ use App\Models\Article;
 use App\CPU\ImageManager;
 use App\Model\SocialMedia;
 use App\Models\HomeLayout;
+use App\Models\QnaQuestion;
 use Illuminate\Http\Request;
 use App\Model\BusinessSetting;
 use App\Models\ArticleCategory;
@@ -197,6 +198,8 @@ class BusinessSettingsController extends Controller
         return view('admin-views.business-settings.article',compact('articles','categories'));
     }
 
+   
+
     public function edit_article($id)
     {
         $article = Article::where('id',$id)->with('category')->first();
@@ -243,6 +246,26 @@ class BusinessSettingsController extends Controller
         ]);
         Toastr::success('Article Category Added');
         return back();
+    }
+
+    public function QNA(){
+        $questions = QnaQuestion::with('answers.user', 'user')->get();
+    
+        if ($questions->isNotEmpty()) {
+            foreach ($questions as $question) {
+                if ($question->user->image != null) {
+                    $questionImageUrl = asset('public/assets/images/customers/' . $question->user->image);
+                    $question->user->avatar = $questionImageUrl;
+                }
+    
+                foreach ($question->answers as $answer) {
+                    if ($answer->user->image != null) {
+                        $answerImageUrl = asset('public/assets/images/customers/' . $answer->user->image);
+                        $answer->user->avatar = $answerImageUrl;
+                    }
+                }
+            }
+            return view('admin-views.business-settings.qna', compact('questions'));}
     }
 
     public function home_layout()

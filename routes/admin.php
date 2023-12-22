@@ -534,10 +534,12 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
                 Route::get('article/edit/{id}', 'BusinessSettingsController@edit_article')->name('article.edit');
                 Route::post('article/store', 'BusinessSettingsController@ArticleStore')->name('article.store');
                 Route::post('article/category/store', 'BusinessSettingsController@ArticleCategoryStore')->name('article.category.store');
+                Route::post('article', 'BusinessSettingsController@updateArticle')->name('update-article');
+                Route::get('qna', 'BusinessSettingsController@QNA')->name('qna');
+                
                 Route::post('update', 'BusinessSettingsController@ArticleUpdate')->name('article.update');
                 Route::post('status', 'BusinessSettingsController@ArticleStatus')->name('article.status');
                 Route::post('delete', 'BusinessSettingsController@ArticleDelete')->name('article.delete');
-                Route::post('article', 'BusinessSettingsController@updateArticle')->name('update-article');
                 Route::get('privacy-policy', 'BusinessSettingsController@privacy_policy')->name('privacy-policy');
                 Route::post('privacy-policy', 'BusinessSettingsController@privacy_policy_update')->name('privacy-policy');
 
