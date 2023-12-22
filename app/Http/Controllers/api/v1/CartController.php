@@ -14,6 +14,7 @@ use function App\CPU\translate;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class CartController extends Controller
@@ -40,13 +41,11 @@ class CartController extends Controller
                     $cart_data->delete();
 
                     unset($cart[$key]);
-                }
-                foreach($cart as $cartproduct){
-                    $thumbnailUrl = asset('storage/app/public/product/thumbnail/' . $cartproduct->thumbnail);
-                    $cartproduct->thumbnail = $thumbnailUrl;
-                }
-            
-
+                }    
+            }
+            foreach($cart as $cartproduct){
+                $thumbnailUrl = asset('storage/app/public/product/thumbnail/' . $cartproduct->thumbnail);
+                $cartproduct->thumbnail = $thumbnailUrl;
             }
 
             $cart->map(function ($data) use($request) {
@@ -86,82 +85,76 @@ class CartController extends Controller
     }
 
     public function add_to_cart(Request $request)
+    {       
+        if(Auth::check()){
+            $validator = Validator::make($request->all(), [
+                'product_id' => ['required','exists:products,id'],
+                'quantity' => 'required',
+            ], [
+                'product_id.required' => translate('Product ID is required!')
+            ]);
+    
+            if ($validator->errors()->count() > 0) {
+                return response()->json(['errors' => Helpers::error_processor($validator)]);
+            }
+    
+            $cart = CartManager::add_to_cart($request);
+            return response()->json($cart, 200);
+        }else{
+            return response()->json(['errors' => translate('Please login first!')], 401);
+        }
+    }
+
+    public function update_cart(Request $request, $id)
     {
-        // return $request;
+        if(Auth::check()){
+            $cartData = Cart::where(['id'=> $id, 'customer_id'=>Auth::user()->id])->first();
+            if($cartData){
+                $validator = Validator::make($request->all(), [
+                    'quantity' => ['required', 'numeric']
+                ]);
+                if ($validator->fails()) {
+                    return response()->json(['errors' => Helpers::error_processor($validator)]);
+                }
+                DB::table('carts')->where([
+                    'id' => $id,
+                    'customer_id' => Auth::user()->id,
+                ])->update([
+                    'quantity' => $request->quantity,
+                ]);
         
-        $validator = Validator::make($request->all(), [
-            'product_id' => ['required','exists:products,id'],
-            'quantity' => 'required',
-            'customer_id' => 'required',
-        ], [
-            'product_id.required' => translate('Product ID is required!')
-        ]);
-
-        if ($validator->errors()->count() > 0) {
-            return response()->json(['errors' => Helpers::error_processor($validator)]);
+                $response = 'Cart has been Updated';
+                return response()->json($response);
+            }else{
+                return response()->json(['errors' => 'Cart not found'], 401);
+            }
+        }else{
+            return response()->json(['errors' => translate('Please login first!')], 401);
         }
-
-        $cart = CartManager::add_to_cart($request);
-        return response()->json($cart, 200);
-    }
-
-    public function update_cart(Request $request)
-    {
-        $validator = Validator::make($request->all(), [
-            'key' => ['required', 'exists:carts,id'],
-            'customer_id' => ['required', 'exists:users,id'],
-            'product_id' => [
-                'required',
-                Rule::exists('carts', 'product_id')->where(function ($query) use ($request) {
-                    $query->where(['customer_id'=> $request->customer_id, 'product_id' => $request->product_id]);
-                }),
-            ],
-            'quantity' => ['required', 'numeric'], 
-        ], [
-            'key.required' => translate('Cart key or ID is required!'),
-        ]);
-
-        if ($validator->fails()) {
-            return response()->json(['errors' => Helpers::error_processor($validator)]);
-        }
-
-        DB::table('carts')->where([
-            'id' => $request->key,
-            'product_id' => $request->product_id,
-            'customer_id' => $request->customer_id,
-        ])->update([
-            'quantity' => $request->quantity,
-        ]);
-
-        $response = 'Cart has been Updated';
-        return response()->json($response);
     }
 
 
-    public function remove_from_cart(Request $request)
+    public function remove_from_cart($id)
     {
-        $validator = Validator::make($request->all(), [
-            'key' => ['required','exists:carts,id']
-        ], [
-            'key.required' => translate('Cart key or ID is required!')
-        ]);
-
-        if ($validator->errors()->count() > 0) {
-            return response()->json(['errors' => Helpers::error_processor($validator)]);
+        if(Auth::check()){
+            $cartData = Cart::where(['id'=>$id,'customer_id'=>Auth::user()->id])->first();
+            if($cartData){
+                Cart::where([
+                    'id' => $id,
+                    'customer_id' => Auth::user()->id,
+                ])->delete();
+                return response()->json(translate('successfully_removed'));
+            }else{
+                return response()->json(['errors' => 'Cart not found'], 401);
+            }
+        }else{
+            return response()->json(['errors' => translate('Please login first!')], 401);
         }
-
-        $user = Helpers::get_customer($request);
-        Cart::where([
-            'id' => $request->key,
-            'customer_id' => ($user == 'offline' ? (session('guest_id') ?? $request->guest_id) : $user->id),
-            'is_guest' => ($user == 'offline' ? 1 : '0'),
-        ])->delete();
-        return response()->json(translate('successfully_removed'));
     }
     public function remove_all_from_cart(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'key' => ['required','exists:carts,id']
+            'key' => ['required','exists:carts,cart_group_id']
         ], [
             'key.required' => translate('Cart key or ID is required!')
         ]);
@@ -174,6 +167,7 @@ class CartController extends Controller
         Cart::where([
             'customer_id'=> ($user == 'offline' ? $request->guest_id : $user->id),
             'is_guest' => ($user == 'offline' ? 1 : '0'),
+            'cart_group_id' => $request->key
         ])->delete();
         return response()->json(translate('successfully_removed'));
     }

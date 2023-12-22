@@ -3,15 +3,16 @@
 namespace App\CPU;
 
 use App\Model\Cart;
-use App\Model\CartShipping;
+use App\Model\Shop;
 use App\Model\Color;
 use App\Model\Product;
-use App\Model\Shop;
-use Barryvdh\Debugbar\Twig\Extension\Debug;
 use Cassandra\Collection;
-use Illuminate\Support\Str;
+use App\Model\CartShipping;
 use App\Model\ShippingType;
+use Illuminate\Support\Str;
 use App\Model\CategoryShippingCost;
+use Illuminate\Support\Facades\Auth;
+use Barryvdh\Debugbar\Twig\Extension\Debug;
 
 class CartManager
 {
@@ -264,7 +265,7 @@ class CartManager
 
         $user = Helpers::get_customer($request);
         $product = Product::find($request->product_id);
-        $guest_id = session('guest_id') ?? ($request->guest_id ?? 0);
+        $guest_id = Auth::check() ? Auth::user()->id : 0;
 
         //check the color enabled or disabled for the product
         if (!empty($request->color) && $request->has('color')) {
@@ -414,7 +415,8 @@ class CartManager
 
         return [
             'status' => 1,
-            'message' => translate('successfully_added!')
+            'message' => translate('successfully_added!'),
+            'cart_group_id' => $cart['cart_group_id']
         ];
         // return redirect('product-detail/'.$product->id)->with('message', 'Product Has Been Added to Cart !');
 

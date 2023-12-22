@@ -68,11 +68,11 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::get('check-shipping-type','ShippingMethodController@check_shipping_type');
     });
 
-    Route::group(['prefix' => 'cart','middleware'=>'apiGuestCheck'], function () {
+    Route::group(['prefix' => 'cart','middleware'=>'auth:api'], function () {
         Route::get('/', 'CartController@cart');
         Route::post('add', 'CartController@add_to_cart');
-        Route::post('update', 'CartController@update_cart');
-        Route::delete('remove', 'CartController@remove_from_cart');
+        Route::put('update/{id}', 'CartController@update_cart');
+        Route::delete('remove/{id}', 'CartController@remove_from_cart');
         Route::delete('remove-all','CartController@remove_all_from_cart');
 
     });
