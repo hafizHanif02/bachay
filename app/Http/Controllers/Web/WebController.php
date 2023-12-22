@@ -6082,16 +6082,19 @@ class WebController extends Controller
 
     public function deleteWishlist(Request $request)
     {
-        $this->wishlist->where(['product_id' => $request->productId, 'customer_id' => auth('customer')->id()])->delete();
+       $wishlist = Wishlist::where(['product_id' => $request->productId, 'customer_id' => auth('customer')->id()])->delete();
         $data = translate('product_has_been_remove_from_wishlist') . '!';
-        $wishlists = $this->wishlist->where('customer_id', auth('customer')->id())->paginate(15);
-        $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
-        session()->put('wish_list', $this->wishlist->where('customer_id', auth('customer')->user()->id)->pluck('product_id')->toArray());
+        // $wishlists = $this->wishlist->where('customer_id', auth('customer')->id())->paginate(15);
+        // $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
+        // session()->put('wish_list', $this->wishlist->where('customer_id', auth('customer')->user()->id)->pluck('product_id')->toArray());
+        // return response()->json([
+        //     'success' => $data,
+        //     'count' => count($wishlists),
+        //     'id' => $request->id,
+        //     'wishlist' => view(VIEW_FILE_NAMES['account_wishlist_partials'], compact('wishlists', 'brand_setting'))->render(),
+        // ]);
         return response()->json([
-            'success' => $data,
-            'count' => count($wishlists),
-            'id' => $request->id,
-            'wishlist' => view(VIEW_FILE_NAMES['account_wishlist_partials'], compact('wishlists', 'brand_setting'))->render(),
+            'success' => 'deleted successfully'
         ]);
     }
 
