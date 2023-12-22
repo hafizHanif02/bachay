@@ -338,7 +338,7 @@
                     <p>Shipping (+)</p>
                 </div>
                 <div class="listDown">
-                    <p class="fw-bold">Rs. {{ $total_product_price }}</p>
+                    <p class="fw-bold" id="total-actualp">Rs. {{ $total_product_price }}</p>
                     <input type="hidden" name="total_price" id="total_price" value="{{ $total_product_price }}">
                     <p class="text-success fw-bold" id="discount-amountp">Rs. {{ $totalDiscount }}</p>
                     {{-- <p class="text-danger fw-bold">Rs. 390.74</p> --}}
@@ -387,6 +387,7 @@
         var total = ((price - (discount / 100) * price) * quantity).toFixed(1);
         var discount_amount = (((discount / 100) * price) * quantity).toFixed(1);
         var actual_amount = (price * quantity).toFixed(1);
+        console.log(price, discount, quantity, total, discount_amount, actual_amount);
 
         $('#actual_price' + index).val(actual_amount);
         $('#price' + index).val(total);
@@ -415,9 +416,10 @@
                 totalActual += parseFloat($(this).val());
             }
         });
-        // console.log(totalDiscount);
+        console.log(totalDiscount, totalActual);
         $('#final-payment').val(totalAmount.toFixed(1));
         $('#total_price').val(totalActual.toFixed(1));
+        $('#total-actualp').text('Rs. ' + totalActual.toFixed(1));
         $('#final-paymentp').text('Rs. ' + totalAmount.toFixed(1));
         $('#sub-total-down').text('Rs. ' + totalAmount.toFixed(1));
         $('#discount-amountp').text('Rs. ' + totalDiscount.toFixed(1));

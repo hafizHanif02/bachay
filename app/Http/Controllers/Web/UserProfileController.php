@@ -126,9 +126,9 @@ class UserProfileController extends Controller
                 ]);
             }
         
-            return redirect()->back()->with('message', 'Address Has Been Updated!');
+            return redirect()->back()->with(['message'=> 'Address Has Been Updated!','status' => 1]);
         } else {
-            return redirect()->back()->with('message', 'User is not Logged In');
+            return redirect()->back()->with(['message'=> 'User is not Logged In','status' => 1]);
         }
     }
 

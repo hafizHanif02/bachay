@@ -38,7 +38,6 @@ class CartController extends Controller
 {
     public function cart_address()
     {
-
         $home_categories = Category::where('home_status', true)->priority()->get();
         $home_categories->map(function ($data) {
             $id = '"' . $data['id'] . '"';
