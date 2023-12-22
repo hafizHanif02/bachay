@@ -33,7 +33,8 @@ Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('main
 
 
 Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestCheck']], function () {
-    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/', 'HomeController@commingsoon')->name('home');
+    // Route::get('/', 'HomeController@index')->name('home');
 
     Route::post('/add-to-wishlist', 'WebController@addToWishlist')->name('wishlist.add');
     // Route::post('/delete-from-wishlist', 'WebController@deleteFromWishlist')->name('wishlist.delete');

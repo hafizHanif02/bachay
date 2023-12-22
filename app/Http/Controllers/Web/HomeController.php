@@ -46,6 +46,9 @@ class HomeController extends Controller
     }
 
 
+    public function commingsoon (){
+        return view("comingsoon");
+    }
     public function index()
     {
         $theme_name = theme_root_path();
