@@ -46,6 +46,7 @@ class ProductDetailsController extends Controller
 
     public function default_theme($id){
         $product = Product::active()->with(['reviews','seller.shop'])->where('id', $id)->first();
+        $products = Product::get();
         $tax = Product::where([
             'id'=> $id,
             'tax_model'=>'exclude'
@@ -144,7 +145,7 @@ class ProductDetailsController extends Controller
             // return $product;
             // dd($relatedProducts);
             // dd($product->choice_options);
-            return view(VIEW_FILE_NAMES['product-detail'], compact('tax','userData','colors','randomCategories','randomProducts','ageOptions','sizeOptions','home_categories','categoryId','categoryName','product', 'countWishlist', 'countOrder', 'relatedProducts',
+            return view(VIEW_FILE_NAMES['product-detail'], compact('tax','userData','colors','randomCategories','randomProducts','ageOptions','sizeOptions','home_categories','categoryId','categoryName','product','products', 'countWishlist', 'countOrder', 'relatedProducts',
                 'deal_of_the_day', 'current_date', 'seller_vacation_start_date', 'seller_vacation_end_date', 'seller_temporary_close',
                 'inhouse_vacation_start_date', 'inhouse_vacation_end_date', 'inhouse_vacation_status', 'inhouse_temporary_close','overallRating',
                 'wishlist_status','reviews_of_product','rating','total_reviews','products_for_review','more_product_from_seller','decimal_point_settings'));
