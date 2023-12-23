@@ -73,7 +73,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::post('add', 'CartController@add_to_cart');
         Route::put('update/{id}', 'CartController@update_cart');
         Route::delete('remove/{id}', 'CartController@remove_from_cart');
-        Route::delete('remove-all','CartController@remove_all_from_cart');
+        Route::delete('remove-all/{id}','CartController@remove_all_from_cart');
 
     });
 

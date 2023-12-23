@@ -151,26 +151,23 @@ class CartController extends Controller
             return response()->json(['errors' => translate('Please login first!')], 401);
         }
     }
-    public function remove_all_from_cart(Request $request)
+    public function remove_all_from_cart(Request $request, $id)
     {
-        $validator = Validator::make($request->all(), [
-            'key' => ['required','exists:carts,cart_group_id']
-        ], [
-            'key.required' => translate('Cart key or ID is required!')
-        ]);
-
-        if ($validator->errors()->count() > 0) {
-            return response()->json(['errors' => Helpers::error_processor($validator)]);
-        }
-
-        $user = Helpers::get_customer($request);
-        Cart::where([
-            'customer_id'=> ($user == 'offline' ? $request->guest_id : $user->id),
-            'is_guest' => ($user == 'offline' ? 1 : '0'),
-            'cart_group_id' => $request->key
-        ])->delete();
-        return response()->json(translate('successfully_removed'));
+        if(Auth::check()){
+            $cart_data = Cart::where('cart_group_id', $id)->first();
+            if($cart_data){
+            Cart::where([
+                'customer_id'=> Auth::user()->id,
+                'cart_group_id' => $id
+            ])->delete();
+            return response()->json(translate('successfully_removed'));
+            }else{
+                return response()->json(['errors' => 'Cart not found'], 401);
+            }
+    }else{
+        return response()->json(['errors' => translate('Please login first!')], 401);
     }
+}
 
 
 }
