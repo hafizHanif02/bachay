@@ -33,9 +33,9 @@
                                             <div class="avatar"><img src="{{ $question->user->avatar }}"></div>
                                             <div class="content-comment">
                                                 <div class="user">
-                                                    <h5>{{ $question->user->f_name.' '.$question->user->l_name }}</h5>
+                                                    <h5>{{ $question->question }}</h5>
                                                 </div>
-                                                <p>{{ $question->question }}</p>
+                                                <p>{{ $question->user->f_name.' '.$question->user->l_name }}</p>
                                             </div>
                                         </div>
                                         <div class="footer"></div>
@@ -53,9 +53,9 @@
                                                     <div class="avatar"><img src="{{ $answer->user->avatar }}"></div>
                                                     <div class="content-comment">
                                                         <div class="user">
-                                                            <h5>{{ $answer->user->f_name.' '.$answer->user->l_name }}</h5>
+                                                            <h5>{{ $answer->answer }}</h5>
                                                         </div>
-                                                        <p>{{ $answer->answer }}</p>
+                                                        <p>{{ $answer->user->f_name.' '.$answer->user->l_name }}</p>
                                                         <div class="content-footer">
                                                         </div>
                                                     </div>
