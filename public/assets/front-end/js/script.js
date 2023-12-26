@@ -151,6 +151,64 @@ $(".card-slider").slick({
 //         },
 //     });
 // }
+function addToWishlist(button) {
+    var productId = $(button).data('product-id');
+    $.ajax({
+        type: "POST",
+        url: "/add-to-wishlist",
+        data: {
+            productId: productId,
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: "json",
+        success: function(data, status, xhr) {
+            var heartIcon = $(button).find('i');
+            if (xhr.status === 200) {
+                heartIcon.toggleClass('bi-heart bi-heart-fill text-danger');
+                if (heartIcon.hasClass('bi-heart')) {
+                    deleteFromWishlist(productId);
+                }
+            } else if (xhr.status === 201) {
+                alert("Something went wrong");
+            }
+        },
+        error: function(response) {
+            alert("Error occurred while adding on wishlist");
+        }
+    });
+}
+
+function deleteFromWishlist(productId) {
+    $.ajax({
+        type: "POST",
+        url: "/delete-wishlist",
+        data: {
+            productId: productId,
+        },
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        },
+        dataType: "json",
+        success: function(data, status, xhr) {
+            if (xhr.status === 200) {
+                Swal.fire(
+                    'Deleted!',
+                    'Your product has been removed from Wishlist.',
+                    'success'
+                );
+            } else {
+                alert("Failed to delete from wishlist. Server returned: " + xhr.status + " " + xhr
+                    .statusText);
+            }
+        },
+        error: function(xhr, status, error) {
+            alert("Error occurred while deleting from wishlist");
+        }
+    });
+}
+
 
 $("#location").keydown(function () {
     var area = $("input[name='location']").val();

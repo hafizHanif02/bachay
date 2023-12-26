@@ -28,12 +28,20 @@
                                 <div class="sec-best-seller mt-3">
                                     <p>Best Seller</p>
                                 </div>
-                                <div class="wish-list mt-3 me-2">
+                                {{-- <div class="wish-list mt-3 me-2">
                                     <button type="button" name="wishlist-button-{{ $products->id }}"
                                         class="p-0 bg-transparent rounded-circle forBorder"
                                         onclick="addToWishlist('{{ $products->id }}')">
-                                        <i id="heartIcon{{ $products->id }}"
+                                        <i id="hearticon{{ $products->id }}"
                                             class="bi {{ in_array($products->id, $wishlistProductsArray) ? 'bi-heart-fill' : 'bi-heart' }} text-danger"></i>
+                                    </button>
+                                </div> --}}
+                                <div class="wish-list mt-3 me-2">
+                                    <button type="button"
+                                        class="wishlist-button p-0 bg-transparent rounded-circle forBorder"
+                                        data-product-id="{{ $products->id }}" onclick="addToWishlist(this)">
+                                        <i
+                                            class="bi heart-icon bi-heart{{ in_array($products->id, $wishlistProductsArray) ? '-fill' : '' }} text-danger"></i>
                                     </button>
                                 </div>
                                 <p class="card-text mt-3" id="productDescription">
@@ -74,40 +82,7 @@
     </div>
 
 </div>
-<style>
-    .wish-list {
-        z-index: 999;
-    }
-
-    .product-link {
-        z-index: -1 !important;
-    }
-</style>
-<script>
-    function deleteFromWishlist(productId) {
-        $.ajax({
-            type: "POST",
-            url: "/delete-wishlist",
-            data: {
-                productId: productId,
-            },
-            headers: {
-                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-            },
-            dataType: "json",
-            success: function(data, status, xhr) {
-                if (xhr.status === 200) {
-                    alert("Successfully deleted");
-                } else {
-                    alert("Failed to delete from wishlist. Server returned: " + xhr.status + " " + xhr.statusText);
-                }
-            },
-            error: function(xhr, status, error) {
-                alert("Error occurred while deleting from wishlist");
-            }
-        });
-    }
-
+{{-- <script>
     function addToWishlist(productId) {
         $.ajax({
             type: "POST",
@@ -135,4 +110,33 @@
             }
         });
     }
-</script>
+
+    function deleteFromWishlist(productId) {
+        $.ajax({
+            type: "POST",
+            url: "/delete-wishlist",
+            data: {
+                productId: productId,
+            },
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            },
+            dataType: "json",
+            success: function(data, status, xhr) {
+                if (xhr.status === 200) {
+                    Swal.fire(
+                        'Deleted!',
+                        'Your product has been removed from Wishlist.',
+                        'success'
+                    );
+                } else {
+                    alert("Failed to delete from wishlist. Server returned: " + xhr.status + " " + xhr
+                        .statusText);
+                }
+            },
+            error: function(xhr, status, error) {
+                alert("Error occurred while deleting from wishlist");
+            }
+        });
+    }
+</script> --}}
