@@ -625,6 +625,10 @@ h1.text-center.textClr {
 .card-body {
     height: 330px;
 }
+
+.__card .card-body {
+    height: auto;
+}
 .articles {
     color: #845dc2;
     font-size: 20.296px;
