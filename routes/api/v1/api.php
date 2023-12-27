@@ -15,6 +15,7 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
     Route::get('/main-banner-section', [HomeController::class, 'MainBannerSection']);
     Route::get('/flash-deals', [HomeController::class, 'FlashDeals']);
     Route::get('/footer-banner', [HomeController::class, 'FooterBanner']);
+    Route::get('qna/question/', 'CustomerController@AllQuestion');
     Route::group(['prefix' => 'article'], function () {
         Route::get('category/all', [HomeController::class, 'allCategoryArticle']);
         Route::get('category/{id}', [HomeController::class, 'ArticleByCategory']);
@@ -199,7 +200,6 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::post('change-avatar', 'CustomerController@ChangeAvatar');
         Route::get('account-delete/{id}','CustomerController@account_delete');
         Route::group(['prefix' => 'qna'], function () {
-            Route::get('question/', 'CustomerController@AllQuestion');
             Route::post('question/add', 'CustomerController@AddQuestion');
             Route::post('answer/add', 'CustomerController@AddAnswer');
         });
