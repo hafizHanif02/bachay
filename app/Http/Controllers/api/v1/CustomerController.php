@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\User;
+use Carbon\Carbon;
 use App\CPU\Helpers;
 use App\Model\Order;
 use App\Model\Wishlist;
@@ -11,19 +12,20 @@ use App\CPU\ImageManager;
 use App\Models\QnaAnswer;
 use App\Model\OrderDetail;
 use App\Models\QnaQuestion;
+use App\Models\Vaccination;
 use App\Traits\CommonTrait;
 use App\CPU\CustomerManager;
 use App\Model\SupportTicket;
 use Illuminate\Http\Request;
 use App\Model\DeliveryZipCode;
 use App\Model\ShippingAddress;
-use Illuminate\Support\Carbon;
 use function App\CPU\translate;
 use App\Model\SupportTicketConv;
 use App\Model\DeliveryCountryCode;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\VaccinationSubmission;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -170,15 +172,26 @@ class CustomerController extends Controller
             } else {
                 $filename = null;
             }
-            DB::table('family_relation')->insert([
+            $childId = DB::table('family_relation')->insertGetId([
                 'user_id' => Auth::user()->id,
                 'name' => $request->name,
-                // 'weight' => $request->weight,
                 'relation_type' => $request->relation_type,
                 'dob' => $request->dob,
                 'gender' => $request->gender,
                 'profile_picture' => ($filename ?? ''),
             ]);
+            $Vaccinations = Vaccination::get();
+            foreach($Vaccinations as $vaccination){
+                $dateOfBirth = $request->dob;
+                $carbonDateOfBirth = Carbon::parse($dateOfBirth);
+                $resultDate = $carbonDateOfBirth->addMonths($vaccination->age)->toDateString();
+                VaccinationSubmission::create([
+                    'user_id' => Auth::user()->id,
+                    'child_id' => $childId,
+                    'vaccination_id' => $vaccination->id,
+                    'vaccination_date' => $resultDate,
+                ]);
+            }
             return response()->json(['message' => 'Child Has Been Added'], 403);
             
         }
