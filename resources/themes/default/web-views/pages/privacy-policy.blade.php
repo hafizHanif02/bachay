@@ -1,4 +1,4 @@
-@extends('layouts.front-end.layout')
+@extends('layouts.app')
 
 @section('title',translate('privacy_policy'))
 
