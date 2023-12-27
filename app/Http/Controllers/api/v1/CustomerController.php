@@ -414,26 +414,28 @@ class CustomerController extends Controller
     public function ChangeAvatar(Request $request){
 
         
-        if(isset(auth()->user()->avatar)) {
+        if(isset(auth()->user()->image)) {
             // $avatarPath = $request->file('avatar')->store('customers', 'public');
-            Storage::disk('public')->delete('assets/images/customers/'.auth()->user()->avatar);
+            Storage::disk('public')->delete('assets/images/customers/'.auth()->user()->image);
         }
-        if ($request->hasFile('avatar')) {
-            $file = $request->file('avatar');
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $filename = $file->getClientOriginalName();
-            $picture = $request->avatar->move(public_path('assets/images/customers'), $filename);
+            $picture = $request->image->move(public_path('assets/images/customers'), $filename);
+            
+            
+            DB::table('users')->where(['id' => auth()->user()->id])->update([
+                'image' => $filename,
+            ]);
+    
+            return response()->json([
+                'message' => 'Avatar change successfully',
+            ], 200);
         }else {
             return response()->json(['error' => 'No file uploaded.'], 400);
         }
         
-        DB::table('users')->where(['id' => auth()->user()->id])->update([
-            'image' => $filename,
-        ]);
-
-        return response()->json([
-            'message' => 'Avatar change successfully',
-        ], 200);
 
     }
 
