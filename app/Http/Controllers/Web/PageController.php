@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Model\BusinessSetting;
 use App\Model\HelpTopic;
+use App\Model\Category;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -46,9 +47,16 @@ class PageController extends Controller
 
     public function privacy_policy()
     {
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
         $page_title_banner = $this->business_settings->where('type', 'banner_privacy_policy')->whereJsonContains('value', ['status' => '1'])->first('value');
         $privacy_policy = BusinessSetting::where('type', 'privacy_policy')->first();
-        return view(VIEW_FILE_NAMES['privacy_policy_page'], compact('privacy_policy','page_title_banner'));
+        return view(VIEW_FILE_NAMES['privacy_policy_page'], compact('privacy_policy','page_title_banner', 'home_categories'));
     }
 
     public function refund_policy()
