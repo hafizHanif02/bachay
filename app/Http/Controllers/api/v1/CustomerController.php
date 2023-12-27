@@ -418,11 +418,11 @@ class CustomerController extends Controller
             // $avatarPath = $request->file('avatar')->store('customers', 'public');
             Storage::disk('public')->delete('assets/images/customers/'.auth()->user()->image);
         }
-        if ($request->hasFile('image')) {
-            $file = $request->file('image');
+        if ($request->hasFile('avatar')) {
+            $file = $request->file('avatar');
             $extension = $file->getClientOriginalExtension();
             $filename = $file->getClientOriginalName();
-            $picture = $request->image->move(public_path('assets/images/customers'), $filename);
+            $picture = $request->avatar->move(public_path('assets/images/customers'), $filename);
             
             
             DB::table('users')->where(['id' => auth()->user()->id])->update([
