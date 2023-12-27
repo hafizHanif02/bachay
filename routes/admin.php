@@ -536,6 +536,14 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
                 Route::post('article/category/store', 'BusinessSettingsController@ArticleCategoryStore')->name('article.category.store');
                 Route::post('article', 'BusinessSettingsController@updateArticle')->name('update-article');
                 Route::get('qna', 'BusinessSettingsController@QNA')->name('qna');
+                Route::group(['prefix' => 'vaccine'],function(){
+                    Route::get('/', 'BusinessSettingsController@AllVaccine')->name('vaccine');
+                    Route::post('/store', 'BusinessSettingsController@VaccineStore')->name('vaccine.store');
+                    Route::get('/edit/{id}', 'BusinessSettingsController@VaccineEdit')->name('vaccine.edit');
+                    Route::post('/update', 'BusinessSettingsController@VaccineUpdate')->name('vaccine.update');
+                    Route::post('/delete', 'BusinessSettingsController@VaccineDelete')->name('vaccine.delete');
+                });
+
                 
                 Route::post('update', 'BusinessSettingsController@ArticleUpdate')->name('article.update');
                 Route::post('status', 'BusinessSettingsController@ArticleStatus')->name('article.status');

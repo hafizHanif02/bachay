@@ -10,6 +10,7 @@
         <li class="{{ Request::is('admin/helpTopic/list') ?'active':'' }}"><a href="{{route('admin.helpTopic.list')}}">{{translate('FAQ')}}</a></li>
         <li class="{{ Request::is('admin/business-settings/article') ?'active':'' }}"><a >Articles</a></li>
         <li class="{{ Request::is('admin/business-settings/qna') ?'active':'' }}"><a >Q&A's</a></li>
+        <li class="{{ Request::is('admin/business-settings/vaccine') ?'active':'' }}"><a >Vaccination</a></li>
         @if(theme_root_path() == 'theme_fashion')
         <li class="{{ Request::is('admin/business-settings/features-section') ?'active':'' }}"><a href="{{route('admin.business-settings.features-section')}}">{{translate('features_Section')}}</a></li>
         @endif

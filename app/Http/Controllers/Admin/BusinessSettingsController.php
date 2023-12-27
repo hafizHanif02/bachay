@@ -12,6 +12,7 @@ use App\CPU\ImageManager;
 use App\Model\SocialMedia;
 use App\Models\HomeLayout;
 use App\Models\QnaQuestion;
+use App\Models\Vaccination;
 use Illuminate\Http\Request;
 use App\Model\BusinessSetting;
 use App\Models\ArticleCategory;
@@ -266,6 +267,67 @@ class BusinessSettingsController extends Controller
                 }
             }
             return view('admin-views.business-settings.qna', compact('questions'));}
+    }
+
+    public function AllVaccine(){
+        $vaccines = Vaccination::get();
+        return view('admin-views.business-settings.vaccine', compact('vaccines'));
+    }
+
+    public function VaccineStore(Request $request){
+        $request->validate([
+            'name' => 'required|string',
+            'age' => 'required|numeric',
+            'disease' => 'required|string',
+            'protest_against' => 'required|string',
+            'to_be_give' => 'required|string',
+            'how' => 'required|string',
+        ]);
+        
+        Vaccination::create([
+            'name' => $request->name,
+            'age' => $request->age,
+            'disease' => $request->disease,
+            'protest_against' => $request->protest_against,
+            'to_be_give' => $request->to_be_give,
+            'how' => $request->how,
+        ]);
+        Toastr::success('Vaccine Added');
+        return back();
+    }
+
+    public function VaccineEdit($id){
+        $vaccine = Vaccination::find($id);
+        return view('admin-views.business-settings.edit-vaccine', compact('vaccine'));
+    }
+
+    public function VaccineUpdate(Request $request){
+        $request->validate([
+            'name' => 'required|string',
+            'age' => 'required|numeric',
+            'disease' => 'required|string',
+            'protest_against' => 'required|string',
+            'to_be_give' => 'required|string',
+            'how' => 'required|string',
+        ]);
+        
+        Vaccination::where('id', $request->id)->update([
+            'name' => $request->name,
+            'age' => $request->age,
+            'disease' => $request->disease,
+            'protest_against' => $request->protest_against,
+            'to_be_give' => $request->to_be_give,
+            'how' => $request->how,
+        ]);
+        Toastr::success('Vaccine Updated');
+        return redirect()->route('admin.business-settings.vaccine');
+    }
+
+    public function VaccineDelete(Request $request){
+        $vaccine = Vaccination::find($request->id);
+        $vaccine->delete();
+        Toastr::success('Vaccine Deleted');
+        return redirect()->back();
     }
 
     public function home_layout()
