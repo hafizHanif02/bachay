@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Model\BusinessSetting;
 use App\Model\HelpTopic;
 use App\Model\Category;
+use App\Model\Product;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
