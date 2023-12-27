@@ -123,7 +123,7 @@ $(".card-slider").slick({
 });
 
 function addToWishlist(button) {
-    var productId = $(button).data('product-id');
+    var productId = $(button).data("product-id");
     $.ajax({
         type: "POST",
         url: "/add-to-wishlist",
@@ -131,23 +131,29 @@ function addToWishlist(button) {
             productId: productId,
         },
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
         },
         dataType: "json",
-        success: function(data, status, xhr) {
-            var heartIcon = $(button).find('i');
+        success: function (data, status, xhr) {
+            var heartIcon = $(button).find("i");
             if (xhr.status === 200) {
-                heartIcon.toggleClass('bi-heart bi-heart-fill text-danger');
-                if (heartIcon.hasClass('bi-heart')) {
+                heartIcon.toggleClass("bi-heart bi-heart-fill text-danger");
+                if (heartIcon.hasClass("bi-heart")) {
                     deleteFromWishlist(productId);
                 }
             } else if (xhr.status === 201) {
                 alert("Something went wrong");
             }
         },
-        error: function(response) {
-            alert("Error occurred while adding on wishlist");
-        }
+        error: function (response) {
+            // alert("Error occurred while adding on wishlist");
+            // alert("Login error\nPlease login to add items in wishlist");
+            Swal.fire(
+                "<strong>Login <u>error</u></strong>",
+                'Please <b><a href="customer/auth/login">login</a></b> or <b><a href="/customer/auth/sign-up">signup</a></b> to add items in <b>wishlist</b>',
+                "warning"
+            );
+        },
     });
 }
 
@@ -159,27 +165,30 @@ function deleteFromWishlist(productId) {
             productId: productId,
         },
         headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
         },
         dataType: "json",
-        success: function(data, status, xhr) {
+        success: function (data, status, xhr) {
             if (xhr.status === 200) {
                 Swal.fire(
-                    'Deleted!',
-                    'Your product has been removed from Wishlist.',
-                    'success'
+                    "Deleted!",
+                    "Your product has been removed from Wishlist.",
+                    "success"
                 );
             } else {
-                alert("Failed to delete from wishlist. Server returned: " + xhr.status + " " + xhr
-                    .statusText);
+                alert(
+                    "Failed to delete from wishlist. Server returned: " +
+                        xhr.status +
+                        " " +
+                        xhr.statusText
+                );
             }
         },
-        error: function(xhr, status, error) {
+        error: function (xhr, status, error) {
             alert("Error occurred while deleting from wishlist");
-        }
+        },
     });
 }
-
 
 $("#location").keydown(function () {
     var area = $("input[name='location']").val();

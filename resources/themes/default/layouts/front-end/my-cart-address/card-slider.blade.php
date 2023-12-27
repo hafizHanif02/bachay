@@ -76,11 +76,11 @@
 </div>
 
 
-<div class="border-t pt-4">
+{{-- <div class="border-t pt-4">
     <h5 class="font-poppins slider-heading">
         You May Also Like
     </h5>
-</div>
+</div> --}}
 
 @php
     $shuffledProducts = $products->shuffle();
@@ -160,7 +160,7 @@
 
 <div class="border-t pt-4">
     <h5 class="font-poppins slider-heading">
-        You May Also Like
+        Others Offerings From Babyoye
     </h5>
 </div>
 

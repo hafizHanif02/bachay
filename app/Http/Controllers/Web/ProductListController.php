@@ -694,10 +694,14 @@ class ProductListController extends Controller
             $brands = Brand::get();
             $colors = Color::whereIn('name',$color)->get();
             $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
+            $wishlistProducts = DB::table('wishlists')->pluck('product_id');
+
+            $wishlistProductsArray = $wishlistProducts->toArray();
 
 
-            return view(VIEW_FILE_NAMES['products'], compact( 'data','products','home_categories','brands','pricefilter','colors','request'));
+            return view(VIEW_FILE_NAMES['products'], compact('wishlistProductsArray', 'data','products','home_categories','brands','pricefilter','colors','request'));
         }
+    
     }
 
     public function theme_aster($request){
