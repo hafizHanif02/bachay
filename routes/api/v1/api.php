@@ -166,11 +166,13 @@ Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_l
             });
 
             Route::group(['prefix' => 'order'], function () {
+                Route::get('list', 'CustomerController@get_order_list');
                 Route::get('procede-to-next', 'OrderController@ProcedeToNext');
                 Route::post('place', 'OrderController@place_order');
                 Route::get('offline-payment-method-list', 'OrderController@offline_payment_method_list');
                 Route::post('place-by-offline-payment', 'OrderController@place_order_by_offline_payment');
-                Route::get('details', 'CustomerController@get_order_details');
+                // Route::get('details', 'CustomerController@get_order_details');
+                Route::get('detail/{id}', 'CustomerController@get_order_by_id');
             });
         });
     });

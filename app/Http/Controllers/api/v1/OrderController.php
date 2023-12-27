@@ -73,7 +73,8 @@ class OrderController extends Controller
     }
 
     public function ProcedeToNext(){
-        $shippingAddress = ShippingAddress::where(['customer_id'=>Auth::user()->id,'is_default'=>1])->first();
+        $shippingAddress = ShippingAddress::where(['customer_id'=>Auth::user()->id,'is_default'=>'true'])->first();
+        // dd($shippingAddress);   
         if($shippingAddress != null){
             DB::table('billing_addresses')->insert([
                 'customer_id' => Auth::user()->id,

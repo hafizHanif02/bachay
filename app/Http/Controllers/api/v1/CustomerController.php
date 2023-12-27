@@ -761,23 +761,27 @@ class CustomerController extends Controller
         return response()->json($details, 200);
     }
 
-    public function get_order_by_id(Request $request)
+    public function get_order_by_id(Request $request,$id)
     {
-        $validator = Validator::make($request->all(), [
-            'order_id' => ['required','exists:orders,id'],
-        ]);
+        // $validator = Validator::make($request->all(), [
+        //     'order_id' => ['required','exists:orders,id'],
+        // ]);
 
-        if ($validator->fails()) {
-            return response()->json(['errors' => Helpers::error_processor($validator)], 403);
-        }
+        // if ($validator->fails()) {
+        //     return response()->json(['errors' => Helpers::error_processor($validator)], 403);
+        // }
 
-        $order = Order::withCount('order_details')->with(['offline_payments','verification_images'])->where(['id' => $request['order_id']])->first();
-        if(isset($order['offline_payments'])){
-            $order['offline_payments']->payment_info = json_decode($order->offline_payments->payment_info);
+        $order = Order::withCount('order_details')->with(['offline_payments','verification_images'])->where(['id' => $id])->first();
+        if($order != null) {
+            if(isset($order['offline_payments'])){
+                $order['offline_payments']->payment_info = json_decode($order->offline_payments->payment_info);
+            }
+            $order['shipping_address_data'] = json_decode($order['shipping_address_data']);
+            $order['billing_address_data'] = json_decode($order['billing_address_data']);
+            return response()->json($order, 200);
+        }else{
+            return response()->json(['message' => translate('Order Not Found found!')], 404);
         }
-        $order['shipping_address_data'] = json_decode($order['shipping_address_data']);
-        $order['billing_address_data'] = json_decode($order['billing_address_data']);
-        return response()->json($order, 200);
     }
 
     public function update_profile(Request $request)
