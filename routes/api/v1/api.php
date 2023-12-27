@@ -7,7 +7,7 @@ use App\Http\Controllers\Api\V1\Customer\CMS\HomeController;
 
 
 
-Route::group(['namespace' => 'Api\V1', 'prefix' => 'v1', 'middleware' => ['api_lang']], function () {
+Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_lang']], function () {
     
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/categories', [HomeController::class, 'NewArrtival']);
