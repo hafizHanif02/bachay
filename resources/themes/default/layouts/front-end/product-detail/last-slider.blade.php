@@ -1,4 +1,4 @@
-
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="border-t pt-4 mt-5">
     <h5 class="font-poppins slider-heading">
         Others Offerings From Babyoye
@@ -17,22 +17,28 @@
                         <div class="first-sec card1">
                             <div class="image-container">
                                 <div class="imgMAinH">
-                                    <img src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}"
-                                        alt="" class="object-fit-cover rounded-2" width="100%" height="100%">
+                                    <a class="text-decoration-none" href="{{ route('product-detail', $product->id) }}">
+                                        <img src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}"
+                                            alt="" class="object-fit-cover rounded-2" width="100%"
+                                            height="100%">
+                                    </a>
                                 </div>
                                 <div class="sec-best-seller mt-3">
                                     <p>Best Seller</p>
                                 </div>
                                 <div class="wish-list mt-3 me-2">
-                                    <button id="wishlist-btn" class="p-0 bg-transparent rounded-circle forBorder">
-                                        <i class="bi bi-heart text-danger"></i>
+                                    <button type="button"
+                                        class="wishlist-button p-0 bg-transparent rounded-circle forBorder"
+                                        data-product-id="{{ $product->id }}" onclick="addToWishlist(this)">
+                                        <i
+                                            class="bi heart-icon bi-heart{{ in_array($product->id, $wishlistProductsArray) ? '-fill' : '' }} text-danger"></i>
                                     </button>
                                 </div>
                                 <p class="product-text mt-3">
-                                    @if (strlen($product->name) <= 30)
+                                    @if (strlen($product->name) <= 25)
                                         {{ $product->name }}
                                     @else
-                                        {{ substr($product->name, 0, 30) }}<span id="dots"> ....</span>
+                                        {{ substr($product->name, 0, 25) }}<span id="dots"> ....</span>
                                     @endif
                                 </p>
                                 <div class="d-flex">
