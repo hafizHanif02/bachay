@@ -270,16 +270,16 @@ class CustomerController extends Controller
 
     public function Detailchild($id){
         $child = DB::table('family_relation')->where('id', $id)->first();
+        $vaccinations = VaccinationSubmission::where(['child_id'=> $id, 'user_id' => Auth::user()->id])->with('vaccination')->get();
         if($child != null){
             if($child->profile_picture != null){
             $childImageUrl = url('public/assets/images/customers/child/' . $child->profile_picture);
                 $child->avatar = $childImageUrl;
             }
-            return response()->json($child, 200);
+            return response()->json([$child,'vaccine' => $vaccinations], 200);
         }else{
             return response()->json(['message' => 'Child Not Found'], 404);
         }
-
     }
 
     public function Updatechild(Request $request,$id){

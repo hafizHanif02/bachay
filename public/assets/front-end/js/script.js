@@ -365,7 +365,7 @@ function deleteFromCart(productId) {
             if (xhr.status === 200) {
                 Swal.fire(
                     "Deleted!",
-                    "Your product has been removed from Cart.",
+                    "Your product has been removed from Wishlist.",
                     "success"
                 );
             } else {

@@ -1475,7 +1475,9 @@ class CartController extends Controller
         session()->forget('order_note');
 
         // return response()->json(['data' => view(VIEW_FILE_NAMES['products_cart_details_partials'], compact('request'))->render(), 'message'=>translate('Item_has_been_removed_from_cart')]);
-        return redirect()->back()->with(['message' => 'Product has Been Removed from Cart', 'status' => 1]);
+        return response()->json([
+            'success' => 'deleted successfully'
+        ]);
     }
 
     //updated the quantity for a cart item

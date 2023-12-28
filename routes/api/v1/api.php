@@ -188,6 +188,9 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::get('detail/{id}', 'CustomerController@Detailchild');
         Route::post('update', 'CustomerController@Updatechild');
         Route::delete('delete/{id}', 'CustomerController@Deletechild');  
+        Route::group(['prefix' => 'growth'], function () {
+            Route::post('add', 'CustomerController@GrowthAdd');
+        });
     });
     Route::group(['prefix' => 'customer', 'middleware' => 'auth:api'], function () {
         Route::get('info', 'CustomerController@info');
