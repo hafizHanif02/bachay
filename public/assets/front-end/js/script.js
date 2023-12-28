@@ -291,13 +291,33 @@ $("#search").keydown(function () {
 //         },
 //     });
 // }
-function addToCart(button) {
-    var productId = $(button).data("product-id");
+
+function addToCart(id) {
+    var productId = $('#cart-btn'+id).data("product-id");
+    var customer_id = $('#cart-btn'+id).data("customer-id"); 
+    var name = $('#cart-btn'+id).data("name");
+    var productPrice = $('#cart-btn'+id).data("price");
+    var discount = $('#cart-btn'+id).data("discount");
+    var tax = $('#cart-btn'+id).data("tax");
+    var thumbnail = $('#cart-btn'+id).data("thumbnail");
+    var color = $('#cart-btn'+id).data("color");
+    var variant = $('#cart-btn'+id).data("variant");
+    var slug = $('#cart-btn'+id).data("slug");
     $.ajax({
         type: "POST",
-        url: "/add-to-cart",
+        url: "/cart/add",
         data: {
-            productId: productId,
+            product_id: productId,
+            customer_id: customer_id,
+            name: name,
+            price: productPrice,
+            discount: discount,
+            tax: tax,
+            thumbnail: thumbnail,
+            color: color,
+            variant: variant,
+            slug: slug,
+            quantity: 1,
         },
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -328,11 +348,14 @@ function addToCart(button) {
 
 
 function deleteFromCart(productId) {
+    var customer_id = $('#cart-btn'+productId).data("customer-id"); 
+    console.log(customer_id);
     $.ajax({
         type: "POST",
-        url: "/delete-cart-item/",
+        url: "cart/remove-product/"+productId+"/"+customer_id,
         data: {
             productId: productId,
+            customer_id: customer_id,
         },
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),

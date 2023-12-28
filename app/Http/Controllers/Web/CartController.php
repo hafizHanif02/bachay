@@ -1232,10 +1232,6 @@ class CartController extends Controller
         return redirect()->back()->with(['message' => 'Product Has Been Added to Cart !', 'status' => 1]);
     }
 
-    public function addToCarticon(Request $request){
-        dd($request);
-    }
-
     public function BuyNow(Request $request)
     {
 
@@ -1443,6 +1439,28 @@ class CartController extends Controller
         $user = Helpers::get_customer();
 
         $cart = Cart::where(['id' => $id, 'customer_id' => ($user == 'offline' ? session('guest_id') : auth('customer')->id())])->first();
+
+        $cart->delete();
+
+        // Cart::where(['id' => $request->cart_id, 'customer_id' => ($user == 'offline' ? session('guest_id') : auth('customer')->id())])->delete();
+
+        session()->forget('coupon_code');
+        session()->forget('coupon_type');
+        session()->forget('coupon_bearer');
+        session()->forget('coupon_discount');
+        session()->forget('coupon_seller_id');
+        session()->forget('shipping_method_id');
+        session()->forget('order_note');
+
+        // return response()->json(['data' => view(VIEW_FILE_NAMES['products_cart_details_partials'], compact('request'))->render(), 'message'=>translate('Item_has_been_removed_from_cart')]);
+        return redirect()->back()->with(['message' => 'Product has Been Removed from Cart', 'status' => 1]);
+    }
+
+    public function removeCartProduct($product_id, $customer_id)
+    {
+        $user = Helpers::get_customer();
+
+        $cart = Cart::where(['product_id' => $product_id, 'customer_id' => $customer_id])->first();
 
         $cart->delete();
 

@@ -151,19 +151,24 @@
                                             </button>
                                         </div>
                                     </form> --}}
-
-
-                                    <div class="d-flex  mt-1">
-                                        <button type="submit" id="cart-btn"
-                                            class="p-0 bg-transparent rounded-circle forBorder"
-                                            data-product-id="{{ $product->id }}"
-                                            onclick="addToCart({{ $product->id }})">
-                                            <i class="bi {{ in_array($product->id, $cartProductsArray) ? 'bi-cart-fill' : 'bi-cart' }} text-purple"
-                                                data-product-id="{{ $product->id }}"
-                                                onclick="addToCart({{ $product->id }})"></i>
+                                    <div class="d-flex mt-1">
+                                        <button  id="cart-btn{{ $product->id }}" class="p-0 bg-transparent rounded-circle forBorder"  
+                                            data-product-id="{{ $product->id }}"  
+                                            data-customer-id="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}"
+                                            data-name="{{ $product->name }}" 
+                                            data-price="{{ $product->unit_price }}"   
+                                            data-discount="{{ $product->discount }}"   
+                                            data-tax="{{ $product->tax }}"   
+                                            data-thumbnail="{{ $product->thumbnail }}" 
+                                            data-color="{{ $product->color }}" 
+                                            data-variant="{{ $product->variant }}" 
+                                            data-slug="{{ $product->slug }}" 
+                                            onclick="{{ in_array($product->id, $cartProductsArray) ?'deleteFromCart('.$product->id.')' : 'addToCart('.$product->id.')'   }}">
+                                            <i class="bi {{ in_array($product->id, $cartProductsArray) ? 'bi-cart-fill' : 'bi-cart' }} text-purple">
+                                            </i>
                                         </button>
                                     </div>
-
+                                    
                                 </div>
                             </div>
                         </div>
