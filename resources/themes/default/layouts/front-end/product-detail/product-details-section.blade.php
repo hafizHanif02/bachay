@@ -65,7 +65,7 @@
                     <input type="hidden" name="product[1][actual_price]" value="{{ ($product->unit_price) }}">
                     <input type="hidden" name="product[1][price]" value="{{ ($product->unit_price) }}">
                     <input type="hidden" name="product[1][quantity]" value="1">   
-                    <button type="submit" class="buy-now rounded-pill text-white w-100 pt-4 pb-4 m-2 ms-3 me-3">Buy Now</button>
+                    <button type="submit" class="buy-now rounded-pill text-white w-100 pt-4 pb-4">Buy Now</button>
                 </form>
             </div>
             <form action="{{ route('cart.add') }}" method="POST">
@@ -85,7 +85,7 @@
                     value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
 
                 <div class="d-flex  mt-1">
-                    <button type="submit" class="rounded-pill text-dark fw-bold w-100 pt-4 pb-4 m-2 ms-3 me-3">Add to
+                    <button type="submit" class="rounded-pill text-dark fw-bold w-100 pt-4 pb-4">Add to
                         Cart</button>
                 </div>
             </form>
