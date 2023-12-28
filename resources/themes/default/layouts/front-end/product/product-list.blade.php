@@ -1,3 +1,4 @@
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="col-9">
     <div class="collection pb-3 d-flex justify-content-between align-items-center">
         <h5>Shoes Collection</h5>

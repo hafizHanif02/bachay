@@ -6007,6 +6007,7 @@ class WebController extends Controller
 
     public function addToWishlist(Request $request)
     {
+
             $userId = Auth::guard('customer')->user()->id;
             $productId = $request->productId;
         if($userId){
