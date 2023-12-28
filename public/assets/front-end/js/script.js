@@ -154,7 +154,7 @@ function addToWishlist(button) {
                 "warning"
             );
         },
-    });
+    }); 
 }
 
 function deleteFromWishlist(productId) {
@@ -241,55 +241,127 @@ $("#search").keydown(function () {
     }
 });
 
-function addToCart(productId) {
+// function addToCart(productId) {
+//     $.ajax({
+//         type: "POST",
+//         url: "/add-to-cart",
+//         data: {
+//             _token: $('meta[name="csrf-token"]').attr("content"),
+//             productId: productId,
+//             size: $("input[name='size']").val(),
+//             price: $("#price" + productId).val(),
+//             color: $("input[name='color']").val(),
+//             material: $("input[name='material']").val(),
+//             quantity: $("input[name='quantity']").val(),
+//         },
+//         dataType: "json",
+//         success: function (data, status, xhr) {
+//             if (xhr.status === 200) {
+//                 $("#cart-btn i").removeClass("bi-cart");
+//                 $("#cart-btn i").addClass("bi-cart-fill");
+//                 $("#modalId").modal("hide");
+//             }
+//         },
+//         error: function (xhr, status, error) {
+//             if (xhr.status === 401) {
+//                 window.location = "/customer/auth/login";
+//             } else if (xhr.status === 422) {
+//                 $("#errors").empty();
+//                 var errors = xhr.responseJSON.errors;
+//                 $.each(errors, function (key, value) {
+//                     $("#errors").append(value);
+//                 });
+//             }
+//         },
+//     });
+// }
+
+// function removeCartItem(cartItemId) {
+//     $.ajax({
+//         type: "DELETE",
+//         url: "/remove-cart-item/" + cartItemId,
+//         data: {
+//             _token: $("meta[name='csrf-token']").attr("content"),
+//         },
+//         dataType: "json",
+//         success: function (data, status, xhr) {
+//             if (xhr.status == 200) {
+//                 $("#cartItem" + cartItemId).remove();
+//             }
+//         },
+//     });
+// }
+function addToCart(button) {
+    var productId = $(button).data("product-id");
     $.ajax({
         type: "POST",
         url: "/add-to-cart",
         data: {
-            _token: $('meta[name="csrf-token"]').attr("content"),
             productId: productId,
-            size: $("input[name='size']").val(),
-            color: $("input[name='color']").val(),
-            material: $("input[name='material']").val(),
-            quantity: $("input[name='quantity']").val(),
+        },
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
+        },
+        dataType: "json",
+        success: function (data, status, xhr) {
+            var heartIcon = $(button).find("i");
+            if (xhr.status === 200) {
+                heartIcon.toggleClass("bi-heart bi-heart-fill text-danger");
+                if (heartIcon.hasClass("bi-heart")) {
+                    deleteFromCart(productId);
+                }
+            } else if (xhr.status === 201) {
+                alert("Something went wrong");
+            }
+        },
+        error: function (response) {
+            // alert("Error occurred while adding on wishlist");
+            // alert("Login error\nPlease login to add items in wishlist");
+            Swal.fire(
+                "<strong>Login <u>error</u></strong>",
+                'Please <b><a href="customer/auth/login">login</a></b> or <b><a href="/customer/auth/sign-up">signup</a></b> to add items in <b>Cart</b>',
+                "warning"
+            );
+        },
+    }); 
+}
+
+
+function deleteFromCart(productId) {
+    $.ajax({
+        type: "POST",
+        url: "/delete-cart-item/",
+        data: {
+            productId: productId,
+        },
+        headers: {
+            "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
         },
         dataType: "json",
         success: function (data, status, xhr) {
             if (xhr.status === 200) {
-                $("#cart-btn i").removeClass("bi-cart");
-                $("#cart-btn i").addClass("bi-cart-fill");
-                $("#modalId").modal("hide");
+                Swal.fire(
+                    "Deleted!",
+                    "Your product has been removed from Cart.",
+                    "success"
+                );
+            } else {
+                alert(
+                    "Failed to delete from wishlist. Server returned: " +
+                        xhr.status +
+                        " " +
+                        xhr.statusText
+                );
             }
         },
         error: function (xhr, status, error) {
-            if (xhr.status === 401) {
-                window.location = "/customer/auth/login";
-            } else if (xhr.status === 422) {
-                $("#errors").empty();
-                var errors = xhr.responseJSON.errors;
-                $.each(errors, function (key, value) {
-                    $("#errors").append(value);
-                });
-            }
+            alert("Error occurred while deleting from wishlist");
         },
     });
 }
 
-function removeCartItem(cartItemId) {
-    $.ajax({
-        type: "DELETE",
-        url: "/remove-cart-item/" + cartItemId,
-        data: {
-            _token: $("meta[name='csrf-token']").attr("content"),
-        },
-        dataType: "json",
-        success: function (data, status, xhr) {
-            if (xhr.status == 200) {
-                $("#cartItem" + cartItemId).remove();
-            }
-        },
-    });
-}
+
+
 
 function addToUrl(type, value1, value2 = null) {
     let params = new URLSearchParams(window.location.search);

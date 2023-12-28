@@ -698,8 +698,10 @@ class ProductListController extends Controller
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
+            $cartProducts  = DB::table('carts')->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
 
-            return view(VIEW_FILE_NAMES['products'], compact('wishlistProductsArray', 'data','products','home_categories','brands','pricefilter','colors','request'));
+            return view(VIEW_FILE_NAMES['products'], compact('cartProductsArray','wishlistProductsArray', 'data','products','home_categories','brands','pricefilter','colors','request'));
         }
     
     }

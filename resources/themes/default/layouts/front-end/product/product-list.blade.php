@@ -92,47 +92,77 @@
                                     <form action="{{ route('cart.buy-now') }}" method="POST">
                                         @csrf
                                         <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                        <input type="hidden" name="price" id="price" value="{{ $product->unit_price }}">
+                                        <input type="hidden" name="price" id="price"
+                                            value="{{ $product->unit_price }}">
                                         <input type="hidden" name="quantity" value="1">
                                         <input type="hidden" name="product[1][quantity]" value="1">
                                         <input type="hidden" name="product[1][id]" value="{{ $product->id }}">
-                                        <input type="hidden" name="product[1][price]" value="{{ $product->unit_price }}">
-                                        <input type="hidden" name="product[1][product_id]" value="{{ $product->id }}">
+                                        <input type="hidden" name="product[1][price]"
+                                            value="{{ $product->unit_price }}">
+                                        <input type="hidden" name="product[1][product_id]"
+                                            value="{{ $product->id }}">
                                         {{-- <input type="hidden" name="product[1][tax]" value="{{ ($product->tax) }}"> --}}
-                                        <input type="hidden" name="product[1][tax_model]" value="{{ ($product->tax_model) }}">
-                                        <input type="hidden" name="product[1][color]" value="{{ ($product->color) }}">
-                                        <input type="hidden" name="product[1][variant]" value="{{ ($product->variant) }}">
-                                        <input type="hidden" name="product[1][discount]" value="{{ ($product->discount) }}">
-                                        <input type="hidden" name="product[1][discount_amount]" value="{{ (($product->discount*$product->unit_price)/100) }}">
-                                        <input type="hidden" name="product[1][actual_price]" value="{{ ($product->unit_price) }}">
-                                        <input type="hidden" name="product[1][price]" value="{{ ($product->unit_price) }}">
-                                        <input type="hidden" name="product[1][quantity]" value="1">   
+                                        <input type="hidden" name="product[1][tax_model]"
+                                            value="{{ $product->tax_model }}">
+                                        <input type="hidden" name="product[1][color]" value="{{ $product->color }}">
+                                        <input type="hidden" name="product[1][variant]"
+                                            value="{{ $product->variant }}">
+                                        <input type="hidden" name="product[1][discount]"
+                                            value="{{ $product->discount }}">
+                                        <input type="hidden" name="product[1][discount_amount]"
+                                            value="{{ ($product->discount * $product->unit_price) / 100 }}">
+                                        <input type="hidden" name="product[1][actual_price]"
+                                            value="{{ $product->unit_price }}">
+                                        <input type="hidden" name="product[1][price]"
+                                            value="{{ $product->unit_price }}">
+                                        <input type="hidden" name="product[1][quantity]" value="1">
                                         <button class="buy-now rounded-pill text-white">Buy Now</button>
                                     </form>
-                                    <form action="{{ route('cart.add') }}" method="POST">
+                                    {{-- <form action="{{ route('cart.add') }}" method="POST">
                                         @csrf
-                                        <input type="hidden" name="price" id="price" value="{{ $product->unit_price }}">
-                                        <input type="hidden" name="discount" id="discount" value="{{ $product->discount }}">
-                                        <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
+                                        <input type="hidden" name="price" id="price"
+                                            value="{{ $product->unit_price }}">
+                                        <input type="hidden" name="discount" id="discount"
+                                            value="{{ $product->discount }}">
+                                        <input type="hidden" name="product_id" id="product_id"
+                                            value="{{ $product->id }}">
                                         <input type="hidden" name="thumbnail" value="{{ $product->thumbnail }}">
-                                        <input type="hidden" name="name" value="{{ $product->name }}">
+                                        <input type="hidden" name="name" value="{{ $product->name }}"> --}}
                                         {{-- <input type="hidden" name="tax" value="{{ $tax }}"> --}}
-                                        <input type="hidden" name="quantity" value="1">
-                                        <input type="hidden" name="shipping_cost" value="{{ $product->shipping_cost }}">
+                                        {{-- <input type="hidden" name="quantity" value="1">
+                                        <input type="hidden" name="shipping_cost"
+                                            value="{{ $product->shipping_cost }}">
                                         <input type="hidden" name="color" id="color">
                                         <input type="hidden" name="variant" id="variant">
-                                        <input type="hidden" name="slug" id="slug" value="{{ $product->slug }}">
+                                        <input type="hidden" name="slug" id="slug"
+                                            value="{{ $product->slug }}">
                                         <input type="hidden" name="customer_id" id="customer_id"
                                             value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
-                        
+                                        <input type="hidden" name="price" value="{{ $product->unit_price }}">
+
                                         <div class="d-flex  mt-1">
-                                            <button id="cart-btn" class="p-0 bg-transparent rounded-circle forBorder">
-                                                <i class="bi bi-cart"></i>
-                                                {{-- <i
-                                        class="bi {{ in_array($product->id, $cartProducts) ? 'bi-cart-fill' : 'bi-cart' }} text-purple"></i> --}}
+                                            <button type="submit" id="cart-btn"
+                                                class="p-0 bg-transparent rounded-circle forBorder"
+                                                data-product-id="{{ $product->id }}"
+                                                onclick="addToCart({{ $product->id }})">
+                                                <i class="bi {{ in_array($product->id, $cartProductsArray) ? 'bi-cart-fill' : 'bi-cart' }} text-purple"
+                                                    data-product-id="{{ $product->id }}"
+                                                    onclick="addToCart({{ $product->id }})"></i>
                                             </button>
                                         </div>
-                                    </form>
+                                    </form> --}}
+
+
+                                    <div class="d-flex  mt-1">
+                                        <button type="submit" id="cart-btn"
+                                            class="p-0 bg-transparent rounded-circle forBorder"
+                                            data-product-id="{{ $product->id }}"
+                                            onclick="addToCart({{ $product->id }})">
+                                            <i class="bi {{ in_array($product->id, $cartProductsArray) ? 'bi-cart-fill' : 'bi-cart' }} text-purple"
+                                                data-product-id="{{ $product->id }}"
+                                                onclick="addToCart({{ $product->id }})"></i>
+                                        </button>
+                                    </div>
 
                                 </div>
                             </div>
