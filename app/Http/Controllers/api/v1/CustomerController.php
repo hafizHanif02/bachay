@@ -714,18 +714,31 @@ class CustomerController extends Controller
             'canceled' => ['canceled','failed','returned'],
             'delivered' => ['delivered'],
         );
-
-        $orders = Order::with('details.product','delivery_man', 'seller.shop')
-            ->withSum('details as order_details_count', 'qty')
-            ->where(['customer_id' => $request->user()->id, 'is_guest'=>'0'])
-            ->when($request->status && $request->status != 'all', function ($query) use($request, $status){
-                $query->whereIn('order_status', $status[$request->status])
-                ->when($request->type == 'reorder', function($query) use($request){
-                    $query->where('order_type', 'default_type');
-                });
-            })
-            ->latest()
-            ->paginate($request['limit'], ['*'], 'page', $request['offset']);
+        if($request->filter){
+            $orders = Order::with('details.product','delivery_man', 'seller.shop')->where('order_status' , $request->filter['status'])
+                ->withSum('details as order_details_count', 'qty')
+                ->where(['customer_id' => $request->user()->id, 'is_guest'=>'0'])
+                ->when($request->status && $request->status != 'all', function ($query) use($request, $status){
+                    $query->whereIn('order_status', $status[$request->status])
+                    ->when($request->type == 'reorder', function($query) use($request){
+                        $query->where('order_type', 'default_type');
+                    });
+                })
+                ->latest()
+                ->paginate($request['limit'], ['*'], 'page', $request['offset']);
+        }else{
+            $orders = Order::with('details.product','delivery_man', 'seller.shop')
+                ->withSum('details as order_details_count', 'qty')
+                ->where(['customer_id' => $request->user()->id, 'is_guest'=>'0'])
+                ->when($request->status && $request->status != 'all', function ($query) use($request, $status){
+                    $query->whereIn('order_status', $status[$request->status])
+                    ->when($request->type == 'reorder', function($query) use($request){
+                        $query->where('order_type', 'default_type');
+                    });
+                })
+                ->latest()
+                ->paginate($request['limit'], ['*'], 'page', $request['offset']);
+        }
 
         $orders->map(function ($data) {
             $data['shipping_address_data'] = json_decode($data['shipping_address_data']);
