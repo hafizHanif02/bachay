@@ -1,4 +1,4 @@
-<div class="benefitsOfSavings mt-5">
+<div class="benefitsOfSavings mt-5 container-xxl">
     <div class="MyAccount font-poppins">
         <h6 class="fw-bold m-0 rounded-pill">
             Benefits of Guaranteed Savings Offer

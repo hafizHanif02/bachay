@@ -1,11 +1,14 @@
-<div class="border-t pt-4">
+
+
+<div class="container-xxl">
+<div class="border-t pt-4 ">
     <h5 class="font-poppins slider-heading">
         You May Also Like
     </h5>
 </div>
 
 
-<div class="mt-5 card-slider mb-4">
+<div class="mt-5 card-slider mb-4 container-xxl">
     
     <div class="mb-4 pb-3 me-3">
         <div class="rounded-3">
@@ -492,4 +495,5 @@
         </div>
     </div>
    
+</div>
 </div>

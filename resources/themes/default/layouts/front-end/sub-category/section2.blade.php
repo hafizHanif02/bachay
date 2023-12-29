@@ -1,4 +1,4 @@
-<div class="premiumBouquets">
+<div class="premiumBouquets container-xxl">
     <h1 class="text-center textClr pb-2 pt-2">Premium Bouquets</h1>
     <div class="row mt-5 col-12 flash-sales-container">
         @foreach ($productsInFlashDeal->take(6) as $products)

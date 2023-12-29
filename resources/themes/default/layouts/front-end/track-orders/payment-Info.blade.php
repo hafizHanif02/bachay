@@ -1,4 +1,4 @@
-<div class="products">
+<div class="products container-xxl">
 
     <div class="MyAccount font-poppins">
         <h6 class="fw-bold m-0 rounded-pill">

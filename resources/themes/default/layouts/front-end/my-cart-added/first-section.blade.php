@@ -1,3 +1,4 @@
+<div class="container-xxl">
 <div class="row col-12 my-cart pb-5 mt-4">
     <div class="col-8 border-right">
         <div class="btn-con col-12 d-flex justify-content-between">
@@ -507,4 +508,5 @@
 
     </div>
 
+</div>
 </div>

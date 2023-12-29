@@ -1,4 +1,4 @@
-<div class="products mt-4 pb-5">
+<div class="products mt-4 pb-5 container-xxl">
 
     <div class="font-poppins bottom-border pb-3 pt-3">
         <h4 class="fw-bold m-0">

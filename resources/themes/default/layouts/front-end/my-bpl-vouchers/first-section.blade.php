@@ -1,3 +1,4 @@
+<div class="container-xxl">
 <div class="products mt-4 pb-5">
 
     <div class="MyProfile-heading font-poppins bottom-border pb-3">
@@ -167,4 +168,5 @@
 
 
     </div>
+</div>
 </div>
