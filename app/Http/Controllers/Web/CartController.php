@@ -301,10 +301,11 @@ class CartController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
+        
+        $wishlistProducts = DB::table('wishlists')->pluck('product_id');
+        $wishlistProductsArray = $wishlistProducts->toArray();
 
-
-
-        return view(VIEW_FILE_NAMES['my-cart-address'], (compact('products', 'cartGroupId', 'shippingAddress', 'totalDiscount', 'total_product_price', 'myCartProducts', 'home_categories')));
+        return view(VIEW_FILE_NAMES['my-cart-address'], (compact('wishlistProductsArray','products', 'cartGroupId', 'shippingAddress', 'totalDiscount', 'total_product_price', 'myCartProducts', 'home_categories')));
     }
 
 
