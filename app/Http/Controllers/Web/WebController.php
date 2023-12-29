@@ -359,7 +359,11 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-        return view(VIEW_FILE_NAMES['manage-returns'], compact('products', 'home_categories'));
+
+        $wishlistProducts = DB::table('wishlists')->pluck('product_id');
+        $wishlistProductsArray = $wishlistProducts->toArray();
+
+        return view(VIEW_FILE_NAMES['manage-returns'], compact('wishlistProductsArray', 'products', 'home_categories'));
     }
     public function return_detail()
     {
@@ -2773,7 +2777,7 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-        return view(VIEW_FILE_NAMES['save-cards'], (compact('products','home_categories')));
+        return view(VIEW_FILE_NAMES['save-cards'], (compact('products', 'home_categories')));
     }
     public function cash_coupons()
     {
@@ -5453,9 +5457,9 @@ class WebController extends Controller
     }
 
     public function checkout_details(Request $request)
-    {  
+    {
         $shippingAddress = DB::table('shipping_addresses')->where('customer_id', $request->customer_id)->first();
-        if ($shippingAddress !== null){
+        if ($shippingAddress !== null) {
             $exsisting_cart_shipping = DB::table('cart_shippings')->where('cart_group_id', $request->cart_group_id)->first();
             if (!($exsisting_cart_shipping)) {
                 DB::table('cart_shippings')->insert([
@@ -5470,32 +5474,32 @@ class WebController extends Controller
                 Toastr::error(translate('invalid_access'));
                 return redirect('/');
             }
-    
+
             $cart_group_ids = CartManager::get_cart_group_ids();
             $shippingMethod = Helpers::get_business_settings('shipping_method');
-    
+
             $verify_status = OrderManager::minimum_order_amount_verify($request);
-    
-    
+
+
             if ($verify_status['status'] == 0) {
                 Toastr::info(translate('check_Minimum_Order_Amount_Requirment'));
                 return redirect()->route('shop-cart');
             }
-    
+
             $cartItems = Cart::where(['customer_id' => auth('customer')->id()])->withCount(['all_product' => function ($query) {
                 return $query->where('status', 0);
             }])->get();
-    
-    
-    
+
+
+
             foreach ($cartItems as $cart) {
                 if (isset($cart->all_product_count) && $cart->all_product_count != 0) {
                     Toastr::info(translate('check_Cart_List_First'));
                     return redirect()->route('shop-cart');
                 }
             }
-    
-    
+
+
             $physical_product_view = false;
             foreach ($cart_group_ids as $group_id) {
                 $carts = Cart::where('cart_group_id', $group_id)->get();
@@ -5505,10 +5509,10 @@ class WebController extends Controller
                     }
                 }
             }
-    
+
             foreach ($cart_group_ids as $group_id) {
                 $carts = Cart::where('cart_group_id', $group_id)->get();
-    
+
                 $physical_product = false;
                 foreach ($carts as $cart) {
                     if ($cart->product_type == 'physical') {
@@ -5529,7 +5533,7 @@ class WebController extends Controller
                                 $shipping_type = isset($seller_shipping) == true ? $seller_shipping->shipping_type : 'order_wise';
                             }
                         }
-    
+
                         // dd('Test');
                         if ($physical_product && $shipping_type == 'order_wise') {
                             $cart_shipping = CartShipping::where('cart_group_id', $cart->cart_group_id)->first();
@@ -5541,38 +5545,38 @@ class WebController extends Controller
                     }
                 }
             }
-    
+
             $country_restrict_status = Helpers::get_business_settings('delivery_country_restriction');
             $zip_restrict_status = Helpers::get_business_settings('delivery_zip_code_area_restriction');
-    
+
             if ($country_restrict_status) {
                 $countries = $this->get_delivery_country_array();
             } else {
                 $countries = COUNTRIES;
             }
-    
+
             if ($zip_restrict_status) {
                 $zip_codes = DeliveryZipCode::all();
             } else {
                 $zip_codes = 0;
             }
-    
+
             $billing_input_by_customer = Helpers::get_business_settings('billing_input_by_customer');
             $default_location = Helpers::get_business_settings('default_location');
-    
+
             $user = Helpers::get_customer($request);
             $shipping_addresses = ShippingAddress::where([
                 'customer_id' => $user == 'offline' ? session('guest_id') : auth('customer')->id(),
                 'is_guest' => $user == 'offline' ? 1 : '0',
                 'is_billing' => 0,
             ])->get();
-    
+
             $billing_addresses = ShippingAddress::where([
                 'customer_id' => $user == 'offline' ? session('guest_id') : auth('customer')->id(),
                 'is_guest' => $user == 'offline' ? 1 : '0',
                 'is_billing' => 1,
             ])->get();
-    
+
             if (count($cart_group_ids) > 0) {
                 $shipping_address = DB::table('shipping_addresses')->where('customer_id', $request->customer_id)->first();
                 $customer_data = DB::table('users')->where('id', $request->customer_id)->first();
@@ -5591,9 +5595,9 @@ class WebController extends Controller
                     'shipping_addresses',
                     'billing_addresses'
                 ));
-        }else{
-            return redirect()->back()->with(['message' => 'Kindly Your Address First', 'status' => 0]);
-        }
+            } else {
+                return redirect()->back()->with(['message' => 'Kindly Your Address First', 'status' => 0]);
+            }
         }
 
         Toastr::info(translate('no_items_in_basket'));
@@ -5798,7 +5802,7 @@ class WebController extends Controller
                     }
                     if ($shipping_type == 'order_wise') {
                         $cart_shipping = CartShipping::where('cart_group_id', $cart->cart_group_id)->first();
-                    
+
                         // if (!isset($cart_shipping)) {
                         //     dd($cart_shipping);
                         //     Toastr::info(translate('select_shipping_method_first'));
@@ -6263,9 +6267,9 @@ class WebController extends Controller
     public function addToWishlist(Request $request)
     {
 
-            $userId = Auth::guard('customer')->user()->id;
-            $productId = $request->productId;
-        if($userId){
+        $userId = Auth::guard('customer')->user()->id;
+        $productId = $request->productId;
+        if ($userId) {
             if (!Wishlist::where('customer_id', $userId)->where('product_id', $productId)->exists()) {
                 Wishlist::create([
                     'customer_id' => $userId,
@@ -6277,18 +6281,18 @@ class WebController extends Controller
             } else {
                 return response()->json(['status' => 'error', 'message' => 'Product already in wishlist']);
             }
-        }else{
+        } else {
             return response()->json(['status' => 'success', 'message' => 'Please Login First']);
         }
-        
+
 
         return response()->json(['status' => 'error', 'message' => 'User not authenticated'], 401);
     }
-   
 
 
-  
-    
+
+
+
 
     public function storeWishlist(Request $request)
     {
@@ -6338,7 +6342,7 @@ class WebController extends Controller
 
     public function deleteWishlist(Request $request)
     {
-       $wishlist = Wishlist::where(['product_id' => $request->productId, 'customer_id' => auth('customer')->id()])->delete();
+        $wishlist = Wishlist::where(['product_id' => $request->productId, 'customer_id' => auth('customer')->id()])->delete();
         $data = translate('product_has_been_remove_from_wishlist') . '!';
         // $wishlists = $this->wishlist->where('customer_id', auth('customer')->id())->paginate(15);
         // $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
@@ -6801,5 +6805,4 @@ class WebController extends Controller
             'methodHtml' => view(VIEW_FILE_NAMES['pay_offline_method_list_partials'], compact('method'))->render(),
         ]);
     }
-
 }

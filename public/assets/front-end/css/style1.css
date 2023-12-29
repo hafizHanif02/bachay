@@ -14,7 +14,9 @@
 }
 @media (min-width: 1200px) {
     /* Styles for screens larger than 1200 pixels */
-  
+    header{
+        padding: 10px 0px;
+    }
   }
 .LocationsSearchBar {
     padding-left: 40px !important;
@@ -66,11 +68,11 @@
     font-family: myfont;
 }
 
-footer {
+footer , header {
     padding: 10px 50px;
 }
 body {
-    background-color: #f3f3f3;
+    background-color: #fff;
 }
 .search-input::placeholder {
     font-family: "poppins";
@@ -184,8 +186,10 @@ input.form-control.search-input {
     padding: 20px 0;
 }
 .flash-sales {
-    background-color: #fbdabf;
     padding: 50px 0 30px 0;
+}
+.bgcolor{
+    background-color: #fbdabf;
 }
 .main-banner {
     padding: 0 50px;
