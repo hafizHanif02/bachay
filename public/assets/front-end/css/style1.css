@@ -2226,17 +2226,7 @@ input:checked + .se:before {
     position: relative;
     cursor: default;
     z-index: 1004;
-    border-bottom: 2px solid transparent;
-    border-top: 2px solid transparent;
-    border-image: linear-gradient(
-        270deg,
-        #845dc2 -0.09%,
-        #d55fad 36.37%,
-        #fc966c 72.82%,
-        #f99327 100.48%,
-        #ffc55d 145.17%
-    );
-    border-image-slice: 1;
+    
 }
 .sub-nav > li > a {
     font-family: myfont;
