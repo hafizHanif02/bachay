@@ -1,4 +1,6 @@
+<div class="container-xxl">
 <div class="row col-12 my-cart pb-5 mt-4">
+    
     <div class="col-8 border-right">
         <div class="btn-con col-12 d-flex justify-content-between">
             <button class="col-5 mt-2 btn-f rounded-pill p-3 border-black">My Wishlist ({{ count($whishlistproducts) }})</button>
@@ -301,5 +303,5 @@
 
 
     </div>
-
+</div>
 </div>

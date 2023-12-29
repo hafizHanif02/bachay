@@ -1,3 +1,4 @@
+<div class="container-xxl">
 <div class="border-t pt-4">
     <h5 class="font-poppins slider-heading">
         You May Also Like
@@ -352,4 +353,5 @@
             </a>
         </div>
     @endforeach
+</div>
 </div>

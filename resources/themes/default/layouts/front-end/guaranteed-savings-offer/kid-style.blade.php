@@ -1,4 +1,4 @@
-<div class="GuaranteedSavingsOffer mt-5">
+<div class="GuaranteedSavingsOffer mt-5 container-xxl">
    
 
     <div class="row savings-card">
