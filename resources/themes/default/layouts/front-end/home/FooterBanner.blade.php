@@ -1,4 +1,4 @@
-<div class="sub-contain mt-5 mb-5">
+<div class="sub-contain mt-5 mb-5 container-xxl">
 
     <div class="row">
         @foreach ($footer_banner->take(3) as $banner)

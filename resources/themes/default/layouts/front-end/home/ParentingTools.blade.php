@@ -1,4 +1,4 @@
-<div class="sub-banner">
+<div class="sub-banner container-xxl">
     <h1 class="textClr text-center pb-1">
         Parenting Tools
     </h1>

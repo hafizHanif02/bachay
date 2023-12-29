@@ -1,7 +1,7 @@
-<div class="flash-sales">
+<div class="flash-sales container-xxl">
     <h1 class="text-center textClr">Flash Sales For Child Products Get Crazy Discounts</h1>
 
-    <div class="row mt-5 col-12 flash-sales-container">
+    <div class="row mt-5 col-12 flash-sales-container ">
 
         @foreach ($productsInFlashDeal->take(6) as $products)
             <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
@@ -26,6 +26,7 @@
                 </div>
             </div>
         @endforeach
+    </div>
 
         {{-- <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
             <div class="card rounded-5">

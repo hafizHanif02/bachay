@@ -1,4 +1,4 @@
-<div class="sub-contain">
+<div class="sub-contain container-xxl">
     <div class="row justify-content-center align-items-center">
 
         <div class="col-12 text-center mb-5 sub-banner2">
