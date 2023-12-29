@@ -39,7 +39,12 @@ class HomeController extends Controller
     }
 
     public function NewArrtival(){
-        $toparrivalcategorys = DB::table('categories')->where('priority','!=',0)->orderBy('priority', 'asc')->take(10)->get();
+        $toparrivalcategorys = DB::table('categories')
+        ->where('parent_id', '=', 0)
+        ->where('priority', '!=', 0)
+        ->orderBy('priority', 'asc')
+        ->take(10)
+        ->get();
         $imageUrls = [];
         $name = [];
         foreach($toparrivalcategorys as $categoryavatar){
