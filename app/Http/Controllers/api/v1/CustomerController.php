@@ -740,6 +740,15 @@ class CustomerController extends Controller
                 ->paginate($request['limit'], ['*'], 'page', $request['offset']);
         }
 
+        foreach ($orders as $order) {
+            foreach ($order->details as $detail) {
+                $thumbnailUrl = $detail['product']->thumbnail;
+                $filename = basename($thumbnailUrl);
+                $newThumbnailUrl = asset('storage/app/public/product/thumbnail/' . $filename);
+                $detail['product']->thumbnail = $newThumbnailUrl;
+            }
+        }
+
         $orders->map(function ($data) {
             $data['shipping_address_data'] = json_decode($data['shipping_address_data']);
             $data['billing_address_data'] = json_decode($data['billing_address_data']);
@@ -748,7 +757,6 @@ class CustomerController extends Controller
                 return $query;
             });
 
-            return $data;
         });
 
         $orders = [
