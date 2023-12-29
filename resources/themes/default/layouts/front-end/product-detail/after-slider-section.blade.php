@@ -1,4 +1,4 @@
-<div class="products">
+<div class="container-xxl products">
     <div class="hl pt-4 pb-5">
     </div>
     <div class="row pt-5">

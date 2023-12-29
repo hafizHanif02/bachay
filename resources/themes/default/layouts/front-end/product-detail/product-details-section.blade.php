@@ -1,4 +1,4 @@
-<div class="products mt-4">
+<div class="container-xxl products mt-4">
     <div class="row">
 
         {{-- {{ $prod }} --}}
