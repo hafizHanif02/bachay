@@ -76,7 +76,7 @@
         margin-top: 20px;
     }
 </style>
-<div class="products mt-4 pb-5">
+<div class="products mt-4 pb-5 container-xxl">
     <div class="MyProfile-heading font-poppins bottom-border pb-3">
         <span>Home ></span> <span>My Account ></span> <span>My Profile</span>
     </div>

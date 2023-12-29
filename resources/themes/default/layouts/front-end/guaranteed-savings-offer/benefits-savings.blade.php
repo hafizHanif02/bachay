@@ -1,4 +1,4 @@
-<div class="benefitsOfSavings">
+<div class="benefitsOfSavings container-xxl">
     <div class="MyAccount font-poppins">
         <h6 class="fw-bold m-0 rounded-pill">
             Guaranteed Savings

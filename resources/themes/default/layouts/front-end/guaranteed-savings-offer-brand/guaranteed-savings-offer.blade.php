@@ -1,4 +1,4 @@
-<div class="SavingsOffer mt-5">
+<div class="SavingsOffer mt-5 container-xxl">
     <div class="d-flex justify-content-between align-items-center">
         <div class="d-flex align-items-center gap-3">
             <img src="{{ asset('public /images/brand4.png') }}" alt="">

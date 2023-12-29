@@ -1,3 +1,6 @@
+
+
+<div class="container-xxl">
 <div class="border-t pt-4">
     <h5 class="font-poppins slider-heading">
         You May Also Like
@@ -112,7 +115,7 @@
         </div>
     @endforeach
 </div>
-
+</div>
 
 
 {{-- <div class="mt-5 card-slider mb-4">

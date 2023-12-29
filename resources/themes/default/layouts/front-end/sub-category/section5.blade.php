@@ -1,4 +1,4 @@
-<div class="row mt-5 pb-5 col-12 flash-sales-container d-flex justify-content-between">
+<div class="container-xxl row mt-5 pb-5 col-12 flash-sales-container d-flex justify-content-between ">
     @foreach ($categories->take(4) as $category)
         <div class="col-lg-3 col-md-6 col-sm-12 mb-4">
             <a href="#" class="text-decoration-none">
