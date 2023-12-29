@@ -12,6 +12,10 @@
     font-family: mysmallcapsfont;
     src: url(/public/fonts/AristotelicaSmallCapsRegular.ttf);
 }
+@media (min-width: 1200px) {
+    /* Styles for screens larger than 1200 pixels */
+  
+  }
 .LocationsSearchBar {
     padding-left: 40px !important;
 }
