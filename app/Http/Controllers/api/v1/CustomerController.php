@@ -6,6 +6,7 @@ use App\User;
 use Carbon\Carbon;
 use App\CPU\Helpers;
 use App\Model\Order;
+use App\Models\Growth;
 use App\Model\Wishlist;
 use App\Model\GuestUser;
 use App\CPU\ImageManager;
@@ -190,6 +191,11 @@ class CustomerController extends Controller
                     'child_id' => $childId,
                     'vaccination_id' => $vaccination->id,
                     'vaccination_date' => $resultDate,
+                ]);
+                Growth::create([
+                    'user_id' => Auth::user()->id,
+                    'child_id' => $childId,
+                    'vaccination_id' => $vaccination->id,
                 ]);
             }
             return response()->json(['message' => 'Child Has Been Added'], 403);
