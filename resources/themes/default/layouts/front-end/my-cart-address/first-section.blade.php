@@ -1,6 +1,7 @@
+<div class="container-xxl">
 <form action="{{ route('checkout-details') }}" method="GET">
     @csrf
-    <div class="row col-12 my-cart pb-5 mt-4">
+    <div class="row col-12 my-cart pb-5 mt-4"> 
         <input type="hidden" name="customer_id"
             value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
         <input type="hidden" name="shipping_address"
@@ -378,7 +379,7 @@
 
     </div>
 </form>
-
+</div>
 <script>
     function changeValue(index) {
         var price = $('#pricejs' + index).val();
