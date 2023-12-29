@@ -1,4 +1,4 @@
-<div class="mainCon mb-4 space-between mb-5">
+<div class="container-xxl mainCon mb-4 space-between mb-5">
     <div class="scroll-cards mt-4">
         @foreach ($categories as $category)
             <div class="circleCard">
