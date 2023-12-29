@@ -13,6 +13,7 @@ use App\Model\SocialMedia;
 use App\Models\HomeLayout;
 use App\Models\QnaQuestion;
 use App\Models\Vaccination;
+use App\Models\QuizCategory;
 use Illuminate\Http\Request;
 use App\Model\BusinessSetting;
 use App\Models\ArticleCategory;
@@ -327,6 +328,27 @@ class BusinessSettingsController extends Controller
         $vaccine = Vaccination::find($request->id);
         $vaccine->delete();
         Toastr::success('Vaccine Deleted');
+        return redirect()->back();
+    }
+
+    public function AllQuizCategory(){
+        $quiz_categories = QuizCategory::get();
+        return view('admin-views.business-settings.quiz-category', compact('quiz_categories'));
+    } 
+
+    public function QuizCategoryStore(Request $request){
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('assets/images/quiz/category/'), $filename);
+        }
+        QuizCategory::create([
+            'name' => $request->name,
+            'expiry' => $request->expiry,
+            'image' => $filename,
+        ]);
+        Toastr::success('Quiz Category Added');
         return redirect()->back();
     }
 

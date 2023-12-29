@@ -575,6 +575,21 @@
                             </li>
                         </li>
 
+                        <li class="nav-item">
+                            <small class="nav-subtitle" title="">Quiz Leagues</small>
+                            <li class="navbar-vertical-aside-has-menu {{Request::is('admin/vaccine*')?'active':''}}">
+                                <a class="js-navbar-vertical-aside-menu-link nav-link"
+                                   href="{{ route('admin.business-settings.quiz.quiz-category') }}" >
+                                   <i class="tio-star nav-icon"></i>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
+                                    <span class="position-relative">
+                                        Quiz Category
+                                    </span>
+                                </span>
+                                </a>
+                            </li>
+                        </li>
+
                         
 
                         @if(\App\CPU\Helpers::module_permission_check('system_settings'))

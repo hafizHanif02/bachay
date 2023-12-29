@@ -543,7 +543,15 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
                     Route::post('/update', 'BusinessSettingsController@VaccineUpdate')->name('vaccine.update');
                     Route::post('/delete', 'BusinessSettingsController@VaccineDelete')->name('vaccine.delete');
                 });
-
+                Route::group(['prefix' => 'quiz'],function(){
+                    Route::group(['prefix' => 'quiz-category'],function(){
+                        Route::get('/', 'BusinessSettingsController@AllQuizCategory')->name('quiz.quiz-category');
+                        Route::post('/store', 'BusinessSettingsController@QuizCategoryStore')->name('quiz.quiz-category.store');
+                        Route::get('/edit/{id}', 'BusinessSettingsController@QuizCategoryEdit')->name('quiz.quiz-category.edit');
+                        Route::post('/update', 'BusinessSettingsController@QuizCategoryUpdate')->name('quiz.quiz-category.update');
+                        Route::post('/delete', 'BusinessSettingsController@QuizCategoryDelete')->name('quiz.quiz-category.delete');
+                    });
+                });
                 
                 Route::post('update', 'BusinessSettingsController@ArticleUpdate')->name('article.update');
                 Route::post('status', 'BusinessSettingsController@ArticleStatus')->name('article.status');
