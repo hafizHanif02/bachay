@@ -927,6 +927,13 @@ class CustomerController extends Controller
         // }
 
         $order = Order::withCount('order_details')->with(['details.product','delivery_man','offline_payments','verification_images'])->where(['id' => $id])->first();
+
+        foreach($order->details as $detail){
+            $thumbnailUrl = $detail['product']->thumbnail;
+            $filename = basename($thumbnailUrl);
+            $newThumbnailUrl = asset('storage/app/public/product/thumbnail/' . $filename);
+            $detail['product']->thumbnail = $newThumbnailUrl;
+        }
         if($order != null) {
             $order->no_of_items = $order->order_details_count;
             // if(isset($order['offline_payments'])){
