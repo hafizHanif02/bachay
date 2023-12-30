@@ -264,8 +264,8 @@ class CustomerController extends Controller
             $filename = $file->getClientOriginalName();
             $file->move(public_path('assets/images/customers/child/vaccination'), $filename);
         VaccinationSubmission::where('id',$id)->update([
-            'submission_date' => $request->submission_date,
-            'is_taken' => $request->is_taken,
+            'submission_date' => now(),
+            'is_taken' => 1,
             'picture' => $filename,
         ]);
         return response()->json('Vaccination Has Been Added', 403);
