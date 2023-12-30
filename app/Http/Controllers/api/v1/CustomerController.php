@@ -238,6 +238,40 @@ class CustomerController extends Controller
         }
     }
 
+    public function GrowthGet($id){
+        $growth = Growth::where('id',$id)->first();
+        return response()->json($growth, 403);
+    }
+
+    public function GrowthUpdate(Request $request,$id){
+        Growth::where('id',$id)->update([
+            'head_circle' => $request->head_circle,
+            'height' => $request->height,
+            'weight' => $request->weight,
+        ]);
+        return response()->json('Growth Data Has Been Added', 403);
+    }
+
+    public function Vaccination($id){
+        $growth = VaccinationSubmission::where('id',$id)->first();
+        return response()->json($growth, 403);
+    }
+
+    public function VaccinationSubmission(Request $request,$id){
+        if ($request->hasFile('picture')) {
+            $file = $request->file('picture');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('assets/images/customers/child/vaccination'), $filename);
+        VaccinationSubmission::where('id',$id)->update([
+            'submission_date' => $request->submission_date,
+            'is_taken' => $request->is_taken,
+            'picture' => $filename,
+        ]);
+        return response()->json('Vaccination Has Been Added', 403);
+    }
+
+
     public function AllQuestion()
     {
         $questions = QnaQuestion::with('answers.user', 'user')->get();

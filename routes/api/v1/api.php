@@ -189,7 +189,12 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::post('update', 'CustomerController@Updatechild');
         Route::delete('delete/{id}', 'CustomerController@Deletechild');  
         Route::group(['prefix' => 'growth'], function () {
-            Route::post('add', 'CustomerController@GrowthAdd');
+            Route::get('/{id}', 'CustomerController@GrowthGet');
+            Route::post('add/{id}', 'CustomerController@GrowthUpdate');
+        });
+        Route::group(['prefix' => 'vaccination'], function () {
+            Route::get('/{id}', 'CustomerController@Vaccination');
+            Route::post('add/{id}', 'CustomerController@VaccinationSubmission');
         });
     });
     Route::group(['prefix' => 'customer', 'middleware' => 'auth:api'], function () {
