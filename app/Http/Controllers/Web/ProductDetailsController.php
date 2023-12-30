@@ -154,8 +154,8 @@ class ProductDetailsController extends Controller
                 $wishlistProductsArray = [];
                 $cartProductsArray = [];
             }
-            $wishlistProductsArray = $wishlistProducts->toArray();
-
+            // $wishlistProductsArray = $wishlistProducts->toArray();
+            
             return view(VIEW_FILE_NAMES['product-detail'], compact(
                 'wishlistProductsArray',
                 'tax',
