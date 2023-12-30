@@ -1151,7 +1151,20 @@ class CartController extends Controller
         $colors = Color::whereIn('name', $color)->get();
         $whishlistproducts = Wishlist::where('customer_id', Auth::guard('customer')->user()->id)->with('product')->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-        return view(VIEW_FILE_NAMES['my-shortlist'], (compact('whishlistproducts', 'products', 'home_categories')));
+
+        if (Auth::guard('customer')->check()) {
+            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+            $wishlistProductsArray = $wishlistProducts->toArray();
+
+            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
+        } else {
+            $wishlistProductsArray = [];
+            $cartProductsArray = [];
+        }
+        $wishlistProductsArray = $wishlistProducts->toArray();
+        return view(VIEW_FILE_NAMES['my-shortlist'], (compact('wishlistProductsArray','whishlistproducts', 'products', 'home_categories')));
     }
     public function __construct(
         private OrderDetail $order_details,

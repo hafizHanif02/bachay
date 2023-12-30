@@ -294,7 +294,7 @@ $("#search").keydown(function () {
 
 function addToCart(id) {
     var productId = $('#cart-btn'+id).data("product-id");
-    var customer_id = $('#cart-btn'+id).data("customer-id"); 
+    var customer_id = $('#cart-btn'+id).data("customer-id");
     var name = $('#cart-btn'+id).data("name");
     var productPrice = $('#cart-btn'+id).data("price");
     var discount = $('#cart-btn'+id).data("discount");
@@ -324,10 +324,10 @@ function addToCart(id) {
         },
         dataType: "json",
         success: function (data, status, xhr) {
-            var heartIcon = $(button).find("i");
+            var cartIcon = $(button).find("i");
             if (xhr.status === 200) {
-                heartIcon.toggleClass("bi-heart bi-heart-fill text-danger");
-                if (heartIcon.hasClass("bi-heart")) {
+                cartIcon.toggleClass("bi-cart bi-cart-fill text-danger");
+                if (cartIcon.hasClass("bi-cart")) {
                     deleteFromCart(productId);
                 }
             } else if (xhr.status === 201) {
@@ -335,20 +335,20 @@ function addToCart(id) {
             }
         },
         error: function (response) {
-            // alert("Error occurred while adding on wishlist");
-            // alert("Login error\nPlease login to add items in wishlist");
+            // alert("Error occurred while adding on cart");
+            // alert("Login error\nPlease login to add items in cart");
             Swal.fire(
                 "<strong>Login <u>error</u></strong>",
                 'Please <b><a href="customer/auth/login">login</a></b> or <b><a href="/customer/auth/sign-up">signup</a></b> to add items in <b>Cart</b>',
                 "warning"
             );
         },
-    }); 
+    });
 }
 
 
 function deleteFromCart(productId) {
-    var customer_id = $('#cart-btn'+productId).data("customer-id"); 
+    var customer_id = $('#cart-btn'+productId).data("customer-id");
     console.log(customer_id);
     $.ajax({
         type: "POST",
@@ -365,12 +365,12 @@ function deleteFromCart(productId) {
             if (xhr.status === 200) {
                 Swal.fire(
                     "Deleted!",
-                    "Your product has been removed from Wishlist.",
+                    "Your product has been removed from Cart.",
                     "success"
                 );
             } else {
                 alert(
-                    "Failed to delete from wishlist. Server returned: " +
+                    "Failed to delete from cart. Server returned: " +
                         xhr.status +
                         " " +
                         xhr.statusText
@@ -378,7 +378,7 @@ function deleteFromCart(productId) {
             }
         },
         error: function (xhr, status, error) {
-            alert("Error occurred while deleting from wishlist");
+            alert("Error occurred while deleting from cart");
         },
     });
 }
