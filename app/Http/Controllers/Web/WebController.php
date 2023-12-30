@@ -906,7 +906,19 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-        return view(VIEW_FILE_NAMES['quick-reorder'], compact('products', 'home_categories'));
+
+        if (Auth::guard('customer')->check()) {
+            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+            $wishlistProductsArray = $wishlistProducts->toArray();
+
+            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
+        } else {
+            $wishlistProductsArray = [];
+            $cartProductsArray = [];
+        }
+        return view(VIEW_FILE_NAMES['quick-reorder'], compact('wishlistProductsArray','products', 'home_categories'));
     }
     public function order_available()
     {
@@ -1442,7 +1454,19 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-        return view(VIEW_FILE_NAMES['track-orders'], compact('products', 'home_categories'));
+
+        if (Auth::guard('customer')->check()) {
+            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+            $wishlistProductsArray = $wishlistProducts->toArray();
+
+            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
+        } else {
+            $wishlistProductsArray = [];
+            $cartProductsArray = [];
+        }
+        return view(VIEW_FILE_NAMES['track-orders'], compact('wishlistProductsArray','products', 'home_categories'));
     }
     public function your_query()
     {
@@ -1708,7 +1732,18 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-        return view(VIEW_FILE_NAMES['your-query'], (compact('products', 'home_categories')));
+        if (Auth::guard('customer')->check()) {
+            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+            $wishlistProductsArray = $wishlistProducts->toArray();
+
+            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
+        } else {
+            $wishlistProductsArray = [];
+            $cartProductsArray = [];
+        }
+        return view(VIEW_FILE_NAMES['your-query'], (compact('wishlistProductsArray','products', 'home_categories')));
     }
     public function club_cash()
     {
@@ -1976,7 +2011,19 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-        return view(VIEW_FILE_NAMES['club-cash'], compact('products', 'home_categories'));
+
+        if (Auth::guard('customer')->check()) {
+            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+            $wishlistProductsArray = $wishlistProducts->toArray();
+
+            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
+        } else {
+            $wishlistProductsArray = [];
+            $cartProductsArray = [];
+        }
+        return view(VIEW_FILE_NAMES['club-cash'], compact('wishlistProductsArray','products', 'home_categories'));
     }
     public function cash_refund()
     {
@@ -2242,7 +2289,19 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-        return view(VIEW_FILE_NAMES['cash-refund'], (compact('products', 'home_categories')));
+
+        if (Auth::guard('customer')->check()) {
+            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+            $wishlistProductsArray = $wishlistProducts->toArray();
+
+            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
+        } else {
+            $wishlistProductsArray = [];
+            $cartProductsArray = [];
+        }
+        return view(VIEW_FILE_NAMES['cash-refund'], (compact('wishlistProductsArray','products', 'home_categories')));
     }
     public function payments_not_added()
     {
@@ -2509,7 +2568,19 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-        return view(VIEW_FILE_NAMES['my-payment-detail-not-added'], (compact('products', 'home_categories')));
+
+        if (Auth::guard('customer')->check()) {
+            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+            $wishlistProductsArray = $wishlistProducts->toArray();
+
+            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
+        } else {
+            $wishlistProductsArray = [];
+            $cartProductsArray = [];
+        }
+        return view(VIEW_FILE_NAMES['my-payment-detail-not-added'], (compact('wishlistProductsArray','products', 'home_categories')));
     }
     public function payments_added()
     {
@@ -3052,7 +3123,19 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-        return view(VIEW_FILE_NAMES['cash-coupons'], (compact('products', 'home_categories')));
+
+        if (Auth::guard('customer')->check()) {
+            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+            $wishlistProductsArray = $wishlistProducts->toArray();
+
+            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
+        } else {
+            $wishlistProductsArray = [];
+            $cartProductsArray = [];
+        }
+        return view(VIEW_FILE_NAMES['cash-coupons'], (compact('wishlistProductsArray','products', 'home_categories')));
     }
     public function cash_back_codes()
     {
@@ -3318,7 +3401,19 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-        return view(VIEW_FILE_NAMES['cash-back-codes'], (compact('products', 'home_categories')));
+
+        if (Auth::guard('customer')->check()) {
+            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+            $wishlistProductsArray = $wishlistProducts->toArray();
+
+            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
+        } else {
+            $wishlistProductsArray = [];
+            $cartProductsArray = [];
+        }
+        return view(VIEW_FILE_NAMES['cash-back-codes'], (compact('wishlistProductsArray','products', 'home_categories')));
     }
     public function no_refund()
     {
@@ -3584,7 +3679,19 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-        return view(VIEW_FILE_NAMES['my-refund-no-refund'], (compact('products', 'home_categories')));
+
+        if (Auth::guard('customer')->check()) {
+            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+            $wishlistProductsArray = $wishlistProducts->toArray();
+
+            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
+        } else {
+            $wishlistProductsArray = [];
+            $cartProductsArray = [];
+        }
+        return view(VIEW_FILE_NAMES['my-refund-no-refund'], (compact('wishlistProductsArray','products', 'home_categories')));
     }
     public function my_refund()
     {
@@ -3861,7 +3968,19 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-        return view(VIEW_FILE_NAMES['my-bpl-vouchers'], (compact('products', 'home_categories')));
+
+        if (Auth::guard('customer')->check()) {
+            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+            $wishlistProductsArray = $wishlistProducts->toArray();
+
+            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
+        } else {
+            $wishlistProductsArray = [];
+            $cartProductsArray = [];
+        }
+        return view(VIEW_FILE_NAMES['my-bpl-vouchers'], (compact('wishlistProductsArray','products', 'home_categories')));
     }
     public function guaranteed_savings()
     {
@@ -4127,7 +4246,19 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-        return view(VIEW_FILE_NAMES['guaranteed-savings'], (compact('products', 'home_categories')));
+
+        if (Auth::guard('customer')->check()) {
+            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+            $wishlistProductsArray = $wishlistProducts->toArray();
+
+            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
+        } else {
+            $wishlistProductsArray = [];
+            $cartProductsArray = [];
+        }
+        return view(VIEW_FILE_NAMES['guaranteed-savings'], (compact('wishlistProductsArray','products', 'home_categories')));
     }
     public function guaranteed_savings_offer()
     {
@@ -4415,7 +4546,19 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-        return view(VIEW_FILE_NAMES['intelli-education'], (compact('products', 'home_categories')));
+
+        if (Auth::guard('customer')->check()) {
+            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+            $wishlistProductsArray = $wishlistProducts->toArray();
+
+            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
+        } else {
+            $wishlistProductsArray = [];
+            $cartProductsArray = [];
+        }
+        return view(VIEW_FILE_NAMES['intelli-education'], (compact('wishlistProductsArray','products', 'home_categories')));
     }
     public function gift_certification()
     {
