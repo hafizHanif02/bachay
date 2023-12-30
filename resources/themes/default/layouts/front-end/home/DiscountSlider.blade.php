@@ -3,7 +3,7 @@
         <h1 class="text-center textClr">Flash Sales For Child Products Get Crazy Discounts</h1>
 
         <div class="row mt-5 col-12 flash-sales-container ">
-
+            @if(count($productsInFlashDeal) > 0)
             @foreach ($productsInFlashDeal->take(6) as $products)
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-5">
                     <div class="card rounded-5">
@@ -27,6 +27,7 @@
                     </div>
                 </div>
             @endforeach
+            @endif
         </div>
 
 

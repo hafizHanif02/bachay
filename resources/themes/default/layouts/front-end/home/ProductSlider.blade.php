@@ -13,7 +13,7 @@
     <div class="row">
         @foreach ($latest_products as $products)
             <div class="col-md-6 col-lg-3 mb-4">
-                <div class="sub-card rounded-3 p-4">
+                <div class="sub-card rounded-3 p-4 pb-0">
                     <div class="card1">
                         <div class="first-sec card1">
                             <div class="image-container">
@@ -38,7 +38,7 @@
                                 </div> --}}
                                 <div class="wish-list mt-3 me-2">
                                     <button type="button"
-                                        class="wishlist-button p-0 bg-transparent rounded-circle forBorder"
+                                        class="wishlist-button p-0 bg-light rounded-circle forBorder"
                                         data-product-id="{{ $products->id }}" onclick="addToWishlist(this)">
                                         <i
                                             class="bi heart-icon bi-heart{{ in_array($products->id, $wishlistProductsArray) ? '-fill' : '' }} text-danger"></i>
@@ -48,7 +48,7 @@
                                     @if (strlen($products->name) <= 20)
                                         {{ $products->name }}
                                     @else
-                                        {{ substr($products->name, 0, 20) }}<span id="dots"> ....</span>
+                                        {{ substr($products->name, 0, 45) }}<span id="dots"> ....</span>
                                     @endif
                                 </p>
                                 <div class="d-flex">
