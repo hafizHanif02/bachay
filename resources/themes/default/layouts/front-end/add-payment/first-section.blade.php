@@ -1,4 +1,5 @@
-<div class="row col-12 my-cart pb-5 mt-4 container-xxl">
+<div class="container-xxl">
+<div class="row col-12 my-cart pb-5 mt-4">
     <div class="col-8 border-right">
         <div class="btn-con col-12 d-flex justify-content-between">
             <button class="col-5 mt-2 btn-f rounded-pill p-3 bg-purple text-white border-0">Shopping Cart (03)</button>
@@ -505,4 +506,5 @@
 
     </div>
 
+</div>
 </div>
