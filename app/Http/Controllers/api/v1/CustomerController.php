@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1;
 
 use App\User;
+use DateTime;
 use Carbon\Carbon;
 use App\CPU\Helpers;
 use App\Model\Order;
@@ -310,6 +311,28 @@ class CustomerController extends Controller
 
     public function Detailchild($id){
         $child = DB::table('family_relation')->where('id', $id)->first();
+               
+
+        $childDob = new DateTime($child->dob);
+        $today = new DateTime();
+        $interval = $today->diff($childDob);
+        $years = $interval->y;
+        $months = $interval->m;
+        $days = $interval->d;
+        $ageInWords = '';
+        if ($years > 0) {
+            $ageInWords .= $years . ' Year' . ($years > 1 ? 's' : '');
+        }
+        if ($months > 0) {
+            $ageInWords .= ($ageInWords ? ' ' : '') . $months . ' Month' . ($months > 1 ? 's' : '');
+        }
+        if ($days > 0) {
+            $ageInWords .= ($ageInWords ? ' ' : '') . $days . ' Day' . ($days > 1 ? 's' : '');
+        }
+        $child->age = $ageInWords;
+
+        
+
         $vaccinations = VaccinationSubmission::where(['child_id'=> $id, 'user_id' => Auth::user()->id])->with('vaccination')->get();
         if($child != null){
             if($child->profile_picture != null){
@@ -327,9 +350,11 @@ class CustomerController extends Controller
                         $vaccination_data[$vaccine->age] = [];
                     }
                     $vaccination_data[$vaccine->age][] = array_merge($vaccine->toArray(), ['vaccine_submission' => $vaccineSubmission->toArray()]);
+
+                    $child->vaccination = $vaccination_data;
                 }
             
-            $dates = [];
+                $dates = [];
                 foreach ($vaccination_data as $month) {
                     foreach ($month as $vac) {
                         $dob = Carbon::parse($child->dob);
@@ -339,7 +364,38 @@ class CustomerController extends Controller
                     }
                 }
 
-            return response()->json([$child,'vaccine' => $vaccinations], 200);
+                // Statuses 
+                    $vaccination_submissions = VaccinationSubmission::
+                        where([
+                            'child_id' => $child->id, 
+                            'user_id' => Auth::user()->id,
+                            'is_taken' => 0
+                        ])->with('vaccination')->get();
+    
+                    $vaccination_submission_completed = VaccinationSubmission::
+                    where([
+                        'child_id' => $child->id, 
+                        'user_id' => Auth::user()->id,
+                        'is_taken' => 1
+                    ])->with('vaccination')->get();
+                
+                    $overdue = 0;
+                    $uppcoming = 0;
+                    $today = 0;
+                    foreach ($vaccination_submissions as $vaccination_submission) {
+                        $vaccinationDate = Carbon::parse($vaccination_submission->vaccination_date);
+                        $difference = -($vaccinationDate->diffInMonths(now(), false));
+                        if ($difference < 0) {
+                            $overdue += 1;
+                        } elseif ($difference > 0) {
+                            $uppcoming += 1;
+                        } elseif ($difference == 0 && $vaccinationDate->isSameDay(now())) {
+                            $today += 1;
+                        }
+                    }
+                    $child->vaccination_status = ['uppcoming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
+
+            return response()->json($child, 200);
         }else{
             return response()->json(['message' => 'Child Not Found'], 404);
         }
