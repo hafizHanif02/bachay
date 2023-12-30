@@ -20,6 +20,7 @@ use App\Model\SupportTicket;
 use Illuminate\Http\Request;
 use App\Model\DeliveryZipCode;
 use App\Model\ShippingAddress;
+use App\Models\familyRelation;
 use function App\CPU\translate;
 use App\Model\SupportTicketConv;
 use App\Model\DeliveryCountryCode;
@@ -146,6 +147,39 @@ class CustomerController extends Controller
                 $childImageUrl = url('public/assets/images/customers/child/' . $child->profile_picture);
                 $child->avatar = $childImageUrl;
                 }
+            }
+            $overdueCounts = [];
+            foreach ($childerens as $child) {
+                $vaccination_submissions = VaccinationSubmission::
+                    where([
+                        'child_id' => $child->id, 
+                        'user_id' => Auth::user()->id,
+                        'is_taken' => 0
+                    ])->with('vaccination')->get();
+
+                $vaccination_submission_completed = VaccinationSubmission::
+                where([
+                    'child_id' => $child->id, 
+                    'user_id' => Auth::user()->id,
+                    'is_taken' => 1
+                ])->with('vaccination')->get();
+            
+                $child->vaccination = $vaccination_submissions;
+                $overdue = 0;
+                $uppcoming = 0;
+                $today = 0;
+                foreach ($vaccination_submissions as $vaccination_submission) {
+                    $vaccinationDate = Carbon::parse($vaccination_submission->vaccination_date);
+                    $difference = -($vaccinationDate->diffInMonths(now(), false));
+                    if ($difference < 0) {
+                        $overdue += 1;
+                    } elseif ($difference > 0) {
+                        $uppcoming += 1;
+                    } elseif ($difference == 0 && $vaccinationDate->isSameDay(now())) {
+                        $today += 1;
+                    }
+                }
+                $child->vaccination_status = ['uppcoming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
             }
             return response()->json($childerens, 200);
         }else{
@@ -282,6 +316,29 @@ class CustomerController extends Controller
             $childImageUrl = url('public/assets/images/customers/child/' . $child->profile_picture);
                 $child->avatar = $childImageUrl;
             }
+
+            $vaccines = Vaccination::orderByRaw('CAST(age AS SIGNED) ASC')->get();
+            
+            $vaccination_data = [];
+            
+                foreach ($vaccines as $vaccine) {
+                    $vaccineSubmission = VaccinationSubmission::where(['child_id' => $child->id, 'vaccination_id' => $vaccine->id])->get();
+                    if (!isset($vaccination_data[$vaccine->age])) {
+                        $vaccination_data[$vaccine->age] = [];
+                    }
+                    $vaccination_data[$vaccine->age][] = array_merge($vaccine->toArray(), ['vaccine_submission' => $vaccineSubmission->toArray()]);
+                }
+            
+            $dates = [];
+                foreach ($vaccination_data as $month) {
+                    foreach ($month as $vac) {
+                        $dob = Carbon::parse($child->dob);
+                        $vaccinationDate = Carbon::parse($vac['vaccine_submission'][0]['vaccination_date']);
+                        $dateDifference = $dob->diffInMonths($vaccinationDate);
+                        $dates[] = $dateDifference;
+                    }
+                }
+
             return response()->json([$child,'vaccine' => $vaccinations], 200);
         }else{
             return response()->json(['message' => 'Child Not Found'], 404);
@@ -813,13 +870,14 @@ class CustomerController extends Controller
         //     return response()->json(['errors' => Helpers::error_processor($validator)], 403);
         // }
 
-        $order = Order::withCount('order_details')->with(['offline_payments','verification_images'])->where(['id' => $id])->first();
+        $order = Order::withCount('order_details')->with(['details.product','delivery_man','offline_payments','verification_images'])->where(['id' => $id])->first();
         if($order != null) {
-            if(isset($order['offline_payments'])){
-                $order['offline_payments']->payment_info = json_decode($order->offline_payments->payment_info);
-            }
-            $order['shipping_address_data'] = json_decode($order['shipping_address_data']);
-            $order['billing_address_data'] = json_decode($order['billing_address_data']);
+            $order->no_of_items = $order->order_details_count;
+            // if(isset($order['offline_payments'])){
+            //     $order['offline_payments']->payment_info = json_decode($order->offline_payments->payment_info);
+            // }
+            // $order['shipping_address_data'] = json_decode($order['shipping_address_data']);
+            // $order['billing_address_data'] = json_decode($order['billing_address_data']);
             return response()->json($order, 200);
         }else{
             return response()->json(['message' => translate('Order Not Found found!')], 404);
