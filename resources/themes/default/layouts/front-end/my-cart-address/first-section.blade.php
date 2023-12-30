@@ -85,7 +85,7 @@
                                             stroke="#EC1515" stroke-linecap="round" />
                                     </svg> Delete</button></a>
                         {{-- </form> --}}
-                        <form>
+                        {{-- <form> --}}
                             @csrf
                             <input type="hidden" name="is_edit" value="1">
                             <input type="hidden" name="product_id" value="{{ $Cartproduct->product_id }}">
@@ -104,7 +104,7 @@
                                         stroke="#292D32" stroke-miterlimit="10" stroke-linecap="round"
                                         stroke-linejoin="round" />
                                 </svg> Edit</button>
-                        </form>
+                        {{-- </form> --}}
 
                     </div>
 
