@@ -301,11 +301,20 @@ class CartController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-        
-        $wishlistProducts = DB::table('wishlists')->pluck('product_id');
-        $wishlistProductsArray = $wishlistProducts->toArray();
 
-        return view(VIEW_FILE_NAMES['my-cart-address'], (compact('wishlistProductsArray','products', 'cartGroupId', 'shippingAddress', 'totalDiscount', 'total_product_price', 'myCartProducts', 'home_categories')));
+        if (Auth::guard('customer')->check()) {
+            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+            $wishlistProductsArray = $wishlistProducts->toArray();
+
+            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
+        } else {
+            $wishlistProductsArray = [];
+            $cartProductsArray = [];
+        }
+
+        return view(VIEW_FILE_NAMES['my-cart-address'], (compact('wishlistProductsArray', 'products', 'cartGroupId', 'shippingAddress', 'totalDiscount', 'total_product_price', 'myCartProducts', 'home_categories')));
     }
 
 

@@ -80,7 +80,7 @@ body {
 }
 .form-control,
 .form-control:focus {
-    background-color: #f3f3f3;
+    background-color: #fff;
 }
 ul.navbar-nav li {
     border-right: 1px solid #ccc;

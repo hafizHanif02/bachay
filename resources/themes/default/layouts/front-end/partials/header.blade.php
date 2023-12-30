@@ -8,7 +8,7 @@
                     </a>
                     <form class="form-inline my-2 my-lg-0 col-7">
                         <div class="search1 search-bar pt-2 pb-3 col-12">
-                            <input class="form-control pt-2 pb-2 mr-sm-2 search-input" type="text" name="search"
+                            <input style="font-family: none !important" class="form-control pt-2 pb-2 mr-sm-2 search-input" type="text" name="search"
                                 id="search" placeholder="Search for a Category, Brand or Product"
                                 aria-label="Search" />
                             <ul class="results" id="search-result"></ul>
@@ -2057,8 +2057,8 @@
     </header>
     <style>
         .fBorder {
-            border-bottom: 2px solid transparent;
-            border-top: 2px solid transparent;
+            border-bottom: 1px solid transparent;
+            border-top: 1px solid transparent;
             border-image: linear-gradient(270deg,
                     #845dc2 -0.09%,
                     #d55fad 36.37%,
