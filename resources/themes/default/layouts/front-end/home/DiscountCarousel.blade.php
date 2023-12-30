@@ -1,6 +1,6 @@
 <style>
     .slider img {
-        height: 500px;
+        height: 450px;
     }
 </style>
 <div class="slider-container pt-3 mb-5 container-xxl">
