@@ -588,6 +588,17 @@
                                 </span>
                                 </a>
                             </li>
+                            <li class="navbar-vertical-aside-has-menu {{Request::is('admin/quiz*')?'active':''}}">
+                                <a class="js-navbar-vertical-aside-menu-link nav-link"
+                                   href="{{ route('admin.business-settings.quiz') }}" >
+                                   <i class="tio-baseball nav-icon"></i>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
+                                    <span class="position-relative">
+                                        Quiz
+                                    </span>
+                                </span>
+                                </a>
+                            </li>
                         </li>
 
                         

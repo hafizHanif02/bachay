@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 use App\CPU\Helpers;
+use App\Models\Quiz;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 use App\Model\Currency;
@@ -333,6 +334,9 @@ class BusinessSettingsController extends Controller
 
     public function AllQuizCategory(){
         $quiz_categories = QuizCategory::get();
+        foreach($quiz_categories as $quiz_category){
+            $quiz_category->image = asset('public/assets/images/quiz/category/'.$quiz_category->image);
+        }
         return view('admin-views.business-settings.quiz-category', compact('quiz_categories'));
     } 
 
@@ -351,6 +355,89 @@ class BusinessSettingsController extends Controller
         Toastr::success('Quiz Category Added');
         return redirect()->back();
     }
+
+    public function QuizCategoryEdit($id){
+        $category = QuizCategory::find($id);
+        return view('admin-views.business-settings.edit-quiz-category', compact('category'));
+    }
+
+    public function QuizCategoryUpdate(Request $request){
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('assets/images/quiz/category/'), $filename);
+        }
+        QuizCategory::where('id', $request->id)->update([
+            'name' => $request->name,
+            'expiry' => $request->expiry,
+            'image' => $filename,
+        ]);
+        Toastr::success('Quiz Category Updated');
+        return redirect()->route('admin.business-settings.quiz.quiz-category');
+    }
+
+    public function QuizCategoryDelete(Request $request){
+        $quiz_categories = QuizCategory::find($request->id);
+        $quiz_categories->delete();
+        Toastr::success('Quiz Category Deleted');
+        return redirect()->back();
+    }
+
+
+    public function AllQuiz(){
+        $quizes = Quiz::get();
+        foreach($quizes as $quiz_category){
+            $quiz_category->image = asset('public/assets/images/quiz/category/'.$quiz_category->image);
+        }
+        return view('admin-views.business-settings.quiz', compact('quizes'));
+    } 
+
+    public function QuizStore(Request $request){
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('assets/images/quiz/'), $filename);
+        }
+        Quiz::create([
+            'name' => $request->name,
+            'expiry' => $request->expiry,
+            'image' => $filename,
+        ]);
+        Toastr::success('Quiz Category Added');
+        return redirect()->back();
+    }
+
+    public function QuizEdit($id){
+        $category = Quiz::find($id);
+        return view('admin-views.business-settings.edit-quiz-category', compact('category'));
+    }
+
+    public function QuizUpdate(Request $request){
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('assets/images/quiz/category/'), $filename);
+        }
+        Quiz::where('id', $request->id)->update([
+            'name' => $request->name,
+            'expiry' => $request->expiry,
+            'image' => $filename,
+        ]);
+        Toastr::success('Quiz Category Updated');
+        return redirect()->route('admin.business-settings.quiz.quiz-category');
+    }
+
+    public function QuizDelete(Request $request){
+        $quiz_categories = Quiz::find($request->id);
+        $quiz_categories->delete();
+        Toastr::success('Quiz Category Deleted');
+        return redirect()->back();
+    }
+
+    
 
     public function home_layout()
     {

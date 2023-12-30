@@ -1,6 +1,6 @@
 @extends('layouts.back-end.app')
 
-@section('title', 'Quiz Category')
+@section('title', 'Quiz')
 
 @push('css_or_js')
 
@@ -110,7 +110,7 @@
 						</thead>
 
 						<tbody>
-						@foreach($quiz_categories as $category)
+						{{-- @foreach($quiz_categories as $category)
 						<tr>
 							<td>{{$loop->iteration}}</td>
 							<td>{{$category->name}}</td>
@@ -137,7 +137,7 @@
 								</div>
 							</td>
 						</tr>
-						@endforeach
+						@endforeach --}}
 						</tbody>
 					</table>
 
