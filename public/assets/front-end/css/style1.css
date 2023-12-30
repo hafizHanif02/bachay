@@ -461,9 +461,6 @@ h1.text-center.textClr {
 .dropdown:hover .dropdown-content {
     display: block;
 }
-.sub-card {
-    background-color: #fff;
-}
 .card1 {
     position: relative;
 }
@@ -1511,6 +1508,7 @@ input:checked + .se:before {
     border: 1px solid #848484;
     width: 38px;
     height: 37px;
+    box-shadow: 0 0 10px rgba(169, 169, 169, 0.3);
 }
 .hl {
     border-bottom: 2px solid #7777;
@@ -2245,10 +2243,12 @@ input:checked + .se:before {
     font-size: 16px;
 }
 .sub-card {
-    transition: box-shadow 0.3s;
+    background-color: #fff;
+    border: 1px solid transparent;
+    transition: border 0.5s ease;
 }
 .sub-card:hover {
-    box-shadow: 0 0 10px 5px #dbdcd4;
+    border: 1px solid #dbdcd4;
 }
 
 .sub-nav > li:hover {

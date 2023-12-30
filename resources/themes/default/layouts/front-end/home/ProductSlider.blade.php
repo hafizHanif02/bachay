@@ -38,7 +38,7 @@
                                 </div> --}}
                                 <div class="wish-list mt-3 me-2">
                                     <button type="button"
-                                        class="wishlist-button p-0 bg-transparent rounded-circle forBorder"
+                                        class="wishlist-button p-0 bg-light rounded-circle forBorder"
                                         data-product-id="{{ $products->id }}" onclick="addToWishlist(this)">
                                         <i
                                             class="bi heart-icon bi-heart{{ in_array($products->id, $wishlistProductsArray) ? '-fill' : '' }} text-danger"></i>
