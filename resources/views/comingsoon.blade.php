@@ -9,12 +9,17 @@
     <style>
         @font-face {
             font-family: myfont;
-            src: url(Aristotelica\ Display\ ExtraLight\ Trial.ttf);
-            src: url(Aristotelica\ Display\ DemiBold\ Trial.ttf);
+            src: url(/public/fonts/AristotelicaDisplayDemiBoldTrial.ttf);
         }
 
-        body {
-            font-family: myfont;
+        @font-face {
+            font-family: mylightfont;
+            src: url(/public/fonts/AristotelicaDisplayExtraLightTrial.ttf);
+        }
+
+        @font-face {
+            font-family: mysmallcapsfont;
+            src: url(/public/fonts/AristotelicaSmallCapsRegular.ttf);
         }
 
         .logo {
@@ -25,6 +30,7 @@
 
         .heading {
             display: flex;
+            font-family: 'myfont';
             justify-content: center;
             font-size: 45px;
             font-style: normal;
@@ -125,7 +131,7 @@
 
         <div class="heading">
             <h1>
-                Coming Soon....
+                Coming Soon...
             </h1>
         </div>
         <div class="bg-img">

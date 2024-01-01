@@ -3,7 +3,7 @@
         <div class="col-12 d-flex justify-content-between align-items-center">
             <h1 class="textClr m-0">Autumn Whisper</h1>
             <a class="d-flex align-items-center text-dark" href="{{ route('product-list') }}">
-                <h5 class="m-0">See All</h5>
+                <h6 class="m-0">See All</h6>
             </a>
         </div>
     </div>
