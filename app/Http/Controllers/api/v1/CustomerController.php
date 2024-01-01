@@ -270,6 +270,7 @@ class CustomerController extends Controller
         ]);
         return response()->json('Vaccination Has Been Added', 403);
     }
+}
 
 
     public function AllQuestion()
@@ -439,11 +440,20 @@ class CustomerController extends Controller
         if(Auth::check()){
             $child = DB::table('family_relation')->where('id', $id)->first();
             if(!empty($child)){
+                if ($request->hasFile('profile_picture')) {
+                    $file = $request->file('profile_picture');
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = $file->getClientOriginalName();
+                    $file->move(public_path('assets/images/customers/child'), $filename);
+                } else {
+                    $filename = null;
+                }
                 DB::table('family_relation')->where('id', $id)->update([
                     'relation_type' => $request->relation_type,
                     'dob' => $request->dob,
                     'gender' => $request->gender,
                     'name' => $request->name,
+                    'profile_picture' => $filename,
                 ]);
                 return response()->json(['message' => 'Child Has Been Updated'], 200);
             }else{
