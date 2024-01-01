@@ -17,6 +17,9 @@
     header{
         padding: 10px 0px;
     }
+    .image-container p{
+        font-size: 17.5px;
+    }
   }
   .nav-item a:hover{
     color: #ff6b00;
@@ -570,7 +573,7 @@ h1.text-center.textClr {
 .image-container p {
     color: #292d32;
     font-family: "Poppins";
-    font-size: 17.50px;
+    font-size: 15px;
     font-style: normal;
     font-weight: 600;
     line-height: 125%;
