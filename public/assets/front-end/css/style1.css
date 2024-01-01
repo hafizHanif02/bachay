@@ -2357,7 +2357,7 @@ input:checked + .se:before {
     position: absolute;
     display: block;
     width: 100%;
-    top: 60px;
+    top: 62px;
     left: 0;
     visibility: hidden;
     overflow-y: auto;
