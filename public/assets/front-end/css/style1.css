@@ -18,6 +18,9 @@
         padding: 10px 0px;
     }
   }
+  .nav-item a:hover{
+    color: #ff6b00;
+}
 .LocationsSearchBar {
     padding-left: 40px !important;
 }
