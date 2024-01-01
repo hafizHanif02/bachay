@@ -59,7 +59,7 @@
                             </span>
                         </div>
                         <div class="col-12 text-center ">
-                            <img class="mt-5 mb-5 Baby-Names-img" src="{{ asset('public/images/ector-bachay.png') }}"
+                            <img class="mt-5 mb-5 Baby-Names-img" src="{{ asset('public/images/Vector-bachay.png') }}"
                                 alt="" srcset="">
                         </div>
                         <div class="col-12 text-center ">
@@ -97,7 +97,7 @@
         </div>
         <div class="outer5">
             <div class="card card-5">
-                <div class="card-body bg-yellow  ">
+                <div class="card-body bg-yellow">
                     <div class="row">
                         <div class="col-12 text-center">
                             <span class="w-100 bg-white ps-1 pe-1 pt-1 pb-1 rounded-pill Vaccinations">
