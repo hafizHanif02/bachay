@@ -146,8 +146,8 @@
                 <div class="fBorder">
                     <ul
                         class="container-xxl sub-nav d-flex justify-content-between align-items-baseline pt-3 pb-3 mb-0">
-                        <li><button href="{{ route('categories') }}" class="browse-all-cate">
-                                <i class="bi bi-grid"></i> Browse All Categories
+                        <li><button  class="browse-all-cate">
+                              <a href="{{ route('categories') }}"><i class="bi bi-grid"></i> Browse All Categories</a>  
                         </button>
                             <div class="mega-menu-container">
                                 <div class="mega-menu-grid">
