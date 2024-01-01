@@ -7,6 +7,7 @@ use DateTime;
 use Carbon\Carbon;
 use App\CPU\Helpers;
 use App\Model\Order;
+use App\Model\QuizSubmission;
 use App\Models\Growth;
 use App\Model\Wishlist;
 use App\Model\GuestUser;
@@ -270,6 +271,32 @@ class CustomerController extends Controller
         ]);
         return response()->json('Vaccination Has Been Added', 403);
     }
+}
+
+public function SubmitQuiz(Request $request){
+    if(Auth::check()){
+        $validator = QuizSubmission::make($request->all(), [
+            'child_id' => 'required|exists:family_relation,id',
+            'quiz_id' => 'required|exists:quiz,id',
+            'answer_id' => 'required|exists:quiz_answer,id',
+        ]);
+        
+        if ($validator->fails()) {
+            return response()->json(['errors' => Helpers::error_processor($validator)], 403);
+        }
+
+        QuizSubmisSubmitQuizsion::create([
+            'user_id' => Auth::user()->id,
+            'child_id' => $request->child_id,
+            'quiz_id' => $request->quiz_id,
+            'answer_id' => $request->answer_id,
+        ]);
+        return response()->json(['message' => 'Quiz Has Been Submitted!'], 403);
+
+    }else{
+        return response()->json(['errors' => 'Please Login First !'], 403);
+    }
+
 }
 
 
