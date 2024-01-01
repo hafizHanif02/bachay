@@ -42,7 +42,7 @@ class HomeController extends Controller
         $toparrivalcategorys = DB::table('categories')
         ->where('parent_id', '=', 0)
         ->where('priority', '!=', 0)
-        ->orderBy('priority', 'dsc')
+        ->orderBy('priority', 'desc')
         ->take(10)
         ->get();
         $imageUrls = [];
