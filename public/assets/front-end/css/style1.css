@@ -140,9 +140,6 @@ input.form-control.search-input {
         )
     );
 }
-/* .browse-all-cate:hover {
-    background-color: #ffc55d;
-} */
 .drp-btn.active {
     color: #ff6b00;
     background: none;
@@ -205,10 +202,6 @@ input.form-control.search-input {
 .sub-banner {
     padding: 50px;
 }
-.sub-banner img{
-    height: 269px;
-}
-
 .flash-sales-cart,
 .sub-contain,
 .SavingsOffer {
@@ -224,7 +217,7 @@ input.form-control.search-input {
         #845dc2 130.57%
     );
     font-family: myfont;
-    font-size: 60px;
+    font-size: 57px;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -275,7 +268,7 @@ input.form-control.search-input {
     background: rgba(249, 147, 39, 0.6);
     backdrop-filter: blur(12.866106033325195px);
     font-family: "Poppins";
-    font-size: 26px;
+    font-size: 20px;
     font-style: normal;
     font-weight: 500;
     line-height: 100%;
@@ -592,9 +585,6 @@ h1.text-center.textClr {
     position: relative;
     border: 3px solid #845dc2;
 }
-.outer1 :hover{
-  
-}
 .border-purple {
     border: 3px solid #845dc2;
 }
@@ -636,15 +626,50 @@ h1.text-center.textClr {
         grid-template-columns: 1fr;
     }
 }
+.card-body {
+    height: 324px;
+}
+.card{
+    transition: transform 0.3s ease-in-out;
+
+}
+/* .card:hover .card-body {
+    transform: translate(3.5%, 2.5%);
+    transition: transform 0.3s ease-in-out;
+
+} */
+
 .card-1 {
-    border-radius: 14.497px;
+    border-radius: 14px;
     position: absolute;
     top: -4.5%;
     left: -3%;
     width: 100%;
+    border: 2px solid #845dc2;
 }
+
+.card-1:hover, .card-2:hover , .card-3:hover , .card-4:hover, .card-5:hover {
+    transform: translate(3%, 3.8%);
+}
+
+/* .card-body {
+    height: 340px;
+    transition: transform 0.3s ease-in-out;
+}
+
+.card:hover .card-body {
+    transform: translate(3.5%, 2.5%);
+}
+.card-1 {
+    border-radius: 20px;
+    position: absolute;
+    top: -4.5%;
+    left: -3%;
+    width: 100%;
+    border: 2px solid #845dc2;
+} */
 .card-body {
-    height: 330px;
+    border-radius: 14.5px;
 }
 
 .__card .card-body {
@@ -672,11 +697,12 @@ h1.text-center.textClr {
     background: #f99327;
 }
 .card-2 {
-    border-radius: 14.497px;
+    border-radius: 20px;
     position: absolute;
     top: -4%;
     left: -3%;
     width: 100%;
+    border: 2px solid #f99327;
 }
 .Contests {
     color: #f99327;
@@ -693,11 +719,12 @@ h1.text-center.textClr {
     background: #d55fad;
 }
 .card-3 {
-    border-radius: 14.497px;
+    border-radius: 20px;
     position: absolute;
     top: -4%;
     left: -3%;
     width: 100%;
+    border: 2px solid #d55fad;
 }
 .outer4 {
     position: relative;
@@ -709,11 +736,13 @@ h1.text-center.textClr {
     background: #71e582;
 }
 .card-4 {
-    border-radius: 14.497px;
+    border-radius: 20px;
     position: absolute;
     top: -4%;
     left: -3%;
     width: 100%;
+    border: 2px solid #71e582;
+    
 }
 .Meal-Planner {
     color: #71e582;
@@ -739,11 +768,13 @@ h1.text-center.textClr {
     background: #e9b654;
 }
 .card-5 {
-    border-radius: 14.497px;
+    border-radius: 20px;
     position: absolute;
     top: -4%;
     left: -3%;
     width: 100%;
+    border: 2px solid #e9b654;
+
 }
 .btm-img {
     border-radius: 30px;
@@ -928,9 +959,6 @@ h1.text-center.textClr {
     font-size: 14px;
     font-weight: 600;
     line-height: 25px;
-}
-.delivery-details-heading img{
-    height: 18px;
 }
 
 .collection h5 {
@@ -1157,8 +1185,7 @@ input[type="radio"]:checked {
     height: 265px;
 }
 .ImgCon{
-    height: 314px;
-    width: 297px;
+    height: 315px;
 }
 .gift-box {
     width: 60px;
@@ -2244,7 +2271,6 @@ input:checked + .se:before {
     text-decoration: none;
     color: inherit;
 }
-    
 .sub-nav {
     position: relative;
     cursor: default;
