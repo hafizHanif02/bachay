@@ -59,7 +59,7 @@
                                     </p>
                                 </div>
                                 <p class="card-text"><span class="discount fw-bold">Rs. {{ $products->unit_price }}</span>
-                                    <span class="text-success">-{{ $products->discount }}% Off</span>
+                                    <span class="Text-color">-{{ $products->discount }}% Off</span>
                                 </p>
                                 <div class="subdiv d-flex justify-content-between">
                                     <span href="#">Standard Delivery</span>
@@ -69,7 +69,7 @@
                                     </p>
                                     {{-- @endforeach --}}
 
-                                    <h5 class="text-dark">({{ $products->reviews_count }})</h5>
+                                    <h5 class="text-dark m-0">({{ $products->reviews_count }})</h5>
                                 </div>
 
                             </div>
