@@ -59,7 +59,7 @@
                             </span>
                         </div>
                         <div class="col-12 text-center ">
-                            <img class="mt-5 mb-5 Baby-Names-img" src="{{ asset('public/images/vector-bachay.png') }}"
+                            <img class="mt-5 mb-5 Baby-Names-img" src="{{ asset('public/images/Vector-bachay.png') }}"
                                 alt="" srcset="">
                         </div>
                         <div class="col-12 text-center ">
