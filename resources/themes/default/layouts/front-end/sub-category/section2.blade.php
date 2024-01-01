@@ -9,7 +9,7 @@
                         <div class="forHeight">
                             <img class="object-fit-cover card-img rounded-5"
                                 src="{{ asset('storage/app/public/product/thumbnail/' . $products->product->thumbnail) }}"
-                                alt="Flash Sale" width="100%" height="100%" />
+                                alt="Flash Sale" width="389px" height="412px" />
                         </div>
                         <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
                             @if (strlen($products->product->name) <= 20)

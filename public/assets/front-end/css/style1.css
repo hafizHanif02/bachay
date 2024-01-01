@@ -140,6 +140,9 @@ input.form-control.search-input {
         )
     );
 }
+/* .browse-all-cate:hover {
+    background-color: #ffc55d;
+} */
 .drp-btn.active {
     color: #ff6b00;
     background: none;
@@ -202,6 +205,10 @@ input.form-control.search-input {
 .sub-banner {
     padding: 50px;
 }
+.sub-banner img{
+    height: 269px;
+}
+
 .flash-sales-cart,
 .sub-contain,
 .SavingsOffer {
@@ -217,7 +224,7 @@ input.form-control.search-input {
         #845dc2 130.57%
     );
     font-family: myfont;
-    font-size: 57px;
+    font-size: 60px;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -268,7 +275,7 @@ input.form-control.search-input {
     background: rgba(249, 147, 39, 0.6);
     backdrop-filter: blur(12.866106033325195px);
     font-family: "Poppins";
-    font-size: 20px;
+    font-size: 26px;
     font-style: normal;
     font-weight: 500;
     line-height: 100%;
@@ -922,6 +929,9 @@ h1.text-center.textClr {
     font-weight: 600;
     line-height: 25px;
 }
+.delivery-details-heading img{
+    height: 18px;
+}
 
 .collection h5 {
     font-family: "Poppins";
@@ -1147,7 +1157,8 @@ input[type="radio"]:checked {
     height: 265px;
 }
 .ImgCon{
-    height: 315px;
+    height: 314px;
+    width: 297px;
 }
 .gift-box {
     width: 60px;
@@ -2233,6 +2244,7 @@ input:checked + .se:before {
     text-decoration: none;
     color: inherit;
 }
+    
 .sub-nav {
     position: relative;
     cursor: default;

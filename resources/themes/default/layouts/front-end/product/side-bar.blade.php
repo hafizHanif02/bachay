@@ -1,5 +1,5 @@
 <div class="col-3 border-right">
-    <div class="delivery-details-heading d-flex justify-content-between">
+    <div class="delivery-details-heading d-flex justify-content-between align-items-center">
         <h5> <img src="{{ asset('public/images/cart-img.svg') }}" alt=""> Check Delivery Details</h5>
         <div class="popup">
             <i class="bi bi-exclamation-circle-fill"></i></a>

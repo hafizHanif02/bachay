@@ -8,7 +8,7 @@
                             src="{{ asset('storage/app/public/category/' . $category->icon) }}" alt="Flash Sale 1"
                             width="100%" height="100%" />
                     </div>
-                    <h4 class="text-center text-dark">{{ $category->name }}</h4>
+                    <h4 class="text-center text-dark fs-4 mt-3">{{ $category->name }}</h4>
                 </a>
             </div>
         @endforeach

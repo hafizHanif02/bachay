@@ -58,8 +58,8 @@
                                     <p class="bg-primary rounded-pill ms-2  text-white units mb-0">141 Solds
                                     </p>
                                 </div>
-                                <p class="card-text"><span class="discount fw-normal fw-bold">Rs. {{ $products->unit_price }}</span>
-                                    <span class="text-off text-success">-{{ $products->discount }}% Off</span>
+                                <p class="card-text"><span class="discount fw-bold">Rs. {{ $products->unit_price }}</span>
+                                    <span class="text-success">-{{ $products->discount }}% Off</span>
                                 </p>
                                 <div class="subdiv d-flex justify-content-between">
                                     <span href="#">Standard Delivery</span>
