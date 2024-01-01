@@ -290,8 +290,8 @@ input.form-control.search-input {
     color: #fff;
     font-size: 20px;
     font-weight: bold;
-    height: 87px;
-    width: 87px;
+    height: 70px;
+    width: 70px;
     border-radius: 50%;
     border: 5.146px solid #fff;
     background: #b00;
@@ -355,7 +355,7 @@ button.slick-prev.slick-arrow {
     border: 3.209px solid var(--Nutral-3, #292d32);
 }
 .gradient-text {
-    background: var(
+    /* background: var(
         --Primary-Gradient,
         linear-gradient(
             270deg,
@@ -366,11 +366,12 @@ button.slick-prev.slick-arrow {
             #ffc55d 145.17%
         )
     );
-    font-size: 20px;
     background-clip: text;
     -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
+    -webkit-text-fill-color: transparent; */
+    color: #292D32;
     line-height: normal;
+    font-size: 20px;
 font-family: 'Poppins';
 font-style: normal;
 font-weight: 600;
@@ -1566,7 +1567,7 @@ input:checked + .se:before {
     font-size: 12px;
 }
 .forHeight {
-    height: 411px;
+    height: 350px;
 }
 /* detailed Porduct Page */
 .detailed-product-img {
@@ -2330,10 +2331,10 @@ input:checked + .se:before {
     font-size: 16px;
 }
 .NewSeasonBorder {
-    transition: transform 0.5s ease;
+    transition: margin-top 0.3s ease;
   }
   .NewSeasonBorder:hover {
-    transform: scale(1.07);
+        margin-top: -10px;
   }
 .sub-card {
     /* background-color: #dbdcd4; */
