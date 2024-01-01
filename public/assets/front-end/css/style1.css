@@ -217,7 +217,7 @@ input.form-control.search-input {
         #845dc2 130.57%
     );
     font-family: myfont;
-    font-size: 57px;
+    font-size: 52px;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -362,10 +362,15 @@ button.slick-prev.slick-arrow {
             #ffc55d 145.17%
         )
     );
-    font-size: 16px;
+    font-size: 20px;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    line-height: normal;
+font-family: 'Poppins';
+font-style: normal;
+font-weight: 600;
+line-height: 22px;
 }
 .popup {
     position: relative;
@@ -403,7 +408,17 @@ button.slick-prev.slick-arrow {
     align-items: center;
     border-radius: 30px;
 }
+.browse-all-cate{
+    color: #fff;
+}
+.browse-all-cate:hover{
+    color: #ff6b00;
+    background:#fff;
+    border: 0.2px solid #ff6b00;
+    border-radius: 25px;
+}
 .search-input {
+    font-size: 10px;
     flex: 1;
     border-radius: 30px;
 }
@@ -580,7 +595,7 @@ h1.text-center.textClr {
 .new-arival-container {
     object-fit: cover;
     width: 100%;
-    height: 150px;
+    height: 128px;
 }
 .outer1 {
     position: relative;

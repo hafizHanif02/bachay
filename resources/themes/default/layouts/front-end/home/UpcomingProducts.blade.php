@@ -7,7 +7,7 @@
             </a>
         </div>
     </div>
-    <div class="main-con mt-5">
+    <div class="main-con mt-4">
         <div class="row">
             @foreach ($latest_products as $products)
                 <div class="col-md-6 col-lg-3 mb-4">

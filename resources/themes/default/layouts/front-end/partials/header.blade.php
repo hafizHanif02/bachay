@@ -1,14 +1,15 @@
     <header>
         <div class=" desktop-nav">
 
-            <nav class="container-xxl navbar navbar-expand-md d-flex justify-content-between align-items-center col-12">
+            <nav
+                class="container-xxl navbar navbar-expand-md d-flex justify-content-between align-items-center col-12 pb-0">
                 <div class="d-flex col-md-5">
                     <a class="navbar-brand col-4" href="{{ url('/') }}">
                         <img src="{{ asset('public/images/logo.png') }}" alt="Logo">
                     </a>
                     <form class="form-inline my-2 my-lg-0 col-7">
                         <div class="search1 search-bar pt-2 pb-3 col-12">
-                            <input class="form-control pt-2 pb-2 mr-sm-2 search-input" type="text" name="search"
+                            <input class="form-control pt-3 pb-3 mr-sm-2 search-input" type="text" name="search"
                                 id="search" placeholder="Search for a Category, Brand or Product"
                                 aria-label="Search" />
                             <ul class="results" id="search-result"></ul>
@@ -144,10 +145,10 @@
             <div class="nav-btn" id="mega-menu" class="hide-on-med-and-down">
                 <div class="fBorder">
                     <ul
-                        class="container-xxl sub-nav d-flex justify-content-between align-items-baseline pt-4 pb-4 mb-0">
-                        <li><a href="{{ route('categories') }}" class="browse-all-cate text-white">
+                        class="container-xxl sub-nav d-flex justify-content-between align-items-baseline pt-3 pb-3 mb-0">
+                        <li><button href="{{ route('categories') }}" class="browse-all-cate">
                                 <i class="bi bi-grid"></i> Browse All Categories
-                            </a>
+                        </button>
                             <div class="mega-menu-container">
                                 <div class="mega-menu-grid">
                                     <div class="sub-nav-column">
