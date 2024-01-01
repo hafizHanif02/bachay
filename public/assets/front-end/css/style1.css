@@ -600,7 +600,8 @@ h1.text-center.textClr {
 .outer1 {
     position: relative;
     height: 328.84px;
-    border-radius: 14.497px;
+    /* border-radius: 14.497px; */
+    border-radius: 18.497px;
     position: relative;
     border: 3px solid #845dc2;
 }
@@ -659,7 +660,8 @@ h1.text-center.textClr {
 } */
 
 .card-1 {
-    border-radius: 14px;
+    border-radius: 17px;
+    /* border-radius: 14px; */
     position: absolute;
     top: -4.5%;
     left: -3%;
@@ -710,13 +712,15 @@ h1.text-center.textClr {
     position: relative;
     border: 3px solid #f99327;
     height: 328.84px;
-    border-radius: 14.497px;
+    /* border-radius: 14.497px; */
+    border-radius: 18.497px;
 }
 .bg-orange {
     background: #f99327;
 }
 .card-2 {
-    border-radius: 20px;
+    border-radius: 17px;
+    /* border-radius: 20px; */
     position: absolute;
     top: -4%;
     left: -3%;
@@ -732,13 +736,15 @@ h1.text-center.textClr {
     position: relative;
     border: 3px solid #d55fad;
     height: 328.84px;
-    border-radius: 14.497px;
+    /* border-radius: 14.497px; */
+    border-radius: 18.497px;
 }
 .bg-pink {
     background: #d55fad;
 }
 .card-3 {
-    border-radius: 20px;
+    border-radius: 17px;
+    /* border-radius: 20px; */
     position: absolute;
     top: -4%;
     left: -3%;
@@ -749,13 +755,15 @@ h1.text-center.textClr {
     position: relative;
     border: 3px solid #71e582;
     height: 328.84px;
-    border-radius: 14.497px;
+    /* border-radius: 14.497px; */
+    border-radius: 18.497px;
 }
 .bg-green {
     background: #71e582;
 }
 .card-4 {
-    border-radius: 20px;
+    border-radius: 17px;
+    /* border-radius: 20px; */
     position: absolute;
     top: -4%;
     left: -3%;
@@ -781,13 +789,15 @@ h1.text-center.textClr {
     position: relative;
     border: 3px solid #e9b654;
     height: 328.84px;
-    border-radius: 14.497px;
+    /* border-radius: 14.497px; */
+    border-radius: 18.497px;
 }
 .bg-yellow {
     background: #e9b654;
 }
 .card-5 {
-    border-radius: 20px;
+    border-radius: 17px;
+    /* border-radius: 20px; */
     position: absolute;
     top: -4%;
     left: -3%;
