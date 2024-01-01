@@ -118,7 +118,7 @@ input.form-control.search-input {
     font-family: myfont;
 }
 .drp-btn:hover {
-    color: #845DC2;
+    color: #845DC2 !important;
 }
 .imgBanner {
     width: 100%;
