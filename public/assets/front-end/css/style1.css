@@ -22,7 +22,7 @@
     }
   }
   .nav-item a:hover{
-    color: #ff6b00;
+    color: #845DC2;
 }
 .LocationsSearchBar {
     padding-left: 40px !important;
@@ -118,13 +118,14 @@ input.form-control.search-input {
     font-family: myfont;
 }
 .drp-btn:hover {
-    color: #ff6b00;
+    color: #845DC2;
 }
 .imgBanner {
     width: 100%;
     object-fit: cover;
 }
 .browse-all-cate {
+    font-family: 'myfont';
     font-size: 12px;
     font-weight: 600;
     line-height: 13px;
@@ -156,7 +157,7 @@ input.form-control.search-input {
     padding-left: 24px;
 }
 .desktop-footer {
-    border-top: 2px solid transparent;
+    border-top: 1px solid transparent;
     border-image: linear-gradient(
         270deg,
         #845dc2 -0.09%,
@@ -413,11 +414,13 @@ line-height: 22px;
 }
 .browse-all-cate{
     color: #fff;
+    border: 1px solid #ff6b00;
+    
 }
 .browse-all-cate:hover{
     color: #ff6b00;
     background:#fff;
-    border: 0.2px solid #ff6b00;
+    border: 1px solid #ff6b00;
     border-radius: 25px;
 }
 .search-input {
