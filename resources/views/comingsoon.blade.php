@@ -26,8 +26,7 @@
         .heading {
             display: flex;
             justify-content: center;
-
-            font-size: 50px;
+            font-size: 45px;
             font-style: normal;
             font-weight: 600;
             line-height: normal;
