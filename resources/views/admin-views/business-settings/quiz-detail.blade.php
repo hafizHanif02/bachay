@@ -26,17 +26,17 @@
 			<div class="card">
 				<div class="card-body">
 				  <div class="container">
-					<form action="{{ route('admin.business-settings.quiz.store') }}" method="post" enctype="multipart/form-data">
+					<form action="{{ route('admin.business-settings.quiz.update', $quiz->id) }}" method="post" enctype="multipart/form-data">
 						@csrf
+						@method('PUT')
 						<div class="row g-3">
 							<div class="col-md-12">
 								<div class="form-group">
 									<label class="title-color text-capitalize"
 										   for="exampleFormControlInput1">Quiz Category </label>
 									<select name="quiz_category_id" class="form-control" id="">
-										<option value="" selected disabled> Select Quiz Category</option>
 										@foreach($quiz_categories as $category)
-										<option value="{{ $category->id }}">{{ $category->name }}"></option>
+										<option value="{{ $category->id }}" {{ $quiz->quiz_category_id == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
 										@endforeach
 									</select>
 								</div>
@@ -47,7 +47,7 @@
 								<div class="form-group">
 									<label class="title-color text-capitalize"
 										   for="exampleFormControlInput1">Question </label>
-									<input type="text" name="question" placeholder="Enter Question"  class="form-control" required>
+									<input type="text" name="question" placeholder="Enter Question" value="{{ $quiz->question }}"  class="form-control" required>
 								</div>
 							</div>
 						</div>
@@ -65,37 +65,37 @@
 										<td>
 											<div class="col-md-10 mt-2">
 												<label for="" class="form-label text-center">1</label>
-												<input type="text" name="options[0]" id="option1" class="form-control">
+												<input type="text" value="{{ $quiz->answer[0]->answer }}" name="options[0]" id="option1" class="form-control">
 											</div>
 											<div class="col-md-10 mt-2">
 												<label for="" class="form-label text-center">2</label>
-												<input type="text" name="options[1]" id="option2" class="form-control">
+												<input type="text" name="options[1]" value="{{ $quiz->answer[1]->answer }}" id="option2" class="form-control">
 											</div>
 											<div class="col-md-10 mt-2">
 												<label for="" class="form-label text-center">3</label>
-												<input type="text" name="options[2]" id="option3" class="form-control">
+												<input type="text" name="options[2]" value="{{ $quiz->answer[2]->answer }}" id="option3" class="form-control">
 											</div>
 											<div class="col-md-10 mt-2">
 												<label for="" class="form-label text-center">4</label>
-												<input type="text" name="options[3]" id="option4" class="form-control">
+												<input type="text" name="options[3]" value="{{ $quiz->answer[3]->answer }}" id="option4" class="form-control">
 											</div>
 										</td>
 										<td>
 											<div class="col-md-2 mt-3">
 												<label for="" class="form-label text-center"></label>
-												<input type="radio" name="actual_answer" value="1" class="form-control">
+												<input type="radio" name="actual_answer" value="1" {{ ($quiz->answer[0]->id == $quiz->answer_id)?'Checked':'' }} class="form-control">
 										</div>
 											<div class="col-md-2 mt-3">
 												<label for="" class="form-label text-center"></label>
-												<input type="radio" name="actual_answer" value="2" class="form-control">
+												<input type="radio" name="actual_answer" value="2" {{ ($quiz->answer[1]->id == $quiz->answer_id)?'Checked':'' }} class="form-control">
 											</div>
 											<div class="col-md-2 mt-3">
 												<label for="" class="form-label text-center"></label>
-												<input type="radio" name="actual_answer" value="3" class="form-control">
+												<input type="radio" name="actual_answer" value="3" {{ ($quiz->answer[2]->id == $quiz->answer_id)?'Checked':'' }} class="form-control">
 											</div>
 											<div class="col-md-2 mt-3">
 												<label for="" class="form-label text-center"></label>
-												<input type="radio" name="actual_answer" value="4" class="form-control">
+												<input type="radio" name="actual_answer" value="4" {{ ($quiz->answer[3]->id == $quiz->answer_id)?'Checked':'' }} class="form-control">
 											</div>
 											<input type="hidden" name="correct_answer">
 										</td>
@@ -112,85 +112,6 @@
 				</div>
 			</div>
 		</div>
-
-		<div class="col-sm-12 col-lg-12 mb-3 mb-lg-2">
-			<div class="card">
-				<div class="px-3 py-4">
-					<div class="row align-items-center">
-						<div class="col-sm-4 col-md-6 col-lg-8 mb-2 mb-sm-0">
-							<h5 class="mb-0 text-capitalize d-flex align-items-center gap-2">
-								Quiz
-								<span
-									class="badge badge-soft-dark radius-50 fz-12 ml-1"></span>
-							</h5>
-						</div>
-						<div class="col-sm-8 col-md-6 col-lg-4">
-							<form action="{{ url()->current() }}" method="GET">
-								<div class="input-group input-group-merge input-group-custom">
-									<div class="input-group-prepend">
-										<div class="input-group-text">
-											<i class="tio-search"></i>
-										</div>
-									</div>
-									<input id="datatableSearch_" type="search" name="search" class="form-control"
-										   placeholder="{{translate('search_by_title')}}"
-										   aria-label="Search orders" value="" required>
-									<button type="submit"
-											class="btn btn--primary">{{translate('search')}}</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</div>
-
-				<!-- Table -->
-				<div class="table-responsive datatable-custom">
-					<table style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};"
-						   class="table table-hover table-borderless table-thead-bordered table-nowrap table-align-middle card-table w-100">
-						<thead class="thead-light thead-50 text-capitalize">
-						<tr class="text-center">
-							<th>S no. </th>
-							<th>Quiz Category</th>
-							<th>Quiz</th>
-							<th>Actions</th>
-						</tr>
-						</thead>
-
-						<tbody>
-							@foreach($quizes as $quiz)
-							<tr class="text-center">
-								<td>{{ $loop->iteration }}</td>
-								<td>{{ $quiz->quiz_category->name }}</td>
-								<td>{{ $quiz->question }}</td>
-								<td>
-									<div class="d-flex justify-content-center gap-2">
-										<a class="btn btn-outline--primary btn-sm edit square-btn"
-										    title="View Quiz"
-										   href="{{ route('admin.business-settings.quiz.view', $quiz->id) }}">
-										   <i class="tio-edit"></i>
-										</a>
-										<form action="{{route('admin.business-settings.quiz.delete')}}" method="post">
-										@csrf
-										<input type="hidden" name="id" value="{{$quiz->id}}">
-										<button type="submit" class="btn btn-outline-danger btn-sm delete"
-										   title="{{translate('delete')}}"
-										   href="javascript:"
-										   id="{{$quiz->id}}')">
-											<i class="tio-delete"></i>
-										</button>
-										</form>
-									</div>
-								</td>
-							</tr>
-							@endforeach
-						</tbody>
-					</table>
-
-					
-				</div>
-			</div>
-		</div>
-		<!-- End Table -->
 	</div>
 </div>
 

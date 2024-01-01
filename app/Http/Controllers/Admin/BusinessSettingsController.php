@@ -12,6 +12,7 @@ use App\Models\Article;
 use App\CPU\ImageManager;
 use App\Model\SocialMedia;
 use App\Models\HomeLayout;
+use App\Models\QuizAnswer;
 use App\Models\QnaQuestion;
 use App\Models\Vaccination;
 use App\Models\QuizCategory;
@@ -386,54 +387,90 @@ class BusinessSettingsController extends Controller
 
 
     public function AllQuiz(){
-        $quizes = Quiz::get();
+        $quizes = Quiz::with(['quiz_category','answer'])->get();
+        $quiz_categories = QuizCategory::get();
         foreach($quizes as $quiz_category){
             $quiz_category->image = asset('public/assets/images/quiz/category/'.$quiz_category->image);
         }
-        return view('admin-views.business-settings.quiz', compact('quizes'));
+        return view('admin-views.business-settings.quiz', compact('quizes','quiz_categories'));
     } 
 
     public function QuizStore(Request $request){
-        if ($request->file('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = $file->getClientOriginalName();
-            $file->move(public_path('assets/images/quiz/'), $filename);
-        }
-        Quiz::create([
-            'name' => $request->name,
-            'expiry' => $request->expiry,
-            'image' => $filename,
+        $request->validate([
+            'question' => 'required',
+            'options' => 'required',
         ]);
-        Toastr::success('Quiz Category Added');
+        $quizId = DB::table('quiz')->insertGetId([
+            'question' => $request->question,
+            'quiz_category_id' => $request->quiz_category_id,
+        ]);
+        foreach($request->options as $option){
+            $quizAnswerId = DB::table('quiz_answer')->insertGetId([
+                'answer' => $option,
+                'quiz_id' => $quizId,
+            ]);
+
+            $quiz_options = QuizAnswer::where('id', $quizAnswerId)->get();
+            foreach($quiz_options as $quiz_option){
+                if($quiz_option->answer == $request->correct_answer){
+                    $correct_answer_id = $quiz_option->id;
+                }
+            }
+        }
+
+        Quiz::where('id', $quizId)->update([
+            'answer_id' => $correct_answer_id,
+        ]);
+
+        Toastr::success('Quiz Added');
         return redirect()->back();
     }
 
-    public function QuizEdit($id){
-        $category = Quiz::find($id);
-        return view('admin-views.business-settings.edit-quiz-category', compact('category'));
+    public function QuizDetail($id){
+        $quiz = Quiz::with('quiz_category','answer')->where('id',$id)->first();
+        $quiz_categories = QuizCategory::get();
+        return view('admin-views.business-settings.quiz-detail', compact('quiz','quiz_categories'));
     }
 
-    public function QuizUpdate(Request $request){
-        if ($request->file('image')) {
-            $file = $request->file('image');
-            $extension = $file->getClientOriginalExtension();
-            $filename = $file->getClientOriginalName();
-            $file->move(public_path('assets/images/quiz/category/'), $filename);
-        }
-        Quiz::where('id', $request->id)->update([
-            'name' => $request->name,
-            'expiry' => $request->expiry,
-            'image' => $filename,
+
+    public function QuizUpdate(Request $request, $id)
+{
+    $request->validate([
+        'question' => 'required',
+        'options' => 'required',
+    ]);
+
+    $correct_answer_id = null; // Initialize outside the loop
+
+    DB::table('quiz')->where('id', $id)->update([
+        'question' => $request->question,
+        'quiz_category_id' => $request->quiz_category_id,
+    ]);
+
+    foreach ($request->options as $index => $option) {
+        DB::table('quiz_answer')->where('id', $index + 1)->update([
+            'answer' => $option,
         ]);
-        Toastr::success('Quiz Category Updated');
-        return redirect()->route('admin.business-settings.quiz.quiz-category');
+
+        if ($option == $request->correct_answer) {
+            $correct_answer_id = $index + 1;
+        }
     }
+
+    Quiz::where('id', $id)->update([
+        'answer_id' => $correct_answer_id,
+    ]);
+
+    Toastr::success('Quiz Updated');
+    return redirect()->route('admin.business-settings.quiz');
+}
+
+
 
     public function QuizDelete(Request $request){
-        $quiz_categories = Quiz::find($request->id);
-        $quiz_categories->delete();
-        Toastr::success('Quiz Category Deleted');
+        $quiz = Quiz::find($request->id);
+        $quiz->delete();
+        Toastr::success('Quiz Deleted');
         return redirect()->back();
     }
 

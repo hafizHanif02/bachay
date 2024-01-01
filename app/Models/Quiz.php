@@ -18,7 +18,7 @@ class Quiz extends Model
         'answer_id',
     ];
 
-    public function category(){
+    public function quiz_category(){
         return $this->belongsTo(QuizCategory::class, 'quiz_category_id');
     }
 
