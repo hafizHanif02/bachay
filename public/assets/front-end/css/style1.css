@@ -556,7 +556,7 @@ h1.text-center.textClr {
     color: #ffffff;
     background-color: #292d32;
     height: fit-content;
-    padding: 4px 30px 5px 20px;
+    padding: 4px 20px 5px 15px;
     clip-path: polygon(100% 0, 88% 80%, 85% 100%, 0% 100%, 0 49%, 0% 0%);
     font-size: 11px;
     border-top-left-radius: 20px;
