@@ -113,13 +113,13 @@ class HomeController extends Controller
 
         $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->take(8)->get();
         // dd($categories);
-        $new_arrivals_categories = $this->category
-            ->with('childes.childes')
-            ->where(['position' => 0])
-            ->priority()
-            ->latest('created_at') // Order by the 'created_at' column in descending order
-            ->take(5)
-            ->get();
+        // $new_arrivals_categories = $this->category
+        //     ->with('childes.childes')
+        //     ->where(['position' => 0])
+        //     ->priority()
+        //     ->latest('created_at') 
+        //     ->take(5)
+        //     ->get();
 
         // dd($new_arrivals_categories);
         $brands = Brand::active()->take(15)->get();
@@ -248,7 +248,6 @@ class HomeController extends Controller
                 'flash_deals_products',
                 'productIds',
                 'productsInFlashDeal',
-                'new_arrivals_categories',
                 'products',
                 'footer_banner',
             )
