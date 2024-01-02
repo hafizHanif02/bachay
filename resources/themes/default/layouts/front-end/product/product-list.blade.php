@@ -72,19 +72,17 @@
 
                                 </div>
                                 <div class="d-flex justify-content-between for-border-g">
-                                    <div class="ratings-reviews d-flex">
-                                        <img class="me-2" src="{{ asset('web/images/vector-star.svg') }}"
+
+                                    <div class="ratings-reviews d-flex align-items-center">
+                                        <img class="me-2" src="{{ asset('public/images/Vector-star.svg') }}"
                                             alt="">
-                                        <div class="ratings-reviews d-flex">
-                                            <img class="me-2" src="{{ asset('public/images/vector-star.svg') }}"
-                                                alt="">
-                                            <p class="m-0">5.0<span class="Reviews">(17)</span></p>
-                                        </div>
-                                        @foreach ($product->reviews as $reviews)
-                                            <p class="m-0">{{ $reviews }}<span
-                                                    class="Reviews">({{ $products->reviews_count }})</span></p>
-                                        @endforeach
+                                        <p class="m-0">5.0<span class="Reviews">(17)</span></p>
                                     </div>
+                                    @foreach ($product->reviews as $reviews)
+                                        <p class="m-0">{{ $reviews }}<span
+                                                class="Reviews">({{ $products->reviews_count }})</span></p>
+                                    @endforeach
+
                                     <a href="#" class="delivery-btn">Standard Delivery</a>
                                 </div>
 
@@ -128,8 +126,8 @@
                                             value="{{ $product->id }}">
                                         <input type="hidden" name="thumbnail" value="{{ $product->thumbnail }}">
                                         <input type="hidden" name="name" value="{{ $product->name }}"> --}}
-                                        {{-- <input type="hidden" name="tax" value="{{ $tax }}"> --}}
-                                        {{-- <input type="hidden" name="quantity" value="1">
+                                    {{-- <input type="hidden" name="tax" value="{{ $tax }}"> --}}
+                                    {{-- <input type="hidden" name="quantity" value="1">
                                         <input type="hidden" name="shipping_cost"
                                             value="{{ $product->shipping_cost }}">
                                         <input type="hidden" name="color" id="color">
@@ -152,23 +150,22 @@
                                         </div>
                                     </form> --}}
                                     <div class="d-flex mt-1">
-                                        <button  id="cart-btn{{ $product->id }}" class="p-0 bg-transparent rounded-circle forBorder"  
-                                            data-product-id="{{ $product->id }}"  
+                                        <button id="cart-btn{{ $product->id }}"
+                                            class="p-0 bg-transparent rounded-circle forBorder"
+                                            data-product-id="{{ $product->id }}"
                                             data-customer-id="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}"
-                                            data-name="{{ $product->name }}" 
-                                            data-price="{{ $product->unit_price }}"   
-                                            data-discount="{{ $product->discount }}"   
-                                            data-tax="{{ $product->tax }}"   
-                                            data-thumbnail="{{ $product->thumbnail }}" 
-                                            data-color="{{ $product->color }}" 
-                                            data-variant="{{ $product->variant }}" 
-                                            data-slug="{{ $product->slug }}" 
-                                            onclick="{{ in_array($product->id, $cartProductsArray) ?'deleteFromCart('.$product->id.')' : 'addToCart('.$product->id.')'   }}">
-                                            <i class="bi {{ in_array($product->id, $cartProductsArray) ? 'bi-cart-fill' : 'bi-cart' }} text-purple">
+                                            data-name="{{ $product->name }}" data-price="{{ $product->unit_price }}"
+                                            data-discount="{{ $product->discount }}" data-tax="{{ $product->tax }}"
+                                            data-thumbnail="{{ $product->thumbnail }}"
+                                            data-color="{{ $product->color }}"
+                                            data-variant="{{ $product->variant }}" data-slug="{{ $product->slug }}"
+                                            onclick="{{ in_array($product->id, $cartProductsArray) ? 'deleteFromCart(' . $product->id . ')' : 'addToCart(' . $product->id . ')' }}">
+                                            <i
+                                                class="bi {{ in_array($product->id, $cartProductsArray) ? 'bi-cart-fill' : 'bi-cart' }} text-purple">
                                             </i>
                                         </button>
                                     </div>
-                                    
+
                                 </div>
                             </div>
                         </div>

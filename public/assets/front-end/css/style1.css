@@ -406,11 +406,7 @@ line-height: 22px;
 }
 .scroll{
     margin-top: 10px;
-    height: 400px;
-    overflow: hidden;
-    /* overflow-y: scroll !important; */
-}
-.scroll:hover{
+    height: 135px;
     overflow-y: scroll !important;
 }
 .search-bar {
@@ -421,8 +417,7 @@ line-height: 22px;
 }
 .browse-all-cate{
     color: #fff;
-    /* border: 1px solid #ff6b00; */
-    border: 1px solid #fff;
+    border: 1px solid #ff6b00;
     
 }
 .browse-all-cate:hover{
@@ -947,9 +942,9 @@ background-clip: text;
     color: #fff;
     border-radius: 5px;
     cursor: pointer;
-    padding: 7px 20px;
+    padding: 5px 20px;
     right: 1%;
-    bottom: 4%;
+    bottom: 8%;
     font-size: 8px;
 }
 .imgMAinCon {

@@ -1,9 +1,8 @@
 <div class="filter_aside border-right">
     <div class="delivery-details-heading d-flex justify-content-between align-items-center">
-        <h6 class="m-0 fw-bold"> <img src="{{ asset('public/images/cart-img.svg') }}" alt=""> Check Delivery
-            Details</h6>
+        <h6 class="m-0"> <img src="{{ asset('public/images/cart-img.svg') }}" alt=""> Check Delivery Details</h6>
         <div class="popup">
-            <i class="bi bi-info-circle"></i></a>
+            <i class="bi bi-exclamation-circle-fill"></i></a>
             <div class="popup-content">
                 <a href="#">Choose your locality to get delivery time. Actual time may vary depending on other
                     items in your order.
@@ -11,7 +10,7 @@
             </div>
         </div>
     </div>
-    <div class="input-bar mt-2 position-relative p-1 rounded-pill">
+    <div class="input-bar mt-2 position-relative p-2 rounded-pill">
         <form action="">
             <input type="text" class="input-field" placeholder="Enter Pin Code" required>
             <button class="input-button position-absolute rounded-pill">Check</button>
@@ -24,19 +23,20 @@
         <a class="clear-all-btn" href="">Clear All</a>
     </div>
     <form action="{{ route('product-list') }}" method="GET">
+
+        <div class="promo-services mt-3">
+            Tag
+        </div>
         <div class="scroll">
-            <div class="promo-services mt-3">
-                Tag
-            </div>
             @foreach ($products as $product)
                 @foreach ($product->tags as $tag)
                     <label class="col-12 f-spacing">
                         @if (isset($request->filter))
                             <input type="checkbox"
                                 @foreach ($request->filter as $filter)
-                                    @if (isset($filter['tag']))
-                                        {{ $filter['tag'] == $tag->tag ? 'checked' : '' }}
-                                    @endif @endforeach
+                                @if (isset($filter['tag']))
+                                    {{ $filter['tag'] == $tag->tag ? 'checked' : '' }}
+                                @endif @endforeach
                                 name="filter[{{ $loop->iteration }}][tag]" value="{{ $tag->tag }}">
                             {{ $tag->tag }} <span class="Reviews"></span>
                         @else
@@ -46,12 +46,12 @@
                     </label>
                 @endforeach
             @endforeach
-            {{-- </div> --}}
+        </div>
 
-            <div class="promo-services mt-3">
-                Promotion & Services
-            </div>
-            {{-- <div class="scroll"> --}}
+        <div class="promo-services mt-3">
+            Promotion & Services
+        </div>
+        <div class="scroll">
             <label class="col-12 f-spacing">
                 @if (isset($request->filter) && isset($request->filter[1]['free_shipping']))
                     <input type="checkbox" name="filter[1][free_shipping]" value="1" checked>
@@ -69,21 +69,21 @@
                 @endif
                 Standard Delivery <span class="Reviews"></span>
             </label>
-            {{-- </div> --}}
+        </div>
 
 
-            <div class="promo-services mt-4">
-                Top Brands Here
-            </div>
-            {{-- <div class="scroll"> --}}
+        <div class="promo-services mt-4">
+            Top Brands Here
+        </div>
+        <div class="scroll">
             @foreach ($brands as $brand)
                 <label class="col-12 f-spacing">
                     @if (isset($request->filter))
                         <input type="checkbox" id="brand_id{{ $loop->iteration }}"
                             @foreach ($request->filter as $filter)
-                                @if (isset($filter['brand_id']))
-                                    {{ $filter['brand_id'] == $brand->id ? 'checked' : '' }}
-                                @endif @endforeach
+                            @if (isset($filter['brand_id']))
+                                {{ $filter['brand_id'] == $brand->id ? 'checked' : '' }}
+                            @endif @endforeach
                             onchange="filter({{ $loop->iteration }})" name="filter[{{ $loop->iteration }}][brand_id]"
                             value="{{ $brand->id }}">
                     @else
@@ -95,13 +95,13 @@
                     <input type="hidden" id="brand_name{{ $loop->iteration }}" value="{{ $brand->name }}">
                 </label>
             @endforeach
-            {{-- </div> --}}
+        </div>
 
 
-            <div class="promo-services mt-4">
-                Prices
-            </div>
-            {{-- <div class="scroll"> --}}
+        <div class="promo-services mt-4">
+            Prices
+        </div>
+        <div class="scroll">
             @if ($pricefilter >= 1)
                 <label class="col-12 f-spacing">
                     <input type="radio" checked onchange="pricefilter(1)" id="fullprice" name="filterprice"
@@ -127,12 +127,12 @@
                     @endphp
                 @endfor
             @endif
-            {{-- </div> --}}
+        </div>
 
-            <div class="promo-services mt-4">
-                Ratings
-            </div>
-            {{-- <div class="scroll"> --}}
+        <div class="promo-services mt-4">
+            Ratings
+        </div>
+        <div class="scroll">
             <label class="col-12 f-spacing d-flex align-items-center">
                 <input type="checkbox" name="myCheckbox" class="me-2"> <img class="me-2"
                     src="{{ asset('web/images/vector-star.svg') }}" alt=""><span class="Ratings">
@@ -148,13 +148,13 @@
                     src="{{ asset('web/images/vector-star.svg') }}" alt=""><span class="Ratings">
                     3.0</span>
             </label>
-            {{-- </div> --}}
+        </div>
 
 
-            <div class="promo-services mt-4">
-                Color
-            </div>
-            {{-- <div class="scroll"> --}}
+        <div class="promo-services mt-4">
+            Color
+        </div>
+        <div class="scroll">
             <div id="colorContainer">
                 @foreach ($colors as $index => $color)
                     <label class="col-12 f-spacing d-flex align-items-center color-item">
@@ -216,7 +216,7 @@
             <input type="checkbox" name="myCheckbox"> United State <span class="Reviews"> (51)</span>
         </label> --}}
 
-        <button class="mt-3 col-6 input-button rounded-pill fs-6" type="submit" style="width: 100%">Apply</button>
+        <button class="mt-3 col-6 input-button rounded-pill" type="submit">Apply</button>
         {{-- <button class="btn text-white rounded-pill" type="submit"> Apply</button> --}}
 
     </form>
