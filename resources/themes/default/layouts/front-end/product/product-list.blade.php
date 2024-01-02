@@ -23,7 +23,7 @@
     </div>
 
 
-    <div class="d-grid product-list mt-5">
+    <div class="d-grid product-list">
         @foreach ($products as $product)
             {{-- {{ $product->name }} --}}
             <div class="col-md-6 col-lg-12 mb-4 pb-3">
