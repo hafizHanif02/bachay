@@ -2,7 +2,7 @@
     <div class="sub-container bg-light pt-5 pb-5 rounded-5">
 
         <h1 class="text-center textClr">Early Breeze New Arrivals</h1>
-        <div class="row justify-content-evenly ps-5 pe-5 pt-5">
+        <div class="New_arrival row justify-content-evenly ps-5 pe-5 pt-5">
             @foreach ($new_arrivals_categories as $arrivals)
                 <div class="col-lg-2 col-md-4 col-sm-6 col-12 p-0">
                     <a href="#" class="text-decoration-none">

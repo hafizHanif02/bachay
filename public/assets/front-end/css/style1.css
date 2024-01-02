@@ -915,7 +915,18 @@ h1.text-center.textClr {
 .input-bar {
     border: 1px solid #404040;
 }
+.New_arrival div:nth-child(1) a .NewSeasonBorder {
+    border: 2px solid transparent;
+    border-image: linear-gradient(270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17%);
+    border-image-slice: 1;
+}
 
+.New_arrival div:nth-child(1) a h4 {
+    background: var(--Primary-Gradient, linear-gradient(270deg, #845DC2 -0.09%, #D55FAD 36.37%, #FC966C 72.82%, #F99327 100.48%, #FFC55D 145.17%));
+background-clip: text;
+-webkit-background-clip: text;
+-webkit-text-fill-color: transparent;
+}
 .input-field {
     flex: 1;
     border: none;
@@ -2602,7 +2613,7 @@ details[open] summary::after {
     }
 }
 .NewSeasonBorder {
-    border: 2px solid var(--Primary-Gradient, #d55fad );
+    border: 2px solid #292D32;
     padding: 3px;
 }
 .MyProfile-ul li.active a {
