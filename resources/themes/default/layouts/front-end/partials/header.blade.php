@@ -146,9 +146,10 @@
                 <div class="fBorder">
                     <ul
                         class="container-xxl sub-nav d-flex justify-content-between align-items-baseline pt-3 pb-3 mb-0">
-                        <li><button  class="browse-all-cate">
-                              <a href="{{ route('categories') }}"><i class="bi bi-grid"></i> Browse All Categories</a>  
-                        </button>
+                        <li><button class="browse-all-cate">
+                                <a href="{{ route('categories') }}"><i class="bi bi-grid"></i> Browse All
+                                    Categories</a>
+                            </button>
                             <div class="mega-menu-container">
                                 <div class="mega-menu-grid">
                                     <div class="sub-nav-column">
@@ -297,7 +298,8 @@
                             </div>
                         </li>
                         <li> <a href="#" class="drp-btn active">
-                                <i class="bi bi-fire"></i> Hot Deals
+                                {{-- <i class="bi bi-fire"></i> Hot Deals --}}
+                                <img class="align-items-center" src="{{ asset('public/images/fire.gif') }}" alt="" width="17px" height="24px"> <span>Hot Deals</span>
                             </a>
                             <div class="mega-menu-container">
                                 <div class="mega-menu-grid">
