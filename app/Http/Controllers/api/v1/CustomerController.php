@@ -276,7 +276,7 @@ class CustomerController extends Controller
     public function AllQuestion()
     {
         $questions = QnaQuestion::with('answers.user', 'user')->get();
-        return $question;
+        //return $question;
     
         if ($questions->isNotEmpty()) {
             foreach ($questions as $question) {
