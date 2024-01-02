@@ -78,6 +78,10 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
 
     });
 
+    Route::group(['prefix' => 'quiz'],function(){
+        Route::post('submit','CustomerController@SubmitQuiz')->name('quiz.submit');
+    });
+
     Route::group(['prefix' => 'customer/order', 'middleware'=>'apiGuestCheck'], function () {
         Route::get('get-order', 'CustomerController@get_order_by_id');
     });

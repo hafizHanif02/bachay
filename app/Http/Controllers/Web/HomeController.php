@@ -113,13 +113,13 @@ class HomeController extends Controller
 
         $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->take(8)->get();
         // dd($categories);
-        $new_arrivals_categories = $this->category
-            ->with('childes.childes')
-            ->where(['position' => 0])
-            ->priority()
-            ->latest('created_at') // Order by the 'created_at' column in descending order
-            ->take(5)
-            ->get();
+        // $new_arrivals_categories = $this->category
+        //     ->with('childes.childes')
+        //     ->where(['position' => 0])
+        //     ->priority()
+        //     ->latest('created_at') 
+        //     ->take(5)
+        //     ->get();
 
         // dd($new_arrivals_categories);
         $brands = Brand::active()->take(15)->get();
@@ -155,7 +155,7 @@ class HomeController extends Controller
 
         $deal_of_the_day = DealOfTheDay::join('products', 'products.id', '=', 'deal_of_the_days.product_id')->select('deal_of_the_days.*', 'products.unit_price')->where('products.status', 1)->where('deal_of_the_days.status', 1)->first();
         $main_banner = $this->banner->where(['banner_type' => 'Main Banner', 'theme' => $theme_name, 'published' => 1])->latest()->get();
-        $main_section_banner = $this->banner->where(['banner_type' => 'Main Section Banner', 'theme' => $theme_name, 'published' => 1])->orderBy('id', 'desc')->latest()->first();
+        $main_section_banner = $this->banner->where(['banner_type' => 'Main Section Banner', 'theme' => $theme_name, 'published' => 1])->orderBy('id', 'desc')->latest()->get();
 
         // return $deal_of_the_day;
         // return $main_banner;
@@ -248,7 +248,6 @@ class HomeController extends Controller
                 'flash_deals_products',
                 'productIds',
                 'productsInFlashDeal',
-                'new_arrivals_categories',
                 'products',
                 'footer_banner',
             )
