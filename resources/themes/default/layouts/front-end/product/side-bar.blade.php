@@ -1,6 +1,6 @@
-<div class="col-3 border-right">
+<div class="filter_aside border-right">
     <div class="delivery-details-heading d-flex justify-content-between align-items-center">
-        <h5> <img src="{{ asset('public/images/cart-img.svg') }}" alt=""> Check Delivery Details</h5>
+        <h6 class="m-0"> <img src="{{ asset('public/images/cart-img.svg') }}" alt=""> Check Delivery Details</h6>
         <div class="popup">
             <i class="bi bi-exclamation-circle-fill"></i></a>
             <div class="popup-content">
@@ -239,7 +239,7 @@ function filter(id) {
             <button class="boys rounded-3 btn-style" id="filter-tag${id}">
                 <i class="bi bi-x-lg" onclick='remove(${id}, "filter")'>${brand}</i>
             </button>
-        `);
+         `);
     } else {
         remove(id, "filter");
     }

@@ -1,5 +1,5 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<div class="col-9">
+<div class="All_products">
     <div class="collection pb-3 d-flex justify-content-between align-items-center">
         <h5>Shoes Collection</h5>
         <li class="nav-item sorted-by rounded-pill p-2 ps-4 pe-4">
