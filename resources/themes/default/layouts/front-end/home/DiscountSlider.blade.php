@@ -5,7 +5,7 @@
         <div class="row mt-5 col-12 flash-sales-container ">
             {{-- @foreach ($categories as $category) --}}
             @if(count($categories) > 0)
-            @foreach ($categories->take(6) as $category)
+            @foreach ($categories->sortByDesc('created_at')->take(6) as $category)
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-5 mt-4">
                     <div class="card rounded-5">
                         <a href="{{ route('product-detail', $category->id) }}">

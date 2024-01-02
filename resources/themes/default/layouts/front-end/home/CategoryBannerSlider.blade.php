@@ -1,9 +1,15 @@
+
 <div class="sub-banner container-xxl">
-    <img class="rounded-5 img-fluid imgBanner" src="{{ asset('storage/app/public/banner/'.$main_section_banner->photo) }}" alt="banner" width="100%">
-</div> 
+    @if (count($main_section_banner) > 0 && $main_section_banner)
+        <img class="rounded-5 imgBanner object-fit-cover" src="{{ asset('storage/app/public/banner/'.$main_section_banner[0]->photo) }}" alt="banner" width="100%" height="280px">
+    @endif
+</div>
 
 
-    
+
+
+
+
 
 {{-- @foreach($main_section_banner as $sub_banner) --}}
 {{-- <div class="slider-container pt-3 mb-5">

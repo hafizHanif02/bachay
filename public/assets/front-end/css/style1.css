@@ -120,10 +120,7 @@ input.form-control.search-input {
 .drp-btn:hover {
     color: #845DC2 !important;
 }
-.imgBanner {
-    width: 100%;
-    object-fit: cover;
-}
+
 .browse-all-cate {
     font-family: 'myfont';
     font-size: 12px;
@@ -915,6 +912,7 @@ h1.text-center.textClr {
 .input-bar {
     border: 1px solid #404040;
 }
+
 .New_arrival div:nth-child(1) a .NewSeasonBorder {
     border: 2px solid transparent;
     border-image: linear-gradient(270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17%);
@@ -2718,7 +2716,7 @@ details[open] summary::after {
         padding: 10px 20px;
     }
 }
-@media screen and (max-width: 768px) {
+/* @media screen and (max-width: 768px) {
     #mega-menu {
         display: none;
     }
@@ -2732,7 +2730,5 @@ details[open] summary::after {
     .SavingsOffer {
         padding: 0 10px;
     }
-    /* header{
-        display: none;
-    } */
-}
+   
+} */
