@@ -74,18 +74,15 @@
                                 <div class="expandable">
                                     <div class="d-flex justify-content-between for-border-g">
                                         <div class="ratings-reviews d-flex">
-                                            <img class="me-2" src="{{ asset('web/images/vector-star.svg') }}"
+                                            <img class="me-2" src="{{ asset('public/images/Vector-star.svg') }}"
                                                 alt="">
-                                            <div class="ratings-reviews d-flex">
-                                                <img class="me-2" src="{{ asset('public/images/vector-star.svg') }}"
-                                                    alt="">
-                                                <p class="m-0">5.0<span class="Reviews">(17)</span></p>
-                                            </div>
-                                            @foreach ($product->reviews as $reviews)
-                                                <p class="m-0">{{ $reviews }}<span
-                                                        class="Reviews">({{ $products->reviews_count }})</span></p>
-                                            @endforeach
+                                            <p class="m-0">5.0<span class="Reviews">(17)</span></p>
                                         </div>
+                                        @foreach ($product->reviews as $reviews)
+                                            <p class="m-0">{{ $reviews }}<span
+                                                    class="Reviews">({{ $products->reviews_count }})</span></p>
+                                        @endforeach
+
                                         <a href="#" class="delivery-btn">Standard Delivery</a>
                                     </div>
 
@@ -191,11 +188,6 @@
         position: absolute;
         opacity: 0;
         visibility: hidden;
-        /* top: 100%;
-  width: 110%; */
-        /* right: 0;
-  left: -5%; */
-        /* padding: 0 30px 20px 30px; */
         width: 100%;
         background: #fff;
         z-index: 1002;
@@ -208,16 +200,6 @@
     }
 
     .product-wrapper::before {
-        /* content: '';
-  display: block;
-  background: transparent;
-  position: absolute;
-  opacity: 0;
-  z-index: 1001;
-  top: -8%;
-  left: -5%;
-  bottom: 0;
-  width: 110%; */
         box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
     }
 
@@ -231,11 +213,6 @@
         background: red;
         opacity: 1;
     }
-
-    /* .product-wrapper:hover *:not(.expandable) {
-  position: relative;
-  z-index: 1002;
-} */
 
     .product-wrapper:hover .expandable {
         opacity: 1;
