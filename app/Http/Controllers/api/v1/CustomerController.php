@@ -933,7 +933,7 @@ public function SubmitQuiz(Request $request){
 
         foreach ($orders as $order) {
             foreach ($order->details as $detail) {
-                $thumbnailUrl = $detail['product']->thumbnail;
+                $thumbnailUrl = $detail->product->thumbnail;
                 $filename = basename($thumbnailUrl);
                 $newThumbnailUrl = asset('storage/app/public/product/thumbnail/' . $filename);
                 $detail['product']->thumbnail = $newThumbnailUrl;
