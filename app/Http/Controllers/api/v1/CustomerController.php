@@ -109,13 +109,13 @@ class CustomerController extends Controller
                         'city' => $request->city,
                     ]);
                 }
-                return response()->json(['message' => 'Address Has Been Saved'], 404);
+                return response()->json(['message' => 'Address Has Been Saved'], 200);
             }else{
-                return response()->json(['message' => 'Customer not found'], 404);
+                return response()->json(['message' => 'Customer not found'], 200);
             }
         }
         }else{
-            return response()->json(['message' => 'Please Login First'], 404);
+            return response()->json(['message' => 'Please Login First'], 200);
         }
     }
 
@@ -124,7 +124,7 @@ class CustomerController extends Controller
         if($shipping_address){
             return response()->json($shipping_address, 200);
         }else{
-            return response()->json(['message' => 'Address Not Found'], 404);
+            return response()->json(['message' => 'Address Not Found'], 200);
         }
     }
 
@@ -134,10 +134,10 @@ class CustomerController extends Controller
             if($addresses->isNotEmpty()){
                 return response()->json($addresses, 200);
             }else{
-                return response()->json(['message' => 'Address Not Found'], 404);
+                return response()->json(['message' => 'Address Not Found'], 200);
             }
         }else{
-            return response()->json(['message' => 'Please Login First'], 404);
+            return response()->json(['message' => 'Please Login First'], 200);
         }
     }
 
@@ -185,7 +185,7 @@ class CustomerController extends Controller
             }
             return response()->json($childerens, 200);
         }else{
-            return response()->json(['message' => 'Please Login First'], 404);
+            return response()->json(['message' => 'Please Login First'], 200);
         }
     }
 
@@ -321,7 +321,7 @@ public function SubmitQuiz(Request $request){
             }
             return response()->json($questions, 200);
         } else {
-            return response()->json(['message' => 'Question Not Found'], 404);
+            return response()->json(['message' => 'Question Not Found'], 200);
         }
     }
 
@@ -344,7 +344,7 @@ public function SubmitQuiz(Request $request){
             }
         }
         else{
-            return response()->json(['message' => 'Please Login First'], 404);
+            return response()->json(['message' => 'Please Login First'], 200);
         }
     }
 
@@ -368,7 +368,7 @@ public function SubmitQuiz(Request $request){
             }
         }
         else{
-            return response()->json(['message' => 'Please Login First'], 404);
+            return response()->json(['message' => 'Please Login First'], 200);
         }
     }
 
@@ -460,7 +460,7 @@ public function SubmitQuiz(Request $request){
 
             return response()->json($child, 200);
         }else{
-            return response()->json(['message' => 'Child Not Found'], 404);
+            return response()->json(['message' => 'Child Not Found'], 200);
         }
     }
 
@@ -488,7 +488,7 @@ public function SubmitQuiz(Request $request){
                  return response()->json(['message' => 'Child Not Found'], 200);
             }
         }else{
-            return response()->json(['message' => 'Please Login First'], 404);
+            return response()->json(['message' => 'Please Login First'], 200);
         }
     }
 
@@ -536,12 +536,12 @@ public function SubmitQuiz(Request $request){
                         'city' => $request->city,
                     ]);
                 }
-                return response()->json(['message' => 'Address Has Been Updated'], 404);
+                return response()->json(['message' => 'Address Has Been Updated'], 200);
             }else{
-                return response()->json(['message' => 'Address Not Found!'], 404);
+                return response()->json(['message' => 'Address Not Found!'], 200);
             }
         } else {
-            return response()->json(['message' => 'Please Login First'], 404);
+            return response()->json(['message' => 'Please Login First'], 200);
         }
     }
 
@@ -553,7 +553,7 @@ public function SubmitQuiz(Request $request){
         if ($affectedRows > 0) {
             return response()->json(['message' => 'Address has been deleted'], 200);
         } else {
-            return response()->json(['message' => 'Address not found'], 404);
+            return response()->json(['message' => 'Address not found'], 200);
         }
     }
 
@@ -751,7 +751,7 @@ public function SubmitQuiz(Request $request){
             return response()->json(['message' => translate('successfully removed!')], 200);
 
         }
-        return response()->json(['message' => translate('No such data found!')], 404);
+        return response()->json(['message' => translate('No such data found!')], 200);
     }
 
     public function wish_list(Request $request)
@@ -895,7 +895,7 @@ public function SubmitQuiz(Request $request){
         if ($shipping_address && $shipping_address->delete()) {
             return response()->json(['message' => 'successfully removed!'], 200);
         }
-        return response()->json(['message' => translate('No such data found!')], 404);
+        return response()->json(['message' => translate('No such data found!')], 200);
     }
 
     public function get_order_list(Request $request)
@@ -1015,7 +1015,7 @@ public function SubmitQuiz(Request $request){
             // $order['billing_address_data'] = json_decode($order['billing_address_data']);
             return response()->json($order, 200);
         }else{
-            return response()->json(['message' => translate('Order Not Found found!')], 404);
+            return response()->json(['message' => translate('Order Not Found found!')], 200);
         }
     }
 
