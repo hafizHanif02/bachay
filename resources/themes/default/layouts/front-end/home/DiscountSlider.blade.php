@@ -1,9 +1,6 @@
 <div class="bgcolor">
     <div class="flash-sales container-xxl">
         <h1 class="text-center textClr">Flash Sales For Child Products Get Crazy Discounts</h1>
-        {{-- <main>
-            <div class="ruler"></div>
-        </main> --}}
         <div class="row mt-5 col-12 flash-sales-container">
             @if (count($categories) > 0)
                 @foreach ($categories->sortBy('created_at')->take(6) as $category)
@@ -55,7 +52,6 @@
         backdrop-filter: blur(2px);
         transition: transform var(--transition-duration) var(--transition-easing);
         overflow: hidden;
-
         &::before {
             content: '';
             background: rgba(255, 255, 255, 0.4);
