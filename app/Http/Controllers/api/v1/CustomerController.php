@@ -931,7 +931,7 @@ public function SubmitQuiz(Request $request){
                 ->paginate($request['limit'], ['*'], 'page', $request['offset']);
         }
 
-        return $orders;
+
         foreach ($orders as $order) {
             foreach ($order->details as $detail) {
                 $thumbnailUrl = $detail['product']->thumbnail;
