@@ -1,5 +1,5 @@
-<meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="All_products">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <div class="collection pb-3 d-flex justify-content-between align-items-center">
         <h5>Shoes Collection</h5>
         <li class="nav-item sorted-by rounded-pill p-2 ps-4 pe-4">
@@ -88,7 +88,7 @@
                                         <a href="#" class="delivery-btn">Standard Delivery</a>
                                     </div>
 
-                                    <div class="d-flex justify-content-between mt-3">
+                                    <div class="d-flex justify-content-between mt-2 mb-2">
                                         <form action="{{ route('cart.buy-now') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -181,24 +181,26 @@
                 </div>
             </div>
         @endforeach
-
-
     </div>
 </div>
+
+
+
 <style>
     .expandable {
         position: absolute;
         opacity: 0;
         visibility: hidden;
         /* top: 100%;
-  width: 110%; */
-        /* right: 0;
-  left: -5%; */
-        /* padding: 0 30px 20px 30px; */
+        width: 110%;
+        right: 0;
+        left: -5%;
+        padding: 0 30px 20px 30px; */
         width: 100%;
         background: #fff;
         z-index: 1002;
         box-shadow: 0 -20px 0 white, 0 2px 16px 0 rgba(0, 0, 0, 0.06);
+        transition: all 0.2s ease-out;
     }
 
     .product-wrapper {
@@ -207,22 +209,21 @@
 
     .product-wrapper::before {
         /* content: '';
-  display: block;
-  background: transparent;
-  position: absolute;
-  opacity: 0;
-  z-index: 1001;
-  top: -8%;
-  left: -5%;
-  bottom: 0;
-  width: 110%; */
+        display: block;
+        background: transparent;
+        position: absolute;
+        opacity: 0;
+        z-index: 1001;
+        top: -8%;
+        left: -5%;
+        bottom: 0;
+        width: 110%; */
         box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
     }
 
     .product-wrapper:hover {
         overflow: visible;
         box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
-
     }
 
     .product-wrapper:hover::before {
@@ -231,9 +232,9 @@
     }
 
     /* .product-wrapper:hover *:not(.expandable) {
-  position: relative;
-  z-index: 1002;
-} */
+        position: relative;
+        z-index: 1002;
+    } */
 
     .product-wrapper:hover .expandable {
         opacity: 1;

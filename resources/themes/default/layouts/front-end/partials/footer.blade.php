@@ -31,16 +31,16 @@
                 <div class="col list-group">
                     <ul>
                         <h2 class="myfont">Account</h2>
-                        <li class="poppins"><a href="#" class="text-decoration-none">
+                        <li class="poppins"><a href="/customer/auth/login" class="text-decoration-none">
                                 <h5>Login</h5>
                             </a></li>
-                        <li class="poppins"><a href="#" class="text-decoration-none">
+                        <li class="poppins"><a href="/my-cart-address" class="text-decoration-none">
                                 <h5>View Cart</h5>
                             </a></li>
-                        <li class="poppins"><a href="#" class="text-decoration-none">
+                        <li class="poppins"><a href="/my-shortlist" class="text-decoration-none">
                                 <h5>My Wishlist</h5>
                             </a></li>
-                        <li class="poppins"><a href="#" class="text-decoration-none">
+                        <li class="poppins"><a href="/track-orders" class="text-decoration-none">
                                 <h5>Track My Order</h5>
                             </a></li>
                         <li class="poppins"><a href="#" class="text-decoration-none">

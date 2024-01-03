@@ -86,11 +86,11 @@
                                             alt="user avatar" height="30" width="30">
 
                                         @if (strlen(auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name) <= 15)
-                                            <p class="card-text m-0">
+                                            <p class="m-0">
                                                 {{ auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name }}
                                             </p>
                                         @else
-                                            <p class="card-text m-0">
+                                            <p class="m-0">
                                                 {{ substr(auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name, 0, 15) }}...
                                             </p>
                                         @endif

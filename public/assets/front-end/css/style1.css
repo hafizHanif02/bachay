@@ -414,6 +414,21 @@ line-height: 22px;
     overflow: hidden;
     /* overflow-y: scroll !important; */
 }
+.scroll::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  /* Track */
+  /* .scroll::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey; 
+    border-radius: 10px;
+  } */
+   
+  /* Handle */
+  .scroll::-webkit-scrollbar-thumb {
+    background: #d3d3d3; 
+    border-radius: 10px;
+  } 
 .scroll:hover{
     overflow-y: scroll !important;
 }

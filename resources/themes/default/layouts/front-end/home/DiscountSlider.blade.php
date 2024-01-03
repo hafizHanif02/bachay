@@ -22,7 +22,7 @@
                                 @if (strlen($category->name) <= 20)
                                     <p class="card-text">{{ $category->name }}</p>
                                 @else
-                                    <p class="card-text"> {{ substr($category->name, 0, 20) }}...</p>
+                                    <p class="card-text"> {{ substr($category->name, 0, 45) }}...</p>
                                 @endif
                             </div>
                         </a>
