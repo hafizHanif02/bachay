@@ -234,14 +234,14 @@ class CustomerController extends Controller
                     'vaccination_id' => $vaccination->id,
                 ]);
             }
-            return response()->json(['message' => 'Child Has Been Added'], 403);
+            return response()->json(['message' => 'Child Has Been Added'], 200);
 
         }
     }
 
     public function GrowthGet($id){
         $growth = Growth::where('id',$id)->first();
-        return response()->json($growth, 403);
+        return response()->json($growth, 200);
     }
 
     public function GrowthUpdate(Request $request,$id){
@@ -250,12 +250,12 @@ class CustomerController extends Controller
             'height' => $request->height,
             'weight' => $request->weight,
         ]);
-        return response()->json('Growth Data Has Been Added', 403);
+        return response()->json('Growth Data Has Been Added', 200);
     }
 
     public function Vaccination($id){
         $growth = VaccinationSubmission::where('id',$id)->first();
-        return response()->json($growth, 403);
+        return response()->json($growth, 200);
     }
 
     public function VaccinationSubmission(Request $request,$id){
@@ -269,7 +269,7 @@ class CustomerController extends Controller
             'is_taken' => 1,
             'picture' => $filename,
         ]);
-        return response()->json('Vaccination Has Been Added', 403);
+        return response()->json('Vaccination Has Been Added', 200);
     }
 }
 
@@ -291,10 +291,10 @@ public function SubmitQuiz(Request $request){
             'quiz_id' => $request->quiz_id,
             'answer_id' => $request->answer_id,
         ]);
-        return response()->json(['message' => 'Quiz Has Been Submitted!'], 403);
+        return response()->json(['message' => 'Quiz Has Been Submitted!'], 200);
 
     }else{
-        return response()->json(['errors' => 'Please Login First !'], 403);
+        return response()->json(['errors' => 'Please Login First !'], 200);
     }
 
 }
@@ -602,7 +602,7 @@ public function SubmitQuiz(Request $request){
             $ongoing = ['out_for_delivery','processing','confirmed', 'pending'];
             $order = Order::where('customer_id', $user->id)->whereIn('order_status', $ongoing)->count();
             if($order>0){
-                return response()->json(['message' =>'You can`t delete account due ongoing_order!!'],403);
+                return response()->json(['message' =>'You can`t delete account due ongoing_order!!'],200);
             }
 
             ImageManager::delete('/profile/' . $user['image']);
@@ -611,7 +611,7 @@ public function SubmitQuiz(Request $request){
            return response()->json(['message' => translate('Your_account_deleted_successfully!!')],200);
 
         }else{
-            return response()->json(['message' =>'access_denied!!'],403);
+            return response()->json(['message' =>'access_denied!!'],200);
         }
     }
 
@@ -708,7 +708,7 @@ public function SubmitQuiz(Request $request){
             $ticket->save();
             return response()->json(['message' => 'Successfully close the ticket'], 200);
         }
-        return response()->json(['message' => 'Ticket not found'], 403);
+        return response()->json(['message' => 'Ticket not found'], 200);
     }
 
     public function add_to_wishlist(Request $request)
@@ -803,10 +803,10 @@ public function SubmitQuiz(Request $request){
         $country_restrict_status = Helpers::get_business_settings('delivery_country_restriction');
 
         if ($country_restrict_status && !self::delivery_country_exist_check($request->input('country'))) {
-            return response()->json(['message' => translate('Delivery_unavailable_for_this_country')], 403);
+            return response()->json(['message' => translate('Delivery_unavailable_for_this_country')], 200);
 
         } elseif ($zip_restrict_status && !self::delivery_zipcode_exist_check($request->input('zip'))) {
-            return response()->json(['message' => translate('Delivery_unavailable_for_this_zip_code_area')], 403);
+            return response()->json(['message' => translate('Delivery_unavailable_for_this_zip_code_area')], 200);
         }
 
         $user = Helpers::get_customer($request);
@@ -844,10 +844,10 @@ public function SubmitQuiz(Request $request){
         $country_restrict_status = Helpers::get_business_settings('delivery_country_restriction');
 
         if ($country_restrict_status && !self::delivery_country_exist_check($request->input('country'))) {
-            return response()->json(['message' => translate('Delivery_unavailable_for_this_country')], 403);
+            return response()->json(['message' => translate('Delivery_unavailable_for_this_country')], 200);
 
         } elseif ($zip_restrict_status && !self::delivery_zipcode_exist_check($request->input('zip'))) {
-            return response()->json(['message' => translate('Delivery_unavailable_for_this_zip_code_area')], 403);
+            return response()->json(['message' => translate('Delivery_unavailable_for_this_zip_code_area')], 200);
         }
 
         $user = Helpers::get_customer($request);
