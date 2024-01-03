@@ -5,25 +5,25 @@
                 <div class="col list-group">
                     <ul>
                         <h2 class="myfont">Company</h2>
-                        <li class="poppins"><a href="#" class="text-decoration-none">
+                        <li class="poppins"><a href="/my-profile" class="text-decoration-none">
                                 <h5>Account</h5>
                             </a></li>
-                        <li class="poppins"><a href="#" class="text-decoration-none">
+                        <li class="poppins"><a href="/privacy-policy" class="text-decoration-none">
                                 <h5>Privacy Policy</h5>
                             </a></li>
-                        <li class="poppins"><a href="#" class="text-decoration-none">
+                        <li class="poppins"><a href="/terms" class="text-decoration-none">
                                 <h5>Terms & Conditions</h5>
                             </a></li>
-                        <li class="poppins"><a href="#" class="text-decoration-none">
+                        <li class="poppins"><a href="/contacts" class="text-decoration-none">
                                 <h5>Contact Us</h5>
                             </a></li>
                         <li class="poppins"><a href="#" class="text-decoration-none">
                                 <h5>Support Center</h5>
                             </a></li>
-                        <li class="poppins"><a href="#" class="text-decoration-none">
+                        <li class="poppins"><a href="/about-us" class="text-decoration-none">
                                 <h5>About Us</h5>
                             </a></li>
-                        <li class="poppins"><a href="" class="text-decoration-none">
+                        <li class="poppins"><a href="#" class="text-decoration-none">
                                 <h5>Become A Vendor</h5>
                             </a></li>
                     </ul>

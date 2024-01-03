@@ -1,5 +1,5 @@
+<meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="All_products">
-    <meta name="csrf-token" content="{{ csrf_token() }}">
     <div class="collection pb-3 d-flex justify-content-between align-items-center">
         <h5>Shoes Collection</h5>
         <li class="nav-item sorted-by rounded-pill p-2 ps-4 pe-4">
@@ -73,22 +73,23 @@
                                 </div>
                                 <div class="expandable">
                                     <div class="d-flex justify-content-between for-border-g">
-
-
-                                        <div class="ratings-reviews d-flex align-items-center">
-                                            <img class="me-2" src="{{ asset('public/images/Vector-star.svg') }}"
+                                        <div class="ratings-reviews d-flex">
+                                            <img class="me-2" src="{{ asset('web/images/vector-star.svg') }}"
                                                 alt="">
-                                            <p class="m-0">5.0<span class="Reviews">(17)</span></p>
+                                            <div class="ratings-reviews d-flex">
+                                                <img class="me-2" src="{{ asset('public/images/vector-star.svg') }}"
+                                                    alt="">
+                                                <p class="m-0">5.0<span class="Reviews">(17)</span></p>
+                                            </div>
+                                            @foreach ($product->reviews as $reviews)
+                                                <p class="m-0">{{ $reviews }}<span
+                                                        class="Reviews">({{ $products->reviews_count }})</span></p>
+                                            @endforeach
                                         </div>
-                                        @foreach ($product->reviews as $reviews)
-                                            <p class="m-0">{{ $reviews }}<span
-                                                    class="Reviews">({{ $products->reviews_count }})</span></p>
-                                        @endforeach
-
                                         <a href="#" class="delivery-btn">Standard Delivery</a>
                                     </div>
 
-                                    <div class="d-flex justify-content-between mt-2 mb-2">
+                                    <div class="d-flex justify-content-between mt-3">
                                         <form action="{{ route('cart.buy-now') }}" method="POST">
                                             @csrf
                                             <input type="hidden" name="product_id" value="{{ $product->id }}">
@@ -117,7 +118,7 @@
                                             <input type="hidden" name="product[1][price]"
                                                 value="{{ $product->unit_price }}">
                                             <input type="hidden" name="product[1][quantity]" value="1">
-                                            <button class="buy-now rounded-pill text-white">Buy Now</button>
+                                            <button class="buy-now rounded-pill text-white mb-2">Buy Now</button>
                                         </form>
                                         {{-- <form action="{{ route('cart.add') }}" method="POST">
                                             @csrf
@@ -181,21 +182,20 @@
                 </div>
             </div>
         @endforeach
+
+
     </div>
 </div>
-
-
-
 <style>
     .expandable {
         position: absolute;
         opacity: 0;
         visibility: hidden;
         /* top: 100%;
-        width: 110%;
-        right: 0;
-        left: -5%;
-        padding: 0 30px 20px 30px; */
+  width: 110%; */
+        /* right: 0;
+  left: -5%; */
+        /* padding: 0 30px 20px 30px; */
         width: 100%;
         background: #fff;
         z-index: 1002;
@@ -209,21 +209,22 @@
 
     .product-wrapper::before {
         /* content: '';
-        display: block;
-        background: transparent;
-        position: absolute;
-        opacity: 0;
-        z-index: 1001;
-        top: -8%;
-        left: -5%;
-        bottom: 0;
-        width: 110%; */
+  display: block;
+  background: transparent;
+  position: absolute;
+  opacity: 0;
+  z-index: 1001;
+  top: -8%;
+  left: -5%;
+  bottom: 0;
+  width: 110%; */
         box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
     }
 
     .product-wrapper:hover {
         overflow: visible;
         box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
+
     }
 
     .product-wrapper:hover::before {
@@ -232,9 +233,9 @@
     }
 
     /* .product-wrapper:hover *:not(.expandable) {
-        position: relative;
-        z-index: 1002;
-    } */
+  position: relative;
+  z-index: 1002;
+} */
 
     .product-wrapper:hover .expandable {
         opacity: 1;
