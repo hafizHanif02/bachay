@@ -299,7 +299,7 @@
                         </li>
                         <li> <a href="#" class="drp-btn active">
                                 {{-- <i class="bi bi-fire"></i> Hot Deals --}}
-                                <img class="align-items-center mb-2" src="{{ asset('public/images/fire.gif') }}"
+                                <img class="align-items-center mb-2 me-1" src="{{ asset('public/images/fire.gif') }}"
                                     alt="" width="17px" height="24px"> <span>Hot Deals</span>
                             </a>
                             <div class="mega-menu-container">

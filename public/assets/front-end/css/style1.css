@@ -928,14 +928,6 @@ h1.text-center.textClr {
     background-origin: border-box;
     background-clip: content-box, border-box;
   }
-/* .New_arrival div:nth-child(1) a .NewSeasonBorder {
-    border: 2px transparent;
-    border-image: linear-gradient(270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17%);
-    border-image-slice: 1;
-    background-origin: border-box;
-    background-clip: content-box, border-box;
-    border-radius: 20px;
-} */
 
 .New_arrival div:nth-child(1) a h4 {
     background: var(--Primary-Gradient, linear-gradient(270deg, #845DC2 -0.09%, #D55FAD 36.37%, #FC966C 72.82%, #F99327 100.48%, #FFC55D 145.17%));

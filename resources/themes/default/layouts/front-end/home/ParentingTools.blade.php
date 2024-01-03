@@ -121,38 +121,4 @@
 
     </div>
 </div>
-{{-- <div class="sub-banner">
-    <h1 class="textClr text-center">
-        {{ $data->pageSectionHeading->heading }}
-    </h1>
-    <div class="row mt-5 d-flex justify-content-between">
-        @foreach ($data->pageSectionCategories as $pageSectionCategory)
-            <div class="col-xl-2 col-lg-2 col-md-2 col-sm-12 col-12">
-                <div class="outer1">
-                    <div class="card card-1">
-                        <div class="card-body">
-                            <div class="row">
-                                <div class="col-12 text-center ">
-                                    <span class="w-100 bg-white ps-3 pe-3 pt-1 pb-1 rounded-pill articles">
-                                        {{ $pageSectionCategory->text }}
-                                    </span>
-                                </div>
-                                <div class="col-12 text-center">
-                                    <img
-                                        class="mt-5 mb-5 articles-img" src="{{ asset('web/images/Frame (1).png') }}" alt=""
-                                        srcset="">
-                                </div>
-                                <div class="col-12 text-center ">
-                                    <a href="{{ $pageSectionCategory->link }}" class="text-white text-decoration-none">
-                                        Learn More &nbsp;<i class="bi bi-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-        @endforeach
-    </div>
-</div> --}}
