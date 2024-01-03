@@ -297,7 +297,8 @@
                             </div>
                         </li>
                         <li> <a href="#" class="drp-btn active">
-                                <i class="bi bi-fire"></i> Hot Deals
+                                {{-- <i class="bi bi-fire"></i> Hot Deals --}}
+                                <img class="align-items-center" src="{{ asset('public/images/fire.gif') }}" alt="" width="17px" height="24px"> <span>Hot Deals</span>
                             </a>
                             <div class="mega-menu-container">
                                 <div class="mega-menu-grid">

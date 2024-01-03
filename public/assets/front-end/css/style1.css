@@ -278,6 +278,11 @@ input.form-control.search-input {
 }
 .filter_aside{
     width: 20%;
+    position: sticky;
+    top: 0;
+    /* margin-bottom: var(--su8); */
+    max-height: 100vh;
+    /* overflow-y: auto; */
 }
 .All_products{
     width: 80%;
@@ -405,8 +410,11 @@ line-height: 22px;
     display: block;
 }
 .scroll{
-    margin-top: 10px;
-    height: 135px;
+    height: 400px;
+    overflow: hidden;
+    /* overflow-y: scroll !important; */
+}
+.scroll:hover{
     overflow-y: scroll !important;
 }
 .search-bar {
@@ -417,7 +425,7 @@ line-height: 22px;
 }
 .browse-all-cate{
     color: #fff;
-    border: 1px solid #ff6b00;
+    border: 1px solid #fff;
     
 }
 .browse-all-cate:hover{
@@ -944,7 +952,7 @@ background-clip: text;
     cursor: pointer;
     padding: 5px 20px;
     right: 1%;
-    bottom: 8%;
+    bottom: 10%;
     font-size: 8px;
 }
 .imgMAinCon {
