@@ -6,7 +6,7 @@
                 <div class="icon col-lg-4 col-md-6 col-sm-12 mb-5 mt-4">
                     <div class="card card_image rounded-5">
                         <a href="{{ route('product-detail', $category->id) }}">
-                            <div class="deal-alert-circle">-{{ $category->discount }}%</div>
+                            {{-- <div class="deal-alert-circle">-{{ $category->discount }}%</div> --}}
                             <div class="forHeight">
                                 <img class="object-fit-cover card-img rounded-5"
                                     src="{{ asset('storage/app/public/category/' . $category->icon) }}"
