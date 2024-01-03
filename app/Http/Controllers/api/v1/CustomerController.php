@@ -53,7 +53,7 @@ class CustomerController extends Controller
         }
 
         $user->orders_count = User::withCount('orders')->find($user->id)->orders_count;
-        
+
 
         return response()->json(['user' => $user], 200);
     }
@@ -91,8 +91,8 @@ class CustomerController extends Controller
                     'address_type' => $request->address_type,
                     'address' => ($request->appartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').' '.($request->city ?? '').', '.($request->state ?? '').' '.($request->country ?? ''),
                     'is_default' => $request->is_default,
-                    'appartment_no' => $request->appartment_no,  
-                    'street_address' => $request->street_address,  
+                    'appartment_no' => $request->appartment_no,
+                    'street_address' => $request->street_address,
                     'city' => $request->city,
                     'zip' => $request->zip,
                     'phone' => $request->phone,
@@ -117,7 +117,7 @@ class CustomerController extends Controller
         }else{
             return response()->json(['message' => 'Please Login First'], 404);
         }
-    } 
+    }
 
     public function GetAdress($id){
         $shipping_address = DB::table('shipping_addresses')->where('id',$id)->first();
@@ -154,18 +154,18 @@ class CustomerController extends Controller
             foreach ($childerens as $child) {
                 $vaccination_submissions = VaccinationSubmission::
                     where([
-                        'child_id' => $child->id, 
+                        'child_id' => $child->id,
                         'user_id' => Auth::user()->id,
                         'is_taken' => 0
                     ])->with('vaccination')->get();
 
                 $vaccination_submission_completed = VaccinationSubmission::
                 where([
-                    'child_id' => $child->id, 
+                    'child_id' => $child->id,
                     'user_id' => Auth::user()->id,
                     'is_taken' => 1
                 ])->with('vaccination')->get();
-            
+
                 $child->vaccination = $vaccination_submissions;
                 $overdue = 0;
                 $uppcoming = 0;
@@ -197,7 +197,7 @@ class CustomerController extends Controller
             'gender' => 'required',
             'profile_picture' => 'required',
         ]);
-        
+
         if ($validator->fails()) {
             return response()->json(['errors' => Helpers::error_processor($validator)], 403);
         }else{
@@ -235,7 +235,7 @@ class CustomerController extends Controller
                 ]);
             }
             return response()->json(['message' => 'Child Has Been Added'], 403);
-            
+
         }
     }
 
@@ -280,7 +280,7 @@ public function SubmitQuiz(Request $request){
             'quiz_id' => 'required|exists:quiz,id',
             'answer_id' => 'required|exists:quiz_answer,id',
         ]);
-        
+
         if ($validator->fails()) {
             return response()->json(['errors' => Helpers::error_processor($validator)], 403);
         }
@@ -304,14 +304,14 @@ public function SubmitQuiz(Request $request){
     {
         $questions = QnaQuestion::with('answers.user', 'user')->get();
         //return $question;
-    
+
         if ($questions->isNotEmpty()) {
             foreach ($questions as $question) {
                 if ($question->user->image != null) {
                     $questionImageUrl = asset('public/assets/images/customers/' . $question->user->image);
                     $question->user->avatar = $questionImageUrl;
                 }
-    
+
                 foreach ($question->answers as $answer) {
                     if ($answer->user->image != null) {
                         $answerImageUrl = asset('public/assets/images/customers/' . $answer->user->image);
@@ -324,14 +324,14 @@ public function SubmitQuiz(Request $request){
             return response()->json(['message' => 'Question Not Found'], 404);
         }
     }
-    
-    
+
+
     public function AddQuestion(Request $request){
         if(Auth::check()){
             $validator = Validator::make($request->all(), [
                 'question' => 'required',
             ]);
-            
+
             if ($validator->fails()) {
                 return response()->json(['errors' => Helpers::error_processor($validator)], 403);
             }else{
@@ -340,7 +340,7 @@ public function SubmitQuiz(Request $request){
                     'question' => $request->question,
                 ]);
                 return response()->json(['message' => 'Question Has Been Added'], 200);
-                
+
             }
         }
         else{
@@ -354,7 +354,7 @@ public function SubmitQuiz(Request $request){
                 'question_id' => 'required|exists:qna_question,id',
                 'answer' => 'required',
             ]);
-            
+
             if ($validator->fails()) {
                 return response()->json(['errors' => Helpers::error_processor($validator)], 403);
             }else{
@@ -363,8 +363,8 @@ public function SubmitQuiz(Request $request){
                     'answer' => $request->answer,
                     'user_id' => Auth::user()->id,
                 ]);
-                return response()->json(['message' => 'Answer Has Been Added'], 403);
-                
+                return response()->json(['message' => 'Answer Has Been Added'], 200);
+
             }
         }
         else{
@@ -374,7 +374,7 @@ public function SubmitQuiz(Request $request){
 
     public function Detailchild($id){
         $child = DB::table('family_relation')->where('id', $id)->first();
-               
+
 
         $childDob = new DateTime($child->dob);
         $today = new DateTime();
@@ -394,7 +394,7 @@ public function SubmitQuiz(Request $request){
         }
         $child->age = $ageInWords;
 
-        
+
 
         $vaccinations = VaccinationSubmission::where(['child_id'=> $id, 'user_id' => Auth::user()->id])->with('vaccination')->get();
         if($child != null){
@@ -404,9 +404,9 @@ public function SubmitQuiz(Request $request){
             }
 
             $vaccines = Vaccination::orderByRaw('CAST(age AS SIGNED) ASC')->get();
-            
+
             $vaccination_data = [];
-            
+
                 foreach ($vaccines as $vaccine) {
                     $vaccineSubmission = VaccinationSubmission::where(['child_id' => $child->id, 'vaccination_id' => $vaccine->id])->get();
                     if (!isset($vaccination_data[$vaccine->age])) {
@@ -416,7 +416,7 @@ public function SubmitQuiz(Request $request){
 
                     $child->vaccination = $vaccination_data;
                 }
-            
+
                 $dates = [];
                 foreach ($vaccination_data as $month) {
                     foreach ($month as $vac) {
@@ -427,21 +427,21 @@ public function SubmitQuiz(Request $request){
                     }
                 }
 
-                // Statuses 
+                // Statuses
                     $vaccination_submissions = VaccinationSubmission::
                         where([
-                            'child_id' => $child->id, 
+                            'child_id' => $child->id,
                             'user_id' => Auth::user()->id,
                             'is_taken' => 0
                         ])->with('vaccination')->get();
-    
+
                     $vaccination_submission_completed = VaccinationSubmission::
                     where([
-                        'child_id' => $child->id, 
+                        'child_id' => $child->id,
                         'user_id' => Auth::user()->id,
                         'is_taken' => 1
                     ])->with('vaccination')->get();
-                
+
                     $overdue = 0;
                     $uppcoming = 0;
                     $today = 0;
@@ -507,7 +507,7 @@ public function SubmitQuiz(Request $request){
         if(Auth::check()){
             $address = DB::table('shipping_addresses')->where(['customer_id'=> Auth::user()->id,'id'=>$id])->first();
             if(!empty($address)){
-                
+
                 DB::table('shipping_addresses')->where(['customer_id'=> Auth::user()->id,'id'=>$id])->update([
                     'is_default' => 'false'
                 ]);
@@ -518,8 +518,8 @@ public function SubmitQuiz(Request $request){
                     'address_type' => $request->address_type,
                     'address' => ($request->apartment_no ?? '').' '.($request->house_no ?? '').' '.($request->street_address ?? '').' '.($request->city ?? '').', '.($request->state ?? '').' '.($request->country ?? ''),
                     'is_default' => $request->is_default,
-                    'appartment_no' => $request->appartment_no,  
-                    'street_address' => $request->street_address, 
+                    'appartment_no' => $request->appartment_no,
+                    'street_address' => $request->street_address,
                     'city' => $request->city,
                     'zip' => $request->zip,
                     'phone' => $request->phone,
@@ -544,7 +544,7 @@ public function SubmitQuiz(Request $request){
             return response()->json(['message' => 'Please Login First'], 404);
         }
     }
-    
+
 
     public function DeleteAddress($id)
     {
@@ -617,7 +617,7 @@ public function SubmitQuiz(Request $request){
 
     public function ChangeAvatar(Request $request){
 
-        
+
         if(isset(auth()->user()->image)) {
             // $avatarPath = $request->file('avatar')->store('customers', 'public');
             Storage::disk('public')->delete('assets/images/customers/'.auth()->user()->image);
@@ -627,19 +627,19 @@ public function SubmitQuiz(Request $request){
             $extension = $file->getClientOriginalExtension();
             $filename = $file->getClientOriginalName();
             $picture = $request->avatar->move(public_path('assets/images/customers'), $filename);
-            
-            
+
+
             DB::table('users')->where(['id' => auth()->user()->id])->update([
                 'image' => $filename,
             ]);
-    
+
             return response()->json([
                 'message' => 'Avatar change successfully',
             ], 200);
         }else {
             return response()->json(['error' => 'No file uploaded.'], 400);
         }
-        
+
 
     }
 
