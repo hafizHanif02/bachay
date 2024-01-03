@@ -410,7 +410,7 @@ line-height: 22px;
     display: block;
 }
 .scroll{
-    height: 400px;
+    height: 65vh;
     overflow: hidden;
     /* overflow-y: scroll !important; */
 }
