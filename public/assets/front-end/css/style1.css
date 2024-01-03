@@ -292,8 +292,8 @@ input.form-control.search-input {
     justify-content: center;
     align-items: center;
     position: absolute;
-    top: -10%;
-    right: -5%;
+    top: 0%;
+    right: -3%;
     color: #fff;
     font-size: 20px;
     font-weight: bold;
@@ -305,7 +305,6 @@ input.form-control.search-input {
 }
 .new-arival {
     padding: 0 50px;
-    /* display: none; */
 }
 .slider {
     width: 100%;
@@ -362,27 +361,13 @@ button.slick-prev.slick-arrow {
     border: 3.209px solid var(--Nutral-3, #292d32);
 }
 .gradient-text {
-    /* background: var(
-        --Primary-Gradient,
-        linear-gradient(
-            270deg,
-            #845dc2 -0.09%,
-            #d55fad 36.37%,
-            #fc966c 72.82%,
-            #f99327 100.48%,
-            #ffc55d 145.17%
-        )
-    );
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent; */
     color: #292D32;
     line-height: normal;
-    font-size: 20px;
+    font-size: 16px;
 font-family: 'Poppins';
 font-style: normal;
 font-weight: 600;
-line-height: 22px;
+line-height: 30px;
 }
 .popup {
     position: relative;
@@ -935,12 +920,22 @@ h1.text-center.textClr {
 .input-bar {
     border: 1px solid #404040;
 }
-
 .New_arrival div:nth-child(1) a .NewSeasonBorder {
-    border: 2px solid transparent;
+    border: 1em transparent;
+    border-radius: 20px;
+    background-image: linear-gradient(white, white), 
+                      linear-gradient(to right,  #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17%);
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+  }
+/* .New_arrival div:nth-child(1) a .NewSeasonBorder {
+    border: 2px transparent;
     border-image: linear-gradient(270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17%);
     border-image-slice: 1;
-}
+    background-origin: border-box;
+    background-clip: content-box, border-box;
+    border-radius: 20px;
+} */
 
 .New_arrival div:nth-child(1) a h4 {
     background: var(--Primary-Gradient, linear-gradient(270deg, #845DC2 -0.09%, #D55FAD 36.37%, #FC966C 72.82%, #F99327 100.48%, #FFC55D 145.17%));
