@@ -339,7 +339,7 @@ public function SubmitQuiz(Request $request){
                     'user_id' => Auth::user()->id,
                     'question' => $request->question,
                 ]);
-                return response()->json(['message' => 'Question Has Been Added'], 403);
+                return response()->json(['message' => 'Question Has Been Added'], 200);
                 
             }
         }
