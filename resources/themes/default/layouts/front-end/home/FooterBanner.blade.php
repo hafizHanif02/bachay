@@ -1,14 +1,15 @@
 <div class="sub-contain mt-5 mb-5 container-xxl">
 
     <div class="row">
-        @foreach ($footer_banner->take(3) as $banner)
+        {{-- @foreach ($footer_banner->take(3) as $banner) --}}
+        @foreach ($categories->sortByDesc('created_at')->take(3) as $category)
         <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 position-relative mb-5">
 
 
                 <a href="">
 
 
-                    <img class="btm-img" src="{{asset('storage/app/public/banner/'.$banner->photo) }}" alt="">
+                    <img class="btm-img" src="{{ asset('storage/app/public/category/' . $category->icon) }}" alt="">
                     {{-- <p class="position-absolute bg-white text-dark start-50 fw-bold bottm-display-none">Topwear <i
                             class="bi bi-chevron-right"></i></p> --}}
                 </a>
