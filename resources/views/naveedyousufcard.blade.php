@@ -113,7 +113,7 @@
         @media only screen and (max-width: 767px) {
             .flip-card {
                 perspective: 1000px;
-                width: 90%;
+                width: 100%;
                 height: 200px;
             }
 
