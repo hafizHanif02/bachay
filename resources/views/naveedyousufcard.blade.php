@@ -17,19 +17,24 @@
         .flip-card {
             perspective: 1000px;
             width: 60%;
-            height: 70vh;
-        }
+            height: 80vh;
+            /* background-color: rgba(41, 45, 50, 0.05); */
+            }
 
         .flip-card-inner {
             width: 100%;
             height: 100%;
             transform-style: preserve-3d;
             transition: transform 0.6s;
+            
         }
 
         .flipped .flip-card-inner {
             transform: rotateY(-180deg);
+            box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
+           
         }
+
 
         .flip-card-front,
         .flip-card-back {
@@ -46,6 +51,8 @@
             justify-content: center;
             font-size: 24px;
             color: white;
+            box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
+
         }
 
         .flip-card-back {
