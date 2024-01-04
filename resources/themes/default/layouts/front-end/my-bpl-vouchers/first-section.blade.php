@@ -21,7 +21,7 @@
             </div>
 
             <div class="d-flex justify-content-between align-items-center mt-4">
-                <h6 class="m-0 font-poppins fw-semibold">
+                <h6 class="m-0 font-poppins Filter-voucher">
                     Filter Voucher by
                 </h6>
                 <div class="nav-item d-flex align-items-center">
@@ -66,13 +66,13 @@
                             </div>
                         </div>
                         <div class="ms-3 font-poppins col-8">
-                            <p class="mb-2 fs-18 fw-bold">Description : Get 4 Free Live sessions on Logic and Problem Solving only on LQ Live, by LogIQids.
+                            <p class="mb-2 fs-18 fw-semibold">Description : Get 4 Free Live sessions on Logic and Problem Solving only on LQ Live, by LogIQids.
                             </p>
                             <div class="mb-1 fs-16">
-                                <span class=""> <span class="fw-bold">Amount (FPL Points):</span>  30.00 |</span> <span> <span class="fw-bold">Offer Valid till: </span>  16-Oct-2023</span>
+                                <span class=""> <span class="fw-semibold">Amount (FPL Points):</span>  30.00 |</span> <span> <span class="fw-semibold">Offer Valid till: </span>  16-Oct-2023</span>
                             </div>
                              
-                            <a class="fw-bold text-success text-decoration-none" href="">Active</a>
+                            <a class="fw-bold text-decoration-none Active_btn" href="">Active</a>
                         </div>
                     </div>
                     <a href=""><img src="{{ asset('public /images/Arrow-right.svg') }}" alt=""></a>
@@ -109,10 +109,10 @@
                             <p class="mb-2 fs-18 fw-bold">Description : Get 4 Free Live sessions on Logic and Problem Solving only on LQ Live, by LogIQids.
                             </p>
                             <div class="mb-1 fs-16">
-                                <span class=""> <span class="fw-bold">Amount (FPL Points):</span>  30.00 |</span> <span> <span class="fw-bold">Offer Valid till: </span>  16-Oct-2023</span>
+                                <span class=""> <span class="fw-semibold">Amount (FPL Points):</span>  30.00 |</span> <span> <span class="fw-semibold">Offer Valid till: </span>  16-Oct-2023</span>
                             </div>
                              
-                            <a class="fw-bold text-success text-decoration-none" href="">Active</a>
+                            <a class="fw-bold Active_btn text-decoration-none" href="">Active</a>
                         </div>
                     </div>
                     <a href=""><img src="{{ asset('public /images/Arrow-right.svg') }}" alt=""></a>
@@ -147,10 +147,10 @@
                             </div>
                         </div>
                         <div class="ms-3 font-poppins col-8">
-                            <p class="mb-2 fs-18 fw-bold">Description : Get 4 Free Live sessions on Logic and Problem Solving only on LQ Live, by LogIQids.
+                            <p class="mb-2 fs-18 fw-semibold">Description : Get 4 Free Live sessions on Logic and Problem Solving only on LQ Live, by LogIQids.
                             </p>
                             <div class="mb-1 fs-16">
-                                <span class=""> <span class="fw-bold">Amount (FPL Points):</span>  30.00 |</span> <span> <span class="fw-bold">Offer Valid till: </span>  16-Oct-2023</span>
+                                <span class=""> <span class="fw-semibold">Amount (FPL Points):</span>  30.00 |</span> <span> <span class="fw-semibold">Offer Valid till: </span>  16-Oct-2023</span>
                             </div>
                              
                             <a class="fw-bold text-secondary text-decoration-none" href="">Expired</a>

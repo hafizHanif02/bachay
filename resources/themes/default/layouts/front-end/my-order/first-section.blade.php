@@ -20,11 +20,11 @@
                 </h6>
             </div>
             <div class="d-flex justify-content-between align-items-center mt-4 bottom-border pb-4">
-                <h6 class="font-poppins fw-semibold">
+                <h6 class="font-poppins fw-semibold mt-2">
                     Filter Order by
                 </h6>
                 <div class="nav-item d-flex align-items-center">
-                    <h6 class="fw-bold pe-3">Type</h6>
+                    <h6 class="fw-bold pe-3 mt-2 Order_type">Type</h6>
                     <div class="dropdown font-poppins rounded-pill sorted-by p-2 ps-4 pe-4 me-3">
                         <a class="dropbtn nav-link"><span class="pe-3">Pending</span><i
                                 class="bi bi-chevron-down ps-5"></i></a>
@@ -34,7 +34,7 @@
 
                         </div>
                     </div>
-                    <h6 class="fw-bold pe-3">Time Period</h6>
+                    <h6 class="fw-bold pe-3 mt-2 Order_type">Time Period</h6>
                     <div class="dropdown font-poppins rounded-pill nav-item sorted-by p-2 ps-4 pe-4">
                         <a class="dropbtn nav-link"><span class="pe-3">All Orders</span><i
                                 class="bi bi-chevron-down ps-5"></i></a>
@@ -50,7 +50,7 @@
             <div class="f-Border d-flex justify-content-between align-items-center rounded-pill mt-5 font-poppins">
                 <h6 class="m-0">Order Number: <span class="fw-bold">188565454TFF5567</span> - 08 Oct 23</h6>
 
-                <a href="#" class="fw-bold">View Details</a>
+                <a href="#" class="order_Details">View Details</a>
             </div>
 
             <div class="orderList col-12">
@@ -102,7 +102,7 @@
                 <div class="f-Border d-flex justify-content-between align-items-center rounded-pill mt-5 font-poppins">
                     <h6 class="m-0">Order Number: <span class="fw-bold">188565454TFF5567</span> - 01 Nov 23</h6>
 
-                    <a href="#" class="fw-bold">View Details</a>
+                    <a href="#" class="order_Details">View Details</a>
                 </div>
                 <li class="d-flex justify-content-between align-items-center mt-5 pb-4">
                     <div class="d-flex align-items-center">

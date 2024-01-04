@@ -916,7 +916,7 @@ h1.text-center.textClr {
 
 .sorted-by {
     list-style: none;
-    border: 2px solid #808080;
+    border: 1px solid #808080;
 }
 .input-bar {
     border: 1px solid #404040;
@@ -1095,7 +1095,7 @@ background-clip: text;
     height: 180px;
 }
 .bottom-border {
-    border-bottom: 2px solid lightgray;
+    border-bottom: 1px solid #292D32;;
 }
 .bottom-borderBlack {
     border-bottom: 1px solid #292d32;
@@ -1444,7 +1444,7 @@ input[type="radio"]:checked {
 .form-group button {
     padding: 15px;
     width: 49%;
-    background-color: #f3f3f3;
+    background-color: #fff;
 }
 .form-group button:nth-child(1) {
     border: 1px solid #8b5bc0;
@@ -1582,9 +1582,19 @@ input:checked + .se:before {
     width: 180px;
 }
 .f-Border {
-    border: 2px solid #939698;
+    border: 1px solid #939698;
     padding: 15px 20px;
 }
+.f-Border h6{
+    font-size: 18px;
+}
+.Order_type{
+   font-size: 14px;
+}
+.order_Details{
+    font-size: 14px;
+    font-weight: 600;
+    }
 .ForWidth {
     width: 155px;
     height: 155px;
@@ -2452,9 +2462,9 @@ input:checked + .se:before {
 }
 .Refund p,
 .Refund button {
-    font-size: 14px;
+    font-size: 12px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 12px;
 }
 .ForWidth180 {
@@ -2506,7 +2516,7 @@ input:checked + .se:before {
 }
 .re-order {
     font-style: normal;
-    font-weight: 600;
+    font-weight: 500;
 }
 .showNow h6 {
     background-color: #282d32 !important;
@@ -2545,7 +2555,7 @@ details summary::marker {
 
 details summary::after {
     content: ">";
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     margin-right: 1rem;
     cursor: pointer;
 }
@@ -2702,6 +2712,22 @@ details[open] summary::after {
 }
 .outer1 {
     width: 100%;
+}
+
+.Flat_text{
+    font-size: 18px;
+}
+.Faq_Ans{
+    font-size:14px ;
+}
+.Order_number{
+    font-size: 18px;
+}
+.HowItWorks, .frequent {
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 35px;
 }
 
 #card-container {

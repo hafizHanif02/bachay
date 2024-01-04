@@ -24,7 +24,7 @@
                 
                 </a>
                 <a class="col-5" href="{{ route('save-cards') }}">
-                    <button class="col-12 mt-2 btn-f rounded-pill p-3 bg-white text-purple border-0">Save Cards & Wallets</button>
+                    <button class="col-12 mt-2  rounded-pill p-3 bg-white fw-semibold border border-dark">Save Cards & Wallets</button>
                 
                 </a>
             </div>

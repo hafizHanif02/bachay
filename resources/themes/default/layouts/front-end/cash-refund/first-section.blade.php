@@ -20,8 +20,8 @@
             </div>
             
             <div class="showNow MyAccount font-poppins mt-4">
-                <h6 class="fw-bold m-0 rounded-pill text-center text-white">
-                    You have Rs. 0.00 Cash Refund <a href="" class="text-pink text-decoration-none">Show Now</a>
+                <h6 class="fw-normal m-0 rounded-pill text-center text-white">
+                    You have Rs. 0.00 Cash Refund <a href="" class="text-pink text-decoration-none fw-semibold  ">Show Now</a>
                 </h6>
             </div>
             <div class="d-flex justify-content-between mt-4 font-poppins">

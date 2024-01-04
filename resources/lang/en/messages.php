@@ -6740,4 +6740,5 @@
   'product_has_been_remove_from_wishlist' => 'Product has been remove from wishlist',
   'Order Not Found found!' => 'Order Not Found found!',
   'terms_and_Condition' => 'Terms and Condition',
+  'invalid_order' => 'Invalid order',
 );

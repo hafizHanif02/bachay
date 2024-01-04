@@ -168,7 +168,7 @@
                       </div>
                 </div>
                 <div class="bottom-line mt-5 mb-5"></div>
-                <h5 class="fw-bold mb-3">How Shop & Earn Works</h5>
+                <h5 class="fw-semibold mb-3">How Shop & Earn Works</h5>
 
                 <div class="d-flex justify-content-between align-items-center">
                     <div class="align-items-center d-flex">
@@ -236,12 +236,12 @@
                     </div>
                 </div>
                 <div class="bottom-line mt-5 mb-5"></div>
-                <h2 class="HowItWorks font-poppins mt-5">
+                <h5 class="HowItWorks frequent font-poppins mt-5">
                     Frequently Ask Questions
-                </h2>
+                </h5>
                 <div class="FAQ-Accordion font-poppins mt-4">
                     <details class="rounded-pill for-border3 pt-3 pb-3 ps-4 pe-4 mb-4">
-                        <summary class="d-flex justify-content-between align-items-center fw-bold">Vorem ipsum dolor
+                        <summary class="Faq_Ans d-flex justify-content-between align-items-center fw-bold">Vorem ipsum dolor
                             sit amet,
                             consectetur adipiscing elit.</summary>
                         <div class="content">
@@ -264,7 +264,7 @@
                     </details>
 
                     <details class="rounded-pill for-border3 pt-3 pb-3 ps-4 pe-4 mb-4">
-                        <summary class="d-flex justify-content-between align-items-center fw-bold">Vorem ipsum dolor
+                        <summary class=" Faq_Ans d-flex justify-content-between align-items-center fw-bold">Vorem ipsum dolor
                             sit amet,
                             consectetur adipiscing elit.</summary>
                         <div class="content">
@@ -286,7 +286,7 @@
                         </div>
                     </details>
                     <details class="rounded-pill for-border3 pt-3 pb-3 ps-4 pe-4 mb-4">
-                        <summary class="d-flex justify-content-between align-items-center fw-bold">Vorem ipsum dolor
+                        <summary class="Faq_Ans d-flex justify-content-between align-items-center fw-bold">Vorem ipsum dolor
                             sit amet,
                             consectetur adipiscing elit.</summary>
                         <div class="content">
@@ -308,7 +308,7 @@
                         </div>
                     </details>
                     <details class="rounded-pill for-border3 pt-3 pb-3 ps-4 pe-4 mb-4">
-                        <summary class="d-flex justify-content-between align-items-center fw-bold">Vorem ipsum dolor
+                        <summary class="Faq_Ans d-flex justify-content-between align-items-center fw-bold">Vorem ipsum dolor
                             sit amet,
                             consectetur adipiscing elit.</summary>
                         <div class="content">
@@ -330,7 +330,7 @@
                         </div>
                     </details>
                     <details class="rounded-pill for-border3 pt-3 pb-3 ps-4 pe-4 mb-4">
-                        <summary class="d-flex justify-content-between align-items-center fw-bold">Vorem ipsum dolor
+                        <summary class="Faq_Ans d-flex justify-content-between align-items-center fw-bold">Vorem ipsum dolor
                             sit amet,
                             consectetur adipiscing elit.</summary>
                         <div class="content">
@@ -352,7 +352,7 @@
                         </div>
                     </details>
                     <details class="rounded-pill for-border3 pt-3 pb-3 ps-4 pe-4 mb-4">
-                        <summary class="d-flex justify-content-between align-items-center fw-bold">Vorem ipsum dolor
+                        <summary class="Faq_Ans d-flex justify-content-between align-items-center fw-bold">Vorem ipsum dolor
                             sit amet,
                             consectetur adipiscing elit.</summary>
                         <div class="content">

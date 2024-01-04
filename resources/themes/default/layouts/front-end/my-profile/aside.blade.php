@@ -3,14 +3,14 @@
         <a href="{{ route('my-profile') }}">
 
             <button
-                class="col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs('my-profile') ? 'buttons-active' : 'buttons' }}">
+                class="col-12 border-0 rounded-pill text-start p-3 ps-4 {{ request()->routeIs('my-profile') ? 'buttons-active' : 'buttons' }}">
                 My Profile
             </button>
 
         </a>
     </div>
     <div class="col-12 mt-3">
-        <ul class="MyProfile-ul p-0 ps-3">
+        <ul class="MyProfile-ul p-0 ps-4">
             <li><a href="#personalDetails">Personal Details</a></li>
             <li><a href="#contactDetails">Contact Details</a></li>
             <li><a href="#childDetails">Child Details</a></li>
@@ -23,7 +23,7 @@
     <div class="MyProfile mt-2">
         <a href="{{ route('my-order') }}">
             <button
-                class="col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs(['my-order'], ['manage-returns'], ['quick-reorder'], ['track-orders'], ['your-query']) ? 'buttons-active' : 'buttons' }}">My
+                class="col-12 border-0 rounded-pill text-start p-3 ps-4 {{ request()->routeIs(['my-order'], ['manage-returns'], ['quick-reorder'], ['track-orders'], ['your-query']) ? 'buttons-active' : 'buttons' }}">My
                 Orders</button>
         </a>
     </div>
@@ -45,14 +45,14 @@
 
         <a href="#">
             <button
-                class="col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs(['club-cash', 'cash-refund', 'my-payment-detail-not-added', 'my-payment-detail-added', 'save-cards', 'cash-coupons', 'cash-back-codes', 'my-refund-no-refund', 'my-bpl-vouchers']) ? 'buttons-active' : 'buttons' }}">Cash
+                class="col-12 border-0 rounded-pill text-start p-3 ps-4 {{ request()->routeIs(['club-cash', 'cash-refund', 'my-payment-detail-not-added', 'my-payment-detail-added', 'save-cards', 'cash-coupons', 'cash-back-codes', 'my-refund-no-refund', 'my-bpl-vouchers']) ? 'buttons-active' : 'buttons' }}">Cash
                 in My Account</button>
 
         </a>
 
     </div>
     <div class="col-12 mt-3">
-        <ul class="MyProfile-ul p-0 ps-3">
+        <ul class="MyProfile-ul p-0 ps-4">
             <li><a href="{{ route('club-cash') }}">Club Cash</a></li>
             <li><a class="{{ request()->routeIs('cash-refund') ? 'active' : '' }}"
                     href="{{ route('cash-refund') }}">Cash Refund</a></li>
@@ -72,19 +72,19 @@
     <div class="MyProfile mt-2 mb-4">
         <a href="{{ route('guaranteed-savings') }}">
             <button
-                class="buttons col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs('guaranteed-savings') ? 'buttons-active' : 'buttons' }}">Guaranteed
+                class="buttons col-12 border-0 rounded-pill text-start p-3 ps-4 {{ request()->routeIs('guaranteed-savings') ? 'buttons-active' : 'buttons' }}">Guaranteed
                 Savings</button>
         </a>
     </div>
     <div class="MyProfile mt-2">
         <a href="{{ route('intelli-education') }}">
             <button
-                class="buttons col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs('intelli-education') ? 'buttons-active' : 'buttons' }} ">Intelli
+                class="buttons col-12 border-0 rounded-pill text-start p-3 ps-4 {{ request()->routeIs('intelli-education') ? 'buttons-active' : 'buttons' }} ">Intelli
                 Education</button>
         </a>
     </div>
     <div class="col-12 mt-3">
-        <ul class="MyProfile-ul p-0 ps-3">
+        <ul class="MyProfile-ul p-0 ps-4">
             <li><a class="{{ request()->routeIs('intelli-education') ? 'active' : '' }}"
                     href="{{ route('intelli-education') }}">Intellibaby Subscriptions</a></li>
 
@@ -94,14 +94,14 @@
 
     <div class="MyProfile mt-2 mb-3">
         <a href="#">
-            <button class="buttons col-12 border-0 rounded-pill text-start p-3">FitJunior Subscriptions</button>
+            <button class="buttons col-12 border-0 rounded-pill text-start p-3 ps-4">FitJunior Subscriptions</button>
 
         </a>
     </div>
     <div class="MyProfile mt-2 mb-3">
         <a href="{{ route('gift-certification') }}">
             <button
-                class="buttons col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs('gift-certification') ? 'buttons-active' : 'buttons' }}">Gift
+                class="buttons col-12 border-0 rounded-pill text-start p-3 ps-4 {{ request()->routeIs('gift-certification') ? 'buttons-active' : 'buttons' }}">Gift
                 Certificates</button>
 
         </a>
@@ -109,20 +109,20 @@
     <div class="MyProfile mt-2 mb-3">
         <a href="{{ route('invites-credits') }}">
             <button
-                class="buttons col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs('invites-credits') ? 'buttons-active' : 'buttons' }}">Invites
+                class="buttons col-12 border-0 rounded-pill text-start p-3 ps-4 {{ request()->routeIs('invites-credits') ? 'buttons-active' : 'buttons' }}">Invites
                 & Credits</button>
         </a>
     </div>
     <div class="MyProfile mt-2 mb-3">
         <a href="{{ route('my-reviews-upload') }}">
             <button
-                class="buttons col-12 border-0 rounded-pill text-start p-3 {{ request()->routeIs('my-reviews-upload') ? 'buttons-active' : 'buttons' }}">My
+                class="buttons col-12 border-0 rounded-pill text-start p-3 ps-4 {{ request()->routeIs('my-reviews-upload') ? 'buttons-active' : 'buttons' }}">My
                 Reviews & Uploads</button>
         </a>
     </div>
 
     <div class="col-12 mt-3">
-        <ul class="MyProfile-ul p-0 ps-3">
+        <ul class="MyProfile-ul p-0 ps-4">
             <li><a href="">Notify Me</a></li>
             <li><a href="">My Shortlist</a></li>
         </ul>
@@ -130,7 +130,7 @@
     <div class="MyProfile mt-2">
         <form action="{{ route('customer.auth.logout') }}" method="GET">
             @csrf
-            <button type="submit" class="logout col-12 border-0 rounded-pill text-start p-3 text-white">Logout</button>
+            <button type="submit" class="logout col-12 border-0 rounded-pill text-start p-3 ps-4 text-white">Logout</button>
         </form>
     </div>
 

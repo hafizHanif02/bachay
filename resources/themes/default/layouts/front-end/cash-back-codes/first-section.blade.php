@@ -39,10 +39,38 @@
                     <div class="d-flex align-items-center">
                        
                         <div class=" font-poppins">
-                            <p class="mb-2 fs-18 fw-bold">Flat Rs. 1900 OFF* on Baby Gear orders worth Rs. 4999 &amp; above
+                            <p class="mb-2 fw-semibold Flat_text">Flat Rs. 1900 OFF* on Baby Gear orders worth Rs. 4999 &amp; above
                             </p>
                             <p class="mb-2 ">Coupon Amount: Rs.1900 | Offer valid till : 16-Oct-2023</p>
-                            <a class="fw-bold" href="">*T&amp;C Apply</a>
+                            <a class="fw-semibold" href="">*T&amp;C Apply</a>
+                        </div>
+                    </div>
+                   
+                        <button class="font-poppins bg-purple rounded-pill pt-2 pb-2 ps-5 pe-5 border-0 text-white"> Redeem</button>
+                    
+                </li>
+                <li class="DashBorderT d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                       
+                        <div class=" font-poppins">
+                            <p class="mb-2 fw-bold Flat_text">Flat Rs. 1900 OFF* on Baby Gear orders worth Rs. 4999 &amp; above
+                            </p>
+                            <p class="mb-2 ">Coupon Amount: Rs.1900 | Offer valid till : 16-Oct-2023</p>
+                            <a class="fw-semibold" href="">*T&amp;C Apply</a>
+                        </div>
+                    </div>
+                   
+                        <button class="font-poppins bg-purple rounded-pill pt-2 pb-2 ps-5 pe-5 border-0 text-white"> Redeem</button>
+                    
+                </li>
+                <li class="DashBorderT d-flex justify-content-between align-items-center">
+                    <div class="d-flex align-items-center">
+                       
+                        <div class=" font-poppins">
+                            <p class="mb-2 fw-semibold Flat_text">Flat Rs. 1900 OFF* on Baby Gear orders worth Rs. 4999 &amp; above
+                            </p>
+                            <p class="mb-2 ">Coupon Amount: Rs.1900 | Offer valid till : 16-Oct-2023</p>
+                            <a class="fw-semibold" href="">*T&amp;C Apply</a>
                         </div>
                     </div>
                    
@@ -56,35 +84,7 @@
                             <p class="mb-2 fs-18 fw-bold">Flat Rs. 1900 OFF* on Baby Gear orders worth Rs. 4999 &amp; above
                             </p>
                             <p class="mb-2 ">Coupon Amount: Rs.1900 | Offer valid till : 16-Oct-2023</p>
-                            <a class="fw-bold" href="">*T&amp;C Apply</a>
-                        </div>
-                    </div>
-                   
-                        <button class="font-poppins bg-purple rounded-pill pt-2 pb-2 ps-5 pe-5 border-0 text-white"> Redeem</button>
-                    
-                </li>
-                <li class="DashBorderT d-flex justify-content-between align-items-center">
-                    <div class="d-flex align-items-center">
-                       
-                        <div class=" font-poppins">
-                            <p class="mb-2 fs-18 fw-bold">Flat Rs. 1900 OFF* on Baby Gear orders worth Rs. 4999 &amp; above
-                            </p>
-                            <p class="mb-2 ">Coupon Amount: Rs.1900 | Offer valid till : 16-Oct-2023</p>
-                            <a class="fw-bold" href="">*T&amp;C Apply</a>
-                        </div>
-                    </div>
-                   
-                        <button class="font-poppins bg-purple rounded-pill pt-2 pb-2 ps-5 pe-5 border-0 text-white"> Redeem</button>
-                    
-                </li>
-                <li class="DashBorderT d-flex justify-content-between align-items-center">
-                    <div class="d-flex align-items-center">
-                       
-                        <div class=" font-poppins">
-                            <p class="mb-2 fs-18 fw-bold">Flat Rs. 1900 OFF* on Baby Gear orders worth Rs. 4999 &amp; above
-                            </p>
-                            <p class="mb-2 ">Coupon Amount: Rs.1900 | Offer valid till : 16-Oct-2023</p>
-                            <a class="fw-bold" href="">*T&amp;C Apply</a>
+                            <a class="fw-semibold" href="">*T&amp;C Apply</a>
                         </div>
                     </div>
                    

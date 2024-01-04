@@ -33,7 +33,7 @@
         </li>
 
     </ul>
-    <h2 class="HowItWorks font-poppins mt-5">
+    <h2 class="HowItWorks  font-poppins mt-5">
         How it Works
     </h2>
     <div class="row  savings-card mt-4 bottom-borderBlack pb-4">

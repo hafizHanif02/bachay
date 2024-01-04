@@ -20,8 +20,8 @@
             </div>
             <div class="text-center mt-5 font-poppins">
                 <img src="{{ asset('public/images/your-queries.svg') }}" alt="">
-                <h6 class="re-order">No Open Queries Found</h6>
-                <button class="StartShopping bg-purple text-white rounded-pill border-0">Start Shopping</button>
+                <h6 class="re-order fw-semibold">No Open Queries Found</h6>
+                <button class="StartShopping bg-purple text-white rounded-pill border-0">Continue Shopping</button>
             </div>
           
 

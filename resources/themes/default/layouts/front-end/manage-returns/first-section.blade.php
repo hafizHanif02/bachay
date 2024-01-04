@@ -42,7 +42,7 @@
                 <div class="f-Border d-flex justify-content-between align-items-center rounded-pill mt-5 font-poppins">
                     <h6 class="m-0">Order Number: <span class="fw-bold">188565454TFF5567</span> - 08 Oct 23</h6>
 
-                    <a href="#" class="fw-bold">View Details</a>
+                    <a href="#" class="fw-bold order_Details">View Details</a>
 
                 </div>
             </div>
