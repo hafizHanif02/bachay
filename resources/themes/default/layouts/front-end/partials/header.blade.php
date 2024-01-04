@@ -79,27 +79,40 @@
                             </li>
                             <li class="nav-item d-flex align-items-center ms-2">
                                 <div class="dropdown">
-                                    <a class="nav-link d-flex align-items-center gap-1 px-0  "
-                                        href="{{ route('my-profile') }}">
+                                    <a class="nav-link d-flex align-items-center gap-1 px-0">
                                         <img class="rounded-circle"
                                             src="{{ asset('public/assets/images/customers/' . auth('customer')->user()->image) }}"
-                                            alt="user avatar" height="30" width="30">
+                                            alt="user avatar" height="30" width="30">Hello,
 
-                                        @if (strlen(auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name) <= 15)
+                                        @if (strlen(auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name) <= 10)
                                             <p class="m-0">
                                                 {{ auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name }}
                                             </p>
                                         @else
                                             <p class="m-0">
-                                                {{ substr(auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name, 0, 15) }}...
+                                                {{ substr(auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name, 0, 10) }}...
                                             </p>
                                         @endif
-
                                     </a>
                                     <div class="dropdown-content">
-                                        <a class="nav-link px-0 text-center"
-                                            href="{{ route('customer.auth.logout') }}">Logout</a>
-
+                                        <a class="nav-link px-0 text-center" href="{{ route('my-profile') }}">
+                                            <i class="bi bi-person me-2"></i>My Profile
+                                        </a>
+                                        <a class="nav-link px-0 text-center" href="{{ route('my-order') }}">
+                                            <i class="bi bi-box2 me-2"></i>Order History
+                                        </a>
+                                        <a class="nav-link px-0 text-center" href="#">
+                                            <i class="bi bi-shop me-2"></i>My followed stores
+                                        </a>
+                                        <a class="nav-link px-0 text-center" href="{{ route('manage-returns') }}">
+                                            <i class="bi bi-x-circle me-2"></i>My Refunds & Cancellation
+                                        </a>
+                                        <a class="nav-link px-0 text-center" href="{{ route('my-reviews-upload') }}">
+                                            <i class="bi bi-star-half me-2"></i>My Reviews
+                                        </a>
+                                        <a class="nav-link px-0 text-center" href="{{ route('customer.auth.logout') }}">
+                                            <i class="bi bi-box-arrow-right me-2"></i>Logout
+                                        </a>
                                     </div>
                                 </div>
                             </li>
@@ -454,28 +467,24 @@
                                 <div class="mega-menu-grid">
                                     <div class="sub-nav-column">
                                         <ul class="collection">
-                                            <li class="collection-item">
-                                                <h4>SHOP BY CATEGORY</h4>
-                                            </li>
-                                            <li><a href="#">Sets & Suits <span class="color">NEW</span></a>
-                                            </li>
+                                            <li class="collection-item"><h4>SHOP BY CATEGORY</h4></li>
+                                            <li><a href="#">Sets & Suits <span class="color">NEW</span></a></li>
                                             <li><a href="#">T-shirts <span class="color">NEW</span></a></li>
-                                            <li><a href="">Nightwear</a></li>
+                                            <li><a href="#">Nightwear</a></li>
                                             <li><a href="#">Sweatshirts<span class="color">NEW</span></a></li>
                                             <li><a href="#">Jackets <span class="color">NEW</span></a></li>
                                             <li><a href="#">Sweaters<span class="color">NEW</span></a></li>
                                             <li><a href="#">Ethnic Wear<span class="color">NEW</span></a></li>
                                             <li><a href="#">Party Wear<span class="color">NEW</span></a></li>
                                             <li><a href="#">Jeans & Trousers</a></li>
-                                            <li><a chref="#">Lounge & Trackpants</a></li>
+                                            <li><a href="#">Lounge & Trackpants</a></li>
                                             <li><a href="#">Diaper & Bootie Leggings</a></li>
                                             <li><a href="#">Shirts <span class="color">NEW</span></a></li>
                                             <li><a href="#">Onesies & Rompers</a></li>
                                             <li><a href="#">Athleisure & Sportswear</a></li>
                                             <li><a href="#">Thermals <span class="color">NEW</span></a></li>
                                             <li><a href="#">Inner Wear</a></li>
-                                            <li><a href="#">Caps & Gloves <span class="color">NEW</span></a>
-                                            </li>
+                                            <li><a href="#">Caps & Gloves <span class="color">NEW</span></a></li>
                                             <li><a href="#">Bath Time</a></li>
                                             <li><a href="#">Swim Wear</a></li>
                                             <li><a href="#">Rainwear</a></li>
