@@ -7,7 +7,7 @@
     .flip-card {
       perspective: 1000px;
       width: 60%;
-      height: 70vh;
+      height: auto;
     }
 
     .flip-card-inner {
@@ -58,7 +58,7 @@
         .flip-card {
       perspective: 1000px;
       width: 90%;
-      height: 40vh;
+      height: auto;
     }
 
     }
