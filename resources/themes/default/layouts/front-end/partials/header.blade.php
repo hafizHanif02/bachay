@@ -300,7 +300,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li> <a href="#" class="drp-btn active">
+                        <li> <a href="{{ route('product-list') }}" class="drp-btn active">
                                 {{-- <i class="bi bi-fire"></i> Hot Deals --}}
                                 <img class="align-items-center mb-2 me-1" src="{{ asset('public/images/fire.gif') }}"
                                     alt="" width="17px" height="24px"> <span>Hot Deals</span>
@@ -449,7 +449,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li> <a href="#" class="drp-btn">Girls Fashion</a>
+                        <li><a href="{{ route('product-list') }}" class="drp-btn">Girls Fashion</a>
                             <div class="mega-menu-container">
                                 <div class="mega-menu-grid">
                                     <div class="sub-nav-column">
@@ -595,7 +595,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li><a href="#" class="drp-btn">Boys Fashion</a>
+                        <li><a href="{{ route('product-list') }}" class="drp-btn">Boys Fashion</a>
 
                             <div class="mega-menu-container">
                                 <div class="mega-menu-grid">
@@ -680,7 +680,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li><a href="#" class="drp-btn">Footwear</a>
+                        <li><a href="{{ route('product-list') }}" class="drp-btn">Footwear</a>
 
                             <div class="mega-menu-container">
                                 <div class="mega-menu-grid">
@@ -805,7 +805,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li><a href="#" class="drp-btn">Toys</a>
+                        <li><a href="{{ route('product-list') }}" class="drp-btn">Toys</a>
 
                             <div class="mega-menu-container">
                                 <div class="mega-menu-grid">
@@ -930,7 +930,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li><a href="#" class="drp-btn">Entertainment</a>
+                        <li><a href="{{ route('product-list') }}" class="drp-btn">Entertainment</a>
 
                             <div class="mega-menu-container">
                                 <div class="mega-menu-grid">
@@ -1039,7 +1039,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li><a href="#" class="drp-btn">Nursing</a>
+                        <li><a href="{{ route('product-list') }}" class="drp-btn">Nursing</a>
 
                             <div class="mega-menu-container">
                                 <div class="mega-menu-grid">
@@ -1176,7 +1176,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li><a href="#" class="drp-btn">Health & Safety</a>
+                        <li><a href="{{ route('product-list') }}" class="drp-btn">Health & Safety</a>
 
                             <div class="mega-menu-container">
                                 <div class="mega-menu-grid">
@@ -1352,7 +1352,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li> <a href="#" class="drp-btn">Toys</a>
+                        <li><a href="{{ route('product-list') }}" class="drp-btn">Diapering</a>
 
                             <div class="mega-menu-container">
                                 <div class="mega-menu-grid">
@@ -1528,7 +1528,7 @@
                                 </div>
                             </div>
                         </li>
-                        <li> <a href="#" class="drp-btn">Bath</a>
+                        <li><a href="{{ route('product-list') }}" class="drp-btn">Bath</a>
 
                             <div class="mega-menu-container">
                                 <div class="mega-menu-grid">
@@ -1704,8 +1704,7 @@
                                 </div>
                             </div>
                         </li>
-
-                        <li> <a href="#" class="drp-btn">Feeding</a>
+                        <li><a href="{{ route('product-list') }}" class="drp-btn">Feeding</a>
 
                             <div class="mega-menu-container">
                                 <div class="mega-menu-grid">
@@ -1881,8 +1880,7 @@
                                 </div>
                             </div>
                         </li>
-
-                        <li> <a href="#" class="drp-btn">Health</a>
+                        <li><a href="{{ route('product-list') }}" class="drp-btn">Health</a>
                             <div class="mega-menu-container">
                                 <div class="mega-menu-grid">
                                     <div class="sub-nav-column">
