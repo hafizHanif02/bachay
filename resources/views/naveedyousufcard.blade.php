@@ -63,10 +63,6 @@
             justify-content: center;
             margin-top: 20px;
         }
-        .bg-img{
-            height: fit-content;
-            width: fit-content;
-        }
         .bg-img1 {
             animation: rotateImage 2s ease-in-out infinite;
             width: fit-content;
@@ -84,7 +80,7 @@
             animation: rotateImage 2s ease-in-out infinite;
             width: fit-content;
             position: absolute;
-            left: 15%;
+            left: 3%;
             top: 80%;
         }
         .bg-img4 {
