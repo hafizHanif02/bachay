@@ -5,14 +5,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
-        @media only screen and (min-width: 1281px){
-            .flip-card {
-            perspective: 1000px;
-            width: 60%;
-            height: 700px;
-            
-            }
-        }
         body {
             background-color: rgba(41, 45, 50, 0.05);
         }
@@ -25,8 +17,7 @@
         .flip-card {
             perspective: 1000px;
             width: 60%;
-            height: 550px;
-            /* background-color: rgba(41, 45, 50, 0.05); */
+            height: 70vh;
             }
 
         .flip-card-inner {
@@ -36,15 +27,12 @@
             transition: transform 0.6s;
             
         }
-
+        .image_card{
+            object-fit: contain;
+        }
         .flipped .flip-card-inner {
             transform: rotateY(-180deg);
-            box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 10%);
-
-           
         }
-
-
         .flip-card-front,
         .flip-card-back {
             width: 100%;
@@ -52,28 +40,10 @@
             position: absolute;
             backface-visibility: hidden;
         }
-
-        .flip-card-front {
-            background-color: #bbb;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
-            box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 10%);
-        }
-
         .flip-card-back {
-            background-color: #2980b9;
-            transform: rotateY(180deg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 24px;
-            color: white;
+            transform: rotateY(180deg);      
         }
-
-        .Flip_con {
+       .Flip_con {
             display: flex;
             justify-content: center;
             margin-top: 20px;
@@ -118,8 +88,7 @@
             position: absolute;
             top: 2%;
             right: 5%;
-        }
-        
+        }   
         @keyframes rotateImage {
             0% {
                 transform: rotate(30deg);
@@ -169,11 +138,11 @@
         <div class="flip-card" onclick="flipCard(this)">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
-                    <img src="{{ asset('public/images/Business-Card-Front.jpg') }}" alt="" width="100%"
+                    <img class="image_card" src="{{ asset('public/images/Business-card-Front1.png') }}" alt="" width="100%"
                         height="100%">
                 </div>
                 <div class="flip-card-back">
-                    <img src="{{ asset('public/images/Business-Card-Back.jpg') }}" alt="" width="100%"
+                    <img class="image_card" src="{{ asset('public/images/Business-card-Back2.png') }}" alt="" width="100%"
                         height="100%">
                 </div>
             </div>
