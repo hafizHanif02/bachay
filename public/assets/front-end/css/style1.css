@@ -483,7 +483,7 @@ line-height: 30px;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
     z-index: 9999;
 .dropdown-content:hover{
-    color: #0070ff;
+    color: #845DC2;
     }
 }
 .dropdown-content a {
@@ -2324,10 +2324,16 @@ input:checked + .se:before {
     font-weight: 500;
     font-family: "poppins";
 }
+.collection li a:hover{
+   color: #845DC2;
+}
 .collection li a .color {
     font-family: "poppins";
     color: red;
     font-weight: 700 !important;
+}
+.collection li a .color:hover{
+    color: #DE8E9D;
 }
 .nav-btn ul {
     list-style: none;
@@ -2422,6 +2428,9 @@ input:checked + .se:before {
     padding: 10px 20px 10px 0;
     margin: 0;
 }
+.collection-item:hover{
+    color: #845DC2;
+    }
 .paymentInformation-Con {
     padding: 0 35px;
 }
