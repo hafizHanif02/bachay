@@ -1323,7 +1323,10 @@ input[type="radio"]:checked {
 }
 .MyContact {
     background: rgba(41, 45, 50, 0.05);
-    padding: 10px;
+    padding: 17px;
+}
+.Child_details{
+    padding: 12px !important;
 }
 .MyAccount h6 {
     background: rgba(41, 45, 50, 0.05);
@@ -1402,7 +1405,7 @@ input[type="radio"]:checked {
     line-height: 20px;
     font-weight: 600;
 }
-.child-details-info h6:nth-child(3) {
+.child-details-info h6:nth-child(3) {ut
     color: var(--color-brand-color-3, #ff6d91);
     font-size: 13.794px;
     font-style: normal;
@@ -1429,11 +1432,11 @@ input[type="radio"]:checked {
     padding: 15px;
     padding-left: 30px;
     border: 1px solid #282d32;
-    background-color: #f3f3f3;
+    
 }
 .form-group input {
     width: 49%;
-    background-color: #f3f3f3;
+
 }
 .form-group button {
     padding: 15px;
@@ -1455,7 +1458,7 @@ input[type="radio"]:checked {
 .newPassword input,
 .confirmPassword input {
     width: 75%;
-    background-color: #f3f3f3;
+
     padding: 15px;
     border-radius: 50px;
     border: 1px solid #282d32;

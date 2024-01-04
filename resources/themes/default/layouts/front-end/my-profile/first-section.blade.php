@@ -28,9 +28,9 @@
                             alt="" width="100%" height="100%">
                     </div>
                     <div class="MyProfile-info font-poppins">
-                        <h4 class="fw-bold m-0">
+                        <h5 class="fw-bold m-0">
                             {{ $userData->f_name . ' ' . $userData->l_name }}
-                        </h4>
+                        </h5>
                         <h6 class="m-0">
                             <img src="{{ asset('public/images/mother-icon.svg') }}" alt=""> Mother Of 03
                         </h6>
@@ -105,7 +105,7 @@
                 </div>
             </div> --}}
             <div id="childDetails"
-                class="MyContact mt-5 font-poppins d-flex justify-content-between align-items-center rounded-pill">
+                class="MyContact Child_details mt-5 font-poppins d-flex justify-content-between align-items-center rounded-pill">
                 <h6 class="fw-bold m-0  ps-4">
                     Child Details
                 </h6>
