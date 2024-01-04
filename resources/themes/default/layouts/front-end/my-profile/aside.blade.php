@@ -1,4 +1,4 @@
-<div class="col-3 border-right font-poppins">
+<div class="border-right font-poppins profile_aside">
     <div class="MyProfile">
         <a href="{{ route('my-profile') }}">
 

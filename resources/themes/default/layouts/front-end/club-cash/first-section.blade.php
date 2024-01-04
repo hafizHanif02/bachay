@@ -87,7 +87,7 @@
     </div>
     <div class="row mt-4">
         @include('layouts.front-end.my-profile.aside')
-        <div class="col-9 ps-4">
+        <div class="profile_content ps-4">
             <div class="M-Head fs-4 mb-5 bg-opacity-10 border rounded-pill">
                 <p class="Head-2 ms-3 fw-bold m-2">Club Cash</p>
             </div>

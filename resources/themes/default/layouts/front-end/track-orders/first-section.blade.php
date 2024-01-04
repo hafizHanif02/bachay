@@ -12,7 +12,7 @@
 
     <div class="row mt-4">
         @include('layouts.front-end.my-profile.aside')
-        <div class="col-9 ps-4">
+        <div class="profile_content ps-4">
             <div class="MyAccount font-poppins">
                 <h6 class="fw-bold m-0 rounded-pill">
                     Track Order

@@ -284,9 +284,9 @@ input.form-control.search-input {
     max-height: 100vh;
     /* overflow-y: auto; */
 }
-.All_products{
+/* .All_products{
     width: 80%;
-}
+} */
 .deal-alert-circle {
     display: flex;
     justify-content: center;
@@ -461,6 +461,12 @@ line-height: 30px;
 .dropbtn {
     font-size: 16px;
     border: none;
+}
+.profile_aside{
+    width: 20%;
+}
+.profile_content, .All_products{
+    width: 80%;
 }
 .dropdown {
     position: relative;
