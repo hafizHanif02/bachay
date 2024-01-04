@@ -5,6 +5,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <style>
+        @media only screen and (min-width: 1281px){
+            .flip-card {
+            perspective: 1000px;
+            width: 60%;
+            height: 700px;
+            
+            }
+        }
         body {
             background-color: rgba(41, 45, 50, 0.05);
         }
