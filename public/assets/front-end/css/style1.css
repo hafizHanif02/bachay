@@ -870,15 +870,17 @@ h1.text-center.textClr {
     width: 100%;
     padding: 10px 0;
 }
-
 /* .premiumBouquets {
     padding: 50px 0 0px 0;
 } */
-
 .for-sizing {
     width: 155px;
     height: 155px;
+    transition: transform 0.5s ease;
 }
+.for-sizing:hover{
+    transform: scale(0.9); 
+  }
 .cateSlider .for-sizing {
     margin: 0 15px;
 }
@@ -900,20 +902,16 @@ h1.text-center.textClr {
     appearance: none;
     cursor: pointer;
 }
-
 .for-border1 {
     border: 4px solid #292d32;
     padding: 5px;
 }
-
 .products {
     padding: 0 50px;
 }
-
 .border-right {
     border-right: 2px solid lightgray;
 }
-
 .sorted-by {
     list-style: none;
     border: 1px solid #808080;
@@ -928,8 +926,7 @@ h1.text-center.textClr {
                       linear-gradient(to right,  #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17%);
     background-origin: border-box;
     background-clip: content-box, border-box;
-  }
-
+}
 .New_arrival div:nth-child(1) a h4 {
     background: var(--Primary-Gradient, linear-gradient(270deg, #845DC2 -0.09%, #D55FAD 36.37%, #FC966C 72.82%, #F99327 100.48%, #FFC55D 145.17%));
 background-clip: text;
