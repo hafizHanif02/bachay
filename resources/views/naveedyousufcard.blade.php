@@ -17,7 +17,7 @@
         .flip-card {
             perspective: 1000px;
             width: 60%;
-            height: 80vh;
+            height: 550px;
             /* background-color: rgba(41, 45, 50, 0.05); */
             }
 
@@ -31,7 +31,8 @@
 
         .flipped .flip-card-inner {
             transform: rotateY(-180deg);
-            box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
+            box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 10%);
+
            
         }
 
@@ -51,8 +52,7 @@
             justify-content: center;
             font-size: 24px;
             color: white;
-            box-shadow: 5px 5px 10px 0px rgba(0, 0, 0, 0.5);
-
+            box-shadow: 0px 5px 20px 0px rgba(0, 0, 0, 10%);
         }
 
         .flip-card-back {
