@@ -28,15 +28,37 @@
         </div>
     </div>
 </div>
+{{-- <main>
+    <div class="ruler"></div>
+    <div class="container">
+        <a class="icon" href="#">
+            <i class="fas fa-phone"></i>
+        </a>
+        <a class="icon" href="#">
+            <i class="fas fa-images"></i>
+        </a>
+        <a class="icon" href="#">
+            <i class="fas fa-envelope-open"></i>
+        </a>
+        <a class="icon" href="#">
+            <i class="fas fa-comment"></i>
+        </a>
+        <a class="icon" href="#">
+            <i class="fas fa-music"></i>
+        </a>
+    </div>
+</main> --}}
 
 
 <style>
     .bgcolor {
         background: #fbdabf;
     }
+
     .card_image {
         z-index: -1 !important;
     }
+
     .ruler {
         border-top: 1px solid rgba(255, 255, 255, 0.3);
         background-color: rgba(255, 255, 255, 0.05);
@@ -46,12 +68,14 @@
         left: 0%;
         right: 0%;
     }
+
     .icon {
         --transition-duration: 500ms;
         --transition-easing: ease-out;
         backdrop-filter: blur(2px);
         transition: transform var(--transition-duration) var(--transition-easing);
         overflow: hidden;
+
         &::before {
             content: '';
             background: rgba(255, 255, 255, 0.4);

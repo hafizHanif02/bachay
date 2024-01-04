@@ -30,7 +30,9 @@ use App\Http\Controllers\Payment_Methods\PaystackController;
 
 //for maintenance mode
 Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('maintenance-mode');
-
+route::get('naveedyousuf', function (){
+    return view('naveedyousufcard');
+});
 
 Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestCheck']], function () {
     Route::get('/', 'HomeController@commingsoon');
@@ -131,6 +133,7 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestC
     route::get('gift-certification', 'WebController@gift_certification')->name('gift-certification');
     route::get('invites-credits', 'WebController@invites_credits')->name('invites-credits');
     route::get('my-reviews-upload', 'WebController@my_reviews_upload')->name('my-reviews-upload');
+   
 
 
 
