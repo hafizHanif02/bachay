@@ -29,6 +29,7 @@
         }
         .image_card{
             object-fit: contain;
+           
         }
         .flipped .flip-card-inner {
             transform: rotateY(-180deg);
@@ -53,12 +54,14 @@
             width: fit-content;
             position: absolute;
             left: 4%;
+            z-index: -1;
         }
         .bg-img3 {
             animation: rotateImage 2s ease-in-out infinite;
             width: fit-content;
             position: absolute;
             left: 7%;
+            z-index: -1;
             top: 50%;
         }
         .bg-img6 {
@@ -67,6 +70,7 @@
             position: absolute;
             left: 3%;
             top: 80%;
+            z-index: -1;
         }
         .bg-img4 {
             animation: rotateImage 2s ease-in-out infinite;
@@ -74,6 +78,7 @@
             position: absolute;
             right: 12%;
             top: 30%;
+            z-index: -1;
         }
         .bg-img5 {
             animation: rotateImage 2s ease-in-out infinite;
@@ -81,6 +86,7 @@
             position: absolute;
             right: 8%;
             top: 70%;
+            z-index: -1;
         }
         .bg-img2 {
             animation: rotateImage 2s ease-in-out infinite;
@@ -88,6 +94,7 @@
             position: absolute;
             top: 2%;
             right: 5%;
+            z-index: -1;
         }   
         @keyframes rotateImage {
             0% {
