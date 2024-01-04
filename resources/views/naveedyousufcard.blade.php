@@ -63,8 +63,65 @@
             justify-content: center;
             margin-top: 20px;
         }
+        .bg-img{
+            height: fit-content;
+            width: fit-content;
+        }
+        .bg-img1 {
+            animation: rotateImage 2s ease-in-out infinite;
+            width: fit-content;
+            position: absolute;
+            left: 4%;
+        }
+        .bg-img3 {
+            animation: rotateImage 2s ease-in-out infinite;
+            width: fit-content;
+            position: absolute;
+            left: 7%;
+            top: 50%;
+        }
+        .bg-img6 {
+            animation: rotateImage 2s ease-in-out infinite;
+            width: fit-content;
+            position: absolute;
+            left: 15%;
+            top: 80%;
+        }
+        .bg-img4 {
+            animation: rotateImage 2s ease-in-out infinite;
+            width: fit-content;
+            position: absolute;
+            right: 12%;
+            top: 30%;
+        }
+        .bg-img5 {
+            animation: rotateImage 2s ease-in-out infinite;
+            width: fit-content;
+            position: absolute;
+            right: 8%;
+            top: 70%;
+        }
+        .bg-img2 {
+            animation: rotateImage 2s ease-in-out infinite;
+            width: fit-content;
+            position: absolute;
+            top: 2%;
+            right: 5%;
+        }
+        
+        @keyframes rotateImage {
+            0% {
+                transform: rotate(30deg);
+            }
 
+            50% {
+                transform: rotate(-30deg);
+            }
 
+            100% {
+                transform: rotate(30deg);
+            }
+        }
         @media only screen and (min-width: 768px) and (max-width: 1024px) {
             .flip-card {
                 perspective: 1000px;
@@ -83,13 +140,21 @@
         }
     </style>
 </head>
-
 <body>
     <div class="logo_con">
         <img src="{{ asset('public/images/logo.png') }}" alt="">
     </div>
 
     <div class="Flip_con">
+        <div class="bg-img1">
+            <img src="{{ asset('public/images/rotate_star.png') }}" alt="">
+        </div>
+        <div class="bg-img3">
+            <img src="{{ asset('public/images/rotate_star.png') }}" alt="">
+        </div>
+        <div class="bg-img6">
+            <img src="{{ asset('public/images/rotate_star.png') }}" alt="">
+        </div>
         <div class="flip-card" onclick="flipCard(this)">
             <div class="flip-card-inner">
                 <div class="flip-card-front">
@@ -102,6 +167,15 @@
                 </div>
             </div>
         </div>
+        <div class="bg-img2">
+            <img src="{{ asset('public/images/rotate_star.png') }}" alt="">
+        </div>
+        <div class="bg-img4">
+            <img src="{{ asset('public/images/rotate_star.png') }}" alt="">
+        </div>
+        <div class="bg-img5">
+            <img src="{{ asset('public/images/rotate_star.png') }}" alt="">
+        </div>
     </div>
 
     <script>
@@ -110,7 +184,7 @@
         }
         setTimeout(function() {
             flipCard(document.querySelector('.flip-card'));
-        }, 3000);
+        }, 1500);
     </script>
 
 </body>
