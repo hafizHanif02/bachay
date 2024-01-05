@@ -12,8 +12,11 @@
     font-family: mysmallcapsfont;
     src: url(/public/fonts/AristotelicaSmallCapsRegular.ttf);
 }
-@media (min-width: 1200px) {
+@media (min-width: 1281px) {
     /* Styles for screens larger than 1200 pixels */
+    .desktop-nav .navbar , #mega-menu .fBorder .sub-nav {
+        padding: 0 50px;
+    } 
     header{
         padding: 10px 0px;
     }
