@@ -144,12 +144,42 @@ class CustomerController extends Controller
     public function Mychild(){
         if(Auth::user()){
             $childerens = DB::table('family_relation')->where('user_id', Auth::user()->id)->get();
-            foreach($childerens as $child){
-                if($child->profile_picture != null){
-                $childImageUrl = url('public/assets/images/customers/child/' . $child->profile_picture);
-                $child->avatar = $childImageUrl;
+            // foreach($childerens as $child){
+            //     if($child->profile_picture != null){
+            //         $childImageUrl = url('public/assets/images/customers/child/' . $child->profile_picture);
+            //         $child->avatar = $childImageUrl;
+            //     }
+            // }
+
+           
+
+            foreach ($$childerens as $child) {
+                if ($child->profile_picture != null) {
+                    $childImageUrl = url('public/assets/images/customers/child/' . $child->profile_picture);
+                    $child->avatar = $childImageUrl;
+
+                    // Calculate age based on 'dob'
+                    $dob = new DateTime($child->dob);
+                    $now = new DateTime();
+                    $ageInterval = $dob->diff($now);
+
+                    // Format age as text
+                    $ageText = '';
+
+                    if ($ageInterval->y > 0) {
+                        $ageText .= $ageInterval->y . ' years ';
+                    }
+                    if ($ageInterval->m > 0) {
+                        $ageText .= $ageInterval->m . ' months ';
+                    }
+                    // if ($ageInterval->d > 0) {
+                    //     $ageText .= $ageInterval->d . ' days ';
+                    // }
+
+                    $child->format_age = trim($ageText). ' old';
                 }
             }
+
             $overdueCounts = [];
             foreach ($childerens as $child) {
                 $vaccination_submissions = VaccinationSubmission::
