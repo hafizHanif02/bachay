@@ -153,7 +153,7 @@ class CustomerController extends Controller
 
            
 
-            foreach ($$childerens as $child) {
+            foreach ($childerens as $child) {
                 if ($child->profile_picture != null) {
                     $childImageUrl = url('public/assets/images/customers/child/' . $child->profile_picture);
                     $child->avatar = $childImageUrl;
