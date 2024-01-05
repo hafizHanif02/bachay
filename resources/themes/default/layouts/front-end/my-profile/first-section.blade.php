@@ -42,7 +42,7 @@
                 <div class="profile-edit">
                     <button class="font-poppins border-0 bg-transparent" data-bs-toggle="modal"
                         data-bs-target="#profileModalId"> <img src="{{ asset('public/images/edit-icon.svg') }}"
-                            alt=""> Edit</button>
+                            alt="" width="20px" height="22px"> Edit</button>
                 </div>
                 @include('layouts.front-end.my-profile.profile-edit-modal')
                 {{-- <div class="profile-edit">

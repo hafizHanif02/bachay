@@ -11,7 +11,8 @@
     </div>
     <div class="col-12 mt-3">
         <ul class="MyProfile-ul p-0 ps-4">
-            <li><a href="#personalDetails">Personal Details</a></li>
+            <li><a class="{{ request()->routeIs('my-profile') ? 'active' : '' }}"
+                href="{{ route('my-profile') }}">Personal Details</a></li>
             <li><a href="#contactDetails">Contact Details</a></li>
             <li><a href="#childDetails">Child Details</a></li>
             <li><a href="#myAddress">My Address Book</a></li>
@@ -53,7 +54,9 @@
     </div>
     <div class="col-12 mt-3">
         <ul class="MyProfile-ul p-0 ps-4">
-            <li><a href="{{ route('club-cash') }}">Club Cash</a></li>
+            {{-- <li><a href="{{ route('club-cash') }}">Club Cash</a></li> --}}
+            <li><a class="{{ request()->routeIs('club-cash') ? 'active' : '' }}"
+                href="{{ route('club-cash') }}">Club Cash</a></li>
             <li><a class="{{ request()->routeIs('cash-refund') ? 'active' : '' }}"
                     href="{{ route('cash-refund') }}">Cash Refund</a></li>
             <li><a class="{{ request()->routeIs(['my-payment-detail-not-added', 'my-payment-detail-added', 'save-cards']) ? 'active' : '' }}"
