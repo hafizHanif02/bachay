@@ -143,7 +143,7 @@ class CustomerController extends Controller
 
     public function Mychild(){
         if(Auth::user()){
-            // $childerens = DB::table('family_relation')->where('user_id', Auth::user()->id)->get();
+            $childerens = DB::table('family_relation')->where('user_id', Auth::user()->id)->get();
             // foreach($childerens as $child){
             //     if($child->profile_picture != null){
             //         $childImageUrl = url('public/assets/images/customers/child/' . $child->profile_picture);
@@ -151,9 +151,9 @@ class CustomerController extends Controller
             //     }
             // }
 
-            $children = DB::table('family_relation')->where('user_id', Auth::user()->id)->get();
+           
 
-            foreach ($children as $child) {
+            foreach ($$childerens as $child) {
                 if ($child->profile_picture != null) {
                     $childImageUrl = url('public/assets/images/customers/child/' . $child->profile_picture);
                     $child->avatar = $childImageUrl;
