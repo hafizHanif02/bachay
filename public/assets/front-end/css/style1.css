@@ -12,7 +12,7 @@
     font-family: mysmallcapsfont;
     src: url(/public/fonts/AristotelicaSmallCapsRegular.ttf);
 }
-@media (min-width: 1281px) {
+@media (min-width: 1366px) {
     /* Styles for screens larger than 1200 pixels */
     .desktop-nav .navbar , #mega-menu .fBorder .sub-nav {
         padding: 0 50px;
@@ -1439,7 +1439,6 @@ input[type="radio"]:checked {
 }
 .form-group input {
     width: 49%;
-
 }
 .form-group button {
     padding: 15px;
