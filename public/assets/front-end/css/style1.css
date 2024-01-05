@@ -1408,7 +1408,7 @@ input[type="radio"]:checked {
     line-height: 20px;
     font-weight: 600;
 }
-.child-details-info h6:nth-child(3) {ut
+.child-details-info h6:nth-child(3) {
     color: var(--color-brand-color-3, #ff6d91);
     font-size: 13.794px;
     font-style: normal;
