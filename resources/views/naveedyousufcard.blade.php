@@ -149,7 +149,7 @@
                         height="100%">
                 </div>
                 <div class="flip-card-back">
-                    <img class="image_card" src="{{ asset('public/images/Business-card-Back2.png') }}" alt="" width="100%"
+                    <img class="image_card" src="{{ asset('public/images/Business-Card-BackCEO.png') }}" alt="" width="100%"
                         height="100%">
                 </div>
             </div>
