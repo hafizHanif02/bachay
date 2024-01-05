@@ -54,7 +54,7 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestC
     Route::get('checkout-details', 'WebController@checkout_details')->name('checkout-details');
     Route::post('update_shipping_address', 'WebController@update_shipping_address')->name('update_shipping_address');
     Route::post('update_billing_address', 'WebController@update_billing_address')->name('update_billing_address');
-    Route::get('checkout-shipping', 'WebController@checkout_shipping')->name('checkout-shipping');
+    // Route::get('checkout-shipping', 'WebController@checkout_shipping')->name('checkout-shipping');
     Route::post('checkout-payment', 'WebController@checkout_payment')->name('checkout-payment');
     Route::post('cart/checkout-payment', 'WebController@checkout_payment')->name('cart.checkout-payment');
     Route::get('checkout-review', 'WebController@checkout_review')->name('checkout-review');
@@ -75,7 +75,7 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestC
     Route::get('search-shop', 'WebController@search_shop')->name('search-shop');
 
     Route::get('categories', 'WebController@all_categories')->name('categories');
-    Route::get('categories/{category}', 'WebController@category_product')->name('categories');
+    // Route::get('categories/{category}', 'WebController@category_product')->name('categories');
 
     // Route::get('/categories/{category}', [WebController::class, 'showCategoryProducts'])->name('category.products');
     Route::get('sub-category', 'WebController@sub_categories')->name('sub-categories');
