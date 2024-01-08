@@ -203,19 +203,32 @@ class CustomerController extends Controller
                 $uppcomingVaccine = [];
                 foreach ($vaccination_submissions as $vaccination_submission) {
                     $vaccinationDate = Carbon::parse($vaccination_submission->vaccination_date);
-                    $difference = ($vaccinationDate->diffInMonths(now(), false));
-                    if ($difference < 0) {
-                        $overdue += 1;
-                    } elseif ($difference > 0) {
+                    $currentDate = Carbon::now();
+                    $difference = $vaccinationDate->diffInDays($currentDate);
+
+                    if($difference > 0){
                         $uppcoming += 1;
                         //$uppcomingVaccine = $vaccination_submission->vaccination;
-                        array_push($uppcomingVaccine, $vaccinationDate);
-                    } elseif ($difference == 0 && $vaccinationDate->isSameDay(now())) {
+                        array_push($uppcomingVaccine, $vaccination_submission->vaccination);
+                    }elseif($difference < 0){
+                        $overdue += 1;
+                    } else{
                         $today += 1;
                     }
+
+                    // if ($difference < 0) {
+                    //     $overdue += 1;
+                    // } elseif ($difference > 0) {
+                    //     $uppcoming += 1;
+                    //     //$uppcomingVaccine = $vaccination_submission->vaccination;
+                    //     array_push($uppcomingVaccine, $vaccination_submission->vaccination);
+                    // } elseif ($difference == 0 && $vaccinationDate->isSameDay(now())) {
+                    //     $today += 1;
+                    // }
                 }
                 $child->vaccination_status = ['upcomming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
                 $child->uppcomingVaccine = $uppcomingVaccine;
+                
             }
             return response()->json($childerens, 200);
         }else{
