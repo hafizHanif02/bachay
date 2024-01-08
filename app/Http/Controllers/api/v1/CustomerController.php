@@ -209,7 +209,7 @@ class CustomerController extends Controller
                     if($vaccinationDate < $currentDate){
                         $uppcoming += 1;
                         //$uppcomingVaccine = $vaccination_submission->vaccination;
-                        array_push($uppcomingVaccine, $vaccination_submission->vaccination);
+                        array_push($uppcomingVaccine, $vaccination_submission);
                     }elseif($vaccinationDate > $currentDate){
                         $overdue += 1;
                     } else{
