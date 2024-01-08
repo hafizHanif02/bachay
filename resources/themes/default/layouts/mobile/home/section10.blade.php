@@ -4,8 +4,31 @@
     <div class="row mt-3 col-12 d-flex align-items-center">
         <div class="slider-container mobile-cards">
             <div class="slider">
+                @foreach ($categories->sortBy('created_at') as $category)
+                    <div class="col-lg-4 col-md-6 col-sm-12 mb-4 pt-3">
+                        <div class="card rounded-5 cardMobile">
+                            <a href="#">
+                                <div class="deal-alert-circle">-{{ $category->discount }}%</div>
+                                <div class="icon_main">
 
-                <div class="col-lg-4 col-md-6 col-sm-12 mb-4 pt-3">
+                                    <img class="card-img rounded-5 object-fit-cover imgCardMobile"
+                                        src="{{ asset('storage/app/public/category/' . $category->icon) }}"
+                                        alt="Flash Sale 1" />
+                                </div>
+                                <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
+
+                                    @if (strlen($category->name) <= 20)
+                                        <p class="card-text">{{ $category->name }}</p>
+                                    @else
+                                        <p class="card-text"> {{ substr($category->name, 0, 20) }}...</p>
+                                    @endif
+
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                @endforeach
+                {{-- <div class="col-lg-4 col-md-6 col-sm-12 mb-4 pt-3">
                     <div class="card rounded-5 cardMobile">
                         <a href="#">
                             <div class="deal-alert-circle">-75%</div>
@@ -16,9 +39,9 @@
                             </div>
                         </a>
                     </div>
-                </div>
+                </div> --}}
 
-                <div class="col-lg-4 col-md-6 col-sm-12 mb-4 pt-3">
+                {{-- <div class="col-lg-4 col-md-6 col-sm-12 mb-4 pt-3">
                     <div class="card rounded-5 cardMobile">
                         <a href="#">
                             <div class="deal-alert-circle">-15%</div>
@@ -43,10 +66,6 @@
                         </a>
                     </div>
                 </div>
-
-
-                {{-- <div class="for-spacing p-3"></div> --}}
-
 
                 <div class="col-lg-4 col-md-6 col-sm-12 mb-4 pt-3">
                     <div class="card rounded-5 cardMobile">
@@ -85,7 +104,7 @@
                             </div>
                         </a>
                     </div>
-                </div>
+                </div> --}}
 
 
             </div>

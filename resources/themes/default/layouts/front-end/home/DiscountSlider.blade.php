@@ -28,27 +28,6 @@
         </div>
     </div>
 </div>
-{{-- <main>
-    <div class="ruler"></div>
-    <div class="container">
-        <a class="icon" href="#">
-            <i class="fas fa-phone"></i>
-        </a>
-        <a class="icon" href="#">
-            <i class="fas fa-images"></i>
-        </a>
-        <a class="icon" href="#">
-            <i class="fas fa-envelope-open"></i>
-        </a>
-        <a class="icon" href="#">
-            <i class="fas fa-comment"></i>
-        </a>
-        <a class="icon" href="#">
-            <i class="fas fa-music"></i>
-        </a>
-    </div>
-</main> --}}
-
 
 <style>
     .bgcolor {

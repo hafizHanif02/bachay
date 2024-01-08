@@ -69,15 +69,18 @@
         height: 80px;
     }
     .deal-alert-circle {
+        display: flex;
+        justify-content: center;
+        align-items: center;
         position: absolute;
         top: -15px;
         right: -5%;
         color: #fff;
         font-size: 14px;
         font-weight: bold;
-        padding: 15px 10px;
         border-radius: 50%;
-        border-radius: 1286.611px;
+        width: 70px;
+        height: 70px;
         border: 5.146px solid #fff;
         background: #b00;
     }
@@ -247,7 +250,6 @@
     }
     .bg-purple {
         background: #845dc2 !important;
-
     }
     .card-1 {
         border-radius: 14.497px;
@@ -755,37 +757,36 @@
             }
         }
     }
-    .circleCard a{
+    .circleCard a {
         color: #000;
     }
-    .circleCard.active{
+    .circleCard.active {
         background-color: #000 !important;
     }
-    .circleCard.active a{
+    .circleCard.active a {
         color: #fff !important;
-
     }
     .card-container {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px; 
-        padding: 0 10px 60px 10px; 
-    } 
-        
+        gap: 20px;
+        padding: 0 10px 60px 10px;
+    }
+
     .product-container {
         display: flex;
         justify-content: center;
         align-items: center;
         position: relative;
     }
-    
+
     .main-image {
         width: 100%;
-        
+
         position: relative;
     }
-    #main-image{
-        height: 370px ;
+    #main-image {
+        height: 370px;
     }
     .small-images {
         position: absolute;
@@ -808,19 +809,18 @@
     .font-poppins {
         font-family: "poppins";
     }
-    .mainDes{
+    .mainDes {
         padding: 0 30px;
     }
     .text-purple {
         color: #845dc2 !important;
     }
 
-
-    .img-1{
+    .img-1 {
         width: 95px;
         height: 95px;
     }
-     input[type="radio"] {
+    input[type="radio"] {
         width: 1.2em;
         height: 1.2em;
         background-color: rgb(243, 241, 241);
@@ -829,82 +829,77 @@
         box-shadow: 0 0 0 2px #fff;
         cursor: pointer;
         appearance: none;
-        
-      }
-      input[type="radio"]:checked{
-        background-color: #8456B6;
-      }  
-      .imge{
+    }
+    input[type="radio"]:checked {
+        background-color: #8456b6;
+    }
+    .imge {
         top: 7px;
         left: 13px;
-      }
-      .txt-1{
+    }
+    .txt-1 {
         font-size: 10px;
-      }
-      .txt-2{
-        font-size:8px ;
-      }
-      
-      .txt-3{
-        font-size: 8px;
-      }
-      
-      .txt-4{
+    }
+    .txt-2 {
         font-size: 8px;
     }
-    .txt-5{
+
+    .txt-3 {
+        font-size: 8px;
+    }
+
+    .txt-4 {
+        font-size: 8px;
+    }
+    .txt-5 {
         font-size: 12px;
-        color: #845DC2;
+        color: #845dc2;
     }
-    .txt-6{
+    .txt-6 {
         font-size: 10px;
     }
-    .line{
+    .line {
         width: 90%;
         height: 1px;
-        background-color:#cccccc;  
+        background-color: #cccccc;
     }
-    .round{
-       background:  var(--colors-system-delete-bg, #FDE8E8);
-       width: 26%;
-       border: 0.5px solid var(--colors-system-delete-stroke, #F9B9B9);
-       padding:10px;  
+    .round {
+        background: var(--colors-system-delete-bg, #fde8e8);
+        width: 26%;
+        border: 0.5px solid var(--colors-system-delete-stroke, #f9b9b9);
+        padding: 10px;
     }
-      .round-2{
+    .round-2 {
         width: 26%;
         border: 0.5px solid var(--colors-system-delete-stroke, #cccccc);
-        padding:10px;
-      }
-      .card-2{
+        padding: 10px;
+    }
+    .card-2 {
         font-size: 10px;
-      }
-      .card-2 img {
+    }
+    .card-2 img {
         width: 18px;
         height: 18px;
-      }
-      .line-2{
+    }
+    .line-2 {
         width: 100%;
         height: 5px;
-        background: var(--colors-system-surface-primary, #EDF2F4);
-      }
-      .imge-1{
+        background: var(--colors-system-surface-primary, #edf2f4);
+    }
+    .imge-1 {
         top: 225px;
         left: 13px;
-      }
-      .imge-2{
+    }
+    .imge-2 {
         top: 440px;
         left: 13px;
-      }
-      .imge-3{
+    }
+    .imge-3 {
         top: 655px;
         left: 13px;
-      }
-      .imge-4{
+    }
+    .imge-4 {
         top: 873px;
         left: 13px;
-      }  
-
-
-
-
+    }
 }
