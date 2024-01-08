@@ -61,8 +61,19 @@ class HomeController extends Controller
         };
     }
 
-    public function default_theme()
+    public function default_theme(Request $request)
     {
+        // Get the user agent from the request headers
+        $userAgent = $request->header('User-Agent');
+
+        // Check if the user agent indicates a mobile device
+        if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
+            // User is using a mobile device, load the mobile view
+            return "This is Mobile";
+        } else {
+            // User is using a desktop device, load the desktop view
+            return "This is web";
+        }
 
         $theme_name = theme_root_path();
         $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
