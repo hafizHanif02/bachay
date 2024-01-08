@@ -167,16 +167,16 @@ class CustomerController extends Controller
                     $ageText = '';
 
                     if ($ageInterval->y > 0) {
-                        $ageText .= $ageInterval->y . ' years ';
+                        $ageText .= $ageInterval->y . ' Year ';
                     }
                     if ($ageInterval->m > 0) {
-                        $ageText .= $ageInterval->m . ' months ';
+                        $ageText .= $ageInterval->m . ' Mon ';
                     }
                     // if ($ageInterval->d > 0) {
                     //     $ageText .= $ageInterval->d . ' days ';
                     // }
 
-                    $child->format_age = trim($ageText). ' old';
+                    $child->format_age = trim($ageText). 'Old';
                 }
             }
 
@@ -200,6 +200,7 @@ class CustomerController extends Controller
                 $overdue = 0;
                 $uppcoming = 0;
                 $today = 0;
+                $uppcomingVaccine = [];
                 foreach ($vaccination_submissions as $vaccination_submission) {
                     $vaccinationDate = Carbon::parse($vaccination_submission->vaccination_date);
                     $difference = -($vaccinationDate->diffInMonths(now(), false));
@@ -207,11 +208,13 @@ class CustomerController extends Controller
                         $overdue += 1;
                     } elseif ($difference > 0) {
                         $uppcoming += 1;
+                        //$uppcomingVaccine = $vaccination_submission->vaccination;
+                        array_push($uppcomingVaccine, $vaccinationDate);
                     } elseif ($difference == 0 && $vaccinationDate->isSameDay(now())) {
                         $today += 1;
                     }
                 }
-                $child->vaccination_status = ['uppcoming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
+                $child->vaccination_status = ['upcomming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
             }
             return response()->json($childerens, 200);
         }else{
