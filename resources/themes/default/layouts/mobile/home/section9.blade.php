@@ -39,7 +39,7 @@
                                 </button>
                             </div>
                             <div class="text-center">
-                                <img class="mt-3 mb-3 Contests-img" src="{{ asset('public/images/Group 96.png') }}"
+                                <img class="mt-3 mb-3 Contests-img" src="{{ asset('public/images/G122roup96.png') }}"
                                     alt="" srcset="">
                             </div>
                             <div class="text-center  p-0">
@@ -63,7 +63,7 @@
                                 </button>
                             </div>
                             <div class="text-center ">
-                                <img class="mt-3 mb-3 Baby-Names-img" src="{{ asset('public/images/vector (1).png') }}"
+                                <img class="mt-3 mb-3 Baby-Names-img" src="{{ asset('public/images/Vector-bachay.png') }}"
                                     alt="" srcset="">
                             </div>
                             <div class="text-center  p-0">

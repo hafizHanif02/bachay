@@ -815,7 +815,10 @@
     .text-purple {
         color: #845dc2 !important;
     }
-
+    /* .main_container_category{
+        width: 100px;
+    } */
+/* 
     .img-1 {
         width: 95px;
         height: 95px;
@@ -901,5 +904,5 @@
     .imge-4 {
         top: 873px;
         left: 13px;
-    }
+    } */
 }
