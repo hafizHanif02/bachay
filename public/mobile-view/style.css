@@ -1,0 +1,910 @@
+@media screen and (max-width: 767px) {
+    @font-face {
+        font-family: myfont;
+        src: url(/web/font-family/AristotelicaDisplayDemiBoldTrial.ttf);
+    }
+
+    @font-face {
+        font-family: mylightfont;
+        src: url(/web/font-family/AristotelicaDisplayExtraLightTrial.ttf);
+    }
+
+    @font-face {
+        font-family: mysmallcapsfont;
+        src: url(/web/font-family/AristotelicaSmallCaps-Regular.ttf);
+    }
+    header,
+    footer {
+        padding: 10px 50px;
+    }
+    body {
+        background-color: #f3f3f3;
+    }
+    input.form-control.search-input {
+        padding-left: 50px;
+        font-size: 12px;
+        font-family: "poppins";
+    }
+    .imgBanner {
+        width: 100%;
+        object-fit: cover;
+    }
+    .flash-sales {
+        background-color: #fbdabf;
+        padding: 50px 0 30px 0;
+    }
+    .textClr {
+        background: linear-gradient(
+            90.27deg,
+            #845dc2 -27.96%,
+            #f99327 -27.94%,
+            #d55fad 28.41%,
+            #845dc2 82.13%,
+            #845dc2 130.57%
+        );
+        font-family: myfont;
+        font-size: 60px;
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: normal;
+    }
+    .card-img-overlay {
+        padding: 0;
+        border-radius: 50px;
+    }
+    .card-img-overlay .card-text {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #fff;
+        background: rgba(249, 147, 39, 0.6);
+        backdrop-filter: blur(12.866106033325195px);
+        font-family: "Poppins";
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 100%;
+        border-radius: 0 0 30px 30px;
+        height: 80px;
+    }
+    .deal-alert-circle {
+        position: absolute;
+        top: -15px;
+        right: -5%;
+        color: #fff;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 15px 10px;
+        border-radius: 50%;
+        border-radius: 1286.611px;
+        border: 5.146px solid #fff;
+        background: #b00;
+    }
+    .slider {
+        width: 100%;
+    }
+    .slider-container {
+        padding: 0 50px;
+    }
+    .Gifts,
+    .Kids-Accessories,
+    .Fashion,
+    .Education {
+        border-radius: 32.095px;
+        border: 3.209px solid var(--Nutral-3, #292d32);
+    }
+    .gradient-text {
+        background: var(
+            --Primary-Gradient,
+            linear-gradient(
+                270deg,
+                #845dc2 -0.09%,
+                #d55fad 36.37%,
+                #fc966c 72.82%,
+                #f99327 100.48%,
+                #ffc55d 145.17%
+            )
+        );
+        background-clip: text;
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+    .search-bar {
+        position: relative;
+        display: flex;
+        align-items: center;
+        border-radius: 30px;
+    }
+    .search-input {
+        flex: 1;
+        border-radius: 30px;
+    }
+    .search-icon {
+        position: absolute;
+        right: 10px;
+        width: 26px;
+        height: 26px;
+        background-color: black;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        cursor: pointer;
+    }
+    .location-icon {
+        position: absolute;
+        border-right: 1px solid lightgrey;
+        padding: 0 10px;
+    }
+    h1.text-center.textClr {
+        width: 70%;
+        margin: 0 auto;
+    }
+    .sub-card {
+        background-color: #fff;
+    }
+    .card1 {
+        position: relative;
+    }
+    .image-container {
+        position: relative;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    .wish-list {
+        position: absolute;
+        top: 0;
+        right: 0;
+        color: red;
+        z-index: 1;
+    }
+    .sec-best-seller p {
+        font-size: 12px !important;
+        font-weight: 600 !important;
+        padding: 5px 10px 5px 0px !important;
+    }
+    .sec-best-seller {
+        position: absolute;
+        top: 5px;
+        color: #fff;
+        padding: 0 10px;
+        width: max-content;
+        background-color: #fcd903;
+        display: flex;
+        align-items: center;
+        padding: 0 20px 0 10px;
+        clip-path: polygon(0% 0%, 75% 0%, 89% 53%, 100% 99%, 0% 100%);
+    }
+    .sec-best-seller p {
+        margin: 0;
+    }
+    .card-text {
+        text-align: left;
+    }
+    .discount {
+        text-decoration: line-through;
+        color: rgba(0, 0, 0, 0.5);
+
+        font-family: "Poppins";
+        font-size: 13.992px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 100%;
+    }
+    .subdiv p {
+        background-color: orange;
+        color: #fff;
+        padding: 5px 20px;
+    }
+    .subdiv a {
+        text-decoration: none;
+        color: #ffffff;
+        background-color: #292d32;
+        height: fit-content;
+        padding: 5px 26px 5px 10px;
+        clip-path: polygon(100% 0, 88% 52%, 75% 100%, 0% 100%, 0 49%, 0% 0%);
+        /* font-size: 12px; */
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+    }
+    .image-container p {
+        color: #292d32;
+        font-family: "Poppins";
+        font-size: 12px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 125%;
+    }
+    .price {
+        color: var(--Nutral-3, #292d32);
+        font-family: "Poppins";
+        font-size: 23.704px;
+        font-style: normal;
+        font-weight: 600;
+        line-height: 100%;
+    }
+    .units {
+        font-size: 10px !important;
+        padding: 5px 20px !important;
+    }
+
+    .subdiv p,
+    .card-text span {
+        font-size: 14px !important;
+    }
+    .new-arival-container {
+        object-fit: cover;
+        width: 100%;
+        height: 150px;
+    }
+    .outer1 {
+        position: relative;
+        height: 328.84px;
+        border-radius: 14.497px;
+        border: 3px solid #845dc2;
+    }
+    .bg-purple {
+        background: #845dc2 !important;
+
+    }
+    .card-1 {
+        border-radius: 14.497px;
+        position: absolute;
+        top: -6%;
+        left: -3%;
+        width: 100%;
+    }
+    .card-body {
+        height: 330px;
+    }
+    .articles {
+        color: #845dc2;
+        font-size: 20.296px;
+        font-family: "Poppins";
+    }
+    .articles-img,
+    .Contests-img,
+    .Baby-Names-img,
+    .Vaccinations-img {
+        height: 140px;
+        object-fit: cover;
+    }
+    .outer2 {
+        position: relative;
+        border: 3px solid #f99327;
+        height: 328.84px;
+        border-radius: 14.497px;
+    }
+    .bg-orange {
+        background: #f99327;
+    }
+    .card-2 {
+        border-radius: 14.497px;
+        position: absolute;
+        top: -6%;
+        left: -3%;
+        width: 100%;
+    }
+    .Contests {
+        color: #f99327;
+        font-size: 20.296px;
+        font-family: "Poppins";
+    }
+    .outer3 {
+        position: relative;
+        border: 3px solid #d55fad;
+        height: 328.84px;
+        border-radius: 14.497px;
+    }
+    .bg-pink {
+        background: #d55fad;
+    }
+    .card-3 {
+        border-radius: 14.497px;
+        position: absolute;
+        top: -6%;
+        left: -3%;
+        width: 100%;
+    }
+
+    .outer4 {
+        position: relative;
+        border: 3px solid #71e582;
+        height: 328.84px;
+        border-radius: 14.497px;
+    }
+    .bg-green {
+        background: #71e582;
+    }
+    .card-4 {
+        border-radius: 14.497px;
+        position: absolute;
+        top: -6%;
+        left: -3%;
+        width: 100%;
+    }
+    .Meal-Planner {
+        color: #71e582;
+        font-size: 20.296px;
+        font-family: "Poppins";
+    }
+    .Meal-Planner-img {
+        height: auto;
+        object-fit: cover;
+    }
+    .BabyNames {
+        color: #d55fad;
+        font-size: 20.296px;
+        font-family: "Poppins";
+    }
+    .outer5 {
+        position: relative;
+        border: 3px solid #e9b654;
+        height: 328.84px;
+        border-radius: 14.497px;
+    }
+    .bg-yellow {
+        background: #e9b654;
+    }
+    .card-5 {
+        border-radius: 14.497px;
+        position: absolute;
+        top: -6%;
+        left: -3%;
+        width: 100%;
+    }
+    .Vaccinations {
+        color: #e9b654;
+        font-size: 20.296px;
+        font-family: "Poppins";
+    }
+    .mobileSection4 {
+        display: none;
+    }
+    .mobileContainer {
+        display: none;
+    }
+
+    .flashMobile {
+        display: none;
+    }
+    .for-sizing {
+        width: 155px;
+        height: 155px;
+    }
+    .sub-card {
+        transition: box-shadow 0.3s;
+    }
+    .sub-card:hover {
+        box-shadow: 0 0 10px 5px #dbdcd4;
+    }
+
+    .fs-12 {
+        font-size: 12px;
+    }
+
+    details summary::marker {
+        content: "";
+        display: none;
+    }
+    .outer1 {
+        width: 100%;
+    }
+
+    body {
+        margin: 0;
+        padding: 0;
+        padding-top: 60px;
+        padding-bottom: 40px;
+    }
+    main {
+        padding-top: 100px;
+    }
+    header {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background: #f3f3f3;
+        padding: 0 10px;
+        z-index: 3;
+    }
+    footer {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        text-align: center;
+        padding: 0 10px;
+        background: #f3f3f3;
+    }
+    .slider-container1 {
+        display: block;
+        overflow: hidden;
+        width: 100%;
+        position: relative;
+    }
+
+    .slider1 {
+        display: flex;
+        transition: transform 0.5s ease-in-out;
+    }
+
+    .slide {
+        display: flex;
+    }
+
+    .slider-container {
+        padding: 0 25px;
+    }
+    .mobileSection-main {
+        padding: 0 10px !important;
+    }
+    .mobileSection4 {
+        display: block;
+        padding: 0 0 0 10px;
+    }
+    .mobileContainer {
+        display: block;
+        padding: 0 0 0 15px;
+    }
+    .cards-con {
+        display: block;
+        padding: 0 0 0 15px;
+    }
+    .flashMobile {
+        display: block;
+        padding: 25px 0 0px 0;
+    }
+
+    .slick-dots {
+        bottom: 0px;
+    }
+    .cardMobile {
+        width: 95%;
+        height: 278px;
+    }
+    .imgCardMobile {
+        width: 100%;
+        height: 276px;
+        object-fit: cover;
+    }
+    .img-gender {
+        width: 40px;
+        height: 40px;
+        border: 1px solid #000;
+        border-radius: 50%;
+    }
+    .font-size {
+        font-size: 9px;
+        margin: 0;
+        font-family: "Poppins";
+        font-weight: 700;
+        line-height: 14px;
+        color: #292d32;
+    }
+    .location-icon,
+    .btnCon {
+        padding: 0 10px;
+    }
+    .m-icons img {
+        padding-right: 10px;
+    }
+    .mobile-footer ul li {
+        list-style: none;
+        text-align: center;
+        font-size: 20px;
+    }
+    .mobile-footer ul li:hover {
+        color: #8b5bc0;
+    }
+    .fs-10 {
+        font-family: "Poppins";
+        font-size: 10px;
+        font-weight: 600;
+        line-height: 15px;
+    }
+    .slider-con {
+        padding: 0 0 0 10px;
+    }
+    .mobile-cards {
+        padding: 0 0 0 25px;
+    }
+    .new-arival-container {
+        height: 70px;
+        border-radius: 15px;
+    }
+    .slick-slide {
+        margin-right: 10px; /* Adjust the value as per your preference */
+    }
+    .fs-12 {
+        font-size: 12px;
+        margin-top: 5px;
+    }
+    .New-Season {
+        border: 2px solid var(--Primary-Gradient, #845dc2);
+    }
+    .Gifts,
+    .Kids-Accessories,
+    .Fashion,
+    .Education,
+    .New-Season1 {
+        border-radius: 32.095px;
+        border: 2px solid var(--Nutral-3, #292d32);
+    }
+    .space-between {
+        margin-top: 30px !important;
+    }
+    .for-sizing {
+        width: 70px;
+        height: 70px;
+    }
+    .textClr {
+        font-size: 22px;
+        font-family: myfont;
+    }
+    .slick-slide img {
+        display: inline;
+    }
+    .sub-card {
+        width: 197px;
+        background-color: #ecf2f4;
+    }
+    .subdiv a {
+        font-size: 7px;
+        padding: 5px 25px 5px 10px;
+    }
+    .subdiv p {
+        font-size: 10px !important;
+        padding: 5px 10px;
+    }
+    .heading-con {
+        padding: 0 20px;
+    }
+    .see-all a {
+        font-family: "Poppins";
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 600;
+    }
+    .outer1,
+    .outer2,
+    .outer3,
+    .outer4,
+    .outer5 {
+        width: 95%;
+        height: 220.83999999999997px;
+    }
+    .mobileCardParenting {
+        height: 220px;
+    }
+    .slider-parenting .slick-list {
+        padding-top: 20px !important;
+    }
+    .Meal-Planner,
+    .BabyNames,
+    .Contests,
+    .articles,
+    .Vaccinations {
+        font-size: 14px;
+    }
+    .Meal-Planner-img,
+    .articles-img,
+    .Contests-img,
+    .Baby-Names-img,
+    .Vaccinations-img {
+        width: 80%;
+        height: 110px;
+        object-fit: contain;
+    }
+    .imgBanner {
+        box-shadow: 0px 3px 10px 0px rgba(0, 0, 0, 0.2);
+    }
+    .price {
+        font-size: 20px;
+    }
+    .fs-9 {
+        font-size: 9px;
+    }
+    .container > .overly {
+        width: 300px;
+        height: 80px;
+        font-size: 25px;
+        cursor: pointer;
+    }
+    .modalbox {
+        min-width: 100%;
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background: rgba(81, 51, 51, 0.5);
+        z-index: 99999;
+        pointer-events: auto;
+        display: none;
+        overflow-y: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+    .modalbox > .dialog {
+        max-width: 100%;
+        position: relative;
+        top: 10px;
+        margin: 5% 10%;
+        padding: 10px;
+        -moz-border-radius: 10px;
+        -webkit-border-radius: 10px;
+        border-radius: 20px;
+        background: lightgray;
+        box-shadow: 0 0 10px #000000;
+        -moz-box-shadow: 0 0 10px #000000;
+        -webkit-box-shadow: 0 0 10px #000000;
+        display: block;
+        pointer-events: auto;
+    }
+    .popup h6 {
+        font-family: myfont;
+    }
+    #close {
+        float: right;
+
+        cursor: pointer;
+    }
+    .search-filter {
+        padding: 0 30px;
+        background-color: #f3f3f3;
+    }
+    .promotion {
+        padding: 0 30px;
+    }
+    .search-filter p {
+        font-size: 10px;
+        font-family: "poppins";
+        font-weight: 400;
+        line-height: 10px;
+        text-align: left;
+    }
+    .font-s {
+        font-size: 10px;
+        text-align: center;
+        padding: 10px 0;
+        margin-top: 10px;
+        border: 2px solid #d6d6d6;
+        background-color: #f3f3f3;
+        color: #808080;
+    }
+    .for-spacing {
+        background-color: #f3f3f3;
+    }
+    .mobileSub-Category .subIMG {
+        width: 100%;
+    }
+    .subCategory-Accordian {
+        padding: 20px;
+    }
+    .btnAccor {
+        background-color: #f3f3f3 !important;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--Nutral-3, #292d32) !important;
+        border-top: 2px solid #7777 !important;
+        border-bottom: none !important;
+        border-right: none !important;
+        border-left: none !important;
+        border-radius: 0px !important;
+        box-shadow: none !important;
+    }
+    .btnAccor-body {
+        background-color: #f3f3f3 !important;
+    }
+    .btnAccor-body li {
+        list-style: none;
+    }
+    .subCateIMG {
+        border: 2px solid var(--Nutral-3, #292d32);
+        border-radius: 100%;
+        width: 70px;
+        height: 70px;
+        object-fit: cover;
+    }
+    .sub-sub-category {
+        color: #000000;
+        text-decoration: none;
+    }
+    .f-18 {
+        font-size: 18.501px;
+    }
+    .servicesBtn:focus,
+    .brandsBtn:focus,
+    .colorsBtn:focus {
+        color: #8b5bc0;
+        border: 2px solid #8b5bc0;
+    }
+
+    .btnCon {
+        .scroll-cards {
+            position: relative;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: nowrap;
+            align-items: center;
+            width: 100%;
+            height: auto;
+            cursor: default;
+            overflow: scroll hidden;
+            scroll-snap-type: x mandatory;
+            scroll-padding: 0px 1.25rem;
+            scrollbar-width: none;
+
+            &::-webkit-scrollbar {
+                display: none;
+            }
+
+            .circleCard {
+                text-decoration: none;
+                flex: 0 0 auto;
+                margin-right: 10px;
+                border: none;
+                outline: none;
+                font-weight: 600;
+                padding: 8px 20px;
+                font-size: 10px;
+                background-color: lightgray;
+            }
+        }
+    }
+    .circleCard a{
+        color: #000;
+    }
+    .circleCard.active{
+        background-color: #000 !important;
+    }
+    .circleCard.active a{
+        color: #fff !important;
+
+    }
+    .card-container {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px; 
+        padding: 0 10px 60px 10px; 
+    } 
+        
+    .product-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+    }
+    
+    .main-image {
+        width: 100%;
+        
+        position: relative;
+    }
+    #main-image{
+        height: 370px ;
+    }
+    .small-images {
+        position: absolute;
+        bottom: 5%;
+        display: flex;
+        justify-content: center;
+        gap: 5px;
+        background-color: rgba(36, 36, 36, 0.49);
+        padding: 5px;
+        border-radius: 10px !important;
+        align-items: center;
+    }
+    img.small-image {
+        border-radius: 10px;
+    }
+    .small-image.active {
+        border: 3px solid #845dc2;
+        border-radius: 10px;
+    }
+    .font-poppins {
+        font-family: "poppins";
+    }
+    .mainDes{
+        padding: 0 30px;
+    }
+    .text-purple {
+        color: #845dc2 !important;
+    }
+
+
+    .img-1{
+        width: 95px;
+        height: 95px;
+    }
+     input[type="radio"] {
+        width: 1.2em;
+        height: 1.2em;
+        background-color: rgb(243, 241, 241);
+        border-radius: 50%;
+        border: 2px solid white;
+        box-shadow: 0 0 0 2px #fff;
+        cursor: pointer;
+        appearance: none;
+        
+      }
+      input[type="radio"]:checked{
+        background-color: #8456B6;
+      }  
+      .imge{
+        top: 7px;
+        left: 13px;
+      }
+      .txt-1{
+        font-size: 10px;
+      }
+      .txt-2{
+        font-size:8px ;
+      }
+      
+      .txt-3{
+        font-size: 8px;
+      }
+      
+      .txt-4{
+        font-size: 8px;
+    }
+    .txt-5{
+        font-size: 12px;
+        color: #845DC2;
+    }
+    .txt-6{
+        font-size: 10px;
+    }
+    .line{
+        width: 90%;
+        height: 1px;
+        background-color:#cccccc;  
+    }
+    .round{
+       background:  var(--colors-system-delete-bg, #FDE8E8);
+       width: 26%;
+       border: 0.5px solid var(--colors-system-delete-stroke, #F9B9B9);
+       padding:10px;  
+    }
+      .round-2{
+        width: 26%;
+        border: 0.5px solid var(--colors-system-delete-stroke, #cccccc);
+        padding:10px;
+      }
+      .card-2{
+        font-size: 10px;
+      }
+      .card-2 img {
+        width: 18px;
+        height: 18px;
+      }
+      .line-2{
+        width: 100%;
+        height: 5px;
+        background: var(--colors-system-surface-primary, #EDF2F4);
+      }
+      .imge-1{
+        top: 225px;
+        left: 13px;
+      }
+      .imge-2{
+        top: 440px;
+        left: 13px;
+      }
+      .imge-3{
+        top: 655px;
+        left: 13px;
+      }
+      .imge-4{
+        top: 873px;
+        left: 13px;
+      }  
+
+
+
+
+}

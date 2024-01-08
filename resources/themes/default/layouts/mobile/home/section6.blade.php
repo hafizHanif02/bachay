@@ -15,13 +15,13 @@
                 <div class="card1">
                     <div class="first-sec card1">
                         <div class="image-container">
-                            <img src="{{ asset('web/images/card.png') }}" alt="" class="img-fluid"
+                            <img src="{{ asset('public/images/card.png') }}" alt="" class="img-fluid"
                                 width="100%" height="100%">
                             <div class="sec-best-seller mt-3">
                                 <p>Best Seller</p>
                             </div>
                             <div class="wish-list mt-3 me-2">
-                                <a href="" tabindex="-1"><img src="{{ asset('web/images/heart.svg') }}"
+                                <a href="" tabindex="-1"><img src="{{ asset('public/images/heart.svg') }}"
                                         alt=""></a>
                             </div>
                             <p class="card-text mt-3">Class aptent taciti sociosq ad litora sit amet, ipiscin....</p>
@@ -35,7 +35,7 @@
                             <div class="subdiv d-flex justify-content-between align-items-center">
                                 <a href="#" class="bg-dark m-0" tabindex="-1">Standard Delivery</a>
                                 <p class="rounded-pill text-white m-0">4.9 <img
-                                        src="{{ asset('web/images/star.svg') }}" alt=""></p>
+                                        src="{{ asset('public/images/star.svg') }}" alt=""></p>
                                 <h6 class="m-0">(17)</h6>
                             </div>
 
@@ -50,13 +50,13 @@
                 <div class="card1">
                     <div class="first-sec card1">
                         <div class="image-container">
-                            <img src="{{ asset('web/images/card.png') }}" alt="" class="img-fluid"
+                            <img src="{{ asset('public/images/card.png') }}" alt="" class="img-fluid"
                                 width="100%" height="100%">
                             <div class="sec-best-seller mt-3">
                                 <p>Best Seller</p>
                             </div>
                             <div class="wish-list mt-3 me-2">
-                                <a href="" tabindex="-1"><img src="{{ asset('web/images/heart.svg') }}"
+                                <a href="" tabindex="-1"><img src="{{ asset('public/images/heart.svg') }}"
                                         alt=""></a>
                             </div>
                             <p class="card-text mt-3">Class aptent taciti sociosq ad litora sit amet, ipiscin....</p>
@@ -70,7 +70,7 @@
                             <div class="subdiv d-flex justify-content-between align-items-center">
                                 <a href="#" class="bg-dark m-0" tabindex="-1">Standard Delivery</a>
                                 <p class="rounded-pill text-white m-0">4.9 <img
-                                        src="{{ asset('web/images/star.svg') }}" alt=""></p>
+                                        src="{{ asset('public/images/star.svg') }}" alt=""></p>
                                 <h6 class="m-0">(17)</h6>
                             </div>
 
@@ -85,13 +85,13 @@
                 <div class="card1">
                     <div class="first-sec card1">
                         <div class="image-container">
-                            <img src="{{ asset('web/images/card.png') }}" alt="" class="img-fluid"
+                            <img src="{{ asset('public/images/card.png') }}" alt="" class="img-fluid"
                                 width="100%" height="100%">
                             <div class="sec-best-seller mt-3">
                                 <p>Best Seller</p>
                             </div>
                             <div class="wish-list mt-3 me-2">
-                                <a href="" tabindex="-1"><img src="{{ asset('web/images/heart.svg') }}"
+                                <a href="" tabindex="-1"><img src="{{ asset('public/images/heart.svg') }}"
                                         alt=""></a>
                             </div>
                             <p class="card-text mt-3">Class aptent taciti sociosq ad litora sit amet, ipiscin....</p>
@@ -105,7 +105,7 @@
                             <div class="subdiv d-flex justify-content-between align-items-center">
                                 <a href="#" class="bg-dark m-0" tabindex="-1">Standard Delivery</a>
                                 <p class="rounded-pill text-white m-0">4.9 <img
-                                        src="{{ asset('web/images/star.svg') }}" alt=""></p>
+                                        src="{{ asset('public/images/star.svg') }}" alt=""></p>
                                 <h6 class="m-0">(17)</h6>
                             </div>
 
@@ -120,13 +120,13 @@
                 <div class="card1">
                     <div class="first-sec card1">
                         <div class="image-container">
-                            <img src="{{ asset('web/images/card.png') }}" alt="" class="img-fluid"
+                            <img src="{{ asset('public/images/card.png') }}" alt="" class="img-fluid"
                                 width="100%" height="100%">
                             <div class="sec-best-seller mt-3">
                                 <p>Best Seller</p>
                             </div>
                             <div class="wish-list mt-3 me-2">
-                                <a href="" tabindex="-1"><img src="{{ asset('web/images/heart.svg') }}"
+                                <a href="" tabindex="-1"><img src="{{ asset('public/images/heart.svg') }}"
                                         alt=""></a>
                             </div>
                             <p class="card-text mt-3">Class aptent taciti sociosq ad litora sit amet, ipiscin....</p>
@@ -140,7 +140,7 @@
                             <div class="subdiv d-flex justify-content-between align-items-center">
                                 <a href="#" class="bg-dark m-0" tabindex="-1">Standard Delivery</a>
                                 <p class="rounded-pill text-white m-0">4.9 <img
-                                        src="{{ asset('web/images/star.svg') }}" alt=""></p>
+                                        src="{{ asset('public/images/star.svg') }}" alt=""></p>
                                 <h6 class="m-0">(17)</h6>
                             </div>
 
@@ -156,13 +156,13 @@
                 <div class="card1">
                     <div class="first-sec card1">
                         <div class="image-container">
-                            <img src="{{ asset('web/images/card.png') }}" alt="" class="img-fluid"
+                            <img src="{{ asset('public/images/card.png') }}" alt="" class="img-fluid"
                                 width="100%" height="100%">
                             <div class="sec-best-seller mt-3">
                                 <p>Best Seller</p>
                             </div>
                             <div class="wish-list mt-3 me-2">
-                                <a href="" tabindex="-1"><img src="{{ asset('web/images/heart.svg') }}"
+                                <a href="" tabindex="-1"><img src="{{ asset('public/images/heart.svg') }}"
                                         alt=""></a>
                             </div>
                             <p class="card-text mt-3">Class aptent taciti sociosq ad litora sit amet, ipiscin....</p>
@@ -176,7 +176,7 @@
                             <div class="subdiv d-flex justify-content-between align-items-center">
                                 <a href="#" class="bg-dark m-0" tabindex="-1">Standard Delivery</a>
                                 <p class="rounded-pill text-white m-0">4.9 <img
-                                        src="{{ asset('web/images/star.svg') }}" alt=""></p>
+                                        src="{{ asset('public/images/star.svg') }}" alt=""></p>
                                 <h6 class="m-0">(17)</h6>
                             </div>
 
@@ -191,13 +191,13 @@
                 <div class="card1">
                     <div class="first-sec card1">
                         <div class="image-container">
-                            <img src="{{ asset('web/images/card.png') }}" alt="" class="img-fluid"
+                            <img src="{{ asset('public/images/card.png') }}" alt="" class="img-fluid"
                                 width="100%" height="100%">
                             <div class="sec-best-seller mt-3">
                                 <p>Best Seller</p>
                             </div>
                             <div class="wish-list mt-3 me-2">
-                                <a href="" tabindex="-1"><img src="{{ asset('web/images/heart.svg') }}"
+                                <a href="" tabindex="-1"><img src="{{ asset('public/images/heart.svg') }}"
                                         alt=""></a>
                             </div>
                             <p class="card-text mt-3">Class aptent taciti sociosq ad litora sit amet, ipiscin....</p>
@@ -211,7 +211,7 @@
                             <div class="subdiv d-flex justify-content-between align-items-center">
                                 <a href="#" class="bg-dark m-0" tabindex="-1">Standard Delivery</a>
                                 <p class="rounded-pill text-white m-0">4.9 <img
-                                        src="{{ asset('web/images/star.svg') }}" alt=""></p>
+                                        src="{{ asset('public/images/star.svg') }}" alt=""></p>
                                 <h6 class="m-0">(17)</h6>
                             </div>
 
@@ -226,13 +226,13 @@
                 <div class="card1">
                     <div class="first-sec card1">
                         <div class="image-container">
-                            <img src="{{ asset('web/images/card.png') }}" alt="" class="img-fluid"
+                            <img src="{{ asset('public/images/card.png') }}" alt="" class="img-fluid"
                                 width="100%" height="100%">
                             <div class="sec-best-seller mt-3">
                                 <p>Best Seller</p>
                             </div>
                             <div class="wish-list mt-3 me-2">
-                                <a href="" tabindex="-1"><img src="{{ asset('web/images/heart.svg') }}"
+                                <a href="" tabindex="-1"><img src="{{ asset('public/images/heart.svg') }}"
                                         alt=""></a>
                             </div>
                             <p class="card-text mt-3">Class aptent taciti sociosq ad litora sit amet, ipiscin....</p>
@@ -246,7 +246,7 @@
                             <div class="subdiv d-flex justify-content-between align-items-center">
                                 <a href="#" class="bg-dark m-0" tabindex="-1">Standard Delivery</a>
                                 <p class="rounded-pill text-white m-0">4.9 <img
-                                        src="{{ asset('web/images/star.svg') }}" alt=""></p>
+                                        src="{{ asset('public/images/star.svg') }}" alt=""></p>
                                 <h6 class="m-0">(17)</h6>
                             </div>
 
@@ -261,13 +261,13 @@
                 <div class="card1">
                     <div class="first-sec card1">
                         <div class="image-container">
-                            <img src="{{ asset('web/images/card.png') }}" alt="" class="img-fluid"
+                            <img src="{{ asset('public/images/card.png') }}" alt="" class="img-fluid"
                                 width="100%" height="100%">
                             <div class="sec-best-seller mt-3">
                                 <p>Best Seller</p>
                             </div>
                             <div class="wish-list mt-3 me-2">
-                                <a href="" tabindex="-1"><img src="{{ asset('web/images/heart.svg') }}"
+                                <a href="" tabindex="-1"><img src="{{ asset('public/images/heart.svg') }}"
                                         alt=""></a>
                             </div>
                             <p class="card-text mt-3">Class aptent taciti sociosq ad litora sit amet, ipiscin....</p>
@@ -281,7 +281,7 @@
                             <div class="subdiv d-flex justify-content-between align-items-center">
                                 <a href="#" class="bg-dark m-0" tabindex="-1">Standard Delivery</a>
                                 <p class="rounded-pill text-white m-0">4.9 <img
-                                        src="{{ asset('web/images/star.svg') }}" alt=""></p>
+                                        src="{{ asset('public/images/star.svg') }}" alt=""></p>
                                 <h6 class="m-0">(17)</h6>
                             </div>
 

@@ -10,7 +10,7 @@
                         <a href="#">
                             <div class="deal-alert-circle">-75%</div>
                             <img class="card-img rounded-5 imgCardMobile"
-                                src="{{ asset('web/images/flash-sales1.png') }}" alt="Flash Sale 1" height="411px" />
+                                src="{{ asset('public/images/flash-sales1.png') }}" alt="Flash Sale 1" height="411px" />
                             <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
                                 <p class="card-text f-18">New Toys For Children</p>
                             </div>
@@ -23,7 +23,7 @@
                         <a href="#">
                             <div class="deal-alert-circle">-15%</div>
                             <img class="card-img rounded-5 imgCardMobile imgCardMobile"
-                                src="{{ asset('web/images/flash-sales2.png') }}" alt="Flash Sale 1" height="411px" />
+                                src="{{ asset('public/images/flash-sales2.png') }}" alt="Flash Sale 1" height="411px" />
                             <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
                                 <p class="card-text f-18">New Toys For Children</p>
                             </div>
@@ -36,7 +36,7 @@
                         <a href="#">
                             <div class="deal-alert-circle">-25%</div>
                             <img class="card-img rounded-5 imgCardMobile"
-                                src="{{ asset('web/images/flash-sales3.png') }}" alt="Flash Sale 1" height="411px" />
+                                src="{{ asset('public/images/flash-sales3.png') }}" alt="Flash Sale 1" height="411px" />
                             <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
                                 <p class="card-text f-18">New Toys For Children</p>
                             </div>
@@ -53,7 +53,7 @@
                         <a href="#">
                             <div class="deal-alert-circle">-55%</div>
                             <img class="card-img rounded-5 imgCardMobile"
-                                src="{{ asset('web/images/flash-sales4.png') }}" alt="Flash Sale 1" height="411px" />
+                                src="{{ asset('public/images/flash-sales4.png') }}" alt="Flash Sale 1" height="411px" />
                             <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
                                 <p class="card-text f-18">New Toys For Children</p>
                             </div>
@@ -66,7 +66,7 @@
                         <a href="#">
                             <div class="deal-alert-circle">-85%</div>
                             <img class="card-img rounded-5 imgCardMobile"
-                                src="{{ asset('web/images/flash-sales5.png') }}" alt="Flash Sale 1" height="411px" />
+                                src="{{ asset('public/images/flash-sales5.png') }}" alt="Flash Sale 1" height="411px" />
                             <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
                                 <p class="card-text f-18">New Toys For Children</p>
                             </div>
@@ -79,7 +79,7 @@
                         <a href="#">
                             <div class="deal-alert-circle">-40%</div>
                             <img class="card-img rounded-5 imgCardMobile"
-                                src="{{ asset('web/images/flash-sales6.png') }}" alt="Flash Sale 1" height="411px" />
+                                src="{{ asset('public/images/flash-sales6.png') }}" alt="Flash Sale 1" height="411px" />
                             <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
                                 <p class="card-text f-18">New Toys For Children</p>
                             </div>

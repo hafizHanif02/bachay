@@ -14,7 +14,7 @@
                                 </button>
                             </div>
                             <div class="text-center ">
-                                <img class="mt-3 mb-3 articles-img" src="{{ asset('web/images/Frame (1).png') }}"
+                                <img class="mt-3 mb-3 articles-img" src="{{ asset('public/images/Frame (1).png') }}"
                                     alt="" srcset="">
                             </div>
                             <div class="text-center p-0">
@@ -39,7 +39,7 @@
                                 </button>
                             </div>
                             <div class="text-center">
-                                <img class="mt-3 mb-3 Contests-img" src="{{ asset('web/images/Group 96.png') }}"
+                                <img class="mt-3 mb-3 Contests-img" src="{{ asset('public/images/Group 96.png') }}"
                                     alt="" srcset="">
                             </div>
                             <div class="text-center  p-0">
@@ -63,7 +63,7 @@
                                 </button>
                             </div>
                             <div class="text-center ">
-                                <img class="mt-3 mb-3 Baby-Names-img" src="{{ asset('web/images/vector (1).png') }}"
+                                <img class="mt-3 mb-3 Baby-Names-img" src="{{ asset('public/images/vector (1).png') }}"
                                     alt="" srcset="">
                             </div>
                             <div class="text-center  p-0">
@@ -87,7 +87,7 @@
                                 </button>
                             </div>
                             <div class="text-center ">
-                                <img class="mt-3 mb-3 Meal-Planner-img" src="{{ asset('web/images/Group 97.png') }}"
+                                <img class="mt-3 mb-3 Meal-Planner-img" src="{{ asset('public/images/Group 97.png') }}"
                                     alt="" srcset="">
                             </div>
                             <div class="text-center  p-0">
@@ -111,7 +111,7 @@
                                 </button>
                             </div>
                             <div class="text-center ">
-                                <img class="mt-3 mb-3 Vaccinations-img" src="{{ asset('web/images/Group 98.png') }}"
+                                <img class="mt-3 mb-3 Vaccinations-img" src="{{ asset('public/images/Group 98.png') }}"
                                     alt="" srcset="">
                             </div>
                             <div class="text-center  p-0">
