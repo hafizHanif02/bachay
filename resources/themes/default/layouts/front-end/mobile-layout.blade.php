@@ -18,12 +18,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta name="google" value="notranslate" />
+    {{-- <meta name="google" value="notranslate" />
     <meta content="bachay.com" property="og:site_name" />
     <meta content="Bachay Web App" property="og:title" />
-    <meta content="public\site" property="og:type" />
+    <meta content="publicsite" property="og:type" />
     <meta content="{{ route('mobile.home') }}" property="og:url" />
-    <meta content="{{ asset('logo.public\p') }}" property="og:image" />
+    <meta content="{{ asset('logo.publicp') }}" property="og:image" />
     <meta content="bachay.com app|E-commerce app" property="og:description" />
     <meta name="theme-color" content="#000232">
     <link rel="canonical" href="{{ route('mobile.home') }}" />
@@ -32,7 +32,7 @@
     <meta description="{{ $meta->description ?? '' }}" />
     <meta author="{{ $meta->author ?? '' }}" />
     <meta keywords="{{ isset($meta->keywords) ? collect($meta->keywords)->implode(', ') : '' }}" />
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="csrf-token" content="{{ csrf_token() }}"> --}}
     <!-- CDN's -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.min.css" />
@@ -40,7 +40,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.min.css" />
     <!-- Custom styles -->
-    {{-- <link rel="stylesheet" href="{{ asset('public\/style.css') }}" /> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('public/style.css') }}" /> --}}
     <link rel="stylesheet" href="{{ asset('public/mobile-view/style.css') }}" />
     {{-- <link rel="manifest" href="{{ asset('manifest.json') }}" /> --}}
 </head>
@@ -52,7 +52,7 @@
                 <div class="img-gender">
                     <div class="sub-img-con d-flex">
                         <img class="rounded-circle me-2" id="Overly-popup" class="overly"
-                            src="{{ asset('public\/images/bachay.png') }}" alt="logo" width="100%" height="100%">
+                            src="{{ asset('public/images/bachay.png') }}" alt="logo" width="100%" height="100%">
                         <div class="age-m">
                             <div id="ogrooModel" class="modalbox ogroobox">
                                 <div class="dialog">
@@ -71,7 +71,7 @@
                                                 <a href="#" class="text-decoration-none">
                                                     <div class="for-sizing">
                                                         <img class="New-Season1 rounded-circle new-arival-container"
-                                                            src="{{ asset('public\/images/male-1.png') }}"
+                                                            src="{{ asset('public/images/male-1.png') }}"
                                                             alt="male">
                                                     </div>
 
@@ -82,7 +82,7 @@
                                                 <a href="#" class="text-decoration-none">
                                                     <div class="for-sizing">
                                                         <img class="Gifts rounded-circle new-arival-container"
-                                                            src="{{ asset('public\/images/female-1.png') }}"
+                                                            src="{{ asset('public/images/female-1.png') }}"
                                                             alt="female">
                                                     </div>
                                                     <h3 class="text-center text-dark fs-9 mt-1">Female</h3>
@@ -92,7 +92,7 @@
                                                 <a href="#" class="text-decoration-none">
                                                     <div class="for-sizing">
                                                         <img class="Kids-Accessories rounded-circle new-arival-container"
-                                                            src="{{ asset('public\/images/expecting.png') }}"
+                                                            src="{{ asset('public/images/expecting.png') }}"
                                                             alt="expecting">
                                                     </div>
                                                     <h3 class="text-center text-dark fs-9 mt-1">Expecting</h3>
@@ -111,25 +111,25 @@
                 </div>
             </div>
             <div class="logo-m d-flex align-items-center">
-                <img src="{{ asset('public\/images/bachay-logo.png') }}" alt="">
+                <img src="{{ asset('public/images/bachay-logo.png') }}" alt="">
             </div>
             <div class="m-icons">
-               <a href="http://127.0.0.1:8000/mobile/search-filter"><img src="{{ asset('public\/images/icon-m2.svg') }}" alt=""></a> 
-                <img src="{{ asset('public\/images/icon-m1.svg') }}" alt="">
-                <img src="{{ asset('public\/images/icon-m.svg') }}" alt="">
+               <a href="http://127.0.0.1:8000/mobile/search-filter"><img src="{{ asset('public/images/icon-m2.svg') }}" alt=""></a> 
+                <img src="{{ asset('public/images/icon-m1.svg') }}" alt="">
+                <img src="{{ asset('public/images/icon-m.svg') }}" alt="">
             </div>
 
         </div>
         <form class="form-inline mt-3 mb-3">
             <div class="search-bar pt-2 pb-3">
                 <div class="location-icon">
-                    <a href="#"><img class="pb-1" src="{{ asset('public\/images/locationicon.svg') }}"
+                    <a href="#"><img class="pb-1" src="{{ asset('public/images/locationicon.svg') }}"
                             alt=""></a>
                 </div>
                 <input class="form-control pt-2 pb-2 mr-sm-2 search-input" type="search"
                     placeholder="Sindh, Karachi - Clifton, North" aria-label="Search" id="search" name="search">
                 <div class="search-icon">
-                    <img src="{{ asset('public\/images/Searchicon.svg') }}" alt="">
+                    <img src="{{ asset('public/images/Searchicon.svg') }}" alt="">
                 </div>
             </div>
         </form>
@@ -149,11 +149,7 @@
     @include('layouts.mobile.home.section12')
     @include('layouts.mobile.home.section13')
     @include('layouts.mobile.home.section14')
-
-
-
-    
-        
+  
     </main>
     <footer>
         <div class="mobile-footer mt-4">
@@ -192,7 +188,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
     <!-- Custom Scripts -->
-    {{-- <script src="{{ asset('public\/script.js') }}"></script> --}}
+    {{-- <script src="{{ asset('public/script.js') }}"></script> --}}
     <script src="{{ asset('public/mobile-view/script.js') }}"></script>
 
 </body>
