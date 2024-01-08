@@ -2,8 +2,9 @@
     <div class="slider-main">
         @foreach ($main_banner as $banner)
             <div>
-                <img class="rounded-5 img-fluid imgBanner"
-                    src="{{ asset('storage/app/public/banner/' . $banner->photo) }}" alt="Image">
+                <img class="rounded-5 object-fit-cover"
+                    src="{{ asset('storage/app/public/banner/' . $banner->photo) }}" alt="Image"
+                    width="100%" height="350px">
             </div>
         @endforeach
 

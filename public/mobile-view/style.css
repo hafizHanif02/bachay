@@ -1,17 +1,17 @@
 @media screen and (max-width: 767px) {
     @font-face {
         font-family: myfont;
-        src: url(/web/font-family/AristotelicaDisplayDemiBoldTrial.ttf);
+        src: url(/public/fonts/AristotelicaDisplayDemiBoldTrial.ttf);
     }
-
+    
     @font-face {
         font-family: mylightfont;
-        src: url(/web/font-family/AristotelicaDisplayExtraLightTrial.ttf);
+        src: url(/public/fonts/AristotelicaDisplayExtraLightTrial.ttf);
     }
-
+    
     @font-face {
         font-family: mysmallcapsfont;
-        src: url(/web/font-family/AristotelicaSmallCaps-Regular.ttf);
+        src: url(/public/fonts/AristotelicaSmallCapsRegular.ttf);
     }
     header,
     footer {
