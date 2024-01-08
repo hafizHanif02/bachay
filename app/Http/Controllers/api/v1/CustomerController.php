@@ -210,7 +210,7 @@ class CustomerController extends Controller
                     if($vaccinationDate > $currentDate){
                         $uppcoming += 1;
                         //$uppcomingVaccine = $vaccination_submission->vaccination;
-                        if($countUpcoming < 3){
+                        if($countUpcoming < 2){
                             array_push($uppcomingVaccine, $vaccination_submission);
                             $countUpcoming++;
                         }
