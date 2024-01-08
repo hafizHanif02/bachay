@@ -204,12 +204,12 @@ class CustomerController extends Controller
                 foreach ($vaccination_submissions as $vaccination_submission) {
                     $vaccinationDate = Carbon::parse($vaccination_submission->vaccination_date);
                     $currentDate = Carbon::now();
-                    $difference = $vaccinationDate->diffInDays($currentDate);
-
+                    $difference = -($vaccinationDate->diffInDays($currentDate));
                     array_push($uppcomingVaccine, $difference);
                     if($difference > 0){
                         $uppcoming += 1;
                         //$uppcomingVaccine = $vaccination_submission->vaccination;
+                        //array_push($uppcomingVaccine, $vaccination_submission->vaccination);
                     }elseif($difference < 0){
                         $overdue += 1;
                     } else{
