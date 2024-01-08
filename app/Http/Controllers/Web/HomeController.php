@@ -241,7 +241,7 @@ class HomeController extends Controller
         // return $flash_deals_products;
 
         return view(
-            VIEW_FILE_NAMES['home'],
+            VIEW_FILE_NAMES[$viewName],
             compact(
                 'wishlistProductsArray',
                 'featured_products',
