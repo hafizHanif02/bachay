@@ -176,7 +176,7 @@ class CustomerController extends Controller
                     //     $ageText .= $ageInterval->d . ' days ';
                     // }
 
-                    $child->format_age = trim($ageText). 'Old';
+                    $child->format_age = trim($ageText). ' Old';
                 }
             }
 
@@ -206,10 +206,10 @@ class CustomerController extends Controller
                     $currentDate = Carbon::now();
                     $difference = $vaccinationDate->diffInDays($currentDate);
 
+                    array_push($uppcomingVaccine, $difference);
                     if($difference > 0){
                         $uppcoming += 1;
                         //$uppcomingVaccine = $vaccination_submission->vaccination;
-                        array_push($uppcomingVaccine, $vaccination_submission->vaccination);
                     }elseif($difference < 0){
                         $overdue += 1;
                     } else{
