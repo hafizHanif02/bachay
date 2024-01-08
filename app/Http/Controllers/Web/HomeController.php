@@ -49,20 +49,10 @@ class HomeController extends Controller
     {
         return view("comingsoon");
     }
-    public function index()
+    public function index(Request $request)
     {
         $theme_name = theme_root_path();
 
-        return match ($theme_name) {
-            'default' => self::default_theme(),
-            'theme_aster' => self::theme_aster(),
-            'theme_fashion' => self::theme_fashion(),
-            'theme_all_purpose' => self::theme_all_purpose(),
-        };
-    }
-
-    public function default_theme(Request $request)
-    {
         // Get the user agent from the request headers
         $userAgent = $request->header('User-Agent');
 
@@ -75,6 +65,17 @@ class HomeController extends Controller
             return "This is web";
         }
 
+        return match ($theme_name) {
+            'default' => self::default_theme(),
+            'theme_aster' => self::theme_aster(),
+            'theme_fashion' => self::theme_fashion(),
+            'theme_all_purpose' => self::theme_all_purpose(),
+        };
+    }
+
+    public function default_theme()
+    {
+        
         $theme_name = theme_root_path();
         $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
         $home_categories = Category::where('home_status', true)->priority()->get();
