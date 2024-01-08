@@ -62,6 +62,29 @@ class HomeController extends Controller
         return response()->json(['image'=>$imageUrls,'name'=> $nameArray], 200);
     }
 
+    public function AllCategorys(){
+        $toparrivalcategorys = DB::table('categories')
+        ->where('parent_id', '=', 0)
+        ->where('priority', '!=', 0)
+        ->orderBy('priority', 'asc')
+        ->get();
+        $imageUrls = [];
+        $name = [];
+        foreach($toparrivalcategorys as $categoryavatar){
+            $url = asset('storage/app/public/category/' . $categoryavatar->icon);
+            $categoryavatar->image = $url;
+            $imageUrls[] = $url;
+            $name[] = $categoryavatar->name;
+        }
+        $imageUrls = array_values($imageUrls);
+        $nameArray = array_values($name);
+        // $latestCategory = DB::table('categories')->orderBy('id', 'desc')->first();
+        // $url = asset('storage/app/public/category/' . $latestCategory->icon);
+        // $latestCategory->image = $url;
+
+        return response()->json(['image'=>$imageUrls,'name'=> $nameArray], 200);
+    }
+
     public function FlashDeals(){
         $flashdeals = FlashDealProduct::with('product')->get();
         $formattedFlashDeals = [];
