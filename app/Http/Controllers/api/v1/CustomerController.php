@@ -182,6 +182,7 @@ class CustomerController extends Controller
 
             $overdueCounts = [];
             foreach ($childerens as $child) {
+                $countUpcoming = 0;
                 $vaccination_submissions = VaccinationSubmission::
                     where([
                         'child_id' => $child->id,
@@ -209,7 +210,11 @@ class CustomerController extends Controller
                     if($vaccinationDate > $currentDate){
                         $uppcoming += 1;
                         //$uppcomingVaccine = $vaccination_submission->vaccination;
-                        array_push($uppcomingVaccine, $vaccination_submission);
+                        if($countUpcoming < 3){
+                            array_push($uppcomingVaccine, $vaccination_submission);
+                            $countUpcoming++;
+                        }
+                        
                     }elseif($vaccinationDate < $currentDate){
                         $overdue += 1;
                     } else{
