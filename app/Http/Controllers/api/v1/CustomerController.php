@@ -205,7 +205,7 @@ class CustomerController extends Controller
                     $vaccinationDate = Carbon::parse($vaccination_submission->vaccination_date);
                     $currentDate = Carbon::now();
                     $difference = ($vaccinationDate->diffInDays($currentDate));
-                    array_push($uppcomingVaccine, $vaccinationDate->format('Y-m-d'));
+                    array_push($uppcomingVaccine, $currentDate->format('Y-m-d'));
                     if($vaccinationDate < $currentDate){
                         $uppcoming += 1;
                         //$uppcomingVaccine = $vaccination_submission->vaccination;
