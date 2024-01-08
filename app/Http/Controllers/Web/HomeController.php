@@ -59,21 +59,25 @@ class HomeController extends Controller
         // Check if the user agent indicates a mobile device
         if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
             // User is using a mobile device, load the mobile view
-            return "This is Mobile";
+            return match ($theme_name) {
+                'default' => self::default_theme("home_mobile"),
+                'theme_aster' => self::theme_aster(),
+                'theme_fashion' => self::theme_fashion(),
+                'theme_all_purpose' => self::theme_all_purpose(),
+            };
         } else {
-            // User is using a desktop device, load the desktop view
-            return "This is web";
+            return match ($theme_name) {
+                'default' => self::default_theme("home"),
+                'theme_aster' => self::theme_aster(),
+                'theme_fashion' => self::theme_fashion(),
+                'theme_all_purpose' => self::theme_all_purpose(),
+            };
         }
 
-        return match ($theme_name) {
-            'default' => self::default_theme(),
-            'theme_aster' => self::theme_aster(),
-            'theme_fashion' => self::theme_fashion(),
-            'theme_all_purpose' => self::theme_all_purpose(),
-        };
+        
     }
 
-    public function default_theme()
+    public function default_theme($viewName)
     {
         
         $theme_name = theme_root_path();
