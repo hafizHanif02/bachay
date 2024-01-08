@@ -215,6 +215,7 @@ class CustomerController extends Controller
                     }
                 }
                 $child->vaccination_status = ['upcomming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
+                $child->uppcomingVaccine = $uppcomingVaccine;
             }
             return response()->json($childerens, 200);
         }else{
