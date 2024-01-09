@@ -5454,8 +5454,34 @@ class WebController extends Controller
         })->paginate(30);
         return view(VIEW_FILE_NAMES['all_stores_page'], compact('sellers'));
     }
+    public function all_categories(Request $request)
+    {
+        $theme_name = theme_root_path();
 
-    public function all_categories()
+        // Get the user agent from the request headers
+        $userAgent = $request->header('User-Agent');
+
+        // Check if the user agent indicates a mobile device
+        if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
+            // User is using a mobile device, load the mobile view
+            return match ($theme_name) {
+                'default' => self::all__categories("categories_mobile"),
+                'theme_aster' => self::theme_aster(),
+                'theme_fashion' => self::theme_fashion(),
+                'theme_all_purpose' => self::theme_all_purpose(),
+            };
+        } else {
+            return match ($theme_name) {
+                'default' => self::all__categories("categories"),
+                'theme_aster' => self::theme_aster(),
+                'theme_fashion' => self::theme_fashion(),
+                'theme_all_purpose' => self::theme_all_purpose(),
+            };
+        }
+
+        
+    }
+    public function all__categories($viewName)
     {
         $home_categories = Category::where('home_status', true)->priority()->get();
         $home_categories->map(function ($data) {
@@ -5468,8 +5494,8 @@ class WebController extends Controller
         $main_section_banner = DB::table('banners')->where('banner_type', 'Main Section Banner')->get();
         $productsInFlashDeal = FlashDealProduct::with('product')->get();
         $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->get();
-
-        return view(VIEW_FILE_NAMES['categories'], (compact('categories', 'productsInFlashDeal', 'main_section_banner', 'main_banner', 'home_categories')));
+        return view(VIEW_FILE_NAMES[$viewName], (compact('categories', 'productsInFlashDeal', 'main_section_banner', 'main_banner', 'home_categories')));
+        
     }
     public function sub_categories()
     {

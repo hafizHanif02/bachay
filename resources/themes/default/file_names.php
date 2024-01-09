@@ -3,6 +3,7 @@
 return [
     'home' => 'web-views.home',
     'home_mobile' => 'mobile-views.home',
+    
     'product_search_result' => 'web-views.partials._search-result',
     'privacy_policy_page' => 'web-views.pages.privacy-policy',
     'refund_policy_page' => 'web-views.pages.refund-policy',
@@ -78,6 +79,7 @@ return [
     'invites-credits' => 'web-views.invites-credits',
     'my-reviews-upload' => 'web-views.my-reviews-upload',
     'categories' => 'web-views.categories',
+    'categories_mobile' => 'mobile-views.categories',
     'sub-category' => 'web-views.sub-category',
     'club-cash' => 'web-views.club-cash',
 
