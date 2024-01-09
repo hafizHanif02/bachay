@@ -3,7 +3,7 @@
         <h1 class="textClr">Categories</h1>
     </div>
     <div class="see-all">
-        <a class="text-dark" href="#">See All</a>
+        <a class="text-dark" href="{{ route('categories') }}">See All</a>
     </div>
 </div>
 
