@@ -278,7 +278,7 @@
                 </svg>
                 <span class="fw-bold font-poppins fs-6">Coupon/Gift Certificated</span>
             </div>
-            <a class="fw-bold" href="">View All Coupons</a>
+            <a class="fw-semibold" href="">View All Coupons</a>
 
         </div>
         <div class="d-flex align-items-center mt-4">

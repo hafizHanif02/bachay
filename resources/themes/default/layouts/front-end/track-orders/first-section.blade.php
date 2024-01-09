@@ -31,11 +31,11 @@
                             <img class="object-fit-cover rounded-3" src="{{ asset('public/images/flash-sales6.png') }}"
                                 alt="" width="100%" height="100%">
                         </div>
-                        <div class="ms-3 fw-semibold font-poppins fs-12">
-                            <p class="mb-1">Pine Kids Lace Up Casual Shoes Color Block - White</p>
-                            <p class="mb-1 text-purple">Out For Delivery</p>
-                            <p class="mb-1">Arrived On Tuesday 10 Oct 2023</p>
-                            <p class="mb-1">Quantity: 02</p>
+                        <div class="ms-3 fw-semibold font-poppins">
+                            <p class="mb-1 text-order">Pine Kids Lace Up Casual Shoes Color Block - White</p>
+                            <p class="mb-1 text-Delivered">Out For Delivery</p>
+                            <p class="mb-1 text-order">Arrived On Tuesday 10 Oct 2023</p>
+                            <p class="mb-1 text-order">Quantity: 02</p>
                         </div>
                     </div>
                     <a href=""><img src="{{ asset('public/images/Arrow-right.svg') }}" alt=""></a>
@@ -46,11 +46,11 @@
                             <img class="object-fit-cover rounded-3" src="{{ asset('public/images/flash-sales6.png') }}"
                                 alt="" width="100%" height="100%">
                         </div>
-                        <div class="ms-3 fw-semibold font-poppins fs-12">
-                            <p class="mb-1">Pine Kids Lace Up Casual Shoes Color Block - White</p>
-                            <p class="mb-1 text-danger">Shipment Delayed</p>
-                            <p class="mb-1">Arrived On Tuesday 10 Oct 2023</p>
-                            <p class="mb-1">Quantity: 02</p>
+                        <div class="ms-3 fw-semibold font-poppins">
+                            <p class="mb-1 text-order">Pine Kids Lace Up Casual Shoes Color Block - White</p>
+                            <p class="mb-1 text-danger text-Deliveredr">Shipment Delayed</p>
+                            <p class="mb-1 text-order">Arrived On Tuesday 10 Oct 2023</p>
+                            <p class="mb-1 text-order">Quantity: 02</p>
                         </div>
                     </div>
                     <a href=""><img src="{{ asset('public/images/Arrow-right.svg') }}" alt=""></a>
@@ -61,11 +61,11 @@
                             <img class="object-fit-cover rounded-3" src="{{ asset('public/images/flash-sales6.png') }}"
                                 alt="" width="100%" height="100%">
                         </div>
-                        <div class="ms-3 fw-semibold font-poppins fs-12">
-                            <p class="mb-1">Pine Kids Lace Up Casual Shoes Color Block - White</p>
-                            <p class="mb-1 text-success ">Arriving Today</p>
-                            <p class="mb-1">Arrived On Tuesday 10 Oct 2023</p>
-                            <p class="mb-1">Quantity: 02</p>
+                        <div class="ms-3 fw-semibold font-poppins">
+                            <p class="mb-1 text-order">Pine Kids Lace Up Casual Shoes Color Block - White</p>
+                            <p class="mb-1 text-success text-Delivered-1">Arriving Today</p>
+                            <p class="mb-1 text-order">Arrived On Tuesday 10 Oct 2023</p>
+                            <p class="mb-1 text-order">Quantity: 02</p>
                         </div>
                     </div>
                     <a href=""><img src="{{ asset('public/images/Arrow-right.svg') }}" alt=""></a>

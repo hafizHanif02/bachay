@@ -57,7 +57,7 @@
                             <p class="mb-2 fs-18 fw-semibold">Flat Rs. 1900 OFF* on Baby Gear orders worth Rs. 4999 & above
                             </p>
                             <p class="mb-2 ">Coupon Amount: Rs.1900 | Offer valid till : 16-Oct-2023</p>
-                            <a class="fw-semibold" href="">*T&C Apply</a>
+                            <a class="fw-normal" href="">*T&C Apply</a>
                         </div>
                     </div>
                     <a href=""><img src="{{ asset('public/images/Arrow-right.svg') }}" alt=""></a>
@@ -94,7 +94,7 @@
                             <p class="mb-2 fs-18 fw-semibold">Flat Rs. 1900 OFF* on Baby Gear orders worth Rs. 4999 & above
                             </p>
                             <p class="mb-2 ">Coupon Amount: Rs.1900 | Offer valid till : 16-Oct-2023</p>
-                            <a class="fw-bsemiold" href="">*T&C Apply</a>
+                            <a class="fw-normal" href="">*T&C Apply</a>
                         </div>
                     </div>
                     <a href=""><img src="{{ asset('public/images/Arrow-right.svg') }}" alt=""></a>
@@ -131,7 +131,7 @@
                             <p class="mb-2 fs-18 fw-semibold">Flat Rs. 1900 OFF* on Baby Gear orders worth Rs. 4999 & above
                             </p>
                             <p class="mb-2 ">Coupon Amount: Rs.1900 | Offer valid till : 16-Oct-2023</p>
-                            <a class="fw-semibold" href="">*T&C Apply</a>
+                            <a class="fw-normal" href="">*T&C Apply</a>
                         </div>
                     </div>
                     <a href=""><img src="{{ asset('public/images/Arrow-right.svg') }}" alt=""></a>
@@ -168,7 +168,7 @@
                             <p class="mb-2 fs-18 fw-semibold">Flat Rs. 1900 OFF* on Baby Gear orders worth Rs. 4999 & above
                             </p>
                             <p class="mb-2 ">Coupon Amount: Rs.1900 | Offer valid till : 16-Oct-2023</p>
-                            <a class="fw-semibold" href="">*T&C Apply</a>
+                            <a class="fw-normal" href="">*T&C Apply</a>
                         </div>
                     </div>
                     <a href=""><img src="{{ asset('public/images/Arrow-right.svg') }}" alt=""></a>
@@ -205,7 +205,7 @@
                             <p class="mb-2 fs-18 fw-bold">Flat Rs. 1900 OFF* on Baby Gear orders worth Rs. 4999 & above
                             </p>
                             <p class="mb-2 ">Coupon Amount: Rs.1900 | Offer valid till : 16-Oct-2023</p>
-                            <a class="fw-bold" href="">*T&C Apply</a>
+                            <a class="fw-normal" href="">*T&C Apply</a>
                         </div>
                     </div>
                     <a href=""><img src="{{ asset('public/images/Arrow-right.svg') }}" alt=""></a>

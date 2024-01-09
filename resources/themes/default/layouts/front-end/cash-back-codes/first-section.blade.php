@@ -42,7 +42,7 @@
                             <p class="mb-2 fw-semibold Flat_text">Flat Rs. 1900 OFF* on Baby Gear orders worth Rs. 4999 &amp; above
                             </p>
                             <p class="mb-2 ">Coupon Amount: Rs.1900 | Offer valid till : 16-Oct-2023</p>
-                            <a class="fw-semibold" href="">*T&amp;C Apply</a>
+                            <a class="fw-normal" href="">*T&amp;C Apply</a>
                         </div>
                     </div>
                    
@@ -56,7 +56,7 @@
                             <p class="mb-2 fw-bold Flat_text">Flat Rs. 1900 OFF* on Baby Gear orders worth Rs. 4999 &amp; above
                             </p>
                             <p class="mb-2 ">Coupon Amount: Rs.1900 | Offer valid till : 16-Oct-2023</p>
-                            <a class="fw-semibold" href="">*T&amp;C Apply</a>
+                            <a class="fw-normal" href="">*T&amp;C Apply</a>
                         </div>
                     </div>
                    
@@ -70,7 +70,7 @@
                             <p class="mb-2 fw-semibold Flat_text">Flat Rs. 1900 OFF* on Baby Gear orders worth Rs. 4999 &amp; above
                             </p>
                             <p class="mb-2 ">Coupon Amount: Rs.1900 | Offer valid till : 16-Oct-2023</p>
-                            <a class="fw-semibold" href="">*T&amp;C Apply</a>
+                            <a class="fw-normal" href="">*T&amp;C Apply</a>
                         </div>
                     </div>
                    
@@ -84,7 +84,7 @@
                             <p class="mb-2 fs-18 fw-bold">Flat Rs. 1900 OFF* on Baby Gear orders worth Rs. 4999 &amp; above
                             </p>
                             <p class="mb-2 ">Coupon Amount: Rs.1900 | Offer valid till : 16-Oct-2023</p>
-                            <a class="fw-semibold" href="">*T&amp;C Apply</a>
+                            <a class="fw-normal" href="">*T&amp;C Apply</a>
                         </div>
                     </div>
                    
