@@ -7,28 +7,30 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-12 d-flex flex-column fixedProduct">
             <div class="product-container">
                 <div class="main-image">
-                    <img id="main-image" class="detailed-product-img p-3 object-fit-cover"
+                    <img id="main-image" class="detailed-product-img object-fit-cover"
                         src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}" alt="Main Image"
                         width="100%" height="100%">
                 </div>
 
-                {{-- <div class="small-images">
+                <div class="small-images">
                     <div class="SmallImageCon">
                         @foreach (json_decode($product->color_image) as $key => $photo)
-                            <img class="small-image object-fit-cover" id="image-#{{ $photo->color ? $photo->color : '' }}"
+                            <img class="small-image object-fit-cover"
+                                id="image-#{{ $photo->color ? $photo->color : '' }}"
                                 src="{{ asset('storage/app/public/product/' . $photo->image_name) }}"
                                 data-url='{{ asset('storage/app/public/product/' . $photo->image_name) }}'
                                 alt="Small Image {{ $key + 1 }}" width="70px" height="50px">
                         @endforeach
                         @foreach (json_decode($product->images) as $key => $photo)
-                            <img class="small-image object-fit-cover" src="{{ asset('storage/app/public/product/' . $photo) }}"
+                            <img class="small-image object-fit-cover"
+                                src="{{ asset('storage/app/public/product/' . $photo) }}"
                                 data-url='{{ asset('storage/app/public/product/' . $photo) }}'
                                 alt="Small Image {{ $key + 1 }}" width="70px" height="50px">
                         @endforeach
 
                     </div>
-                </div> --}}
-               
+                </div>
+
 
 
 
@@ -56,16 +58,17 @@
                     <input type="hidden" name="product[1][id]" value="{{ $product->id }}">
                     <input type="hidden" name="product[1][price]" value="{{ $product->unit_price }}">
                     <input type="hidden" name="product[1][product_id]" value="{{ $product->id }}">
-                    <input type="hidden" name="product[1][tax]" value="{{ ($product->tax) }}">
-                    <input type="hidden" name="product[1][tax_model]" value="{{ ($product->tax_model) }}">
-                    <input type="hidden" name="product[1][color]" value="{{ ($product->color) }}">
-                    <input type="hidden" name="product[1][variant]" value="{{ ($product->variant) }}">
-                    <input type="hidden" name="product[1][discount]" value="{{ ($product->discount) }}">
-                    <input type="hidden" name="product[1][discount_amount]" value="{{ (($product->discount*$product->unit_price)/100) }}">
-                    <input type="hidden" name="product[1][actual_price]" value="{{ ($product->unit_price) }}">
-                    <input type="hidden" name="product[1][price]" value="{{ ($product->unit_price) }}">
-                    <input type="hidden" name="product[1][quantity]" value="1">   
-                    <button type="submit" class="buy-now rounded-pill text-white w-100 pt-4 pb-4">Buy Now</button>
+                    <input type="hidden" name="product[1][tax]" value="{{ $product->tax }}">
+                    <input type="hidden" name="product[1][tax_model]" value="{{ $product->tax_model }}">
+                    <input type="hidden" name="product[1][color]" value="{{ $product->color }}">
+                    <input type="hidden" name="product[1][variant]" value="{{ $product->variant }}">
+                    <input type="hidden" name="product[1][discount]" value="{{ $product->discount }}">
+                    <input type="hidden" name="product[1][discount_amount]"
+                        value="{{ ($product->discount * $product->unit_price) / 100 }}">
+                    <input type="hidden" name="product[1][actual_price]" value="{{ $product->unit_price }}">
+                    <input type="hidden" name="product[1][price]" value="{{ $product->unit_price }}">
+                    <input type="hidden" name="product[1][quantity]" value="1">
+                    <button type="submit" class="buy-now rounded-pill text-white w-100 pt-4 pb-4 mt-3">Buy Now</button>
                 </form>
             </div>
             <form action="{{ route('cart.add') }}" method="POST">
@@ -84,7 +87,7 @@
                 <input type="hidden" name="customer_id" id="customer_id"
                     value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
 
-                <div class="d-flex  mt-1">
+                <div class="d-flex mt-3">
                     <button type="submit" class="rounded-pill text-dark fw-bold w-100 pt-4 pb-4">Add to
                         Cart</button>
                 </div>
@@ -123,10 +126,10 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <h4 class="pt-3 pb-2 fw-bold fontPoppins">
+                    <h6 class="pt-3 pb-2 fw-bold fontPoppins m-0">
 
                         {{ $product->name }}
-                    </h4>
+                    </h6>
                 </div>
                 <div class="col-12 d-flex align-items-center pb-2">
                     <h6 class="text-secondary pe-2 fontPoppins">Product ID: </h6>
@@ -136,11 +139,11 @@
                     <div class="hl "></div>
                 </div>
                 <div class="col-12 d-flex align-items-center">
-                    <h3 class="fw-bold pe-3 fontPoppins" id="discounted_price">Rs.
-                        {{ $product->unit_price - ($product->unit_price * $product->discount) / 100 }}</h3>
-                    <h5 class="text-secondary text-decoration-line-through pe-1 fontPoppins" id="actual_price">Rs.
-                        {{ $product->unit_price }}</h5>
-                    <h6 class="discountPercent fontPoppins discount"> - {{ $product->discount }}% Off</h6>
+                    <h4 class="fw-bold pe-2 fontPoppins" id="discounted_price">Rs.
+                        {{ $product->unit_price - ($product->unit_price * $product->discount) / 100 }}</h4>
+                    <h6 class="text-secondary text-decoration-line-through pe-1 fontPoppins" id="actual_price">Rs.
+                        {{ $product->unit_price }}</h6>
+                    <h6 class="discountPercent fontPoppins"> - {{ $product->discount }}% Off</h6>
                 </div>
                 <div class="col-12">
                     <h6 class="text-secondary txtFontWeight fontPoppins">
@@ -148,7 +151,7 @@
                     </h6>
                 </div>
 
-                {{-- <div class="col-8 pb-4 pt-3">
+                <div class="col-8 pb-4 pt-3">
                     <div class=" rounded-pill border border-2 border-secondary p-2 ">
 
                         <div class="row align-items-center">
@@ -156,14 +159,15 @@
                                 <img class="joinImg" src="{{ asset('public/images/join.png') }}" alt="">
                             </div>
                             <div class="col-6">
-                                <p class="text-dark mb-0 priceJoin fontPoppins">Save <span class="joinPrice"> Rs.25.98
+                                <p class="text-dark mb-0 priceJoin fontPoppins">Save <span class="joinPrice fw-bold">
+                                        Rs.25.98
                                     </span>
                                     With Club</p>
                                 <p class="text-dark mb-0 priceClub fontPoppins">Club Price: <span class="clubPrice">Rs
                                         1000.23</span></p>
                             </div>
                             <div class="col-4">
-                                <button class="buy-now rounded-pill text-white w-100 p-3 fontPoppins joinBTN">Join
+                                <button class="buy-now rounded-pill text-white w-100 p-2 fontPoppins joinBTN">Join
                                     Now</button>
 
                             </div>
@@ -171,9 +175,9 @@
 
 
                     </div>
-                </div> --}}
+                </div>
                 @if ($colors->isNotEmpty())
-                    {{-- {{ dd($colors) }} --}}
+
                     <div class="ProductColors col-12 d-flex align-items-center pb-4">
                         <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Colors</p>
                         @foreach ($colors as $color)
@@ -184,14 +188,14 @@
                     </div>
                 @endif
                 <div class="col-12 d-flex align-items-center pb-2">
-                    {{-- <p class="text-dark simpleText fs-6 mb-0 pe-4 fontPoppins">Size Basics</p>
+                    <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size Basics</p>
                     <select name="" id=""
-                        class="SizeLocation btn btn-sm border-secondary font-poppins">
+                        class="SizeLocation btn btn-sm border-secondary font-poppins pt-1 pb-1 ps-1 pe-3">
                         <option value="usa">USA</option>
                         <option value="uae">UAE</option>
                         <option value="pak">PAK</option>
                         <option value="aus">AUS</option>
-                    </select> --}}
+                    </select>
                     <div class="ms-3 d-flex align-items-center">
                         <button type="button" class="btn sizeBTN fontPoppins" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
@@ -218,17 +222,17 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="col-12 mb-3">
+                <div class="col-12 mb-3">
                     <p class="text-secondary toetoHeel  mb-0 fontPoppins">Toe to Heel Size (in CM): <span
                             class="sizeToeSpan ">19.5</span> | Age: <span class="sizeToeSpan">6 - 6.5 Y</span> | Size:
                         <span class="sizeToeSpan">EU 31</span> | Brand Size: <span class="sizeToeSpan">32</span>
                     </p>
 
-                </div> --}}
-                {{-- {{ dd($product->variation) }} --}}
+                </div>
+
                 <div class="Sizesbtn col-12 pt-2 d-flex align-items-center mb-3">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size</p>
-                    @foreach (json_decode($product->variation) as $variant)
+                    {{-- @foreach (json_decode($product->variation) as $variant)
                         @if ($variant->qty > 0)
                             <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
                                 type="button" value="{{ $variant->type }}" data-price="{{ $variant->price }}"
@@ -239,17 +243,17 @@
                                 class="bg-danger text-white square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
                                 disabled title="Not Available" type="button" value="{{ $variant->type }}">
                         @endif
-                    @endforeach
-                    {{-- <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins" type="button"
+                    @endforeach --}}
+                    <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins" type="button"
                         value="UK 11 (18.3 CM)">
                     <input class="fontPoppins square square2 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2" type="button"
                         value="UK 11.5 (18.9 CM)">
                     <input class="fontPoppins square square3 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2" type="button"
                         value="UK 12 (19.5 CM)">
                     <input class="fontPoppins square square4 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2" type="button"
-                        value="UK 13 (20.2 CM)"> --}}
+                        value="UK 13 (20.2 CM)">
                 </div>
-                <div class="col-12 pb-5 pt-2">
+                <div class="col-12 mb-4 mt-2">
                     <p class="text-secondary toetoHeel fontPoppins mb-0">Size: <span class="sizeToeSpan">I = Infants,
                             K =
                             Kid</span></p>
@@ -286,11 +290,20 @@
 
                                     <div class="col-12 pt-2 d-flex align-items-center justify-content-start gap-2">
 
-                                        <a class=" fontPoppins pt-2 pb-2 codde btn d-flex justify-content-around   "><span
+                                        {{-- <a class=" fontPoppins pt-2 pb-2 codde btn d-flex justify-content-around   "><span
                                                 class="text-start codeTxt text-white fontPoppins">FG5DST</span> <span
                                                 class="copyCode text-end"><img class="copyIMG"
                                                     src="{{ asset('public/images/copy.png') }}" alt="">
-                                                Copy</span></a>
+                                                Copy</span></a> --}}
+                                        <div
+                                            class=" fontPoppins p-0 codde btn d-flex justify-content-around align-items-center">
+                                            <span id="codeSpan"
+                                                class="text-start codeTxt text-white fontPoppins">FJ3478</span>
+                                            <button class="copyCode text-end border-0 bg-transparent p-2"
+                                                onclick="copyToClipboard()"><img class="copyIMG"
+                                                    src="{{ asset('public/images/copy.png') }}"
+                                                    alt="">Copy</button>
+                                        </div>
 
                                         <a class=" fontPoppins btn shareBtn pt-1 pb-1" href="#"><span
                                                 class="copyCode text-end"><img class="copyIMG"
@@ -320,11 +333,20 @@
 
                                     <div class="col-12 pt-2 d-flex align-items-center justify-content-start gap-2">
 
-                                        <a class="fontPoppins pt-2 pb-2 codde btn d-flex justify-content-around   "><span
+                                        {{-- <a class="fontPoppins pt-2 pb-2 codde btn d-flex justify-content-around   "><span
                                                 class="text-start codeTxt text-white">FG5DST</span> <span
                                                 class="copyCode text-end"><img class="copyIMG"
                                                     src="{{ asset('public/images/copy.png') }}" alt="">
-                                                Copy</span></a>
+                                                Copy</span></a> --}}
+                                                <div
+                                            class=" fontPoppins p-0 codde btn d-flex justify-content-around align-items-center">
+                                            <span id="codeSpan2"
+                                                class="text-start codeTxt text-white fontPoppins">GHD673</span>
+                                            <button class="copyCode text-end border-0 bg-transparent p-2"
+                                                onclick="copyToClipboard2()"><img class="copyIMG"
+                                                    src="{{ asset('public/images/copy.png') }}"
+                                                    alt="">Copy</button>
+                                        </div>
 
                                         <a class="fontPoppins btn shareBtn pt-1 pb-1" href="#"><span
                                                 class="copyCode text-end"><img class="copyIMG"
@@ -347,61 +369,61 @@
                 </div>
                 <div class="col-12 d-flex justify-content-between mt-2 mb-5 gap-2">
                     <div class="text-center clubCash">
-                        <img class="mb-3 benefitsImg" src="{{ asset('public/images/Group 901.png') }}"
+                        <img class="mb-2 benefitsImg" src="{{ asset('public/images/Group 901.png') }}"
                             alt="">
                         <p class="clubCashTxt mb-0 fontPoppins">Club Cash Benefits</p>
                         <h6 class="fw-bold clubCashTxt fontPoppins">Upto <span class="priceUpto">Rs.26</span></h6>
                     </div>
                     <div class="text-center ">
-                        <img class="mb-3 benefitsImg" src="{{ asset('public/images/Group 901 (1).png') }}"
+                        <img class="mb-2 benefitsImg" src="{{ asset('public/images/Group 901 (1).png') }}"
                             alt="">
                         <p class="clubCashTxt mb-0 fontPoppins ">Excusive Offers
                             & Discounts </p>
                         {{-- <h6 class="fw-bold">Upto <span class="priceUpto">Rs.26</span></h6> --}}
                     </div>
                     <div class="text-center ">
-                        <img class="mb-3 benefitsImg" src="{{ asset('public/images/Group 901 (2).png') }}"
+                        <img class="mb-2 benefitsImg" src="{{ asset('public/images/Group 901 (2).png') }}"
                             alt="">
                         <p class="clubCashTxt mb-0 fontPoppins">Lower Prices on
                             Products</p>
                         {{-- <h6 class="fw-bold">Upto <span class="priceUpto">Rs.26</span></h6> --}}
                     </div>
                     <div class="text-center ">
-                        <img class="mb-3 benefitsImg" src="{{ asset('public/images/Group 901 (3).png') }}"
+                        <img class="mb-2 benefitsImg" src="{{ asset('public/images/Group 901 (3).png') }}"
                             alt="">
                         <p class="clubCashTxt mb-0 fontPoppins">Lower Shipping
                             Barrier</p>
                         {{-- <h6 class="fw-bold">Upto <span class="priceUpto">Rs.26</span></h6> --}}
                     </div>
                     <div class="text-center ">
-                        <img class="mb-3 benefitsImg" src="{{ asset('public/images/Group 901 (4).png') }}"
+                        <img class="mb-2 benefitsImg" src="{{ asset('public/images/Group 901 (4).png') }}"
                             alt="">
                         <p class="clubCashTxt mb-0 fontPoppins">Free baby gear
                             assembly</p>
                         {{-- <h6 class="fw-bold">Upto <span class="priceUpto">Rs.26</span></h6> --}}
                     </div>
                 </div>
-                <div class="col-12 pb-4">
-                    <div class="hl "></div>
+                <div class="col-12 pb-2">
+                    <div class="hl"></div>
                 </div>
 
-                <div class="col-12 pt-3 pb-4">
+                <div class="col-12 pt-3 pb-3">
                     <div class="row d-flex justify-content-between">
                         <div class="col-5 d-flex align-items-center justify-content-between">
                             <img class="deliveryVan" src="{{ asset('public/images/deliveryVan.png') }}"
-                                alt="">
+                                alt="" width="20px" height="20px">
                             <h6 class="fontPoppins fw-bold mb-0">
                                 Check Delivery Details
                             </h6>
-                            <img class="deliveryVan" src="{{ asset('public/images/war.png') }}" alt="">
+                            <img class="deliveryVan" src="{{ asset('public/images/war.png') }}" alt="" width="14px" height="14px">
 
                         </div>
                         <div class="col-5 d-flex align-items-center justify-content-between">
-                            <img class="deliveryVan" src="{{ asset('public/images/clock.png') }}" alt="">
+                            <img class="deliveryVan" src="{{ asset('public/images/clock.png') }}" alt="" width="16px" height="16px">
                             <h6 class="fontPoppins exchange fw-bold mb-0">
                                 7 Days Return or Exchange
                             </h6>
-                            <img class="deliveryVan" src="{{ asset('public/images/war.png') }}" alt="">
+                            <img class="deliveryVan" src="{{ asset('public/images/war.png') }}" alt="" width="14px" height="14px">
 
                         </div>
                     </div>
@@ -422,13 +444,13 @@
                         </div>
                     </form>
                 </div>
-                <div class="col-12 pt-3 pb-3">
-                    <p class="txtPin fontPoppins">
+                <div class="col-12">
+                    <p class="txtPin fontPoppins mb-4">
                         Same Day/Next Day delivery applicable on this product. Enter pincode to check availability in
                         your area.
                     </p>
                 </div>
-                <div class="col-12 pb-4">
+                <div class="col-12 pb-2">
                     <div class="hl "></div>
                 </div>
 
@@ -447,26 +469,31 @@
                     </div>
                 </div>
 
-                <div class="col-12 pt-5 d-flex align-items-center justify-content-between">
+                <div class="col-12 pt-4 d-flex align-items-center justify-content-between">
                     <div>
                         <p class=" fontPoppins">Age:</p>
                     </div>
-                    @foreach ($ageOptions as $age)
+                    {{-- @foreach ($ageOptions as $age)
                         <div>
                             <p class=" fontPoppins">{{ $age }} Years</p>
                         </div>
-                    @endforeach
+                    @endforeach --}}
+                   
+                        <div>
+                            <p class=" fontPoppins">2.5 - 3 Years</p>
+                        </div>
+                    
 
                 </div>
-                <div class="col-12 pb-4">
+                <div class="col-12">
                     <div class="hl "></div>
                 </div>
-                <div class="col-12 pt-2 pb-2 d-flex align-items-center justify-content-between">
+                <div class="col-12 pt-3 pb-3 d-flex align-items-center justify-content-between">
                     <div>
-                        <p class=" fontPoppins">Length:</p>
+                        <p class=" fontPoppins m-0">Length:</p>
                     </div>
                     <div>
-                        <p class="fontPoppins">14.6 CM</p>
+                        <p class="fontPoppins m-0">14.6 CM</p>
                     </div>
                 </div>
                 <div class="col-12 pb-4">
@@ -479,10 +506,10 @@
                             <h6 class="fontPoppins fw-bold mb-4 ">
                                 Product Description
                             </h6>
-                            <h6 class="fontPoppins specific fw-bold mb-2">
+                            <h6 class="fontPoppins fs-14 specific fw-bold mb-2">
                                 Specification
                             </h6>
-                            <p class="speciTxt fontPoppins mb-1">
+                            <p class="speciTxt fs-14 fontPoppins mb-1">
                                 @if (str_replace('-', ' ', $product->slug))
                                     {{ str_replace('-', ' ', $product->slug) }}
                                 @else
@@ -508,27 +535,27 @@
                             {{-- <p class="">This is the hidden content.</p> --}}
                             <div class="row">
                                 <div class="col-12 pb-4">
-                                    <h6 class="fontPoppins fw-bold  ">
+                                    <h6 class="fontPoppins fw-bold mb-1">
                                         Items Included in Package
                                     </h6>
-                                    <p class="fontPoppins mb-1">
+                                    <p class="fontPoppins fs-14 mb-1">
                                         One Pair of Shoes
                                     </p>
                                 </div>
-                                <div class="col-12 pb-4">
+                                <div class="col-12 mb-3">
 
-                                    <h6 class="fontPoppins fw-bold  ">
+                                    <h6 class="fontPoppins fw-bold fs-14">
                                         Styling Tip: These shoes can be teamed up with a wide range of casual wear
                                     </h6>
                                 </div>
                                 <div class="col-12 ">
 
-                                    <h6 class="fontPoppins fw-bold  ">
+                                    <h6 class="fontPoppins fw-bold fs-14">
                                         Note: Kindly purchase footwear size 1/2 cm more than your kid's foot size
                                     </h6>
                                 </div>
-                                <div class="col-12 pb-4">
-                                    <p class="fontPoppins fw-bold">Country of Origins: <span class="countryOrigin">
+                                <div class="col-12">
+                                    <p class="fontPoppins fs-14 fw-bold">Country of Origins: <span class="countryOrigin">
                                             China</span></p>
                                 </div>
                                 <div class="col-12">
@@ -536,7 +563,7 @@
                                         Information</p>
                                 </div>
                                 <div class="col-12">
-                                    <p class="fontPoppins noteTerms">
+                                    <p class="fontPoppins fs-14 noteTerms">
                                         <span class="fw-bold">Note :</span> Mix of 0 Taxes and discount may change
                                         depending the amount of tax being
                                         borne by the Company. However, the final price as charged from customer will
@@ -548,18 +575,18 @@
                                 <div class="col-12 pb-4 pt-4">
                                     <div class="hl "></div>
                                 </div>
-                                <div class="col-12 pt-1 pb-4">
+                                <div class="col-12 pt-1 mb-3">
 
                                     <h6 class="fontPoppins fw-bold  ">
                                         Brand Information
                                     </h6>
                                 </div>
                                 <div class="col-12 pb-2">
-                                    <a class="btn w-100 babyOye pt-3 fs-4 pb-3 text-white rounded-3"
-                                        href="#">babyoye</a>
+                                    <a class="btn w-100 babyOye pt-3 fs-4 pb-3 text-white rounded-pill"
+                                        href="#">Babyoye</a>
                                 </div>
                                 <div class="col-12 pt-2 pb-4">
-                                    <p class="fontPoppins">Babyoye 'super-cute must haves' are designed to capture the
+                                    <p class="fontPoppins fs-14">Babyoye 'super-cute must haves' are designed to capture the
                                         magic of childhood, making perfect memories for the cute little adventurers.
                                         These oh-so-cute pieces stand for international quality & design available at
                                         affordable prices. The brand gives utmost importance to what their customer
@@ -573,7 +600,7 @@
 
                         </div>
                     </div>
-                    <button id="read-more" class="btn ps-0 pe-0 text-primary fs-6 fw-bold fontPoppins">Read More <img
+                    <button id="read-more" class="btn ps-0 pe-0 text-primary fs-14 fw-bold fontPoppins">Read More <img
                             class="ms-2 ps-1 readBtn" src="{{ asset('public/images/readMorethan.png') }}"
                             alt=""></button>
                     <button id="read-less" class="btn ps-0 pe-0 text-primary fs-6 fw-bold fontPoppins">Read Less <img
@@ -591,6 +618,27 @@
 </div>
 
 <script>
+    function copyToClipboard2() {
+        const codeText = document.getElementById('codeSpan2').innerText;
+        navigator.clipboard.writeText(codeText)
+            .then(() => {
+                alert(codeText + ' Code copied to clipboard!');
+            })
+            .catch((err) => {
+                console.error('Unable to copy to clipboard', err);
+            });
+    }
+    function copyToClipboard() {
+        const codeText = document.getElementById('codeSpan').innerText;
+        navigator.clipboard.writeText(codeText)
+            .then(() => {
+                alert(codeText + ' Code copied to clipboard!');
+            })
+            .catch((err) => {
+                console.error('Unable to copy to clipboard', err);
+            });
+    }
+
     function changepicture(code) {
         $('.active').removeClass('active');
         var imageSrc = $('#image-' + code).attr('data-url');

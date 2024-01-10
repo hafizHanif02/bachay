@@ -1659,13 +1659,6 @@ input:checked + .se:before {
 .hl {
     border-bottom: 2px solid #7777;
 }
-.specific {
-    font-size: 15px;
-}
-
-.speciTxt {
-    font-size: 15px;
-}
 .discountPercent {
     color: #62b00e;
     font-weight: 800;
@@ -1692,7 +1685,7 @@ input:checked + .se:before {
     width: 60%;
 }
 .joinImg {
-    width: 55px;
+    width: 42px;
     object-fit: cover;
 }
 .joinPrice {
@@ -2198,7 +2191,8 @@ input:checked + .se:before {
     object-fit: contain;
 }
 .clubCashTxt {
-    font-size: 13px;
+    font-size: 10px;
+    line-height: 12px;
 }
 .codeTxt {
     font-weight: 500;
@@ -2223,22 +2217,22 @@ input:checked + .se:before {
     width: 110px;
     object-fit: cover;
 }
-.deliveryVan {
+/* .deliveryVan {
     width: 25px;
     object-fit: cover;
-}
-.exchange {
+} */
+.exchange , .fs-14 {
     font-size: 14px;
 }
 .txtPin {
     color: #292d32;
-    font-size: 14px;
+    font-size: 12px;
 }
 .cmBtn {
     background: #845dc2;
 }
 .inchesAndCm {
-    font-size: 14px;
+    font-size: 12px;
 }
 .cmBtn:hover {
     background: #845dc2;
@@ -2273,14 +2267,6 @@ input:checked + .se:before {
 #searchPin::placeholder {
     font-size: 14px;
 }
-
-#searchPin:focus {
-    outline: none !important;
-    border: none !important;
-    border-style: none !important;
-    box-shadow: 6px 4px 10px #7777;
-}
-
 .readBtn {
     width: 18px;
 }
@@ -2310,10 +2296,7 @@ input:checked + .se:before {
 }
 
 #searchPin {
-    background: #f3f3f3;
-}
-#searchPin:hover {
-    box-shadow: 6px 4px 10px #7777;
+    font-size: 12px;
 }
 .ProductImgH img {
     height: 220px;
@@ -2331,7 +2314,7 @@ input:checked + .se:before {
 }
 .main-image {
     width: 100%;
-    height: 700px !important;
+    height: 600px !important;
     position: relative;
 }
 .small-images {
