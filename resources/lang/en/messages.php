@@ -182,6 +182,7 @@
   'flash_deal' => 'Flash Deal',
   'deal_form' => 'Deal form',
   'end_date' => 'End date',
+  'discount_percentage' => 'Discount Percentage',
   'Upload' => 'Upload',
   'flash_deal_table' => 'Flash deal table',
   'Start' => 'Start',
