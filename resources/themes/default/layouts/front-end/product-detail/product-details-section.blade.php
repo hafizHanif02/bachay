@@ -97,7 +97,14 @@
         <div class="col-lg-6 col-md-6 col-sm-12 col-12 ">
             <div class="row pt-3 pb-3">
                 <div class="col-12 d-flex align-items-center gap-2">
-                    <h6 class="fontPoppins fw-bold boysClothes mb-0">{{ $categoryName }}
+                    <h6 class="fontPoppins fw-bold boysClothes mb-0">
+                        @if (strlen($categoryName) <= 10)
+                            {{ $categoryName }}
+                        @else
+                             {{ substr($categoryName, 0, 10) }}...
+                        @endif
+                        {{-- {{ $categoryName }} --}}
+
                         {{-- Boys - Clothes --}}
                     </h6>
                     <div class="d-flex align-items-center gap-1">
@@ -338,7 +345,7 @@
                                                 class="copyCode text-end"><img class="copyIMG"
                                                     src="{{ asset('public/images/copy.png') }}" alt="">
                                                 Copy</span></a> --}}
-                                                <div
+                                        <div
                                             class=" fontPoppins p-0 codde btn d-flex justify-content-around align-items-center">
                                             <span id="codeSpan2"
                                                 class="text-start codeTxt text-white fontPoppins">GHD673</span>
@@ -415,15 +422,18 @@
                             <h6 class="fontPoppins fw-bold mb-0">
                                 Check Delivery Details
                             </h6>
-                            <img class="deliveryVan" src="{{ asset('public/images/war.png') }}" alt="" width="14px" height="14px">
+                            <img class="deliveryVan" src="{{ asset('public/images/war.png') }}" alt=""
+                                width="14px" height="14px">
 
                         </div>
                         <div class="col-5 d-flex align-items-center justify-content-between">
-                            <img class="deliveryVan" src="{{ asset('public/images/clock.png') }}" alt="" width="16px" height="16px">
+                            <img class="deliveryVan" src="{{ asset('public/images/clock.png') }}" alt=""
+                                width="16px" height="16px">
                             <h6 class="fontPoppins exchange fw-bold mb-0">
                                 7 Days Return or Exchange
                             </h6>
-                            <img class="deliveryVan" src="{{ asset('public/images/war.png') }}" alt="" width="14px" height="14px">
+                            <img class="deliveryVan" src="{{ asset('public/images/war.png') }}" alt=""
+                                width="14px" height="14px">
 
                         </div>
                     </div>
@@ -478,11 +488,11 @@
                             <p class=" fontPoppins">{{ $age }} Years</p>
                         </div>
                     @endforeach --}}
-                   
-                        <div>
-                            <p class=" fontPoppins">2.5 - 3 Years</p>
-                        </div>
-                    
+
+                    <div>
+                        <p class=" fontPoppins">2.5 - 3 Years</p>
+                    </div>
+
 
                 </div>
                 <div class="col-12">
@@ -555,7 +565,8 @@
                                     </h6>
                                 </div>
                                 <div class="col-12">
-                                    <p class="fontPoppins fs-14 fw-bold">Country of Origins: <span class="countryOrigin">
+                                    <p class="fontPoppins fs-14 fw-bold">Country of Origins: <span
+                                            class="countryOrigin">
                                             China</span></p>
                                 </div>
                                 <div class="col-12">
@@ -586,7 +597,8 @@
                                         href="#">Babyoye</a>
                                 </div>
                                 <div class="col-12 pt-2 pb-4">
-                                    <p class="fontPoppins fs-14">Babyoye 'super-cute must haves' are designed to capture the
+                                    <p class="fontPoppins fs-14">Babyoye 'super-cute must haves' are designed to
+                                        capture the
                                         magic of childhood, making perfect memories for the cute little adventurers.
                                         These oh-so-cute pieces stand for international quality & design available at
                                         affordable prices. The brand gives utmost importance to what their customer
@@ -628,6 +640,7 @@
                 console.error('Unable to copy to clipboard', err);
             });
     }
+
     function copyToClipboard() {
         const codeText = document.getElementById('codeSpan').innerText;
         navigator.clipboard.writeText(codeText)
