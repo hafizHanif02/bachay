@@ -200,7 +200,7 @@ class CustomerController extends Controller
                     'is_taken' => 1
                 ])->with('vaccination')->get();
 
-                $child->vaccination = $vaccination_submissions;
+                //$child->vaccination = $vaccination_submissions;
                 $overdue = 0;
                 $uppcoming = 0;
                 $today = 0;
