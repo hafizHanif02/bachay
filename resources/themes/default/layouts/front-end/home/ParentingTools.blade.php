@@ -36,7 +36,7 @@
                             </span>
                         </div>
                         <div class="col-12 text-center">
-                            <img class="mt-5 mb-5 Contests-img" src="{{ asset('public/images/Group 96.png') }}"
+                            <img class="mt-5 mb-5 Contests-img" src="{{ asset('public/images/G122roup96.png') }}"
                                 alt="" srcset="">
                         </div>
                         <div class="col-12 text-center ">
