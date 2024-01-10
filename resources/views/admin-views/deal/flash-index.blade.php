@@ -136,6 +136,7 @@
                         <tr>
                             <th>{{ translate('SL')}}</th>
                             <th>{{ translate('title')}}</th>
+                            <th>{{ translate('Dis %')}}</th>
                             <th>{{ translate('duration')}}</th>
                             <th>{{ translate('status')}}</th>
                             <th>{{ translate('active_products')}}</th>
@@ -148,6 +149,7 @@
                             <tr>
                                 <td>{{$flash_deal->firstItem()+ $k}}</td>
                                 <td><span class="font-weight-semibold">{{$deal['title']}}</span></td>
+                                <td>{{$deal['discount_percent']}}%</td>
                                 <td>{{date('d-M-y',strtotime($deal['start_date']))}} - {{date('d-M-y',strtotime($deal['end_date']))}}</td>
                                 <!-- <td>{{date('d-M-y',strtotime($deal['end_date']))}}</td> -->
                                 <td>
