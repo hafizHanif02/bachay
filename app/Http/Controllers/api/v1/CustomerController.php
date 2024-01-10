@@ -178,6 +178,9 @@ class CustomerController extends Controller
 
                     $child->format_age = trim($ageText). ' Old';
                 }
+
+                $child->growth => $growth = Growth::where('id',$child->id)->first();
+        
             }
 
             $overdueCounts = [];
