@@ -51,6 +51,7 @@ class DealController extends Controller
             'title' => $request['title'][array_search('en', $request->lang)],
             'start_date' => $request['start_date'],
             'end_date' => $request['end_date'],
+            'discount_percent' => $request['discount_percentage'],
             'background_color' => $request['background_color'],
             'text_color' => $request['text_color'],
             'banner' => $request->has('image') ? ImageManager::upload('deal/', 'webp', $request->file('image')) : 'def.webp',
