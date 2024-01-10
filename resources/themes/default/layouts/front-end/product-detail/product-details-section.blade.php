@@ -13,22 +13,21 @@
                 </div>
 
                 <div class="small-images">
-                    <div class="SmallImageCon">
-                        @foreach (json_decode($product->color_image) as $key => $photo)
-                            <img class="small-image object-fit-cover"
-                                id="image-#{{ $photo->color ? $photo->color : '' }}"
-                                src="{{ asset('storage/app/public/product/' . $photo->image_name) }}"
-                                data-url='{{ asset('storage/app/public/product/' . $photo->image_name) }}'
-                                alt="Small Image {{ $key + 1 }}" width="70px" height="50px">
-                        @endforeach
-                        @foreach (json_decode($product->images) as $key => $photo)
-                            <img class="small-image object-fit-cover"
-                                src="{{ asset('storage/app/public/product/' . $photo) }}"
-                                data-url='{{ asset('storage/app/public/product/' . $photo) }}'
-                                alt="Small Image {{ $key + 1 }}" width="70px" height="50px">
-                        @endforeach
-
-                    </div>
+                        <div class="SmallImageCon">     
+                                @foreach (json_decode($product->color_image) as $key => $photo)
+                                    <img class="small-image object-fit-cover"
+                                        id="image-#{{ $photo->color ? $photo->color : '' }}"
+                                        src="{{ asset('storage/app/public/product/' . $photo->image_name) }}"
+                                        data-url='{{ asset('storage/app/public/product/' . $photo->image_name) }}'
+                                        alt="Small Image {{ $key + 1 }}">
+                                @endforeach
+                                @foreach (json_decode($product->images) as $key => $photo)
+                                    <img class="small-image object-fit-cover"
+                                        src="{{ asset('storage/app/public/product/' . $photo) }}"
+                                        data-url='{{ asset('storage/app/public/product/' . $photo) }}'
+                                        alt="Small Image {{ $key + 1 }}">
+                            @endforeach
+                        </div>
                 </div>
 
 
@@ -101,7 +100,7 @@
                         @if (strlen($categoryName) <= 10)
                             {{ $categoryName }}
                         @else
-                             {{ substr($categoryName, 0, 10) }}...
+                            {{ substr($categoryName, 0, 10) }}...
                         @endif
                         {{-- {{ $categoryName }} --}}
 

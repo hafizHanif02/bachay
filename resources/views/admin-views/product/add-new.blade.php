@@ -524,7 +524,7 @@
                                     </div>
 
                                 </div>
-                                <p class="text-muted">{{translate('upload_additional_product_images')}}</p>
+                                <p class="text-muted">{{translate('upload_additional_product_images (Only 6 images are allowed)')}}</p>
 
                                 <div class="row g-2" id="additional_Image_Section">
                                     <div class="col-sm-12 col-md-4">
