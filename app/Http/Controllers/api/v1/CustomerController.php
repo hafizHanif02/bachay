@@ -151,7 +151,7 @@ class CustomerController extends Controller
             //     }
             // }
 
-           
+
 
             foreach ($childerens as $child) {
                 if ($child->profile_picture != null) {
@@ -180,7 +180,7 @@ class CustomerController extends Controller
                 }
 
                 $child->growth = $growth = Growth::where('child_id',$child->id)->first();
-        
+
             }
 
             $overdueCounts = [];
@@ -217,7 +217,7 @@ class CustomerController extends Controller
                             array_push($uppcomingVaccine, $vaccination_submission);
                             $countUpcoming++;
                         }
-                        
+
                     }elseif($vaccinationDate < $currentDate){
                         $overdue += 1;
                     } else{
@@ -236,7 +236,7 @@ class CustomerController extends Controller
                 }
                 $child->vaccination_status = ['upcomming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
                 $child->uppcomingVaccine = $uppcomingVaccine;
-                
+
             }
             return response()->json($childerens, 200);
         }else{

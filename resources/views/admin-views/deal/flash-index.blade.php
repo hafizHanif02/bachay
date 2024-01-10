@@ -63,6 +63,10 @@
                                     <label for="name" class="title-color font-weight-medium text-capitalize">{{ translate('end_date')}}</label>
                                     <input type="date" name="end_date" required class="form-control">
                                 </div>
+                                <div class="form-group">
+                                    <label for="name" class="title-color font-weight-medium text-capitalize">{{ translate('discount_percentage')}}</label>
+                                    <input type="number" name="discount_percentage" required class="form-control">
+                                </div>
                             </div>
                             <div class="col-lg-6">
                                 <div class="form-group">
