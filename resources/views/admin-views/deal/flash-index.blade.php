@@ -136,7 +136,7 @@
                         <tr>
                             <th>{{ translate('SL')}}</th>
                             <th>{{ translate('title')}}</th>
-                            <th>{{ translate('Dis %')}}</th>
+                            <th>Dis %</th>
                             <th>{{ translate('duration')}}</th>
                             <th>{{ translate('status')}}</th>
                             <th>{{ translate('active_products')}}</th>
