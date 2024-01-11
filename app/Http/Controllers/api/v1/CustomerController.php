@@ -466,11 +466,22 @@ public function SubmitQuiz(Request $request){
                     $vaccine->ageInWords = (int)$vaccine->age . ' Months';
                 }
             }
-            
+
             $vaccination_data = [];
 
                 foreach ($vaccines as $vaccine) {
                     $vaccineSubmission = VaccinationSubmission::where(['child_id' => $child->id, 'vaccination_id' => $vaccine->id])->get();
+                    $currentDate = Carbon::now();
+                    foreach($vaccineSubmission as $vaccineSubmission){
+                        if($vaccineSubmission->submission_date != null){
+                            $vaccineSubmission->status = "Completed";
+                        }elseif(Carbon::parse($vaccineSubmission->Vaccination_date) > $currentDatel){
+                            $vaccineSubmission->status = "Over Due";
+                        }else {
+                            $vaccineSubmission->status = "Upcomming";
+                        }
+                        $vaccineSubmission->vaccination_date = date('Y-m-d', strtotime($vaccineSubmission->vaccination_date));
+                    }
                     if (!isset($vaccination_data[$vaccine->ageInWords])) {
                         $vaccination_data[$vaccine->ageInWords] = [];
                     }
