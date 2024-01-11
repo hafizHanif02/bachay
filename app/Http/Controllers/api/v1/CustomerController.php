@@ -475,10 +475,10 @@ public function SubmitQuiz(Request $request){
                     foreach($vaccineSubmission as $vaccineSubmission){
                         if($vaccineSubmission->submission_date != null){
                             $vaccineSubmission->status = "Completed";
-                        }elseif(Carbon::parse($vaccineSubmission->Vaccination_date) > $currentDatel){
+                        }elseif(Carbon::parse($vaccineSubmission->Vaccination_date) > $currentDate){
                             $vaccineSubmission->status = "Over Due";
-                        }else {
-                            $vaccineSubmission->status = "Upcomming";
+                        }elseif(Carbon::parse($vaccineSubmission->Vaccination_date) == $currentDate) {
+                            $vaccineSubmission->status = "Today";
                         }
                         $vaccineSubmission->vaccination_date = date('Y-m-d', strtotime($vaccineSubmission->vaccination_date));
                     }
