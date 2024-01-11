@@ -489,7 +489,7 @@ public function SubmitQuiz(Request $request){
 
                     $child->vaccination = $vaccination_data;
                 }
-
+                return $vaccination_data;
                 $dates = [];
                 foreach ($vaccination_data as $month) {
                     foreach ($month as $vac) {
