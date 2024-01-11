@@ -457,7 +457,7 @@ public function SubmitQuiz(Request $request){
             }
 
             $vaccines = Vaccination::orderByRaw('CAST(age AS SIGNED) ASC')->get();
-
+            return $vaccines;
             $vaccination_data = [];
 
                 foreach ($vaccines as $vaccine) {
