@@ -154,7 +154,7 @@ function addToWishlist(button) {
                 "warning"
             );
         },
-    }); 
+    });
 }
 
 function deleteFromWishlist(productId) {
@@ -241,74 +241,22 @@ $("#search").keydown(function () {
     }
 });
 
-// function addToCart(productId) {
-//     $.ajax({
-//         type: "POST",
-//         url: "/add-to-cart",
-//         data: {
-//             _token: $('meta[name="csrf-token"]').attr("content"),
-//             productId: productId,
-//             size: $("input[name='size']").val(),
-//             price: $("#price" + productId).val(),
-//             color: $("input[name='color']").val(),
-//             material: $("input[name='material']").val(),
-//             quantity: $("input[name='quantity']").val(),
-//         },
-//         dataType: "json",
-//         success: function (data, status, xhr) {
-//             if (xhr.status === 200) {
-//                 $("#cart-btn i").removeClass("bi-cart");
-//                 $("#cart-btn i").addClass("bi-cart-fill");
-//                 $("#modalId").modal("hide");
-//             }
-//         },
-//         error: function (xhr, status, error) {
-//             if (xhr.status === 401) {
-//                 window.location = "/customer/auth/login";
-//             } else if (xhr.status === 422) {
-//                 $("#errors").empty();
-//                 var errors = xhr.responseJSON.errors;
-//                 $.each(errors, function (key, value) {
-//                     $("#errors").append(value);
-//                 });
-//             }
-//         },
-//     });
-// }
+function addToCart(button) {
+    var productId = $(button).data("product-id");
+    var name = $(button).data("name");
+    var productPrice = $(button).data("price");
+    var discount = $(button).data("discount");
+    var tax = $(button).data("tax");
+    var thumbnail = $(button).data("thumbnail");
+    var color = $(button).data("color");
+    var variant = $(button).data("variant");
+    var slug = $(button).data("slug");
 
-// function removeCartItem(cartItemId) {
-//     $.ajax({
-//         type: "DELETE",
-//         url: "/remove-cart-item/" + cartItemId,
-//         data: {
-//             _token: $("meta[name='csrf-token']").attr("content"),
-//         },
-//         dataType: "json",
-//         success: function (data, status, xhr) {
-//             if (xhr.status == 200) {
-//                 $("#cartItem" + cartItemId).remove();
-//             }
-//         },
-//     });
-// }
-
-function addToCart(id) {
-    var productId = $('#cart-btn'+id).data("product-id");
-    var customer_id = $('#cart-btn'+id).data("customer-id");
-    var name = $('#cart-btn'+id).data("name");
-    var productPrice = $('#cart-btn'+id).data("price");
-    var discount = $('#cart-btn'+id).data("discount");
-    var tax = $('#cart-btn'+id).data("tax");
-    var thumbnail = $('#cart-btn'+id).data("thumbnail");
-    var color = $('#cart-btn'+id).data("color");
-    var variant = $('#cart-btn'+id).data("variant");
-    var slug = $('#cart-btn'+id).data("slug");
     $.ajax({
         type: "POST",
-        url: "/cart/add",
+        url: "/add-to-cart",
         data: {
             product_id: productId,
-            customer_id: customer_id,
             name: name,
             price: productPrice,
             discount: discount,
@@ -326,7 +274,7 @@ function addToCart(id) {
         success: function (data, status, xhr) {
             var cartIcon = $(button).find("i");
             if (xhr.status === 200) {
-                cartIcon.toggleClass("bi-cart bi-cart-fill text-danger");
+                cartIcon.toggleClass("bi-cart bi-cart-fill text-purple");
                 if (cartIcon.hasClass("bi-cart")) {
                     deleteFromCart(productId);
                 }
@@ -335,27 +283,20 @@ function addToCart(id) {
             }
         },
         error: function (response) {
-            // alert("Error occurred while adding on cart");
-            // alert("Login error\nPlease login to add items in cart");
             Swal.fire(
                 "<strong>Login <u>error</u></strong>",
-                'Please <b><a href="customer/auth/login">login</a></b> or <b><a href="/customer/auth/sign-up">signup</a></b> to add items in <b>Cart</b>',
+                'Please <b><a href="customer/auth/login">login</a></b> or <b><a href="/customer/auth/sign-up">signup</a></b> to add items in <b>cart</b>',
                 "warning"
             );
         },
     });
 }
-
-
 function deleteFromCart(productId) {
-    var customer_id = $('#cart-btn'+productId).data("customer-id");
-    console.log(customer_id);
     $.ajax({
         type: "POST",
-        url: "cart/remove-product/"+productId+"/"+customer_id,
+        url: "/delete-cart",
         data: {
             productId: productId,
-            customer_id: customer_id,
         },
         headers: {
             "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
@@ -382,9 +323,6 @@ function deleteFromCart(productId) {
         },
     });
 }
-
-
-
 
 function addToUrl(type, value1, value2 = null) {
     let params = new URLSearchParams(window.location.search);
@@ -512,8 +450,13 @@ function productsFilter(checkbox, type, value1, value2 = null) {
         
                                         <div class="d-flex justify-content-between mt-3">
                                             <button class="buy-now rounded-pill text-white">Buy Now</button>
-                                                    <button id="cart-btn" class="p-0 bg-transparent rounded-circle forBorder"
-                                                    data-bs-toggle="modal" data-bs-target="#modalId" >
+                                                    <button id="cart-btn-${
+                                                        product.id
+                                                    }" class="p-0 bg-transparent rounded-circle forBorder"
+                                                    data-bs-toggle="modal" data-bs-target="#modalId"
+                                                    onclick-"addToCart('${
+                                                        product.id
+                                                    }')">
                                                     <i
                                                         class="bi ${
                                                             product.is_in_cart

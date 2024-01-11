@@ -6742,4 +6742,5 @@
   'Order Not Found found!' => 'Order Not Found found!',
   'terms_and_Condition' => 'Terms and Condition',
   'invalid_order' => 'Invalid order',
+  'product_has_been_remove_from_cart' => 'Product has been remove from cart',
 );

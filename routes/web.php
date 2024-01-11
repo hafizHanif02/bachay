@@ -30,16 +30,17 @@ use App\Http\Controllers\Payment_Methods\PaystackController;
 
 //for maintenance mode
 Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('maintenance-mode');
-route::get('naveedyousuf', function (){
+route::get('naveedyousuf', function () {
     return view('naveedyousufcard');
 });
 
 Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestCheck']], function () {
     Route::get('/', 'HomeController@commingsoon');
-    Route::get('/home', 'HomeController@index')->name('home');   
+    Route::get('/home', 'HomeController@index')->name('home');
 
     Route::post('/add-to-wishlist', 'WebController@addToWishlist')->name('wishlist.add');
     // Route::post('/delete-from-wishlist', 'WebController@deleteFromWishlist')->name('wishlist.delete');
+    Route::post('/add-to-cart', 'WebController@addToCart')->name('carts.add');
 
     Route::get('quick-view', 'WebController@quick_view')->name('quick-view');
     Route::get('searched-products', 'WebController@searched_products')->name('searched-products');
@@ -136,7 +137,7 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestC
     route::get('gift-certification', 'WebController@gift_certification')->name('gift-certification');
     route::get('invites-credits', 'WebController@invites_credits')->name('invites-credits');
     route::get('my-reviews-upload', 'WebController@my_reviews_upload')->name('my-reviews-upload');
-   
+
 
 
 
@@ -154,6 +155,14 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestC
     Route::post('store-wishlist', 'WebController@storeWishlist')->name('store-wishlist');
     Route::post('delete-wishlist', 'WebController@deleteWishlist')->name('delete-wishlist');
     Route::get('delete-wishlist-all', 'WebController@delete_wishlist_all')->name('delete-wishlist-all')->middleware('customer');
+
+    Route::post('/add-to-cart', 'WebController@addToCart')->name('carts.add');
+    Route::get('cart', 'WebController@viewCart')->name('cart')->middleware('customer');
+    Route::post('store-cart', 'WebController@storeCart')->name('store-cart');
+    Route::post('delete-cart', 'WebController@deleteCart')->name('delete-cart');
+    Route::get('delete-cart-all', 'WebController@delete_cart_all')->name('delete-cart-all')->middleware('customer');
+
+
 
     Route::post('/currency', 'CurrencyController@changeCurrency')->name('currency.change');
 

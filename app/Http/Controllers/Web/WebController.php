@@ -6337,6 +6337,7 @@ class WebController extends Controller
         ]);
     }
 
+
     public function discounted_products(Request $request)
     {
         $request['sort_by'] == null ? $request['sort_by'] == 'latest' : $request['sort_by'];
@@ -6464,6 +6465,134 @@ class WebController extends Controller
         return view(VIEW_FILE_NAMES['products_view_page'], compact('products', 'data'), $data);
     }
 
+    public function viewCart(Request $request)
+    {
+        $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
+
+        $carts = Cart::with([
+            'product_full_info',
+            'product_full_info.compare_list' => function ($query) {
+                return $query->where('user_id', auth('customer')->id() ?? 0);
+            }
+        ])
+            ->whereHas('cartProduct', function ($q) use ($request) {
+                $q->when($request['search'], function ($query) use ($request) {
+                    $query->where('name', 'like', "%{$request['search']}%")
+                        ->orWhereHas('category', function ($qq) use ($request) {
+                            $qq->where('name', 'like', "%{$request['search']}%");
+                        });
+                });
+            })
+            ->where('customer_id', auth('customer')->id())->paginate(15);
+
+        return view(VIEW_FILE_NAMES['account_cart'], compact('carts', 'brand_setting'));
+    }
+
+    public function addToCart(Request $request)
+    {
+        $userId = Auth::guard('customer')->user()->id;
+        $productId = $request->product_id;
+
+        // Retrieve data from the request sent by JavaScript
+        $name = $request->name;
+        $price = $request->price;
+        $discount = $request->discount;
+        $tax = $request->tax;
+        $thumbnail = $request->thumbnail;
+        $color = $request->color;
+        $variant = $request->variant;
+        $slug = $request->slug;
+        $quantity = $request->quantity;
+
+        if ($userId) {
+            if (!Cart::where('customer_id', $userId)->where('product_id', $productId)->exists()) {
+                Cart::create([
+                    'customer_id' => $userId,
+                    'product_id' => $productId,
+                    'name' => $name,
+                    'price' => $price,
+                    'discount' => $discount,
+                    'tax' => $tax,
+                    'thumbnail' => $thumbnail,
+                    'color' => $color,
+                    'variant' => $variant,
+                    'slug' => $slug,
+                    'quantity' => $quantity,
+                    // Include other necessary fields
+                ]);
+
+                return response()->json(['status' => 'success', 'message' => 'Product added to cart']);
+            } else {
+                return response()->json(['status' => 'error', 'message' => 'Product already in cart']);
+            }
+        } else {
+            return response()->json(['status' => 'error', 'message' => 'Please Login First']);
+        }
+
+        return response()->json(['status' => 'error', 'message' => 'User not authenticated'], 401);
+    }
+
+    public function storeCart(Request $request)
+    {
+        if ($request->ajax()) {
+            if (auth('customer')->check()) {
+                $cart = Cart::where('customer_id', auth('customer')->id())->where('product_id', $request->product_id)->first();
+                if ($cart) {
+                    $cart->delete();
+
+                    $countCart = Cart::whereHas('cartProduct', function ($q) {
+                        return $q;
+                    })->where('customer_id', auth('customer')->id())->count();
+                    $product_count = Cart::where(['product_id' => $request->product_id])->count();
+                    session()->put('cart', Cart::where('customer_id', auth('customer')->user()->id)->pluck('product_id')->toArray());
+
+                    return response()->json([
+                        'error' => translate("cart_Removed"),
+                        'value' => 2,
+                        'count' => $countCart,
+                        'product_count' => $product_count
+                    ]);
+                } else {
+                    $cart = new Cart;
+                    $cart->customer_id = auth('customer')->id();
+                    $cart->product_id = $request->product_id;
+                    $cart->save();
+
+                    $countCart = Cart::whereHas('cartProduct', function ($q) {
+                        return $q;
+                    })->where('customer_id', auth('customer')->id())->count();
+
+                    $product_count = Cart::where(['product_id' => $request->product_id])->count();
+                    session()->put('cart', Cart::where('customer_id', auth('customer')->user()->id)->pluck('product_id')->toArray());
+
+                    return response()->json([
+                        'success' => translate("Product has been added to cart"),
+                        'value' => 1, 'count' => $countCart,
+                        'id' => $request->product_id,
+                        'product_count' => $product_count
+                    ]);
+                }
+            } else {
+                return response()->json(['error' => translate('login_first'), 'value' => 0]);
+            }
+        }
+    }
+
+    public function deleteCart(Request $request)
+    {
+        $cart = Cart::where(['product_id' => $request->productId, 'customer_id' => auth('customer')->id()])->delete();
+        $data = translate('product_has_been_remove_from_cart') . '!';
+        return response()->json(['success' => $data]);
+    }
+
+    public function delete_cart_all()
+    {
+        $this->cart->where('customer_id', auth('customer')->id())->delete();
+        session()->put('cart', $this->cart->where('customer_id', auth('customer')->user()->id)->pluck('product_id')->toArray());
+        return redirect()->back();
+    }
+
+
     public function viewWishlist(Request $request)
     {
         $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
@@ -6511,11 +6640,6 @@ class WebController extends Controller
 
         return response()->json(['status' => 'error', 'message' => 'User not authenticated'], 401);
     }
-
-
-
-
-
 
     public function storeWishlist(Request $request)
     {

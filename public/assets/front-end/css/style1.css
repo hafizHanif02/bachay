@@ -535,6 +535,9 @@ h1.text-center.textClr {
 .heart-icon{
     color: #E62E2D;
 }
+.cart-icon {
+    color: #8b5bc0;
+}
 .sec-best-seller p {
     font-size: 12px !important;
     font-weight: 600 !important;

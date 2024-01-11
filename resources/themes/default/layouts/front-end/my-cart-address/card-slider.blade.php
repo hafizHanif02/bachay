@@ -118,17 +118,23 @@
                                                 value="{{ $product->slug }}">
                                             <input type="hidden" name="customer_id" id="customer_id"
                                                 value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
-
-                                            <div class="d-flex  mt-1">
-                                                <button id="cart-btn"
-                                                    class="p-0 bg-transparent rounded-circle forBorder">
-                                                    <i class="bi bi-cart"></i>
-                                                    {{-- <i
-                                            class="bi {{ in_array($product->id, $cartProducts) ? 'bi-cart-fill' : 'bi-cart' }} text-purple"></i> --}}
-                                                </button>
-                                            </div>
                                         </form>
-
+                                        <div class="d-flex mt-1">
+                                            <button id="cart-btn{{ $product->id }}"
+                                                class="p-0 bg-transparent rounded-circle forBorder"
+                                                data-product-id="{{ $product->id }}"
+                                                data-name="{{ $product->name }}"
+                                                data-price="{{ $product->unit_price }}"
+                                                data-discount="{{ $product->discount }}"
+                                                data-tax="{{ $product->tax }}"
+                                                data-thumbnail="{{ $product->thumbnail }}"
+                                                data-color="{{ $product->color }}"
+                                                data-variant="{{ $product->variant }}"
+                                                data-slug="{{ $product->slug }}" onclick="addToCart(this)">
+                                                <i
+                                                    class="bi cart-icon bi-cart {{ in_array($product->id, $cartProductsArray) ? 'fill' : '' }} text-purple"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -264,15 +270,23 @@
                                             <input type="hidden" name="customer_id" id="customer_id"
                                                 value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
 
-                                            <div class="d-flex  mt-1">
-                                                <button id="cart-btn"
-                                                    class="p-0 bg-transparent rounded-circle forBorder">
-                                                    <i class="bi bi-cart"></i>
-                                                    {{-- <i
-                                            class="bi {{ in_array($product->id, $cartProducts) ? 'bi-cart-fill' : 'bi-cart' }} text-purple"></i> --}}
-                                                </button>
-                                            </div>
                                         </form>
+                                        <div class="d-flex mt-1">
+                                            <button id="cart-btn{{ $product->id }}"
+                                                class="p-0 bg-transparent rounded-circle forBorder"
+                                                data-product-id="{{ $product->id }}"
+                                                data-name="{{ $product->name }}"
+                                                data-price="{{ $product->unit_price }}"
+                                                data-discount="{{ $product->discount }}"
+                                                data-tax="{{ $product->tax }}"
+                                                data-thumbnail="{{ $product->thumbnail }}"
+                                                data-color="{{ $product->color }}"
+                                                data-variant="{{ $product->variant }}"
+                                                data-slug="{{ $product->slug }}" onclick="addToCart(this)">
+                                                <i
+                                                    class="bi cart-icon bi-cart {{ in_array($product->id, $cartProductsArray) ? 'fill' : '' }} text-purple"></i>
+                                            </button>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -365,7 +379,8 @@
                                                 value="{{ $product->unit_price }}">
                                             <input type="hidden" name="quantity" value="1">
                                             <input type="hidden" name="product[1][quantity]" value="1">
-                                            <input type="hidden" name="product[1][id]" value="{{ $product->id }}">
+                                            <input type="hidden" name="product[1][id]"
+                                                value="{{ $product->id }}">
                                             <input type="hidden" name="product[1][price]"
                                                 value="{{ $product->unit_price }}">
                                             <input type="hidden" name="product[1][product_id]"
@@ -410,15 +425,23 @@
                                             <input type="hidden" name="customer_id" id="customer_id"
                                                 value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
 
-                                            <div class="d-flex  mt-1">
-                                                <button id="cart-btn"
-                                                    class="p-0 bg-transparent rounded-circle forBorder">
-                                                    <i class="bi bi-cart"></i>
-                                                    {{-- <i
-                                            class="bi {{ in_array($product->id, $cartProducts) ? 'bi-cart-fill' : 'bi-cart' }} text-purple"></i> --}}
-                                                </button>
-                                            </div>
                                         </form>
+                                        <div class="d-flex mt-1">
+                                            <button id="cart-btn{{ $product->id }}"
+                                                class="p-0 bg-transparent rounded-circle forBorder"
+                                                data-product-id="{{ $product->id }}"
+                                                data-name="{{ $product->name }}"
+                                                data-price="{{ $product->unit_price }}"
+                                                data-discount="{{ $product->discount }}"
+                                                data-tax="{{ $product->tax }}"
+                                                data-thumbnail="{{ $product->thumbnail }}"
+                                                data-color="{{ $product->color }}"
+                                                data-variant="{{ $product->variant }}"
+                                                data-slug="{{ $product->slug }}" onclick="addToCart(this)">
+                                                <i
+                                                    class="bi cart-icon bi-cart {{ in_array($product->id, $cartProductsArray) ? 'fill' : '' }} text-purple"></i>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
