@@ -457,6 +457,9 @@ public function SubmitQuiz(Request $request){
             }
 
             $vaccines = Vaccination::orderByRaw('CAST(age AS SIGNED) ASC')->get();
+            foreach($vaccines as $vaccine){
+                $vaccine->ageInWords = (int)$vaccine->age . ' Months';
+            }
             return $vaccines;
             $vaccination_data = [];
 
