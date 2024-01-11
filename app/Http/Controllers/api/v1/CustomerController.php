@@ -444,9 +444,7 @@ public function SubmitQuiz(Request $request){
         if ($months > 0) {
             $ageInWords .= ($ageInWords ? ' ' : '') . $months . ' Month' . ($months > 1 ? 's' : '');
         }
-        if ($days > 0) {
-            $ageInWords .= ($ageInWords ? ' ' : '') . $days . ' Day' . ($days > 1 ? 's' : '');
-        }
+
         $child->age = $ageInWords;
 
 
@@ -464,10 +462,11 @@ public function SubmitQuiz(Request $request){
 
                 foreach ($vaccines as $vaccine) {
                     $vaccineSubmission = VaccinationSubmission::where(['child_id' => $child->id, 'vaccination_id' => $vaccine->id])->get();
-                    if (!isset($vaccination_data[$vaccine->age])) {
-                        $vaccination_data[$vaccine->age] = [];
+                    $vacAge = (int)$vaccine->age;
+                    if (!isset($vaccination_data[$vacAge])) {
+                        $vaccination_data[$vacAge] = [];
                     }
-                    $vaccination_data[$vaccine->age][] = array_merge($vaccine->toArray(), ['vaccine_submission' => $vaccineSubmission->toArray()]);
+                    $vaccination_data[$vacAge][] = array_merge($vaccine->toArray(), ['vaccine_submission' => $vaccineSubmission->toArray()]);
 
                     $child->vaccination = $vaccination_data;
                 }

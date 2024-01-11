@@ -8,7 +8,7 @@ use App\Http\Controllers\api\v1\Customer\CMS\HomeController;
 
 
 Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_lang']], function () {
-    
+
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/categories', [HomeController::class, 'NewArrtival']);
     Route::get('/categories/all', [HomeController::class, 'AllCategorys']);
@@ -16,7 +16,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
     Route::get('/main-banner-section', [HomeController::class, 'MainBannerSection']);
     Route::get('/flash-deals', [HomeController::class, 'FlashDeals']);
     Route::get('/footer-banner', [HomeController::class, 'FooterBanner']);
-    
+
     Route::group(['prefix' => 'article'], function () {
         Route::get('category/all', [HomeController::class, 'allCategoryArticle']);
         Route::get('category/{id}', [HomeController::class, 'ArticleByCategory']);
@@ -53,8 +53,8 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
 
         Route::any('social-login', 'SocialAuthController@social_login');
         Route::post('update-phone', 'SocialAuthController@update_phone');
-        
-        
+
+
     });
 
     Route::group(['prefix' => 'config'], function () {
@@ -192,7 +192,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::put('update/{id}', 'CustomerController@Updatechild');
         Route::get('detail/{id}', 'CustomerController@Detailchild');
         Route::post('update', 'CustomerController@Updatechild');
-        Route::delete('delete/{id}', 'CustomerController@Deletechild');  
+        Route::delete('delete/{id}', 'CustomerController@Deletechild');
         Route::group(['prefix' => 'growth'], function () {
             Route::get('/{id}', 'CustomerController@GrowthGet');
             Route::post('add/{id}', 'CustomerController@GrowthUpdate');
@@ -273,7 +273,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
             Route::post('loyalty-exchange-currency', 'UserLoyaltyController@loyalty_exchange_currency');
         });
     });
-    
+
 
     Route::group(['prefix' => 'customer', 'middleware' => 'apiGuestCheck'], function () {
         Route::group(['prefix' => 'order'], function () {
