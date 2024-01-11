@@ -276,7 +276,7 @@ class CustomerController extends Controller
             foreach($Vaccinations as $vaccination){
                 $dateOfBirth = $request->dob;
                 $carbonDateOfBirth = Carbon::parse($dateOfBirth);
-                $resultDate = $carbonDateOfBirth->addMonths($vaccination->age)->toDateString();
+                $resultDate = $carbonDateOfBirth->addWeeks($vaccination->age)->toDateString();
                 VaccinationSubmission::create([
                     'user_id' => Auth::user()->id,
                     'child_id' => $childId,
