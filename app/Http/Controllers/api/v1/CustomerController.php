@@ -466,16 +466,15 @@ public function SubmitQuiz(Request $request){
                     $vaccine->ageInWords = (int)$vaccine->age . ' Months';
                 }
             }
-            return $vaccines;
+            
             $vaccination_data = [];
 
                 foreach ($vaccines as $vaccine) {
                     $vaccineSubmission = VaccinationSubmission::where(['child_id' => $child->id, 'vaccination_id' => $vaccine->id])->get();
-                    $vacAge = (int)$vaccine->age;
-                    if (!isset($vaccination_data[$vacAge])) {
-                        $vaccination_data[$vacAge] = [];
+                    if (!isset($vaccination_data[$vaccine->ageInWords])) {
+                        $vaccination_data[$vaccine->ageInWords] = [];
                     }
-                    $vaccination_data[$vacAge][] = array_merge($vaccine->toArray(), ['vaccine_submission' => $vaccineSubmission->toArray()]);
+                    $vaccination_data[$vaccine->ageInWords][] = array_merge($vaccine->toArray(), ['vaccine_submission' => $vaccineSubmission->toArray()]);
 
                     $child->vaccination = $vaccination_data;
                 }
