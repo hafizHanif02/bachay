@@ -445,7 +445,7 @@ public function SubmitQuiz(Request $request){
             $ageInWords .= ($ageInWords ? ' ' : '') . $months . ' Month' . ($months > 1 ? 's' : '');
         }
         if ($ageInWords == '' && $days > 0) {
-            $ageText .= $ageInterval->d . ' days ';
+            $ageText .= $days . ' days ';
         }
 
         $child->age = $ageInWords;
