@@ -87,7 +87,7 @@ class HomeController extends Controller
     }
 
     public function FlashDeals(){
-        $flashdeals = FlashDeal::with('product')->get();
+        $flashdeals = FlashDeal::with('products')->get();
         return $flashdeals;
         $formattedFlashDeals = [];
 
