@@ -120,7 +120,7 @@ class HomeController extends Controller
         foreach($flashdeals[0]->products as $flashProduct){
 
 
-            $flashProduct->product->thumbnail = asset('storage/app/public/product/thumbnail/' . $flashdeal->product->thumbnail);
+            $flashProduct->product->thumbnail = asset('storage/app/public/product/thumbnail/' . $flashProduct->product->thumbnail);
         }
 
         return response()->json($flashdeals, 200);
