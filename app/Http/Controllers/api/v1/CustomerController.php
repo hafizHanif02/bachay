@@ -489,7 +489,7 @@ public function SubmitQuiz(Request $request){
 
                     $child->vaccination = $vaccination_data;
                 }
-            
+
                 $dates = [];
                 foreach ($vaccination_data as $month) {
                     foreach ($month as $vac) {
@@ -516,25 +516,27 @@ public function SubmitQuiz(Request $request){
                     ])->with('vaccination')->get();
 
                     foreach($child->vaccination as $month){
-                        return $month;
+
                         $overdue = 0;
                         $uppcoming = 0;
                         $today = 0;
-                        // foreach ($month->vaccine_submission as $vaccSub) {
-                        //     $vaccinationDate = Carbon::parse($vaccSub->vaccination_date);
-                        //     $difference = -($vaccinationDate->diffInMonths(now(), false));
-                        //     if ($difference < 0) {
-                        //         $overdue += 1;
-                        //     } elseif ($difference > 0) {
-                        //         $uppcoming += 1;
-                        //     } elseif ($difference == 0 && $vaccinationDate->isSameDay(now())) {
-                        //         $today += 1;
-                        //     }
-                        // }
-                        //$month->vaccination_status = ['uppcoming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
+                        foreach ($month as $vacc) {
+                            foreach($vacc as $vaccSub){
+                                $vaccinationDate = Carbon::parse($vaccSub->vaccination_date);
+                                $difference = -($vaccinationDate->diffInMonths(now(), false));
+                                if ($difference < 0) {
+                                    $overdue += 1;
+                                } elseif ($difference > 0) {
+                                    $uppcoming += 1;
+                                } elseif ($difference == 0 && $vaccinationDate->isSameDay(now())) {
+                                    $today += 1;
+                                }
+                            }
+                        }
+                        $month->vaccination_status = ['uppcoming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
 
                     }
-                    
+
             return response()->json($child, 200);
         }else{
             return response()->json(['message' => 'Child Not Found'], 200);
