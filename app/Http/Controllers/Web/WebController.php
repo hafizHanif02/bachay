@@ -5413,16 +5413,18 @@ class WebController extends Controller
         return redirect()->route('home');
     }
 
-    public function flash_deals($id)
+    public function flash_deals(Request $request)
     {
+        
+        $current_date = Carbon::now();
+        $current_date = $current_date->format('Y-m-d');
         $deal = FlashDeal::with(['products.product.reviews', 'products.product' => function ($query) {
             $query->active();
         }])
-            ->where(['id' => $id, 'status' => 1])
-            ->whereDate('start_date', '<=', date('Y-m-d'))
-            ->whereDate('end_date', '>=', date('Y-m-d'))
+            ->where(['slug' => $request['slug'],'status' => 1])
+            ->whereDate('start_date', '<=', $current_date)
+            ->whereDate('end_date', '>=', $current_date)
             ->first();
-
         $discountPrice = FlashDealProduct::with(['product'])->whereHas('product', function ($query) {
             $query->active();
         })->get()->map(function ($data) {
@@ -5433,10 +5435,19 @@ class WebController extends Controller
 
             ];
         })->toArray();
-
+         $home_categories = Category::where('home_status', true)->priority()->get();
+            $home_categories->map(function ($data) {
+                $id = '"' . $data['id'] . '"';
+                $data['products'] = Product::active()
+                    ->where('category_ids', 'like', "%{$id}%")
+                    ->inRandomOrder()->take(12)->get();
+            });
+        $deals_products = $deal->products;
+        
+        // return $deal_products->products->product->thumbnail;
 
         if (isset($deal)) {
-            return view(VIEW_FILE_NAMES['flash_deals'], compact('deal', 'discountPrice'));
+            return view(VIEW_FILE_NAMES['deals_products'], compact('home_categories','deals_products','deal', 'discountPrice'));
         }
         Toastr::warning(translate('not_found'));
         return back();

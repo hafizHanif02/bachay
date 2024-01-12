@@ -3,7 +3,9 @@
 return [
     'home' => 'web-views.home',
     'home_mobile' => 'mobile-views.home',
-    
+    'deals_products' => 'web-views.deals_products',
+    // 'deals_products' => 'web-views.deals_products',
+
     'product_search_result' => 'web-views.partials._search-result',
     'privacy_policy_page' => 'web-views.pages.privacy-policy',
     'refund_policy_page' => 'web-views.pages.refund-policy',

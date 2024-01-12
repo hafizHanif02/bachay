@@ -103,6 +103,8 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestC
 
 
     Route::get('product-list', 'ProductListController@default_theme')->name('product-list');
+    Route::get('product-list/{slug}', 'WebController@flash_deals')->name('product-list-slug');
+
     Route::get('product-detail/{product}', 'ProductDetailsController@product')->name('product-detail');
 
 
