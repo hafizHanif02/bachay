@@ -444,6 +444,9 @@ public function SubmitQuiz(Request $request){
         if ($months > 0) {
             $ageInWords .= ($ageInWords ? ' ' : '') . $months . ' Month' . ($months > 1 ? 's' : '');
         }
+        if ($ageInWords == '' && $days > 0) {
+            $ageText .= $ageInterval->d . ' days ';
+        }
 
         $child->age = $ageInWords;
 
@@ -530,9 +533,9 @@ public function SubmitQuiz(Request $request){
                             $currentDate = Carbon::now();
                             $vaccinationDate = Carbon::parse($vacc['vaccine_submission']['vaccination_date']);
                                 $difference = -($vaccinationDate->diffInMonths(now(), false));
-                                if (Carbon::parse($vaccinationDate) < $currentDate) {
+                                if (Carbon::parse($vaccinationDate) > $currentDate) {
                                     $overdue += 1;
-                                } elseif (Carbon::parse($vaccinationDate) > $currentDate) {
+                                } elseif (Carbon::parse($vaccinationDate) < $currentDate) {
                                     $uppcoming += 1;
                                 } elseif (Carbon::parse($vaccinationDate) == $currentDate) {
                                     $today += 1;
