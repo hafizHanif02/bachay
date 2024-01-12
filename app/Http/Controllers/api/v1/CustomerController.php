@@ -521,9 +521,9 @@ public function SubmitQuiz(Request $request){
                         $uppcoming = 0;
                         $today = 0;
                         foreach ($month as $vacc) {
-                            return $vacc;
-                            foreach($vacc as $vaccSub){
-                                $vaccinationDate = Carbon::parse($vaccSub->vaccine_submission->vaccination_date);
+
+
+                                $vaccinationDate = Carbon::parse($vacc->vaccine_submission->vaccination_date);
                                 $difference = -($vaccinationDate->diffInMonths(now(), false));
                                 if ($difference < 0) {
                                     $overdue += 1;
@@ -532,7 +532,7 @@ public function SubmitQuiz(Request $request){
                                 } elseif ($difference == 0 && $vaccinationDate->isSameDay(now())) {
                                     $today += 1;
                                 }
-                            }
+
                         }
                         $month->vaccination_status = ['uppcoming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
 
