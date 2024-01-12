@@ -518,7 +518,7 @@ public function SubmitQuiz(Request $request){
                         'is_taken' => 1
                     ])->with('vaccination')->get();
 
-                    foreach($child->vaccination as $month){
+                    foreach($child->vaccination as $key => $month){
 
                         $overdue = 0;
                         $uppcoming = 0;
@@ -537,8 +537,12 @@ public function SubmitQuiz(Request $request){
                                 }
 
                         }
-                        $month['status'] = ['uppcoming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
-
+                        $child->vaccination[$key]['status'] = [
+                            'upcoming' => $upcoming,
+                            'today' => $today,
+                            'overdue' => $overdue,
+                            'completed' => count($vaccination_submission_completed),
+                        ];
                     }
 
             return response()->json($child, 200);
