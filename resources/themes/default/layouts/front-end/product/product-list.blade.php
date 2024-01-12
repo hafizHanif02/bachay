@@ -117,7 +117,7 @@
                                             <button class="btn-W buy-now rounded-pill text-white mb-2">Buy Now</button>
                                         </form>
     
-                                            <div class="d-flex  mt-1">
+                                            {{-- <div class="d-flex  mt-1">
                                                 <button type="submit" id="cart-btn"
                                                     class="p-0 bg-transparent rounded-circle forBorder"
                                                     data-product-id="{{ $product->id }}"
@@ -127,7 +127,7 @@
                                                         onclick="addToCart({{ $product->id }})"></i>
                                                 </button>
                                             </div>
-                                        </form> 
+                                        </form>  --}}
                                         <div class="d-flex mt-0">
                                             <button id="cart-btn{{ $product->id }}"
                                                 class="p-0 bg-transparent rounded-circle forBorder"
