@@ -10,6 +10,7 @@ use App\Model\FlashDealProduct;
 use App\Models\ArticleCategory;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
 
 class HomeController extends Controller
 {
@@ -87,12 +88,13 @@ class HomeController extends Controller
     }
 
     public function FlashDeals(){
-        $flashdeals = FlashDeal::with('products')->get();
-        return $flashdeals;
+        $currentDate = Carbon::now();
+        $flashdeals = FlashDeal::with('products')->where(['status' => 1])->whereDate('start_date','<=',date('Y-m-d'))->whereDate('end_date','>=',date('Y-m-d'))->get();
+
         $formattedFlashDeals = [];
 
         foreach($flashdeals as $flashdeal){
-            $url = asset('storage/app/public/product/thumbnail/' . $flashdeal->product->thumbnail);
+            $url = asset('storage/app/public/product/thumbnail/' . $flashdeal->banner);
 
             $formattedFlashDeal = [
                 'id' => $flashdeal->product->id,
@@ -102,9 +104,11 @@ class HomeController extends Controller
             ];
 
             $formattedFlashDeals[] = $formattedFlashDeal;
+
+            $flashdeal->banner = asset('storage/app/public/product/thumbnail/' . $flashdeal->banner);
         }
 
-        return response()->json($formattedFlashDeals, 200);
+        return response()->json($flashdeals, 200);
     }
 
 
