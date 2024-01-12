@@ -2,29 +2,31 @@
     <div class="flash-sales container-xxl">
         <h1 class="text-center textClr">Flash Sales For Child Products Get Crazy Discounts</h1>
         <div class="row mt-5 col-12 flash-sales-container">
-            @if (count($categories) > 0)
-                @foreach ($categories->sortBy('created_at')->take(6) as $category)
+            {{-- $flash_deal --}}
+
+            
+                @foreach ($flash_deal as $deal)
                     <div class="icon col-lg-4 col-md-6 col-sm-12 mb-5 mt-4">
                         <div class="card card_image rounded-5">
-                            <a href="{{ route('product-detail', $category->id) }}">
-                                <div class="deal-alert-circle">-{{ $category->discount }}%</div>
+                            <a href="{{ route('product-list-slug', $deal->slug) }}">
+                                <div class="deal-alert-circle">-{{ $deal->discount_percent }}%</div>
                                 <div class="forHeight">
                                     <img class="object-fit-cover card-img rounded-5"
-                                        src="{{ asset('storage/app/public/category/' . $category->icon) }}"
+                                        src="{{ asset('storage/app/public/deal/'. $deal->banner) }}"
                                         alt="Flash Sale" width="100%" height="100%" />
                                 </div>
                                 <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
-                                    @if (strlen($category->name) <= 20)
-                                        <p class="card-text">{{ $category->name }}</p>
+                                    @if (strlen($deal->title) <= 20)
+                                        <p class="card-text">{{ $deal->title }}</p>
                                     @else
-                                        <p class="card-text"> {{ substr($category->name, 0, 20) }}...</p>
+                                        <p class="card-text"> {{ substr($deal->title, 0, 20) }}...</p>
                                     @endif
                                 </div>
                             </a>
                         </div>
                     </div>
                 @endforeach
-            @endif
+           
         </div>
     </div>
 </div>
@@ -36,16 +38,6 @@
 
     .card_image {
         z-index: -1 !important;
-    }
-
-    .ruler {
-        border-top: 1px solid rgba(255, 255, 255, 0.3);
-        background-color: rgba(255, 255, 255, 0.05);
-        position: absolute;
-        top: 50%;
-        height: 50%;
-        left: 0%;
-        right: 0%;
     }
 
     .icon {

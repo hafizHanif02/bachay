@@ -595,7 +595,7 @@ h1.text-center.textClr {
 }
 .product-list{
     grid-template-columns: repeat(4, 1fr);
-    gap: 20px;
+    gap: 10px;
 }
 .image-container p {
     color: #292d32;
@@ -1065,11 +1065,11 @@ background-clip: text;
 .for-border-g {
     border-top: 2px solid #cccccc;
     border-bottom: 2px solid #cccccc;
-    padding: 10px 0;
+    padding: 5px 0;
 }
 
 .delivery-btn {
-    font-size: 10px;
+    font-size: 8px;
     color: #fff;
     background-color: #282d32;
     padding: 5px 10px 5px 30px;
@@ -2670,6 +2670,9 @@ details[open] summary::after {
     font-style: normal;
     font-weight: 400;
     line-height: normal;
+}
+.deals_products{
+    width: 100%;
 }
 .small-image {
     width: 70px;
