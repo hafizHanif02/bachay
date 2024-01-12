@@ -523,7 +523,7 @@ public function SubmitQuiz(Request $request){
                         foreach ($month as $vacc) {
 
 
-                                $vaccinationDate = Carbon::parse($vacc['vaccine_submission']->vaccination_date);
+                                $vaccinationDate = Carbon::parse($vacc['vaccine_submission']['vaccination_date']);
                                 $difference = -($vaccinationDate->diffInMonths(now(), false));
                                 if ($difference < 0) {
                                     $overdue += 1;
