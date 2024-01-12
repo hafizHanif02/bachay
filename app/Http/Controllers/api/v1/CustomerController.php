@@ -530,7 +530,7 @@ public function SubmitQuiz(Request $request){
                                 $difference = -($vaccinationDate->diffInMonths(now(), false));
                                 if (Carbon::parse($vaccinationDate) > $currentDate) {
                                     $overdue += 1;
-                                } elseif ($Carbon::parse($vaccinationDate) < $currentDate) {
+                                } elseif (Carbon::parse($vaccinationDate) < $currentDate) {
                                     $uppcoming += 1;
                                 } elseif (Carbon::parse($vaccinationDate) == $currentDate) {
                                     $today += 1;
