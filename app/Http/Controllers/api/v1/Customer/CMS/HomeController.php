@@ -111,6 +111,30 @@ class HomeController extends Controller
         return response()->json($flashdeals, 200);
     }
 
+    public function FlashDealProduct(Request $request){
+        $currentDate = Carbon::now();
+        $flashdeals = FlashDeal::with('products')->where(['status' => 1, 'id'=>$request->id])->whereDate('start_date','<=',date('Y-m-d'))->whereDate('end_date','>=',date('Y-m-d'))->get();
+
+        $formattedFlashDeals = [];
+
+        foreach($flashdeals as $flashdeal){
+            $url = asset('storage/app/public/product/thumbnail/' . $flashdeal->banner);
+
+            // $formattedFlashDeal = [
+            //     'id' => $flashdeal->product->id,
+            //     'name' => $flashdeal->product->name,
+            //     'image' => $url,
+            //     'discount' => $flashdeal->discount,
+            // ];
+
+            //x`$formattedFlashDeals[] = $formattedFlashDeal;
+
+            $flashdeal->banner = asset('storage/app/public/deal/' . $flashdeal->banner);
+        }
+
+        return response()->json($flashdeals, 200);
+    }
+
 
     public function AllCategory(){
         $toparrivalcategorys = DB::table('categories')->orderBy('id', 'desc')->get();
