@@ -172,9 +172,9 @@ class CustomerController extends Controller
                     if ($ageInterval->m > 0) {
                         $ageText .= $ageInterval->m . ' Mon ';
                     }
-                    // if ($ageInterval->d > 0) {
-                    //     $ageText .= $ageInterval->d . ' days ';
-                    // }
+                    if ($ageText == '' && $ageInterval->d > 0) {
+                        $ageText .= $ageInterval->d . ' days ';
+                    }
 
                     $child->format_age = trim($ageText). ' Old';
                 }
