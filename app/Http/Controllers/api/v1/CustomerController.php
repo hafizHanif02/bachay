@@ -516,6 +516,7 @@ public function SubmitQuiz(Request $request){
                     ])->with('vaccination')->get();
 
                     foreach($child->vaccination as $month){
+                        return $month;
                         $overdue = 0;
                         $uppcoming = 0;
                         $today = 0;
