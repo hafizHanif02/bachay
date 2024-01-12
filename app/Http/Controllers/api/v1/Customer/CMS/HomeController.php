@@ -96,12 +96,12 @@ class HomeController extends Controller
         foreach($flashdeals as $flashdeal){
             $url = asset('storage/app/public/product/thumbnail/' . $flashdeal->banner);
 
-            $formattedFlashDeal = [
-                'id' => $flashdeal->product->id,
-                'name' => $flashdeal->product->name,
-                'image' => $url,
-                'discount' => $flashdeal->discount,
-            ];
+            // $formattedFlashDeal = [
+            //     'id' => $flashdeal->product->id,
+            //     'name' => $flashdeal->product->name,
+            //     'image' => $url,
+            //     'discount' => $flashdeal->discount,
+            // ];
 
             $formattedFlashDeals[] = $formattedFlashDeal;
 
