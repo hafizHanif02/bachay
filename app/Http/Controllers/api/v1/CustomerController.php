@@ -538,7 +538,7 @@ public function SubmitQuiz(Request $request){
 
                         }
                         $child->vaccination[$key]['status'] = [
-                            'upcoming' => $uppcoming,
+                            'uppcoming' => $uppcoming,
                             'today' => $today,
                             'overdue' => $overdue,
                             'completed' => count($vaccination_submission_completed),
