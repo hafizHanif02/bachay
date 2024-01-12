@@ -25,7 +25,12 @@
 
     <div class="d-grid product-list">
         @foreach ($products as $product)
+<<<<<<< Updated upstream
             <div class="col-md-6 col-lg-12 mb-4 pb-3">
+=======
+            {{-- {{ $product->name }} --}}
+            <div class="col-md-6 col-lg-12">
+>>>>>>> Stashed changes
                 <div class="rounded-3">
                     <div class="card1">
                         <div class="first-sec card1">
@@ -49,15 +54,21 @@
                                             class="bi heart-icon bi-heart{{ in_array($product->id, $wishlistProductsArray) ? '-fill' : '' }} text-danger"></i>
                                     </button>
                                 </div>
-                                <p class="product-text mt-3">
+                                <p class="product_title product-text mt-0 mb-1">
                                     @if (strlen($product->name) <= 25)
                                         {{ $product->name }}
                                     @else
                                         {{ substr($product->name, 0, 25) }}<span id="dots"> ....</span>
                                     @endif
                                 </p>
+<<<<<<< Updated upstream
     
                                 <div class="d-flex">
+=======
+
+
+                                <div class="product_price d-flex">
+>>>>>>> Stashed changes
                                     <p class="product-price me-2">Rs.
                                         {{ $product->unit_price - ($product->unit_price * $product->discount) / 100 }}
                                     </p>
@@ -82,16 +93,65 @@
     
                                         <a href="#" class="delivery-btn">Standard Delivery</a>
                                     </div>
+<<<<<<< Updated upstream
     
                                     <div class="d-flex justify-content-between mt-3">
                                         {{-- Buy Now button --}}
                                         <form action="{{ route('cart.buy-now') }}" method="POST">
                                             @csrf
                                             <button class="buy-now rounded-pill text-white mb-2">Buy Now</button>
+=======
+
+                                    <div class="d-flex justify-content-between mt-2">
+                                        <form action="{{ route('cart.buy-now') }}" method="POST">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                            <input type="hidden" name="price" id="price"
+                                                value="{{ $product->unit_price }}">
+                                            <input type="hidden" name="quantity" value="1">
+                                            <input type="hidden" name="product[1][quantity]" value="1">
+                                            <input type="hidden" name="product[1][id]" value="{{ $product->id }}">
+                                            <input type="hidden" name="product[1][price]"
+                                                value="{{ $product->unit_price }}">
+                                            <input type="hidden" name="product[1][product_id]"
+                                                value="{{ $product->id }}">
+                                            {{-- <input type="hidden" name="product[1][tax]" value="{{ ($product->tax) }}"> --}}
+                                            <input type="hidden" name="product[1][tax_model]"
+                                                value="{{ $product->tax_model }}">
+                                            <input type="hidden" name="product[1][color]"
+                                                value="{{ $product->color }}">
+                                            <input type="hidden" name="product[1][variant]"
+                                                value="{{ $product->variant }}">
+                                            <input type="hidden" name="product[1][discount]"
+                                                value="{{ $product->discount }}">
+                                            <input type="hidden" name="product[1][discount_amount]"
+                                                value="{{ ($product->discount * $product->unit_price) / 100 }}">
+                                            <input type="hidden" name="product[1][actual_price]"
+                                                value="{{ $product->unit_price }}">
+                                            <input type="hidden" name="product[1][price]"
+                                                value="{{ $product->unit_price }}">
+                                            <input type="hidden" name="product[1][quantity]" value="1">
+                                            <button class="btn-W buy-now rounded-pill text-white mb-2">Buy Now</button>
+>>>>>>> Stashed changes
                                         </form>
     
+<<<<<<< Updated upstream
                                          {{-- Add to Cart button  --}}
                                         <div class="d-flex mt-1">
+=======
+                                            <div class="d-flex  mt-1">
+                                                <button type="submit" id="cart-btn"
+                                                    class="p-0 bg-transparent rounded-circle forBorder"
+                                                    data-product-id="{{ $product->id }}"
+                                                    onclick="addToCart({{ $product->id }})">
+                                                    <i class="bi {{ in_array($product->id, $cartProductsArray) ? 'bi-cart-fill' : 'bi-cart' }} text-purple"
+                                                        data-product-id="{{ $product->id }}"
+                                                        onclick="addToCart({{ $product->id }})"></i>
+                                                </button>
+                                            </div>
+                                        </form> --}}
+                                        <div class="d-flex mt-0">
+>>>>>>> Stashed changes
                                             <button id="cart-btn{{ $product->id }}"
                                                 class="p-0 bg-transparent rounded-circle forBorder"
                                                 data-product-id="{{ $product->id }}"
@@ -120,8 +180,23 @@
     
 </div>
 <style>
+<<<<<<< Updated upstream
 
 
+=======
+    .wish-list{
+        top: 8px;
+        right: 10px;
+    }
+    .sec-best-seller{
+        top: 15px;
+        left: 15px;
+    }
+    .btn-W{
+        width: 110%;
+        font-size: 12px;
+    }
+>>>>>>> Stashed changes
     .expandable {
         position: absolute;
         opacity: 0;
@@ -144,6 +219,7 @@
     .product-wrapper:hover {
         overflow: visible;
         box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
+        border-radius: 5px;
 
     }
 
@@ -156,7 +232,26 @@
         opacity: 1;
         visibility: visible;
     }
+<<<<<<< Updated upstream
     /* .expandable {
+=======
+    .imgMAin{
+        padding: 15px;
+    } 
+    .product_title, .product_price, .expandable{
+        padding: 0 15px;
+    }
+    .expandable{
+        border-radius: 5px;
+        padding-bottom: 3px;
+    }
+    .forBorder{
+        border: 1px solid #8b5bc0;
+        width: 30px;
+        height: 30px;
+    }
+    /* .expandable { 
+>>>>>>> Stashed changes
   position: absolute;
   opacity: 0;
   visibility: hidden;
