@@ -103,9 +103,9 @@ class HomeController extends Controller
             //     'discount' => $flashdeal->discount,
             // ];
 
-            //$formattedFlashDeals[] = $formattedFlashDeal;
+            //x`$formattedFlashDeals[] = $formattedFlashDeal;
 
-            $flashdeal->banner = asset('storage/app/public/product/thumbnail/' . $flashdeal->banner);
+            $flashdeal->banner = asset('storage/app/public/deal/' . $flashdeal->banner);
         }
 
         return response()->json($flashdeals, 200);
