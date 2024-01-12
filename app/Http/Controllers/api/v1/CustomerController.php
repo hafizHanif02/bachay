@@ -458,7 +458,7 @@ public function SubmitQuiz(Request $request){
 
             $vaccines = Vaccination::orderByRaw('CAST(age AS SIGNED) ASC')->get();
             foreach($vaccines as $vaccine){
-                $ageInMonth = $vaccine->age / 4;
+                $ageInMonth = $vaccine->age * 7 / 30;
                 if($ageInMonth < 1){
                     $vaccine->ageInWords = 'Birth';
                 }elseif($ageInMonth > 0.99 && $ageInMonth < 10){
