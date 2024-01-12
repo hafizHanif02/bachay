@@ -114,10 +114,10 @@ class HomeController extends Controller
     public function FlashDealProduct(Request $request){
         $currentDate = Carbon::now();
         $flashdeals = FlashDeal::with('products.product')->where(['status' => 1, 'id'=>$request->id])->whereDate('start_date','<=',date('Y-m-d'))->whereDate('end_date','>=',date('Y-m-d'))->get();
-        return $flashdeals;
+        
         $formattedFlashDeals = [];
 
-        foreach($flashdeals->products as $flashProduct){
+        foreach($flashdeals[0]->products as $flashProduct){
 
 
             $flashdeal->product->thumbnail = asset('storage/app/public/product/thumbnail/' . $flashdeal->product->thumbnail);
