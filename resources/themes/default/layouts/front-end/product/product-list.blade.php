@@ -25,7 +25,6 @@
 
     <div class="d-grid product-list">
         @foreach ($products as $product)
-            <div class="col-md-6 col-lg-12 mb-4 pb-3">
             {{-- {{ $product->name }} --}}
             <div class="col-md-6 col-lg-12">
                 <div class="rounded-3">
@@ -58,8 +57,6 @@
                                         {{ substr($product->name, 0, 25) }}<span id="dots"> ....</span>
                                     @endif
                                 </p>
-    
-                                <div class="d-flex">
 
 
                                 <div class="product_price d-flex">
@@ -87,12 +84,6 @@
     
                                         <a href="#" class="delivery-btn">Standard Delivery</a>
                                     </div>
-    
-                                    <div class="d-flex justify-content-between mt-3">
-                                        {{-- Buy Now button --}}
-                                        <form action="{{ route('cart.buy-now') }}" method="POST">
-                                            @csrf
-                                            <button class="buy-now rounded-pill text-white mb-2">Buy Now</button>
 
                                     <div class="d-flex justify-content-between mt-2">
                                         <form action="{{ route('cart.buy-now') }}" method="POST">
@@ -126,8 +117,6 @@
                                             <button class="btn-W buy-now rounded-pill text-white mb-2">Buy Now</button>
                                         </form>
     
-                                         {{-- Add to Cart button  --}}
-                                        <div class="d-flex mt-1">
                                             <div class="d-flex  mt-1">
                                                 <button type="submit" id="cart-btn"
                                                     class="p-0 bg-transparent rounded-circle forBorder"
@@ -168,8 +157,6 @@
     
 </div>
 <style>
-
-
     .wish-list{
         top: 8px;
         right: 10px;
@@ -217,7 +204,6 @@
         opacity: 1;
         visibility: visible;
     }
-    /* .expandable {
     .imgMAin{
         padding: 15px;
     } 
