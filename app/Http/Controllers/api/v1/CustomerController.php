@@ -515,22 +515,25 @@ public function SubmitQuiz(Request $request){
                         'is_taken' => 1
                     ])->with('vaccination')->get();
 
-                    $overdue = 0;
-                    $uppcoming = 0;
-                    $today = 0;
-                    foreach ($vaccination_submissions as $vaccination_submission) {
-                        $vaccinationDate = Carbon::parse($vaccination_submission->vaccination_date);
-                        $difference = -($vaccinationDate->diffInMonths(now(), false));
-                        if ($difference < 0) {
-                            $overdue += 1;
-                        } elseif ($difference > 0) {
-                            $uppcoming += 1;
-                        } elseif ($difference == 0 && $vaccinationDate->isSameDay(now())) {
-                            $today += 1;
+                    foreach($child->vaccination as $month){
+                        $overdue = 0;
+                        $uppcoming = 0;
+                        $today = 0;
+                        foreach ($month->vaccine_submission as $vaccSub) {
+                            $vaccinationDate = Carbon::parse($vaccSub->vaccination_date);
+                            $difference = -($vaccinationDate->diffInMonths(now(), false));
+                            if ($difference < 0) {
+                                $overdue += 1;
+                            } elseif ($difference > 0) {
+                                $uppcoming += 1;
+                            } elseif ($difference == 0 && $vaccinationDate->isSameDay(now())) {
+                                $today += 1;
+                            }
                         }
-                    }
-                    $child->vaccination_status = ['uppcoming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
+                        $month->vaccination_status = ['uppcoming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
 
+                    }
+                    
             return response()->json($child, 200);
         }else{
             return response()->json(['message' => 'Child Not Found'], 200);
