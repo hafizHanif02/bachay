@@ -127,7 +127,7 @@
                                                         onclick="addToCart({{ $product->id }})"></i>
                                                 </button>
                                             </div>
-                                        </form> --}}
+                                        </form> 
                                         <div class="d-flex mt-0">
                                             <button id="cart-btn{{ $product->id }}"
                                                 class="p-0 bg-transparent rounded-circle forBorder"
