@@ -25,12 +25,9 @@
 
     <div class="d-grid product-list">
         @foreach ($products as $product)
-<<<<<<< Updated upstream
             <div class="col-md-6 col-lg-12 mb-4 pb-3">
-=======
             {{-- {{ $product->name }} --}}
             <div class="col-md-6 col-lg-12">
->>>>>>> Stashed changes
                 <div class="rounded-3">
                     <div class="card1">
                         <div class="first-sec card1">
@@ -61,14 +58,11 @@
                                         {{ substr($product->name, 0, 25) }}<span id="dots"> ....</span>
                                     @endif
                                 </p>
-<<<<<<< Updated upstream
     
                                 <div class="d-flex">
-=======
 
 
                                 <div class="product_price d-flex">
->>>>>>> Stashed changes
                                     <p class="product-price me-2">Rs.
                                         {{ $product->unit_price - ($product->unit_price * $product->discount) / 100 }}
                                     </p>
@@ -93,14 +87,12 @@
     
                                         <a href="#" class="delivery-btn">Standard Delivery</a>
                                     </div>
-<<<<<<< Updated upstream
     
                                     <div class="d-flex justify-content-between mt-3">
                                         {{-- Buy Now button --}}
                                         <form action="{{ route('cart.buy-now') }}" method="POST">
                                             @csrf
                                             <button class="buy-now rounded-pill text-white mb-2">Buy Now</button>
-=======
 
                                     <div class="d-flex justify-content-between mt-2">
                                         <form action="{{ route('cart.buy-now') }}" method="POST">
@@ -132,13 +124,10 @@
                                                 value="{{ $product->unit_price }}">
                                             <input type="hidden" name="product[1][quantity]" value="1">
                                             <button class="btn-W buy-now rounded-pill text-white mb-2">Buy Now</button>
->>>>>>> Stashed changes
                                         </form>
     
-<<<<<<< Updated upstream
                                          {{-- Add to Cart button  --}}
                                         <div class="d-flex mt-1">
-=======
                                             <div class="d-flex  mt-1">
                                                 <button type="submit" id="cart-btn"
                                                     class="p-0 bg-transparent rounded-circle forBorder"
@@ -151,7 +140,6 @@
                                             </div>
                                         </form> --}}
                                         <div class="d-flex mt-0">
->>>>>>> Stashed changes
                                             <button id="cart-btn{{ $product->id }}"
                                                 class="p-0 bg-transparent rounded-circle forBorder"
                                                 data-product-id="{{ $product->id }}"
@@ -180,10 +168,8 @@
     
 </div>
 <style>
-<<<<<<< Updated upstream
 
 
-=======
     .wish-list{
         top: 8px;
         right: 10px;
@@ -196,7 +182,6 @@
         width: 110%;
         font-size: 12px;
     }
->>>>>>> Stashed changes
     .expandable {
         position: absolute;
         opacity: 0;
@@ -232,9 +217,7 @@
         opacity: 1;
         visibility: visible;
     }
-<<<<<<< Updated upstream
     /* .expandable {
-=======
     .imgMAin{
         padding: 15px;
     } 
@@ -251,7 +234,6 @@
         height: 30px;
     }
     /* .expandable { 
->>>>>>> Stashed changes
   position: absolute;
   opacity: 0;
   visibility: hidden;
