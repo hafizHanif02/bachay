@@ -536,7 +536,7 @@ public function SubmitQuiz(Request $request){
                                 }
 
                         }
-                        $month['status'][] = ['uppcoming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
+                        $month->status[] = ['uppcoming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
 
                     }
 
