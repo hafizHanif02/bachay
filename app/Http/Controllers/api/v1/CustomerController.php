@@ -493,7 +493,7 @@ public function SubmitQuiz(Request $request){
 
                 $dates = [];
                 foreach ($vaccination_data as $month) {
-                    
+
                     foreach ($month['data'] as $vac) {
                         $dob = Carbon::parse($child->dob);
                         $vaccinationDate = Carbon::parse($vac['vaccine_submission']['vaccination_date']);
@@ -522,7 +522,7 @@ public function SubmitQuiz(Request $request){
                         $overdue = 0;
                         $uppcoming = 0;
                         $today = 0;
-                        foreach ($month as $vacc) {
+                        foreach ($month['data'] as $vacc) {
 
 
                                 $vaccinationDate = Carbon::parse($vacc['vaccine_submission']['vaccination_date']);
@@ -536,7 +536,7 @@ public function SubmitQuiz(Request $request){
                                 }
 
                         }
-                        $month[count($month)] = ['uppcoming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
+                        $month['status'] = ['uppcoming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
 
                     }
 
