@@ -179,7 +179,9 @@ class CustomerController extends Controller
                     $child->format_age = trim($ageText). ' Old';
                 }
 
-                $child->growth = $growth = Growth::where('child_id',$child->id)->first();
+                $growth = Growth::where('child_id',$child->id)->first();
+                
+                $child->growth = $growth;
 
             }
 

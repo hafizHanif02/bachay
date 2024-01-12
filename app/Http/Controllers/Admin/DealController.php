@@ -133,7 +133,7 @@ class DealController extends Controller
     public function status_update(Request $request)
     {
 
-        FlashDeal::where(['status' => 1])->where(['deal_type' => 'flash_deal'])->update(['status' => 0]);
+        //FlashDeal::where(['status' => 1])->where(['deal_type' => 'flash_deal'])->update(['status' => 0]);
         FlashDeal::where(['id' => $request['id']])->update([
             'status' => $request['status'] ?? 0,
         ]);
