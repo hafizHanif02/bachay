@@ -530,7 +530,7 @@ public function SubmitQuiz(Request $request){
                         //         $today += 1;
                         //     }
                         // }
-                        $month->vaccination_status = ['uppcoming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
+                        //$month->vaccination_status = ['uppcoming' => $uppcoming,'today' =>  $today,'overdue' =>   $overdue,'completed' => count($vaccination_submission_completed)];
 
                     }
                     
