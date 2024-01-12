@@ -521,7 +521,7 @@ public function SubmitQuiz(Request $request){
                         $uppcoming = 0;
                         $today = 0;
                         foreach ($month as $vacc) {
-
+                            return $vacc;
 
                                 $vaccinationDate = Carbon::parse($vacc->vaccine_submission->vaccination_date);
                                 $difference = -($vaccinationDate->diffInMonths(now(), false));
