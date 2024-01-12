@@ -89,7 +89,7 @@ class HomeController extends Controller
 
     public function FlashDeals(){
         $currentDate = Carbon::now();
-        $flashdeals = FlashDeal::with('products')->where(['status' => 1])->whereDate('start_date','<=',date('Y-m-d'))->whereDate('end_date','>=',date('Y-m-d'))->get();
+        $flashdeals = FlashDeal::with('products')->where(['status' => 1, 'deal_type' => 'flash_deal'])->whereDate('start_date','<=',date('Y-m-d'))->whereDate('end_date','>=',date('Y-m-d'))->get();
 
         $formattedFlashDeals = [];
 
@@ -117,19 +117,10 @@ class HomeController extends Controller
 
         $formattedFlashDeals = [];
 
-        foreach($flashdeals as $flashdeal){
-            $url = asset('storage/app/public/product/thumbnail/' . $flashdeal->banner);
+        foreach($flashdeals->products as $flashProduct){
 
-            // $formattedFlashDeal = [
-            //     'id' => $flashdeal->product->id,
-            //     'name' => $flashdeal->product->name,
-            //     'image' => $url,
-            //     'discount' => $flashdeal->discount,
-            // ];
 
-            //x`$formattedFlashDeals[] = $formattedFlashDeal;
-
-            $flashdeal->banner = asset('storage/app/public/deal/' . $flashdeal->banner);
+            $flashdeal->product->thumbnail = asset('storage/app/public/product/thumbnail/' . $flashdeal->product->thumbnail);
         }
 
         return response()->json($flashdeals, 200);
