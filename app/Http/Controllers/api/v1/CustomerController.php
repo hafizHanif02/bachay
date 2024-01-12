@@ -484,9 +484,9 @@ public function SubmitQuiz(Request $request){
                         $vaccineSubmission->vaccination_date = date('Y-m-d', strtotime($vaccineSubmission->vaccination_date));
                     }
                     if (!isset($vaccination_data[$vaccine->ageInWords])) {
-                        $vaccination_data[$vaccine->ageInWords]->data = [];
+                        $vaccination_data[$vaccine->ageInWords]['data'] = [];
                     }
-                    $vaccination_data[$vaccine->ageInWords]->data[] = array_merge($vaccine->toArray(), ['vaccine_submission' => $vaccineSubmission->toArray()]);
+                    $vaccination_data[$vaccine->ageInWords]['data'][] = array_merge($vaccine->toArray(), ['vaccine_submission' => $vaccineSubmission->toArray()]);
 
                     $child->vaccination = $vaccination_data;
                 }
