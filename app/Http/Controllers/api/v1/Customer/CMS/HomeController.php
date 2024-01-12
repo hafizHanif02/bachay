@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\V1\Customer\CMS;
 use App\Model\Category;
 use App\Models\Article;
 use Illuminate\Http\Request;
+use App\Model\FlashDeal;
 use App\Model\FlashDealProduct;
 use App\Models\ArticleCategory;
 use Illuminate\Support\Facades\DB;
@@ -34,7 +35,7 @@ class HomeController extends Controller
             }else{
                 return response()->json(['errors' => 'Child not found.'], 200);
             }
-            
+
         }
     }
 
@@ -86,25 +87,26 @@ class HomeController extends Controller
     }
 
     public function FlashDeals(){
-        $flashdeals = FlashDealProduct::with('product')->get();
+        $flashdeals = FlashDeal::with('product')->get();
+        return $flashdeals;
         $formattedFlashDeals = [];
-    
+
         foreach($flashdeals as $flashdeal){
             $url = asset('storage/app/public/product/thumbnail/' . $flashdeal->product->thumbnail);
-    
+
             $formattedFlashDeal = [
                 'id' => $flashdeal->product->id,
                 'name' => $flashdeal->product->name,
                 'image' => $url,
                 'discount' => $flashdeal->discount,
             ];
-    
+
             $formattedFlashDeals[] = $formattedFlashDeal;
         }
-    
+
         return response()->json($formattedFlashDeals, 200);
     }
-    
+
 
     public function AllCategory(){
         $toparrivalcategorys = DB::table('categories')->orderBy('id', 'desc')->get();
@@ -173,7 +175,7 @@ class HomeController extends Controller
         }
     }
 
-   
+
 
     public function MainBanner(){
         $banners = DB::table('banners')
@@ -212,17 +214,17 @@ class HomeController extends Controller
                 'published'=> 1,
                 'banner_type'=> 'Footer Banner'
             ])->get();
-    
+
         $imageUrls = [];
-    
+
         foreach($banners as $banner){
             $url = asset('storage/app/public/banner/' . $banner->photo);
             $imageUrls[] = $url;
         }
-    
+
         $imageUrls = array_values($imageUrls);
-    
+
         return response()->json($imageUrls, 200);
     }
-    
+
 }
