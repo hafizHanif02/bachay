@@ -103,7 +103,7 @@ class HomeController extends Controller
             //     'discount' => $flashdeal->discount,
             // ];
 
-            $formattedFlashDeals[] = $formattedFlashDeal;
+            //$formattedFlashDeals[] = $formattedFlashDeal;
 
             $flashdeal->banner = asset('storage/app/public/product/thumbnail/' . $flashdeal->banner);
         }
