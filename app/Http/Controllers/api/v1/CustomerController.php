@@ -493,6 +493,7 @@ public function SubmitQuiz(Request $request){
 
                 $dates = [];
                 foreach ($vaccination_data as $month) {
+                    return $month;
                     foreach ($month->data as $vac) {
                         $dob = Carbon::parse($child->dob);
                         $vaccinationDate = Carbon::parse($vac['vaccine_submission']['vaccination_date']);
