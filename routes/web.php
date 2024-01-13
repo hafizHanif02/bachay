@@ -76,6 +76,7 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestC
     Route::get('search-shop', 'WebController@search_shop')->name('search-shop');
 
     Route::get('categories', 'WebController@all_categories')->name('categories');
+    Route::get('category/{Slug}', 'WebController@single_categories')->name('single.category');
     // Route::get('categories/{category}', 'WebController@category_product')->name('categories');
 
     // Route::get('/categories/{category}', [WebController::class, 'showCategoryProducts'])->name('category.products');

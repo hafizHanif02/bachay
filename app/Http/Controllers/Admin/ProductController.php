@@ -380,6 +380,19 @@ class ProductController extends BaseController
             }
             Translation::insert($data);
 
+            $categories = Category::with('product')->where('parent_id',0)->get();
+            foreach($categories as $category){
+                $has_product = False;
+                if(count($category->product) > 0){
+                    $has_product = True;
+                }else{
+                    $has_product = False;
+                    $category->update([
+                        'home_status' => $has_product
+                    ]);
+                }
+            }
+
             Toastr::success(translate('product_added_successfully'));
             return redirect()->route('admin.product.list', ['in_house']);
         }

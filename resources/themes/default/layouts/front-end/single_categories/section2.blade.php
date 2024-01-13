@@ -1,8 +1,8 @@
 <div class="container-xxl premiumBouquets">
-    <h1 class="text-center textClr">Latest Category</h1>
+    <h1 class="text-center textClr">There Sub Category</h1>
     <div class="row mt-5 col-12 flash-sales-container">
-        @if (count($categories) > 0)
-            @foreach ($categories->sortByDesc('created_at')->take(6) as $category)
+        @if (count($sub_category) > 0)
+            @foreach ($sub_category as $category)
                 <div class="icon col-lg-4 col-md-6 col-sm-12 mb-5 mt-4">
                     <div class="card card_image rounded-5">
                         <a href="{{ route('single.category', $category->slug) }}">

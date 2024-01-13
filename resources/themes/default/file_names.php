@@ -81,7 +81,8 @@ return [
     'invites-credits' => 'web-views.invites-credits',
     'my-reviews-upload' => 'web-views.my-reviews-upload',
     'categories' => 'web-views.categories',
-    'categories_mobile' => 'mobile-views.categories',
+    'single_categories' => 'web-views.single_categories',
+    'single_categories_mobile' => 'mobile-views.single_categories',
     'sub-category' => 'web-views.sub-category',
     'club-cash' => 'web-views.club-cash',
 
