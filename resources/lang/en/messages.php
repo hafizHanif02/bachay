@@ -6745,4 +6745,5 @@
   'product_has_been_remove_from_cart' => 'Product has been remove from cart',
   'upload_additional_product_images (Only 6 images are allowed)' => 'Upload additional product images (Only 6 images are allowed)',
   'deals' => 'Deals',
+  'none' => 'None',
 );

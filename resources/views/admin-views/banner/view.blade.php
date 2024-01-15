@@ -96,6 +96,7 @@
                                             <option value="shop">{{ translate('shop')}}</option>
                                             <option value="brand">{{ translate('brand')}}</option>
                                             <option value="deals">{{ translate('deals')}}</option>
+                                            <option value="none">{{ translate('none')}}</option>
                                         </select>
                                     </div>
 
