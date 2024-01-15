@@ -59,6 +59,7 @@ class CategoryController extends Controller
         $category->name = $request->name[array_search('en', $request->lang)];
         $category->slug = Str::slug($request->name[array_search('en', $request->lang)]);
         $category->icon = ImageManager::upload('category/', 'webp', $request->file('image'));
+        $category->mobile_icon = ImageManager::upload('category/mobile/', 'webp', $request->file('mobile_icon'));
         $category->parent_id = 0;
         $category->position = 0;
         $category->priority = $request->priority;

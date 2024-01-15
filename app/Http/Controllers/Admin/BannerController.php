@@ -61,9 +61,31 @@ class BannerController extends Controller
         $banner->background_color = $request->background_color;
         $banner->url = $request->url;
         $banner->photo = ImageManager::upload('banner/', 'webp', $request->file('image'));
+        $banner->mobile_photo = ImageManager::upload('banner/mobile/', 'webp', $request->file('mobile_image'));
         $banner->save();
         Toastr::success(translate('banner_added_successfully'));
         return back();
+    }
+
+    // public function IsHome($id){
+    //     Banner::where('id',$id)->update([
+    //         'is_home' => 1
+    //     ]);
+    //     Toastr::success("Banner Is Enabled For Home Page");
+    //     return back();
+    // }
+
+    public function IsHome(Request $request, $id)
+    {
+        $banner = Banner::findOrFail($id);
+
+        // Toggle the value of is_home
+        $banner->is_home = $banner->is_home ? 0 : 1;
+        $banner->save();
+
+        // Additional logic if needed...
+
+        return response()->json(['success' => true, 'is_home' => $banner->is_home]);
     }
 
     public function status(Request $request)

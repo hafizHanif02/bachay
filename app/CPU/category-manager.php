@@ -13,6 +13,12 @@ class CategoryManager
         return $x;
     }
 
+    public static function subcategory()
+    {
+        $x = Category::with(['childes.childes'])->where('parent_id','!=', '0')->priority()->get();
+        return $x;
+    }
+
     public static function child($parent_id)
     {
         $x = Category::where(['parent_id' => $parent_id])->get();

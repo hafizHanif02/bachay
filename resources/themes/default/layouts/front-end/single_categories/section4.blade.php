@@ -1,6 +1,6 @@
 <div class="container-xxl mainCon mb-4 space-between mb-5">
     <div class="scroll-cards mt-4">
-        @foreach ($categories as $category)
+        @foreach ($sub_category as $category)
             <div class="circleCard">
                 <a href="#" class="text-decoration-none">
                     <div class="for-sizing">

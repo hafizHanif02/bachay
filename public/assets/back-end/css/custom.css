@@ -543,6 +543,59 @@ ol.breadcrumb {
 .form-group.input_image.hide-before-content::before {
     content: "";
 }
+
+
+/*for image select*/
+.form-group.input_image2 {
+    background-repeat: no-repeat;
+    position: relative;
+    overflow: hidden;
+}
+.form-group.input_image2 .form-control-file {
+    cursor: pointer;
+    position: relative;
+    z-index: 1;
+    background-size: cover;
+    background-position: center;
+}
+
+.form-group.input_image2::before {
+    content: attr(data-title);
+    display: block;
+    position: absolute;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-size: cover;
+    background-position: center;
+    z-index: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    position: absolute;
+    inset-inline-start: 0;
+    inline-size: 100%;
+    min-block-size: 100%;
+    line-height: 2em;
+    opacity: 1;
+    visibility: visible;
+    text-align: center;
+    border: 1px dashed var(--c1);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    overflow: visible;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 10px;
+    color: var(--c1);
+}
+
+.form-group.input_image2.hide-before-content::before {
+    content: "";
+}
+
 #notificationDropdown {
     max-height: 400px;
     overflow: auto !important;

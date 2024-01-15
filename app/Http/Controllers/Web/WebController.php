@@ -5540,9 +5540,26 @@ class WebController extends Controller
 
     public function single__category($viewName,$slug){
         $category = Category::where('slug', $slug)->first();
+        $category_banners = Banner::where([
+            'resource_type' => 'category',
+            'resource_id' => $category->id
+        ])->get();
         $sub_category = Category::where('parent_id',$category->id)->get();
+        $products = Product::where('category_id', $category->id)->get();
+
+        if (Auth::guard('customer')->check()) {
+            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+            $wishlistProductsArray = $wishlistProducts->toArray();
+
+            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
+        } else {
+            $wishlistProductsArray = [];
+            $cartProductsArray = [];
+        }
         // return $sub_category;
-        return view(VIEW_FILE_NAMES[$viewName], (compact('category','sub_category')));
+        return view(VIEW_FILE_NAMES[$viewName], (compact('category','sub_category','products','category_banners','wishlistProductsArray')));
     }
     public function sub_categories()
     {

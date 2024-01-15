@@ -92,8 +92,10 @@
                                                 name="resource_type" required>
                                             <option value="product">{{ translate('product')}}</option>
                                             <option value="category">{{ translate('category')}}</option>
+                                            <option value="sub_category">{{ translate('sub_category')}}</option>
                                             <option value="shop">{{ translate('shop')}}</option>
                                             <option value="brand">{{ translate('brand')}}</option>
+                                            <option value="deals">{{ translate('deals')}}</option>
                                         </select>
                                     </div>
 
@@ -108,6 +110,17 @@
                                         </select>
                                     </div>
 
+                                    <div class="form-group mb-0" id="resource-deals">
+                                        <label for="product_id"
+                                               class="title-color text-capitalize">{{translate('deals')}}</label>
+                                        <select class="js-example-responsive form-control w-100"
+                                                name="product_id">
+                                            @foreach(\App\Model\FlashDeal::get() as $flashdeal)
+                                                <option value="{{$flashdeal['id']}}">{{$flashdeal['title']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
                                     <div class="form-group mb-0 d--none" id="resource-category">
                                         <label for="name"
                                                class="title-color text-capitalize">{{translate('category')}}</label>
@@ -115,6 +128,17 @@
                                                 name="category_id">
                                             @foreach(\App\CPU\CategoryManager::parents() as $category)
                                                 <option value="{{$category['id']}}">{{$category['name']}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+
+                                    <div class="form-group mb-0 d--none" id="resource-sub_category">
+                                        <label for="name"
+                                               class="title-color text-capitalize">{{translate('sub_category')}}</label>
+                                        <select class="js-example-responsive form-control w-100"
+                                                name="sub_category_id">
+                                            @foreach(\App\CPU\CategoryManager::subcategory() as $sub_category)
+                                                <option value="{{$sub_category['id']}}">{{$sub_category['name']}}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -166,6 +190,19 @@
                                             {{ translate('banner_image')}}
                                         </label>
                                         <span class="title-color" id="theme_ratio">( {{translate('ratio')}} 4:1 )</span>
+                                        <p>{{ translate('banner_Image_ratio_is_not_same_for_all_sections_in_website') }}. {{ translate('please_review_the_ratio_before_upload') }}</p>
+
+                                        <center class="mx-auto">
+                                            <div class="uploadDnD">
+                                                <div class="form-group inputDnD input_image2" data-title="{{'Drag and drop file or Browse file'}}">
+                                                    <input type="file" name="mobile_image" class="form-control-file text--primary font-weight-bold" onchange="readUrl2(this)" accept=".jpg, .png, .jpeg, .gif, .bmp, .webp |image/*">
+                                                </div>
+                                            </div>
+                                        </center>
+                                        <label for="name" class="title-color text-capitalize">
+                                            {{ translate('banner_image')}} For Mobile
+                                        </label>
+                                        <span class="title-color" id="">( {{translate('ratio')}} 4:1 )</span>
                                         <p>{{ translate('banner_Image_ratio_is_not_same_for_all_sections_in_website') }}. {{ translate('please_review_the_ratio_before_upload') }}</p>
                                         <!-- For Theme Fashion - New input Field - Start -->
                                         @if(theme_root_path() == 'theme_fashion')
@@ -269,6 +306,7 @@
                                 <th>{{translate('image')}}</th>
                                 <th>{{translate('banner_type')}}</th>
                                 <th>{{translate('published')}}</th>
+                                <th>Home</th>
                                 <th class="text-center">{{translate('action')}}</th>
                             </tr>
                             </thead>
@@ -288,6 +326,16 @@
                                             <input type="hidden" name="id" value="{{$banner['id']}}">
                                             <label class="switcher">
                                                 <input type="checkbox" class="switcher_input" id="banner_status{{$banner['id']}}" name="status" value="1" {{ $banner['published'] == 1 ? 'checked':'' }} onclick="toogleStatusModal(event,'banner_status{{$banner['id']}}','banner-status-on.png','banner-status-off.png','{{translate('Want_to_Turn_ON')}} {{translate(str_replace('_',' ',$banner->banner_type))}} {{translate('status')}}','{{translate('Want_to_Turn_OFF')}} {{translate(str_replace('_',' ',$banner->banner_type))}} {{translate('status')}}',`<p>{{translate('if_enabled_this_banner_will_be_available_on_the_website_and_customer_app')}}</p>`,`<p>{{translate('if_disabled_this_banner_will_be_hidden_from_the_website_and_customer_app')}}</p>`)">
+                                                <span class="switcher_control"></span>
+                                            </label>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="{{route('admin.banner.home',$banner['id'])}}" method="post" id="home_form{{$banner['id']}}" >
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{$banner['id']}}">
+                                            <label class="switcher">
+                                                <input type="checkbox" class="switcher_input" id="home{{$banner['id']}}" name="status" value="1" {{ $banner['is_home'] == 1 ? 'checked':'' }} onclick="SubmitHome({{ $banner['id'] }})" >
                                                 <span class="switcher_control"></span>
                                             </label>
                                         </form>
@@ -335,6 +383,25 @@
 
 @push('script')
     <script>
+
+        function SubmitHome(id) {
+            let form = $('#home_form' + id);
+            console.log(form.serialize());
+            
+
+            $.ajax({
+                type: 'POST',
+                url: `home/${id}`,
+                data: form.serialize(),
+                success: function (response) {
+                    console.log(response);
+                    $('#home' + id).prop('checked', response.is_home == 1);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
         function readUrl(input) {
             if (input.files && input.files[0]) {
             let reader = new FileReader();
@@ -356,6 +423,34 @@
                         // aspectRatio: 4 / 1,
                     });
                     $('.input_image').addClass('hide-before-content')
+                };
+                img.src = imgData;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+        }
+
+        function readUrl2(input) {
+            if (input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                let imgData = e.target.result;
+                let imgName = input.files[0].name;
+                input.setAttribute("data-title", "");
+                let img = new Image();
+                img.onload = function() {
+                    let imgWidth = img.naturalWidth;
+                    let imgHeight = img.naturalHeight;
+                    $('.input_image2').css({
+                        "background-image": `url('${imgData}')`,
+                        "width": "100%",
+                        "height": "auto",
+                        backgroundPosition: "center",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        // aspectRatio: 4 / 1,
+                    });
+                    $('.input_image2').addClass('hide-before-content')
                 };
                 img.src = imgData;
             }
@@ -394,7 +489,9 @@
             $('#resource-product').hide()
             $('#resource-brand').hide()
             $('#resource-category').hide()
+            $('#resource-sub_category').hide()
             $('#resource-shop').hide()
+            $('#resource-deals').hide()
 
             if (data === 'product') {
                 $('#resource-product').show()
@@ -402,8 +499,15 @@
                 $('#resource-brand').show()
             } else if (data === 'category') {
                 $('#resource-category').show()
-            } else if (data === 'shop') {
+            }
+              else if (data === 'sub_category') {
+                $('#resource-sub_category').show()
+            }
+             else if (data === 'shop') {
                 $('#resource-shop').show()
+            }
+            else if (data === 'deals') {
+                $('#resource-deals').show()
             }
         }
     </script>

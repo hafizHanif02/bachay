@@ -21,14 +21,18 @@
 {{-- @foreach ($home_layouts as $layout)
     @includeIf('layouts.front-end.home.' . $layout->section_name)
 @endforeach --}}
-
+@if(count($category_banners) > 0)
 @include('layouts.front-end.single_categories.section1')
-@include('layouts.front-end.single_categories.section2')
+@endif
+{{-- @include('layouts.front-end.single_categories.section2') --}}
 {{-- @include('layouts.front-end.single_categories.section3')     --}}
 
-{{-- @include('layouts.front-end.single_categories.section4')     --}}
-
-{{-- @include('layouts.front-end.single_categories.section5') --}}
+@if(count($sub_category) > 0)
+@include('layouts.front-end.single_categories.section4')    
+@endif
+@if(count($products) > 0)
+@include('layouts.front-end.single_categories.section5')
+@endif
 {{-- @include('layouts.front-end.categories.section6')     --}}
 
 

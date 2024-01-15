@@ -142,6 +142,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
             Route::get('list', 'BannerController@list')->name('list');
             Route::post('delete', 'BannerController@delete')->name('delete');
             Route::post('status', 'BannerController@status')->name('status');
+            Route::post('home/{id}', 'BannerController@IsHome')->name('home');
             Route::get('edit/{id}', 'BannerController@edit')->name('edit');
             Route::put('update/{id}', 'BannerController@update')->name('update');
         });
