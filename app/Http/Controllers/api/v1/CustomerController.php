@@ -443,6 +443,9 @@ public function SubmitQuiz(Request $request){
     public function Detailchild($id){
         $child = DB::table('family_relation')->where('id', $id)->first();
 
+        if($child == null){
+            return response()->json(['message' => 'Child Not Found'], 200);
+        }
 
         $childDob = new DateTime($child->dob);
         $today = new DateTime();
