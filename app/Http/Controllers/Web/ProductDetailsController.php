@@ -95,7 +95,7 @@ class ProductDetailsController extends Controller
             });
             $categoryId = $product->category_id;
             $categoryName = Category::where('id',$categoryId)->first();
-            if($categoryId == null){
+            if($categoryName == null){
                 $categoryName = "None";
             }else {
                 $categoryName = $categoryName->name;
