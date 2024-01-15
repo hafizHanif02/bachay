@@ -331,7 +331,8 @@ class CustomerController extends Controller
             return response()->json('Vaccinaction Submission ID not Found', 401);
         }
 
-        $growthSub = Growth::where('vaccination_id',$id)->update([
+        $subData = VaccinationSubmission::where('id',$id)->get();
+        $growthSub = Growth::where(['child_id' => $subData->child_id, 'vaccination_id' => $subData->vaccination_id])->update([
             'head_circle' => $request->head_circle,
             'height' => $request->height,
             'weight' => $request->weight,
