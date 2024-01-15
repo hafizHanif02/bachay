@@ -322,17 +322,21 @@ class CustomerController extends Controller
             $extension = $file->getClientOriginalExtension();
             $filename = $file->getClientOriginalName();
             $file->move(public_path('assets/images/customers/child/vaccination'), $filename);
-        return VaccinationSubmission::where('id',$id)->update([
+        $vacSub = VaccinationSubmission::where('id',$id)->update([
             'submission_date' => now(),
             'is_taken' => 1,
             'picture' => $filename,
         ]);
 
-        Growth::where('vaccination_id',$id)->update([
+        $growthSub = Growth::where('vaccination_id',$id)->update([
             'head_circle' => $request->head_circle,
             'height' => $request->height,
             'weight' => $request->weight,
         ]);
+
+        if($vacSub == 0|| $growthSub == 0 ){
+            return response()->json('Somthing went wrong', 401);
+        }
         return response()->json('Vaccination Has Been Added', 200);
     }
 }
@@ -439,6 +443,9 @@ public function SubmitQuiz(Request $request){
     public function Detailchild($id){
         $child = DB::table('family_relation')->where('id', $id)->first();
 
+        if($child == null){
+            return response()->json(['message' => 'Child Not Found'], 200);
+        }
 
         $childDob = new DateTime($child->dob);
         $today = new DateTime();
