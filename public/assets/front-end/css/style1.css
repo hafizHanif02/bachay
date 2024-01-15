@@ -16,7 +16,7 @@
     /* Styles for screens larger than 1200 pixels */
     .desktop-nav .navbar , #mega-menu .fBorder .sub-nav {
         padding: 0 50px;
-    } 
+    }
     header{
         padding: 10px 0px;
     }
@@ -78,7 +78,7 @@
 }
 
 footer , header {
-    padding: 10px 50px;
+    padding: 0px 50px;
 }
 body {
     background-color: #fff;
@@ -403,12 +403,12 @@ line-height: 30px;
 }
 .scroll::-webkit-scrollbar {
     width: 10px;
-  }  
+  }
   /* Handle */
   .scroll::-webkit-scrollbar-thumb {
-    background: #d3d3d3; 
+    background: #d3d3d3;
     border-radius: 10px;
-  } 
+  }
 .scroll:hover{
     overflow-y: scroll !important;
 }
@@ -421,7 +421,7 @@ line-height: 30px;
 .browse-all-cate{
     color: #fff;
     border: 1px solid #fff;
-    
+
 }
 .browse-all-cate:hover{
     color: #ff6b00;
@@ -670,7 +670,7 @@ h1.text-center.textClr {
     font-size: 12px;
 }
 .text-Delivered-1{
-    font-size: 14px;   
+    font-size: 14px;
 }
 .Active_btn{
     color: #62B00E;
@@ -822,7 +822,7 @@ h1.text-center.textClr {
     left: -3%;
     width: 100%;
     border: 2px solid #71e582;
-    
+
 }
 .Meal-Planner {
     color: #71e582;
@@ -908,7 +908,7 @@ h1.text-center.textClr {
     transition: transform 0.5s ease;
 }
 .for-sizing:hover{
-    transform: scale(0.9); 
+    transform: scale(0.9);
   }
 .cateSlider .for-sizing {
     margin: 0 15px;
@@ -951,7 +951,7 @@ h1.text-center.textClr {
 .New_arrival div:nth-child(1) a .NewSeasonBorder {
     border: 1em transparent;
     border-radius: 20px;
-    background-image: linear-gradient(white, white), 
+    background-image: linear-gradient(white, white),
                       linear-gradient(to right,  #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17%);
     background-origin: border-box;
     background-clip: content-box, border-box;
@@ -1461,7 +1461,7 @@ input[type="radio"]:checked {
     padding: 15px;
     padding-left: 30px;
     border: 1px solid #282d32;
-    
+
 }
 .form-group input {
     width: 49%;
@@ -2367,7 +2367,7 @@ input:checked + .se:before {
     position: relative;
     cursor: default;
     z-index: 1004;
-    
+
 }
 .sub-nav > li > a {
     font-family: myfont;
@@ -2791,5 +2791,5 @@ details[open] summary::after {
     .SavingsOffer {
         padding: 0 10px;
     }
-   
+
 } */
