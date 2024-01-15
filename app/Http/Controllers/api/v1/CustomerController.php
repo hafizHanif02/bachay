@@ -322,7 +322,7 @@ class CustomerController extends Controller
             $extension = $file->getClientOriginalExtension();
             $filename = $file->getClientOriginalName();
             $file->move(public_path('assets/images/customers/child/vaccination'), $filename);
-        VaccinationSubmission::where('id',$id)->update([
+        return VaccinationSubmission::where('id',$id)->update([
             'submission_date' => now(),
             'is_taken' => 1,
             'picture' => $filename,
