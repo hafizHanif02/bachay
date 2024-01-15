@@ -125,6 +125,9 @@ class BannerController extends Controller
         if ($request->file('image')) {
             $banner->photo = ImageManager::update('banner/', $banner['photo'], 'webp', $request->file('image'));
         }
+        if ($request->file('mobile_image')) {
+            $banner->mobile_photo = ImageManager::update('banner/mobile/', $banner['mobile_photo'], 'webp', $request->file('mobile_image'));
+        }
         $banner->save();
 
         Toastr::success(translate('banner_updated_successfully'));

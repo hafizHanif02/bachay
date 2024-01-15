@@ -144,6 +144,14 @@
                                                 </div>
                                             </div>
                                         </center>
+
+                                        <center class="mx-auto">
+                                            <div class="uploadDnD">
+                                                <div class="form-group inputDnD input_image2" style="background-image: url('{{asset('storage/app/public/banner/mobile/')}}/{{$banner['mobile_photo']}}')" data-title="{{'Drag and drop file or Browse file'}}">
+                                                    <input type="file" name="mobile_image" class="form-control-file text--primary font-weight-bold" onchange="readUrl2(this)" accept=".jpg, .png, .jpeg, .gif, .bmp, .webp |image/*">
+                                                </div>
+                                            </div>
+                                        </center>
                                         <label for="name" class="title-color text-capitalize">
                                             <span class="input-label-secondary cursor-pointer" data-toggle="tooltip" data-placement="right" title="" data-original-title="{{translate('banner_image_ratio_is_not_same_for_all_sections_in_website').' '.translate('Please_review_the_ratio_before_upload')}}">
                                                 <img width="16" src={{asset('public/assets/back-end/img/info-circle.svg')}} alt="" class="m-1">
@@ -270,6 +278,34 @@
                         backgroundRepeat: "no-repeat",
                     });
                     $('.input_image').addClass('hide-before-content')
+                };
+                img.src = imgData;
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
+        }
+
+        function readUrl2(input) {
+            if (input.files && input.files[0]) {
+            let reader = new FileReader();
+            reader.onload = (e) => {
+                let imgData = e.target.result;
+                let imgName = input.files[0].name;
+                input.setAttribute("data-title", "");
+                let img = new Image();
+                img.onload = function() {
+                    let imgWidth = img.naturalWidth;
+                    let imgHeight = img.naturalHeight;
+                    $('.input_image2').css({
+                        "background-image": `url('${imgData}')`,
+                        "width": "100%",
+                        "height": "auto",
+                        backgroundPosition: "center",
+                        backgroundSize: "contain",
+                        backgroundRepeat: "no-repeat",
+                        // aspectRatio: 4 / 1,
+                    });
+                    $('.input_image2').addClass('hide-before-content')
                 };
                 img.src = imgData;
             }
