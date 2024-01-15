@@ -80,23 +80,25 @@
                                         </select>
                                     </div>
 
-                                    @if (theme_root_path() == 'theme_aster')
-                                    <div class="from_part_2">
-                                        <label class="title-color">{{translate('sub_category_Logo')}}</label>
-                                        <span class="text-info">{{ THEME_RATIO[theme_root_path()]['Category Image'] }}</span>
-                                        <div class="custom-file text-left">
-                                            <input type="file" name="image" id="customFileEg1"
-                                            class="custom-file-input"
-                                            accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
-                                            <label class="custom-file-label"
-                                            for="customFileEg1">{{translate('choose_File')}}</label>
-                                        </div>
-                                    </div>
-                                    @endif
+                                    {{-- @if (theme_root_path() == 'theme_aster') --}}
+                                    {{-- @endif --}}
 
                                 </div>
 
-                                @if (theme_root_path() == 'theme_aster')
+                                {{-- @if (theme_root_path() == 'theme_aster') --}}
+
+                                <div class="from_part_2">
+                                    <label class="title-color">{{translate('sub_category_Logo')}}</label>
+                                    <span class="text-info">{{ THEME_RATIO[theme_root_path()]['Category Image'] }}</span>
+                                    <div class="custom-file text-left">
+                                        <input type="file" name="image" id="customFileEg1"
+                                        class="custom-file-input"
+                                        accept=".jpg, .png, .jpeg, .gif, .bmp, .tif, .tiff|image/*">
+                                        <label class="custom-file-label"
+                                        for="customFileEg1">{{translate('choose_File')}}</label>
+                                    </div>
+                                </div>
+
                                 <div class="col-lg-6 mt-4 mt-lg-0 from_part_2">
                                     <div class="form-group">
                                         <center>
@@ -108,7 +110,7 @@
                                         </center>
                                     </div>
                                 </div>
-                                @endif
+                                {{-- @endif --}}
                             </div>
                             <div class="d-flex flex-wrap gap-2 justify-content-end">
                                 <button type="reset" class="btn btn-secondary">{{translate('reset')}}</button>

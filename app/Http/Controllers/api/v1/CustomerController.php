@@ -311,8 +311,9 @@ class CustomerController extends Controller
     }
 
     public function Vaccination($id){
-        $growth = VaccinationSubmission::where('id',$id)->first();
-        return response()->json($growth, 200);
+        $vaccination = VaccinationSubmission::where('id',$id)->first();
+        $growth = Growth::where('vaccination_id',$id)->first();
+        return response()->json($vaccination, 200);
     }
 
     public function VaccinationSubmission(Request $request,$id){
@@ -327,7 +328,7 @@ class CustomerController extends Controller
             'picture' => $filename,
         ]);
 
-        Growth::where('id',$id)->update([
+        Growth::where('vaccination_id',$id)->update([
             'head_circle' => $request->head_circle,
             'height' => $request->height,
             'weight' => $request->weight,
