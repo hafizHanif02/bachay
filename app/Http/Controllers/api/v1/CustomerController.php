@@ -180,7 +180,7 @@ class CustomerController extends Controller
                 }
 
                 $growth = Growth::where('child_id',$child->id)->first();
-                
+
                 $child->growth = $growth;
 
             }
@@ -325,6 +325,12 @@ class CustomerController extends Controller
             'submission_date' => now(),
             'is_taken' => 1,
             'picture' => $filename,
+        ]);
+
+        Growth::where('id',$id)->update([
+            'head_circle' => $request->head_circle,
+            'height' => $request->height,
+            'weight' => $request->weight,
         ]);
         return response()->json('Vaccination Has Been Added', 200);
     }
