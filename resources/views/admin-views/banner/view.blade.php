@@ -307,6 +307,8 @@
                                 <th>{{translate('banner_type')}}</th>
                                 <th>{{translate('published')}}</th>
                                 <th>Home</th>
+                                <th>Web</th>
+                                <th>Mobile</th>
                                 <th class="text-center">{{translate('action')}}</th>
                             </tr>
                             </thead>
@@ -336,6 +338,26 @@
                                             <input type="hidden" name="id" value="{{$banner['id']}}">
                                             <label class="switcher">
                                                 <input type="checkbox" class="switcher_input" id="home{{$banner['id']}}" name="status" value="1" {{ $banner['is_home'] == 1 ? 'checked':'' }} onclick="SubmitHome({{ $banner['id'] }})" >
+                                                <span class="switcher_control"></span>
+                                            </label>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="{{route('admin.banner.web',$banner['id'])}}" method="post" id="web_form{{$banner['id']}}" >
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{$banner['id']}}">
+                                            <label class="switcher">
+                                                <input type="checkbox"  class="switcher_input" id="web{{$banner['id']}}" name="status" value="1" {{ $banner['is_web'] == 1 ? 'checked':'' }} onclick="SubmitWeb({{ $banner['id'] }})" >
+                                                <span class="switcher_control"></span>
+                                            </label>
+                                        </form>
+                                    </td>
+                                    <td>
+                                        <form action="{{route('admin.banner.mobile',$banner['id'])}}" method="post" id="mobile_form{{$banner['id']}}" >
+                                            @csrf
+                                            <input type="hidden" name="id" value="{{$banner['id']}}">
+                                            <label class="switcher">
+                                                <input type="checkbox" class="switcher_input" id="mobile{{$banner['id']}}" name="status" value="1" {{ $banner['is_mobile'] == 1 ? 'checked':'' }} onclick="SubmitMobile({{ $banner['id'] }})" >
                                                 <span class="switcher_control"></span>
                                             </label>
                                         </form>
@@ -396,6 +418,44 @@
                 success: function (response) {
                     console.log(response);
                     $('#home' + id).prop('checked', response.is_home == 1);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        function SubmitWeb(id) {
+            let form = $('#web_form' + id);
+            console.log(form.serialize());
+            
+
+            $.ajax({
+                type: 'POST',
+                url: `web/${id}`,
+                data: form.serialize(),
+                success: function (response) {
+                    console.log(response);
+                    $('#web' + id).prop('checked', response.is_web == 1);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        }
+
+        function SubmitMobile(id) {
+            let form = $('#mobile_form' + id);
+            console.log(form.serialize());
+            
+
+            $.ajax({
+                type: 'POST',
+                url: `mobile/${id}`,
+                data: form.serialize(),
+                success: function (response) {
+                    console.log(response);
+                    $('#mobile' + id).prop('checked', response.is_mobile == 1);
                 },
                 error: function (error) {
                     console.log(error);

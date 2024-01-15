@@ -88,6 +88,34 @@ class BannerController extends Controller
         return response()->json(['success' => true, 'is_home' => $banner->is_home]);
     }
 
+
+    public function IsWeb(Request $request, $id)
+    {
+        $banner = Banner::findOrFail($id);
+
+        // Toggle the value of is_web
+        $banner->is_web = $banner->is_web ? 0 : 1;
+        $banner->save();
+
+        // Additional logic if needed...
+
+        return response()->json(['success' => true, 'is_web' => $banner->is_web]);
+    }
+
+    public function IsMobile(Request $request, $id)
+    {
+        $banner = Banner::findOrFail($id);
+
+        // Toggle the value of is_mobile
+        $banner->is_mobile = $banner->is_mobile ? 0 : 1;
+        $banner->save();
+
+        // Additional logic if needed...
+
+        return response()->json(['success' => true, 'is_mobile' => $banner->is_mobile]);
+    }
+
+
     public function status(Request $request)
     {
         if ($request->ajax()) {
@@ -128,7 +156,7 @@ class BannerController extends Controller
         if ($request->file('mobile_image')) {
             $banner->mobile_photo = ImageManager::update('banner/mobile/', $banner['mobile_photo'], 'webp', $request->file('mobile_image'));
         }
-        $banner->save();
+        $banner->save(); 
 
         Toastr::success(translate('banner_updated_successfully'));
         return back();
