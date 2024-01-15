@@ -94,6 +94,7 @@ class ProductDetailsController extends Controller
                     ->inRandomOrder()->take(12)->get();
             });
             $categoryId = $product->category_id;
+            return $categoryId;
             $categoryName = Category::find($categoryId)->name;
 
             $choiceOptions = json_decode($product->choice_options, true);
@@ -155,7 +156,7 @@ class ProductDetailsController extends Controller
                 $cartProductsArray = [];
             }
             // $wishlistProductsArray = $wishlistProducts->toArray();
-            
+
             return view(VIEW_FILE_NAMES['product-detail'], compact(
                 'wishlistProductsArray',
                 'tax',
