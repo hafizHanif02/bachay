@@ -80,7 +80,7 @@
                                         </select>
                                     </div>
                                 <!--image upload only for main category-->
-                                @if($category['parent_id']==0 || ($category['position'] == 1 && theme_root_path() == 'theme_aster'))
+                                {{-- @if($category['parent_id']==0 || ($category['position'] == 1 && theme_root_path() == 'theme_aster')) --}}
                                     <div class="from_part_2">
                                         <label class="title-color">{{translate('category_Logo')}}</label>
                                         <span class="text-info">({{translate('ratio')}} 1:1)</span>
@@ -104,7 +104,7 @@
                                         </center>
                                     </div>
                                 </div>
-                                @endif
+                                {{-- @endif --}}
                                 @if($category['position'] == 2 || ($category['position'] == 1 && theme_root_path() != 'theme_aster'))
                                         <div class="d-flex justify-content-end gap-3">
                                             <button type="reset" id="reset" class="btn btn-secondary px-4">{{ translate('reset')}}</button>
