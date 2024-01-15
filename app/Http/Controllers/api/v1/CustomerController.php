@@ -327,6 +327,9 @@ class CustomerController extends Controller
             'is_taken' => 1,
             'picture' => $filename,
         ]);
+        if($vacSub == 0){
+            return response()->json('Vaccinaction Submission ID not Found', 401);
+        }
 
         $growthSub = Growth::where('vaccination_id',$id)->update([
             'head_circle' => $request->head_circle,
