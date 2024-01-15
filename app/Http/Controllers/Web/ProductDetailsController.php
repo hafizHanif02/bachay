@@ -94,8 +94,12 @@ class ProductDetailsController extends Controller
                     ->inRandomOrder()->take(12)->get();
             });
             $categoryId = $product->category_id;
-            return $categoryId;
-            $categoryName = Category::find($categoryId)->name;
+            $categoryName = Category::where('id',$categoryId)->first();
+            if($categoryId == null){
+                $categoryName = "None";
+            }else {
+                $categoryName = $categoryName->name;
+            }
 
             $choiceOptions = json_decode($product->choice_options, true);
 
