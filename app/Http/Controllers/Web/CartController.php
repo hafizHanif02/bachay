@@ -1503,24 +1503,35 @@ class CartController extends Controller
     /**
      * removes from Cart
      */
-    public function removeFromCart($id)
+    public function removeFromCart(Request $request,$id)
     {
         // dd($request);
-        $user = Helpers::get_customer();
+        if(Auth::check()){
+            $user = Helpers::get_customer();
+    
+            $cart = Cart::where(['id' => $id, 'customer_id' => ($user == 'offline' ? session('guest_id') : auth('customer')->id())])->first();
+    
+            $cart->delete();
+    
+            // Cart::where(['id' => $request->cart_id, 'customer_id' => ($user == 'offline' ? session('guest_id') : auth('customer')->id())])->delete();
+    
+            session()->forget('coupon_code');
+            session()->forget('coupon_type');
+            session()->forget('coupon_bearer');
+            session()->forget('coupon_discount');
+            session()->forget('coupon_seller_id');
+            session()->forget('shipping_method_id');
+            session()->forget('order_note');
+        }
+        else{
+            $cartItems = $request->session()->get('cart', []);
 
-        $cart = Cart::where(['id' => $id, 'customer_id' => ($user == 'offline' ? session('guest_id') : auth('customer')->id())])->first();
+            if (in_array($id, $cartItems)) {
+                $cartItems = array_diff($cartItems, [$id]);
 
-        $cart->delete();
-
-        // Cart::where(['id' => $request->cart_id, 'customer_id' => ($user == 'offline' ? session('guest_id') : auth('customer')->id())])->delete();
-
-        session()->forget('coupon_code');
-        session()->forget('coupon_type');
-        session()->forget('coupon_bearer');
-        session()->forget('coupon_discount');
-        session()->forget('coupon_seller_id');
-        session()->forget('shipping_method_id');
-        session()->forget('order_note');
+                $request->session()->put('cart', $cartItems);
+            }
+        }
 
         // return response()->json(['data' => view(VIEW_FILE_NAMES['products_cart_details_partials'], compact('request'))->render(), 'message'=>translate('Item_has_been_removed_from_cart')]);
         return redirect()->back()->with(['message' => 'Product has Been Removed from Cart', 'status' => 1]);

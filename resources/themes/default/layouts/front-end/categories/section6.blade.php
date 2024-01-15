@@ -7,7 +7,6 @@
                         <img class="CategImg rounded-circle object-fit-cover"
                             src="{{ asset('storage/app/public/category/' . $category->icon) }}" alt="Category image"
                             width="100%" height="100%">
-
                     </div>
                     <h4 class="gradient-text">
                         @if (strlen($category->name) <= 10)
