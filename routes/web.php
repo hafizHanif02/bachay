@@ -35,8 +35,8 @@ route::get('naveedyousuf', function () {
 });
 
 Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestCheck']], function () {
-    Route::get('/', 'HomeController@commingsoon');
-    Route::get('/home', 'HomeController@index')->name('home');
+    // Route::get('/', 'HomeController@commingsoon');
+    Route::get('/', 'HomeController@index')->name('home');
 
     Route::post('/add-to-wishlist', 'WebController@addToWishlist')->name('wishlist.add');
     // Route::post('/delete-from-wishlist', 'WebController@deleteFromWishlist')->name('wishlist.delete');

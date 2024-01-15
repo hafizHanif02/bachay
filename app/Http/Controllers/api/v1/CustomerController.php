@@ -313,7 +313,7 @@ class CustomerController extends Controller
     public function Vaccination($id){
         $vaccination = VaccinationSubmission::where('id',$id)->first();
         $growth = Growth::where('vaccination_id',$id)->first();
-        return response()->json($vaccination, 200);
+        return response()->json(['vaccination' => $vaccination,'growth'=> $growth, 200]);
     }
 
     public function VaccinationSubmission(Request $request,$id){
