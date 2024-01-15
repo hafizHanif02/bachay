@@ -22,13 +22,13 @@
     @includeIf('layouts.front-end.home.' . $layout->section_name)
 @endforeach --}}
 
-@include('layouts.front-end.categories.section1')
-@include('layouts.front-end.categories.section2')
-@include('layouts.front-end.categories.section3')    
+@include('layouts.front-end.single_categories.section1')
+@include('layouts.front-end.single_categories.section2')
+{{-- @include('layouts.front-end.single_categories.section3')     --}}
 
-{{-- @include('layouts.front-end.categories.section4')     --}}
+{{-- @include('layouts.front-end.single_categories.section4')     --}}
 
-@include('layouts.front-end.categories.section5')
+{{-- @include('layouts.front-end.single_categories.section5') --}}
 {{-- @include('layouts.front-end.categories.section6')     --}}
 
 

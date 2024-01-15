@@ -2,7 +2,7 @@
     <div class="scroll-cards mt-4">
         @foreach ($categories as $category)
             <div class="circleCard">
-                <a href="#" class="text-decoration-none">
+                <a  href="{{ route('single.category', $category->slug) }}" class="text-decoration-none">
                     <div class="for-sizing">
                         <img class="CategImg rounded-circle object-fit-cover"
                             src="{{ asset('storage/app/public/category/' . $category->icon) }}" alt="Category image"

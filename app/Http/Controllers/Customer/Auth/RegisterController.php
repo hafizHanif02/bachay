@@ -2,24 +2,26 @@
 
 namespace App\Http\Controllers\Customer\Auth;
 
-use App\CPU\CartManager;
-use App\CPU\Helpers;
-use App\CPU\SMS_module;
-use App\Http\Controllers\Controller;
-use App\Model\BusinessSetting;
-use App\Model\PhoneOrEmailVerification;
-use App\Model\Wishlist;
 use App\User;
-use Brian2694\Toastr\Facades\Toastr;
 use Carbon\Carbon;
+use App\Model\Cart;
+use App\CPU\Helpers;
+use App\Model\Product;
+use App\CPU\SMS_module;
+use App\Model\Wishlist;
+use App\CPU\CartManager;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Session;
+use App\Model\BusinessSetting;
 use function App\CPU\translate;
+use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
+use Brian2694\Toastr\Facades\Toastr;
+use Illuminate\Support\Facades\Mail;
+use App\Model\PhoneOrEmailVerification;
+use Illuminate\Support\Facades\Session;
 use Modules\Gateways\Traits\SmsGateway;
+use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
 {
@@ -94,6 +96,18 @@ class RegisterController extends Controller
             'referral_code' => Helpers::generate_referer_code(),
             'referred_by' => $refer_user->id ?? null,
         ]);
+
+        $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $cartProducts = Product::whereIn('id', $productIds)->get();
+
+            foreach ($cartProducts as $product) {
+                Cart::create([
+                    'product_id' => $product->id,
+                    'customer_id' => $user->id,
+                    'quantity' => 1
+                ]);
+            }
 
         $phone_verification = Helpers::get_business_settings('phone_verification');
         $email_verification = Helpers::get_business_settings('email_verification');

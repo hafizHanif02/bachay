@@ -1,11 +1,11 @@
-<div class="container-xxl premiumBouquets mb-4">
-    <h1 class="text-center textClr">Style For Every Kid</h1>
+<div class="container-xxl premiumBouquets">
+    <h1 class="text-center textClr">There Sub Category</h1>
     <div class="row mt-5 col-12 flash-sales-container">
-        @if (count($categories) > 0)
-            @foreach ($categories->sortBy('created_at')->take(18) as $category)
+        @if (count($sub_category) > 0)
+            @foreach ($sub_category as $category)
                 <div class="icon col-lg-4 col-md-6 col-sm-12 mb-5 mt-4">
                     <div class="card card_image rounded-5">
-                        <a  href="{{ route('single.category', $category->slug) }}">
+                        <a href="{{ route('single.category', $category->slug) }}">
                             {{-- <div class="deal-alert-circle">-{{ $category->discount }}%</div> --}}
                             <div class="forHeight">
                                 <img class="object-fit-cover card-img rounded-5"

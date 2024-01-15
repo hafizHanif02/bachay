@@ -46,18 +46,10 @@
                             <a class="nav-link" href="{{ route('my-shortlist') }}"><i class="bi bi-heart"></i>
                                 Wishlist</a>
                         </li>
-                        @auth
-
-                            <li class="nav-item position-relative">
-                                <a class="nav-link" href="">
-                                    @if (isset(auth()->user()->cart))
-                                        <div class="red-dot bg-warning position-absolute rounded-circle cart-w-h ms-2">
-                                        </div>
-                                    @endif
-                                    <i class="bi bi-cart3"></i> Cart
-                                </a>
-                            </li>
-                        @endauth
+                        {{-- @auth --}}
+                        
+                        
+                        {{-- @endauth --}}
                         @auth('customer')
                             {{-- <li class="nav-item">
                             <a class="nav-link" href="#">Track Order</a>
@@ -208,6 +200,15 @@
                                 
                             </li>
                         @else
+                        <li class="nav-item position-relative">
+                            <a class="nav-link" href="{{ route('my-cart-address') }}">
+                                {{-- @if (isset(auth()->user()->cart)) --}}
+                                    <div class="red-dot bg-warning position-absolute rounded-circle cart-w-h ms-2">
+                                    </div>
+                                {{-- @endif --}}
+                                <i class="bi bi-cart3"></i> Cart
+                            </a>
+                        </li>
                             <li class="nav-item d-flex align-items-center ms-2 ">
                                 <a class="nav-link px-0  " href="{{ route('customer.auth.login') }}">Login</a>
                                 <span class="px-1">/</span>
@@ -264,11 +265,13 @@
                                             <li class="collection-item">
                                                 <h4>SHOP BY CATEGORY</h4>
                                             </li>
+                                            @if(isset($home_categories))
                                             @foreach ($home_categories as $category)
                                                 <li><a href="#">{{ $category->name }} <span
                                                             class="color">NEW</span></a>
                                                 </li>
                                             @endforeach
+                                            @endif
                                             {{-- <li><a href="#">Sets & Suits <span class="color">NEW</span></a></li>
                                         <li><a href="#">T-shirts <span class="color">NEW</span></a></li>
                                         <li><a href="">Nightwear</a></li>
