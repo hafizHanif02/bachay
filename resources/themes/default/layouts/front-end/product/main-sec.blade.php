@@ -1,4 +1,4 @@
-<div class="container-xxl products mt-4 pb-5">
+<div class="container-fluid products mt-4 pb-5">
 
 
     <div class="row">
