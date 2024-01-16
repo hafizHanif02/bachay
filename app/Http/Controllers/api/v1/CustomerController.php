@@ -351,6 +351,13 @@ public function VaccinationSubmissionGet($id){
             'id'=> $id,
             'user_id' => Auth::user()->id
         ])->first();
+        $growth =  Growth::where(['vaccination_id'=> $vaccination_data->vaccination_id,
+        'child_id' => $vaccination_data->child_id])->first();
+        $vaccination_data->growth = $growth;
+
+        $vaccinationImg = asset('assets/images/customers/child/vaccination/' . $filename);
+        $vaccination_data->picture = $vaccinationImg;
+        
         return response()->json($vaccination_data, 200);
     }else{
         return response()->json(['errors' => 'Please Login First !'], 200);
