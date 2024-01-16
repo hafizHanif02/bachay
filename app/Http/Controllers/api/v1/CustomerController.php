@@ -355,7 +355,7 @@ public function VaccinationSubmissionGet($id){
         'child_id' => $vaccination_data->child_id])->first();
         $vaccination_data->growth = $growth;
 
-        $vaccinationImg = asset('assets/images/customers/child/vaccination/' . $vaccination_data->picture);
+        $vaccinationImg = asset('public/assets/images/customers/child/vaccination/' . $vaccination_data->picture);
         $vaccination_data->picture = $vaccinationImg;
         
         return response()->json($vaccination_data, 200);
