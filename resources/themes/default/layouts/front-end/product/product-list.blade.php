@@ -23,7 +23,7 @@
     </div>
 
 
-    <div class="d-grid product-list">
+    <div class="product-list">
         @foreach ($products as $product)
             <div class="image-container product-wrapper">
                 <div class="imgMAin">
@@ -133,12 +133,7 @@
 
 </div>
 <style>
-    .product-wrapper{
-        transition: transform 0.5s ease;
-    }
-    .product-wrapper:hover{
-        transform: scale(1.05);
-    }
+    
     .wish-list {
         top: 6%;
         right: 8%;
@@ -179,7 +174,6 @@
         border-radius: 5px;
 
     }
-
     /* .product-wrapper:hover::before {
         background: red;
         opacity: 1;

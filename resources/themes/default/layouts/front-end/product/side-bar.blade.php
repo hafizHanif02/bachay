@@ -18,10 +18,10 @@
         </form>
     </div>
     <div class="filter-by d-flex justify-content-between align-items-center pt-2 pb-2 mt-3">
-        <h5>
+        <h6 class="m-0">
             Filter By
-        </h5>
-        <a class="clear-all-btn" href="">Clear All</a>
+        </h6>
+        <a class="clear-all-btn mt-1" href="">Clear All</a>
     </div>
     <form action="{{ route('product-list') }}" method="GET">
         <div class="scroll fs-14">
@@ -207,8 +207,8 @@
         <label class="col-12 f-spacing">
             <input type="checkbox" name="myCheckbox"> United State <span class="Reviews"> (51)</span>
         </label> --}}
-
-        <button class="mt-3 col-6 input-button rounded-pill fs-6" type="submit" style="width: 100%">Apply</button>
+        <hr>
+        <button class="mt-0 input-button rounded-pill fs-6" type="submit" style="width: 60%">Apply</button>
        
 
     </form>
