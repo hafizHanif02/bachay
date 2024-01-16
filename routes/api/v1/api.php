@@ -202,6 +202,9 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
             Route::get('/{id}', 'CustomerController@Vaccination');
             Route::post('add/{id}', 'CustomerController@VaccinationSubmission');
         });
+        Route::group(['prefix' => 'vaccination_submission'], function () {
+            Route::get('/{id}', 'CustomerController@VaccinationSubmissionGet');
+        });
     });
     Route::group(['prefix' => 'customer', 'middleware' => 'auth:api'], function () {
         Route::get('info', 'CustomerController@info');
