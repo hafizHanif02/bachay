@@ -290,7 +290,7 @@ input.form-control.search-input {
 .filter_aside{
     width: 15%;
     position: sticky;
-    top: 0;
+    top: 20px;
     /* margin-bottom: var(--su8); */
     max-height: 100vh;
     /* overflow-y: auto; */
@@ -573,7 +573,11 @@ h1.text-center.textClr {
     text-align: left;
     font-size:17.49px ;
 }
-
+.fixedProduct{
+    top: 20px;
+    position: sticky;
+    height: 100vh;
+}
 .discount {
     text-decoration: line-through;
     color:  rgba(0, 0, 0, 0.5);
@@ -612,6 +616,7 @@ h1.text-center.textClr {
     /* grid-template-columns: repeat(3, 1fr); */
     display: flex;
     flex-wrap: wrap;
+    justify-content: center;
     gap: 10px;
 }
 .image-container p {
