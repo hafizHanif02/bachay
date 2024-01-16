@@ -13,7 +13,11 @@
     src: url(/public/fonts/AristotelicaSmallCapsRegular.ttf);
 }
 @media (min-width: 1367px) {
-    /* Styles for screens larger than 1200 pixels */
+    /* Styles for screens larger than 1367 pixels */
+    .product-list{
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
     .desktop-nav .navbar , #mega-menu .fBorder .sub-nav {
         padding: 0 50px;
     }
@@ -26,6 +30,9 @@
   }
   .nav-item a:hover{
     color: #845DC2;
+}
+.navbar{
+    padding: 0 50px;
 }
 .LocationsSearchBar {
     padding-left: 40px !important;
@@ -68,7 +75,7 @@
     cursor: pointer;
 }
 .imgMAin {
-    height: 205px;
+    height: 355px;
 }
 .imgMAinH {
     height: 244px;
@@ -593,8 +600,12 @@ h1.text-center.textClr {
     border-bottom-left-radius: 20px;
     font-weight: 500;
 }
-.product-list{
+.all_products_cate{
     grid-template-columns: repeat(4, 1fr);
+
+}
+.product-list{
+    grid-template-columns: repeat(3, 1fr);
     gap: 10px;
 }
 .image-container p {
@@ -2367,7 +2378,8 @@ input:checked + .se:before {
     position: relative;
     cursor: default;
     z-index: 1004;
-
+    padding-left: 50px !important;
+    padding-right: 50px !important;
 }
 .sub-nav > li > a {
     font-family: myfont;

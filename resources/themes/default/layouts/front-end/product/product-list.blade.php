@@ -25,99 +25,82 @@
 
     <div class="d-grid product-list">
         @foreach ($products as $product)
-            {{-- {{ $product->name }} --}}
-            <div class="col-md-6 col-lg-12">
-                <div class="rounded-3">
-                    <div class="card1">
-                        <div class="first-sec card1">
-                            <div class="image-container product-wrapper">
-                                <div class="imgMAin">
-                                    <a class="text-decoration-none" href="{{ route('product-detail', $product->id) }}">
-                                        <img src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}"
-                                            alt="{{ $product->name }}" class="object-fit-cover rounded-2" width="100%"
-                                            height="100%">
-                                    </a>
-                                </div>
-    
-                                <div class="sec-best-seller mt-3">
-                                    <p>Best Seller</p>
-                                </div>
-                                <div class="wish-list mt-3 me-2">
-                                    <button type="button"
-                                        class="wishlist-button p-0 bg-transparent rounded-circle forBorder"
-                                        data-product-id="{{ $product->id }}" onclick="addToWishlist(this)">
-                                        <i
-                                            class="bi heart-icon bi-heart{{ in_array($product->id, $wishlistProductsArray) ? '-fill' : '' }} text-danger"></i>
-                                    </button>
-                                </div>
-                                <p class="product_title product-text mt-0 mb-1">
-                                    @if (strlen($product->name) <= 25)
-                                        {{ $product->name }}
-                                    @else
-                                        {{ substr($product->name, 0, 25) }}<span id="dots"> ....</span>
-                                    @endif
-                                </p>
+            <div class="image-container product-wrapper">
+                <div class="imgMAin">
+                    <a class="text-decoration-none" href="{{ route('product-detail', $product->id) }}">
+                        <img src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}"
+                            alt="{{ $product->name }}" class="object-fit-cover rounded-2" width="100%" height="100%">
+                    </a>
+                </div>
+
+                <div class="sec-best-seller mt-3">
+                    <p>Best Seller</p>
+                </div>
+                <div class="wish-list mt-3 me-2">
+                    <button type="button" class="wishlist-button p-0 bg-transparent rounded-circle forBorder"
+                        data-product-id="{{ $product->id }}" onclick="addToWishlist(this)">
+                        <i
+                            class="bi heart-icon bi-heart{{ in_array($product->id, $wishlistProductsArray) ? '-fill' : '' }} text-danger"></i>
+                    </button>
+                </div>
+                <p class="product_title product-text mt-0 mb-1">
+                    @if (strlen($product->name) <= 25)
+                        {{ $product->name }}
+                    @else
+                        {{ substr($product->name, 0, 25) }}<span id="dots"> ....</span>
+                    @endif
+                </p>
 
 
-                                <div class="product_price d-flex">
-                                    <p class="product-price me-2">Rs.
-                                        {{ $product->unit_price - ($product->unit_price * $product->discount) / 100 }}
-                                    </p>
-                                    <p class="card-text"><span class="discount">Rs.
-                                            {{ $product->unit_price }}</span>
-                                        <span class="text-success">-{{ $product->discount }}%</span>
-                                    </p>
-                                </div>
-    
-                                <div class="expandable">
-                                    <div class="d-flex justify-content-between for-border-g">
-                                        <div class="ratings-reviews d-flex">
-                                            <img class="me-2" src="{{ asset('public/images/Vector-star.svg') }}" alt="">
-                                            <p class="m-0 mt-1">5.0<span
-                                                    class="Reviews">({{ $product->reviews_count }})</span></p>
-                                        </div>
-    
-                                        @foreach ($product->reviews as $review)
-                                            <p class="m-0">{{ $review }}<span
-                                                    class="Reviews">({{ $product->reviews_count }})</span></p>
-                                        @endforeach
-    
-                                        <a href="#" class="delivery-btn">Standard Delivery</a>
-                                    </div>
+                <div class="product_price d-flex">
+                    <p class="product-price me-2">Rs.
+                        {{ $product->unit_price - ($product->unit_price * $product->discount) / 100 }}
+                    </p>
+                    <p class="card-text"><span class="discount">Rs.
+                            {{ $product->unit_price }}</span>
+                        <span class="text-success">-{{ $product->discount }}%</span>
+                    </p>
+                </div>
 
-                                    <div class="d-flex justify-content-between mt-2">
-                                        <form action="{{ route('cart.buy-now') }}" method="POST">
-                                            @csrf
-                                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                                            <input type="hidden" name="price" id="price"
-                                                value="{{ $product->unit_price }}">
-                                            <input type="hidden" name="quantity" value="1">
-                                            <input type="hidden" name="product[1][quantity]" value="1">
-                                            <input type="hidden" name="product[1][id]" value="{{ $product->id }}">
-                                            <input type="hidden" name="product[1][price]"
-                                                value="{{ $product->unit_price }}">
-                                            <input type="hidden" name="product[1][product_id]"
-                                                value="{{ $product->id }}">
-                                            {{-- <input type="hidden" name="product[1][tax]" value="{{ ($product->tax) }}"> --}}
-                                            <input type="hidden" name="product[1][tax_model]"
-                                                value="{{ $product->tax_model }}">
-                                            <input type="hidden" name="product[1][color]"
-                                                value="{{ $product->color }}">
-                                            <input type="hidden" name="product[1][variant]"
-                                                value="{{ $product->variant }}">
-                                            <input type="hidden" name="product[1][discount]"
-                                                value="{{ $product->discount }}">
-                                            <input type="hidden" name="product[1][discount_amount]"
-                                                value="{{ ($product->discount * $product->unit_price) / 100 }}">
-                                            <input type="hidden" name="product[1][actual_price]"
-                                                value="{{ $product->unit_price }}">
-                                            <input type="hidden" name="product[1][price]"
-                                                value="{{ $product->unit_price }}">
-                                            <input type="hidden" name="product[1][quantity]" value="1">
-                                            <button class="btn-W buy-now rounded-pill text-white mb-2">Buy Now</button>
-                                        </form>
-    
-                                            {{-- <div class="d-flex  mt-1">
+                <div class="expandable">
+                    <div class="d-flex justify-content-between for-border-g">
+                        <div class="ratings-reviews d-flex">
+                            <img class="me-2" src="{{ asset('public/images/Vector-star.svg') }}" alt="">
+                            <p class="m-0 mt-1">5.0<span class="Reviews">({{ $product->reviews_count }})</span></p>
+                        </div>
+
+                        @foreach ($product->reviews as $review)
+                            <p class="m-0">{{ $review }}<span
+                                    class="Reviews">({{ $product->reviews_count }})</span></p>
+                        @endforeach
+
+                        <a href="#" class="delivery-btn">Standard Delivery</a>
+                    </div>
+
+                    <div class="d-flex justify-content-between mt-2">
+                        <form action="{{ route('cart.buy-now') }}" method="POST">
+                            @csrf
+                            <input type="hidden" name="product_id" value="{{ $product->id }}">
+                            <input type="hidden" name="price" id="price" value="{{ $product->unit_price }}">
+                            <input type="hidden" name="quantity" value="1">
+                            <input type="hidden" name="product[1][quantity]" value="1">
+                            <input type="hidden" name="product[1][id]" value="{{ $product->id }}">
+                            <input type="hidden" name="product[1][price]" value="{{ $product->unit_price }}">
+                            <input type="hidden" name="product[1][product_id]" value="{{ $product->id }}">
+                            {{-- <input type="hidden" name="product[1][tax]" value="{{ ($product->tax) }}"> --}}
+                            <input type="hidden" name="product[1][tax_model]" value="{{ $product->tax_model }}">
+                            <input type="hidden" name="product[1][color]" value="{{ $product->color }}">
+                            <input type="hidden" name="product[1][variant]" value="{{ $product->variant }}">
+                            <input type="hidden" name="product[1][discount]" value="{{ $product->discount }}">
+                            <input type="hidden" name="product[1][discount_amount]"
+                                value="{{ ($product->discount * $product->unit_price) / 100 }}">
+                            <input type="hidden" name="product[1][actual_price]" value="{{ $product->unit_price }}">
+                            <input type="hidden" name="product[1][price]" value="{{ $product->unit_price }}">
+                            <input type="hidden" name="product[1][quantity]" value="1">
+                            <button class="btn-W buy-now rounded-pill text-white mb-2">Buy Now</button>
+                        </form>
+
+                        {{-- <div class="d-flex  mt-1">
                                                 <button type="submit" id="cart-btn"
                                                     class="p-0 bg-transparent rounded-circle forBorder"
                                                     data-product-id="{{ $product->id }}"
@@ -128,47 +111,49 @@
                                                 </button>
                                             </div>
                                         </form>  --}}
-                                        <div class="d-flex mt-0">
-                                            <button id="cart-btn{{ $product->id }}"
-                                                class="p-0 bg-transparent rounded-circle forBorder"
-                                                data-product-id="{{ $product->id }}"
-                                                data-name="{{ $product->name }}"
-                                                data-price="{{ $product->unit_price }}"
-                                                data-discount="{{ $product->discount }}"
-                                                data-tax="{{ $product->tax }}"
-                                                data-thumbnail="{{ $product->thumbnail }}"
-                                                data-color="{{ $product->color }}"
-                                                data-variant="{{ $product->variant }}"
-                                                data-slug="{{ $product->slug }}" onclick="addToCart(this)">
-                                                <i class="bi cart-icon bi-cart {{ in_array($product->id, $cartProductsArray) ? 'fill' : '' }} text-purple"></i>
-                                            </button>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                        <div class="d-flex mt-0">
+                            <button id="cart-btn{{ $product->id }}"
+                                class="p-0 bg-transparent rounded-circle forBorder"
+                                data-product-id="{{ $product->id }}" data-name="{{ $product->name }}"
+                                data-price="{{ $product->unit_price }}" data-discount="{{ $product->discount }}"
+                                data-tax="{{ $product->tax }}" data-thumbnail="{{ $product->thumbnail }}"
+                                data-color="{{ $product->color }}" data-variant="{{ $product->variant }}"
+                                data-slug="{{ $product->slug }}" onclick="addToCart(this)">
+                                <i
+                                    class="bi cart-icon bi-cart {{ in_array($product->id, $cartProductsArray) ? 'fill' : '' }} text-purple"></i>
+                            </button>
                         </div>
                     </div>
                 </div>
             </div>
         @endforeach
     </div>
-    
-    
-    
+
+
+
 </div>
 <style>
-    .wish-list{
-        top: 8px;
-        right: 10px;
+    .product-wrapper{
+        transition: transform 0.5s ease;
     }
-    .sec-best-seller{
-        top: 15px;
-        left: 15px;
+    .product-wrapper:hover{
+        transform: scale(1.05);
     }
-    .btn-W{
+    .wish-list {
+        top: 6%;
+        right: 8%;
+    }
+
+    .sec-best-seller {
+        top: 7%;
+        left: 5%;
+    }
+
+    .btn-W {
         width: 110%;
         font-size: 12px;
     }
+
     .expandable {
         position: absolute;
         opacity: 0;
@@ -204,22 +189,29 @@
         opacity: 1;
         visibility: visible;
     }
-    .imgMAin{
+
+    .imgMAin {
         padding: 15px;
-    } 
-    .product_title, .product_price, .expandable{
+    }
+
+    .product_title,
+    .product_price,
+    .expandable {
         padding: 0 15px;
     }
-    .expandable{
+
+    .expandable {
         border-radius: 5px;
         padding-bottom: 3px;
     }
-    .forBorder{
+
+    .forBorder {
         border: 1px solid #8b5bc0;
         width: 30px;
         height: 30px;
     }
-    /* .expandable { 
+
+    /* .expandable {
   position: absolute;
   opacity: 0;
   visibility: hidden;

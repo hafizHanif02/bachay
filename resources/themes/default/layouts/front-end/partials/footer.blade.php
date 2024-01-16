@@ -1,6 +1,6 @@
 <footer>
     <div class="desktop-footer">
-        <div class="container-xxl">
+        <div class="container-fluid">
             <div class="row">
                 <div class="col list-group">
                     <ul>

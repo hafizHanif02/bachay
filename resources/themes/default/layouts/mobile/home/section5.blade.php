@@ -3,26 +3,26 @@
     <div class="row mt-3 col-12 d-flex align-items-center">
         <div class="slider-container mobile-cards">
             <div class="slider">
-                @foreach ($deals_products as $product)
-                    @php
+                @foreach ($flash_deal as $deal)
+                    {{-- @php
                         $product_deals = $product->product;
-                    @endphp
+                    @endphp --}}
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4 pt-3">
                         <div class="card rounded-5 cardMobile">
                             <a href="#">
-                                <div class="deal-alert-circle">-{{ $product_deals->discount }}%</div>
+                                <div class="deal-alert-circle">-{{ $deal->discount_percent }}%</div>
                                 <div class="icon_main">
 
                                     <img class="card-img rounded-5 object-fit-cover imgCardMobile"
-                                        src="{{ asset('storage/app/public/category/' . $product_deals->thumbnail) }}"
+                                        src="{{ asset('storage/app/public/deal/' . $deal->banner) }}"
                                         alt="Flash Sale 1" />
                                 </div>
                                 <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
 
-                                    @if (strlen($product_deals->name) <= 20)
-                                        <p class="card-text">{{ $product_deals->name }}</p>
+                                    @if (strlen($deal->title) <= 20)
+                                        <p class="card-text">{{ $deal->title }}</p>
                                     @else
-                                        <p class="card-text"> {{ substr($product_deals->name, 0, 20) }}...</p>
+                                        <p class="card-text"> {{ substr($deal->title, 0, 20) }}...</p>
                                     @endif
 
                                 </div>

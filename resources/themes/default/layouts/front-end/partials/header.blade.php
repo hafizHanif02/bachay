@@ -2,7 +2,7 @@
         <div class=" desktop-nav">
 
             <nav
-                class="container-xxl navbar navbar-expand-md d-flex justify-content-between align-items-center col-12 pb-0">
+                class="container-fluid navbar navbar-expand-md d-flex justify-content-between align-items-center col-12 pb-0">
                 <div class="d-flex col-md-5">
                     <a class="navbar-brand col-4" href="{{ url('/') }}">
                         <img src="{{ asset('public/images/logo.png') }}" alt="Logo">
