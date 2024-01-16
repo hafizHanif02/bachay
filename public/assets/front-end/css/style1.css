@@ -75,8 +75,10 @@
     cursor: pointer;
 }
 .imgMAin {
-    height: 335px;
-    width: 300px;
+    /* height: 335px;
+    width: 300px; */
+    height: 450px;
+    width: 360px;
 }
 .imgMAinH {
     height: 244px;
