@@ -1,4 +1,4 @@
-<div class="container-xxl products mt-4">
+<div class="container-fluid products mt-4">
     <div class="row">
 
         {{-- {{ $prod }} --}}
@@ -6,13 +6,30 @@
 
         <div class="col-lg-6 col-md-6 col-sm-12 col-12 d-flex flex-column fixedProduct">
             <div class="product-container">
-                <div class="main-image">
+                <div class="slider main-image">
                     <img id="main-image" class="detailed-product-img object-fit-cover"
                         src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}" alt="Main Image"
                         width="100%" height="100%">
+                        <img id="main-image" class="detailed-product-img object-fit-cover"
+                        src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}" alt="Main Image"
+                        width="100%" height="100%">
+                    @foreach (json_decode($product->color_image) as $key => $photo)
+                        <img  id="main-image" class="detailed-product-img object-fit-cover"
+                            src="{{ asset('storage/app/public/product/' . $photo->image_name) }}"
+                            data-url='{{ asset('storage/app/public/product/' . $photo->image_name) }}'
+                            alt="Small Image {{ $key + 1 }}">
+                    @endforeach
+                    @foreach (json_decode($product->images) as $key => $photo)
+                        <img  id="main-image" class="detailed-product-img object-fit-cover"
+                            src="{{ asset('storage/app/public/product/' . $photo) }}"
+                            data-url='{{ asset('storage/app/public/product/' . $photo) }}'
+                            alt="Small Image {{ $key + 1 }}">
+                    @endforeach
                 </div>
 
-                <div class="small-images">
+
+
+                {{-- <div class="small-images">
                         <div class="SmallImageCon">     
                                 @foreach (json_decode($product->color_image) as $key => $photo)
                                     <img class="small-image object-fit-cover"
@@ -28,7 +45,7 @@
                                         alt="Small Image {{ $key + 1 }}">
                             @endforeach
                         </div>
-                </div>
+                </div> --}}
 
 
 
@@ -47,8 +64,8 @@
 
             </div>
             {{-- <img class="detailed-product-img" src="{{ asset('public/images/Frame 83.png') }}" alt=""> --}}
-            <div class="mt-1">
-                <form action="{{ route('cart.buy-now') }}" method="POST">
+            <div class="col-12 d-flex justify-content-between">
+                <form action="{{ route('cart.buy-now') }}" method="POST" class="form-group-inline">
                     @csrf
                     <input type="hidden" name="product_id" value="{{ $product->id }}">
                     <input type="hidden" name="price" id="price" value="{{ $product->unit_price }}">
@@ -67,30 +84,31 @@
                     <input type="hidden" name="product[1][actual_price]" value="{{ $product->unit_price }}">
                     <input type="hidden" name="product[1][price]" value="{{ $product->unit_price }}">
                     <input type="hidden" name="product[1][quantity]" value="1">
-                    <button type="submit" class="buy-now rounded-pill text-white w-100 pt-4 pb-4 mt-3">Buy Now</button>
+                    <button type="submit" class="buy-now rounded-pill w-100 text-white pt-3 pb-3 mt-3">Buy Now</button>
+                </form>
+                <form action="{{ route('cart.add') }}" method="POST" class="form-group-inline">
+                    @csrf
+                    <input type="hidden" name="price" id="price" value="{{ $product->unit_price }}">
+                    <input type="hidden" name="discount" id="discount" value="{{ $product->discount }}">
+                    <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
+                    <input type="hidden" name="thumbnail" value="{{ $product->thumbnail }}">
+                    <input type="hidden" name="name" value="{{ $product->name }}">
+                    <input type="hidden" name="tax" value="{{ $tax }}">
+                    <input type="hidden" name="quantity" value="1">
+                    <input type="hidden" name="shipping_cost" value="{{ $product->shipping_cost }}">
+                    <input type="hidden" name="color" id="color">
+                    <input type="hidden" name="variant" id="variant">
+                    <input type="hidden" name="slug" id="slug" value="{{ $product->slug }}">
+                    <input type="hidden" name="customer_id" id="customer_id"
+                        value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
+
+                    <div class="mt-3">
+                        <button type="submit" class="w-100 rounded-pill text-dark fw-bold pt-3 pb-3">Add to
+                            Cart</button>
+                    </div>
                 </form>
             </div>
-            <form action="{{ route('cart.add') }}" method="POST">
-                @csrf
-                <input type="hidden" name="price" id="price" value="{{ $product->unit_price }}">
-                <input type="hidden" name="discount" id="discount" value="{{ $product->discount }}">
-                <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
-                <input type="hidden" name="thumbnail" value="{{ $product->thumbnail }}">
-                <input type="hidden" name="name" value="{{ $product->name }}">
-                <input type="hidden" name="tax" value="{{ $tax }}">
-                <input type="hidden" name="quantity" value="1">
-                <input type="hidden" name="shipping_cost" value="{{ $product->shipping_cost }}">
-                <input type="hidden" name="color" id="color">
-                <input type="hidden" name="variant" id="variant">
-                <input type="hidden" name="slug" id="slug" value="{{ $product->slug }}">
-                <input type="hidden" name="customer_id" id="customer_id"
-                    value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
 
-                <div class="d-flex mt-3">
-                    <button type="submit" class="rounded-pill text-dark fw-bold w-100 pt-4 pb-4">Add to
-                        Cart</button>
-                </div>
-            </form>
         </div>
 
         <div class="col-lg-6 col-md-6 col-sm-12 col-12 ">
@@ -238,7 +256,7 @@
 
                 <div class="Sizesbtn col-12 pt-2 d-flex align-items-center mb-3">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size</p>
-                    {{-- @foreach (json_decode($product->variation) as $variant)
+                    @foreach (json_decode($product->variation) as $variant)
                         @if ($variant->qty > 0)
                             <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
                                 type="button" value="{{ $variant->type }}" data-price="{{ $variant->price }}"
@@ -249,15 +267,15 @@
                                 class="bg-danger text-white square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
                                 disabled title="Not Available" type="button" value="{{ $variant->type }}">
                         @endif
-                    @endforeach --}}
-                    <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins" type="button"
+                    @endforeach
+                    {{-- <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins" type="button"
                         value="UK 11 (18.3 CM)">
                     <input class="fontPoppins square square2 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2" type="button"
                         value="UK 11.5 (18.9 CM)">
                     <input class="fontPoppins square square3 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2" type="button"
                         value="UK 12 (19.5 CM)">
                     <input class="fontPoppins square square4 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2" type="button"
-                        value="UK 13 (20.2 CM)">
+                        value="UK 13 (20.2 CM)"> --}}
                 </div>
                 <div class="col-12 mb-4 mt-2">
                     <p class="text-secondary toetoHeel fontPoppins mb-0">Size: <span class="sizeToeSpan">I = Infants,
@@ -627,8 +645,27 @@
     </div>
 
 </div>
-
+<style>
+    .slick-slider .slick-list, .slick-slider .slick-track{
+        height: 500px !important;
+    }
+    .form-group-inline {
+        width: 49%;
+    }
+    
+    .border-ww{
+        border: 2px solid #000;
+    }
+</style>
 <script>
+   $(".slider").slick({
+    autoplay: true,
+    arrows: true,
+    autoplaySpeed: 5000,
+    slidesToShow: 1,
+    infinite: true,
+});
+
     function copyToClipboard2() {
         const codeText = document.getElementById('codeSpan2').innerText;
         navigator.clipboard.writeText(codeText)
