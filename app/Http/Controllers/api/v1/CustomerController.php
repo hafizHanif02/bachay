@@ -323,7 +323,7 @@ class CustomerController extends Controller
             $filename = $file->getClientOriginalName();
             $file->move(public_path('assets/images/customers/child/vaccination'), $filename);
         $vacSub = VaccinationSubmission::where('id',$id)->update([
-            'submission_date' => now(),
+            'submission_date' => $request->submission_date,
             'is_taken' => 1,
             'picture' => $filename,
         ]);
