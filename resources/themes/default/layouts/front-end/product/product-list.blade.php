@@ -113,7 +113,7 @@
                                         </form>  --}}
                         <div class="d-flex mt-0">
                             <button id="cart-btn{{ $product->id }}"
-                                class="p-0 bg-transparent rounded-circle forBorder"
+                                class="p-0 bg-transparent rounded-circle forBorders"
                                 data-product-id="{{ $product->id }}" data-name="{{ $product->name }}"
                                 data-price="{{ $product->unit_price }}" data-discount="{{ $product->discount }}"
                                 data-tax="{{ $product->tax }}" data-thumbnail="{{ $product->thumbnail }}"
@@ -199,11 +199,24 @@
         padding-bottom: 3px;
     }
 
-    .forBorder {
+    .forBorders {
         border: 1px solid #8b5bc0;
         width: 30px;
         height: 30px;
+        transition: border-color 0.3s ease, border-width 0.3s ease;
+}
+    .forBorders:hover {
+        border-color: #a894bd;
+        border-width: 3px;
     }
+    .product-wrapper .buy-now:hover {
+        background-color: #f3f3f3;
+        color: #8b5bc0 !important;
+    }
+    .product-wrapper:hover .buy-now {
+        border: 1px solid #8b5bc0;
+    }
+
 
     /* .expandable {
   position: absolute;
