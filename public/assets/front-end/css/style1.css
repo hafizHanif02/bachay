@@ -28,8 +28,8 @@
         font-size: 17.5px;
     }
     .imgMAin {
-        height: 400px !important;
-        width: 300px !important;
+        height: 450px !important;
+        width: 360px !important;
     }
   }
   .nav-item a:hover{
@@ -79,8 +79,8 @@
     cursor: pointer;
 }
 .imgMAin {
-    height: 450px;
-    width: 320px;
+    height: 335px;
+    width: 300px;
 }
 .imgMAinH {
     height: 244px;
