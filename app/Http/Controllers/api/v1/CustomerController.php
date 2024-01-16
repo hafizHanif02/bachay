@@ -345,6 +345,18 @@ class CustomerController extends Controller
     }
 }
 
+public function VaccinationSubmissionGet($id){
+    if(Auth::check()){
+        $vaccination_data = VaccinationSubmission::where([
+            'id'=> $id,
+            'user_id' => Auth::user()->id
+        ])->first();
+        return response()->json($vaccination_data, 200);
+    }else{
+        return response()->json(['errors' => 'Please Login First !'], 200);
+    }
+}
+
 public function SubmitQuiz(Request $request){
     if(Auth::check()){
         $validator = QuizSubmission::make($request->all(), [
