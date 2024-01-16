@@ -288,7 +288,7 @@ input.form-control.search-input {
     height: 80px;
 }
 .filter_aside{
-    width: 20%;
+    width: 15%;
     position: sticky;
     top: 0;
     /* margin-bottom: var(--su8); */
@@ -476,8 +476,11 @@ line-height: 30px;
 .profile_aside{
     width: 20%;
 }
-.profile_content, .All_products{
+.profile_content{
     width: 80%;
+}
+.All_products{
+    width: 85%;
 }
 .dropdown {
     position: relative;
