@@ -12,10 +12,10 @@
     font-family: mysmallcapsfont;
     src: url(/public/fonts/AristotelicaSmallCapsRegular.ttf);
 }
-@media (min-width: 1367px) {
-    /* Styles for screens larger than 1367 pixels */
+@media (min-width: 1200px) {
+    /* Styles for screens larger than 1200 pixels */
     .product-list{
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(5, 1fr);
         gap: 10px;
     }
     .desktop-nav .navbar , #mega-menu .fBorder .sub-nav {
@@ -75,7 +75,8 @@
     cursor: pointer;
 }
 .imgMAin {
-    height: 355px;
+    height: 335px;
+    width: 300px;
 }
 .imgMAinH {
     height: 244px;
@@ -605,7 +606,9 @@ h1.text-center.textClr {
 
 }
 .product-list{
-    grid-template-columns: repeat(3, 1fr);
+    /* grid-template-columns: repeat(3, 1fr); */
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
 }
 .image-container p {
@@ -1024,7 +1027,7 @@ background-clip: text;
 }
 
 .f-spacing {
-    margin-top: 16px;
+    margin-top: 10px;
     font-weight: 600;
 }
 
@@ -1050,7 +1053,7 @@ background-clip: text;
     color: #9359be;
     font-weight: 600;
     font-family: "Poppins";
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .delivery-details-heading {
