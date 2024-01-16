@@ -27,6 +27,10 @@
     .image-container p{
         font-size: 17.5px;
     }
+    .imgMAin {
+        height: 450px;
+        width: 360px;
+    }
   }
   .nav-item a:hover{
     color: #845DC2;
@@ -75,10 +79,8 @@
     cursor: pointer;
 }
 .imgMAin {
-    /* height: 335px;
-    width: 300px; */
-    height: 450px;
-    width: 360px;
+    height: 400px;
+    width: 300px;
 }
 .imgMAinH {
     height: 244px;
