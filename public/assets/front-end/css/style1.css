@@ -181,20 +181,15 @@ input.form-control.search-input {
     border-image-slice: 1;
     padding-top: 40px;
 }
-/* .poppins a h5, */
+.poppins a h5,
 .poppins a h6 {
-    font-size: 1.15rem;
-    font-family: "poppins";
-    color: #7a7a7a !important;
-}
-.poppins a h5 {
     font-size: 1rem;
     font-family: "poppins";
-    color: #7a7a7a ;
-    transition: color 0.3s ease; /* Add transition for smooth effect */
+    color: #7a7a7a;
 }
-.poppins a h5:hover {
-    color: #845dc2;
+.poppins a h5:hover,
+.poppins a h6:hover  {
+    color: #3d0f72;
 }
 
 .bi.bi-geo-alt,
