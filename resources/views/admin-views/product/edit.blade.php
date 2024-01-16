@@ -235,7 +235,7 @@
                                     </span>
                                 </label>
                                 {{-- <input type="text" class="form-control" placeholder="{{translate('enter_tag')}}" name="tags" data-role="tagsinput"> --}}
-                                <input type="text" class="form-control" name="tags" value="@foreach($product->tags as $c) {{$c->tag.','}} @endforeach" data-role="tagsinput">
+                                <input type="text" class="form-control" name="tags" value="@foreach($product->tags as $c){{$c->tag}}{{ $loop->last ? '' : ',' }}@endforeach" data-role="tagsinput">
                             </div>
                         </div>
                     </div>

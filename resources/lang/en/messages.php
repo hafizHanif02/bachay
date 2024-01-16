@@ -6746,4 +6746,5 @@
   'upload_additional_product_images (Only 6 images are allowed)' => 'Upload additional product images (Only 6 images are allowed)',
   'deals' => 'Deals',
   'none' => 'None',
+  'product_images_is_required' => 'Product images is required',
 );

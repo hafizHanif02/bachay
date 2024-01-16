@@ -10,15 +10,16 @@ use App\CPU\Convert;
 use App\CPU\Helpers;
 use App\Model\Admin;
 use App\Model\Brand;
+use App\Model\Color;
 use App\Model\Order;
 use App\Model\Banner;
 use App\Model\Coupon;
-use App\Model\Color;
 use App\Model\Review;
 use App\Model\Seller;
 use App\Model\Contact;
 use App\Model\Product;
 use App\Model\Setting;
+use App\CPU\SMS_module;
 use App\Model\Category;
 use App\Model\Currency;
 use App\Model\Wishlist;
@@ -29,6 +30,8 @@ use App\CPU\OrderManager;
 use App\Model\OrderDetail;
 use App\Model\Transaction;
 use App\Model\Translation;
+use App\Models\HomeLayout;
+use App\Traits\SmsGateway;
 use Carbon\CarbonInterval;
 use App\CPU\ProductManager;
 use App\Model\CartShipping;
@@ -45,6 +48,7 @@ use App\Model\ShippingMethod;
 use App\Model\BusinessSetting;
 use App\Model\DeliveryZipCode;
 use App\Model\ShippingAddress;
+use App\Models\familyRelation;
 use App\Model\FlashDealProduct;
 use function App\CPU\translate;
 use App\Model\DeliveryCountryCode;
@@ -55,15 +59,13 @@ use Gregwar\Captcha\CaptchaBuilder;
 use App\Http\Controllers\Controller;
 use Brian2694\Toastr\Facades\Toastr;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Mail;
 use Facade\FlareClient\Http\Response;
 use function App\CPU\payment_gateways;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use App\Model\DigitalProductOtpVerification;
-use App\Traits\SmsGateway;
-use App\CPU\SMS_module;
-use Illuminate\Support\Facades\File;
 
 class WebController extends Controller
 {
@@ -5561,6 +5563,272 @@ class WebController extends Controller
         // return $sub_category;
         return view(VIEW_FILE_NAMES[$viewName], (compact('category','sub_category','products','category_banners','wishlistProductsArray')));
     }
+
+    public function switch_child(Request $request){
+        if(Auth::guard('customer')->check()){
+            $child = familyRelation::where([
+                'id'=> $request->id,
+                'user_id'=> Auth::guard('customer')->user()->id,
+                ])->first();
+            $child->tag = ($child->gender == 1)?'Boy':'Girl';
+
+            $allProducts = Product::with('tags')->get();
+
+            $filteredProducts = [];
+            foreach ($allProducts as $product) {
+                if ($product->tags != null) {
+                    foreach ($product->tags as $tag) {
+                        if ($tag->tag == $child->tag) {
+                            $filteredProducts[] = $product;
+                        }
+                    }
+                }
+            }
+            
+            $featured_products = collect($filteredProducts)
+                ->where('featured', 1)
+                ->values(); // Re-index the collection keys
+            
+            $latest_products = collect($filteredProducts)
+                ->sortByDesc('id')
+                ->take(8)
+                ->values(); // Re-index the collection keys
+            
+            $products = collect($filteredProducts)
+                ->sortBy('id')
+                ->take(16)
+                ->values(); // Re-index the collection keys
+            
+            $product = collect($filteredProducts)
+                ->shuffle()
+                ->first();
+            
+            $productsInFlashDeal = collect($filteredProducts)
+                ->whereIn('id', $product->id)
+                ->values(); // Re-index the collection keys
+            
+
+                
+
+                $theme_name = theme_root_path();
+
+                $userAgent = $request->header('User-Agent');
+        
+                if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
+                        $viewName = "home_mobile";
+                } else {
+                        $viewName ="home" ;
+                }
+
+                $theme_name = theme_root_path();
+                $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
+                $home_categories = Category::where('home_status', true)->priority()->get();
+                $home_categories->map(function ($data) {
+                    $id = '"' . $data['id'] . '"';
+                    $data['products'] = Product::active()
+                        ->where('category_ids', 'like', "%{$id}%")
+                        ->inRandomOrder()->take(12)->get();
+                });
+        
+                $current_date = date('Y-m-d H:i:s');
+                //products based on top seller
+                $top_sellers = $this->seller->approved()->with(['shop', 'orders', 'product.reviews'])
+                    ->whereHas('orders', function ($query) {
+                        $query->where('seller_is', 'seller');
+                    })
+                    ->withCount(['orders', 'product' => function ($query) {
+                        $query->active();
+                    }])->orderBy('orders_count', 'DESC')->take(12)->get();
+        
+                $top_sellers?->map(function ($seller) {
+                    $seller->product?->map(function ($product) {
+                        $product['rating'] = $product?->reviews->pluck('rating')->sum();
+                        $product['review_count'] = $product->reviews->count();
+                    });
+                    $seller['total_rating'] = $seller?->product->pluck('rating')->sum();
+                    $seller['review_count'] = $seller->product->pluck('review_count')->sum();
+                    $seller['average_rating'] = $seller['total_rating'] / ($seller['review_count'] == 0 ? 1 : $seller['review_count']);
+                });
+        
+                //end
+        
+                //feature products finding based on selling
+                // $featured_products = $products->with(['reviews'])->active()
+                //     ->where('featured', 1)
+                //     ->withCount(['order_details'])->orderBy('order_details_count', 'DESC')
+                //     ->take(12)
+                //     ->get();
+                //end
+
+                // dd($featured_products);
+        
+                $home_layouts = HomeLayout::where('web_status', 1)->orderBy('web_order', 'asc')->get();
+        
+        
+                // $latest_products = $products->with(['reviews'])->active()->orderBy('id', 'desc')->take(8)->get();
+        
+                // $products = $products->with(['reviews'])->active()->orderBy('id')->take(16)->get();
+        
+                $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->take(8)->get();
+                
+                $brands = Brand::active()->take(15)->get();
+                
+                $bestSellProduct = $this->order_details->with('product.reviews')
+                    ->whereHas('product', function ($query) {
+                        $query->active();
+                    })
+                    ->select('product_id', DB::raw('COUNT(product_id) as count'))
+                    ->groupBy('product_id')
+                    ->orderBy("count", 'desc')
+                    ->take(6)
+                    ->get();
+        
+                
+                $topRated = Review::with('product')
+                    ->whereHas('product', function ($query) {
+                        $query->active();
+                    })
+                    ->select('product_id', DB::raw('AVG(rating) as count'))
+                    ->groupBy('product_id')
+                    ->orderBy("count", 'desc')
+                    ->take(6)
+                    ->get();
+        
+                if ($bestSellProduct->count() == 0) {
+                    $bestSellProduct = $latest_products;
+                }
+        
+                if ($topRated->count() == 0) {
+                    $topRated = $bestSellProduct;
+                }
+        
+                $deal_of_the_day = DealOfTheDay::join('products', 'products.id', '=', 'deal_of_the_days.product_id')->select('deal_of_the_days.*', 'products.unit_price')->where('products.status', 1)->where('deal_of_the_days.status', 1)->first();
+                $main_banner = Banner::where(['banner_type' => 'Main Banner', 'theme' => $theme_name, 'published' => 1])->latest()->get();
+                $main_section_banner =  Banner::where(['banner_type' => 'Main Section Banner', 'theme' => $theme_name, 'published' => 1])->orderBy('id', 'desc')->latest()->get();
+        
+                // $product = $products->active()->inRandomOrder()->first();
+        
+                $footer_banner = Banner::
+                    where('banner_type', 'Footer Banner')
+                    ->where('theme', theme_root_path())
+                    ->where('published', 1)
+                    ->orderBy('id', 'desc')
+                    ->take(6)
+                    ->get();
+        
+                // Use null coalescing operator to provide an empty array if $footer_banner is null
+                $footer_banner = $footer_banner ?? [];
+        
+                // return  $footer_banner;
+        
+        
+                // $flash_deals = FlashDeal::with(['products'=>function($query){
+                //     $query->with(['product.wish_list'=>function($query){
+                //         return $query->where('customer_id', Auth::guard('customer')->user()->id ?? 0);
+                //     }, 'product.compare_list'=>function($query){
+                //         return $query->where('user_id', Auth::guard('customer')->user()->id ?? 0);
+                //     }])->whereHas('product',function($q){
+                //         $q->active();
+                //     });
+                // }])
+                // ->where(['deal_type'=>'flash_deal', 'status'=>1])
+                // ->whereDate('start_date','<=',date('Y-m-d'))
+                // ->whereDate('end_date','>=',date('Y-m-d'))
+                // ->first();
+        
+                $flash_deal = FlashDeal::where(['deal_type' => 'flash_deal', 'status' => 1])->get();
+                
+        
+        
+                $flash_deals_products = [];
+                $productIds = null;
+                if (isset($flash_deal->id)) {
+        
+                    $flash_deals_products = FlashDealProduct::where('flash_deal_id', $flash_deal->id)->get();
+                    $productIds = $flash_deals_products->pluck('product_id')->toArray();
+                }
+        
+        
+                $productsInFlashDeal = [];
+                if (isset($productIds)) {
+        
+                    $productsInFlashDeal = $products->active()->whereIn('id', $productIds)->get();
+                }
+                if (Auth::guard('customer')->check()) {
+                    $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+        
+                    $wishlistProductsArray = $wishlistProducts->toArray();
+        
+                    $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+                    $cartProductsArray = $cartProducts->toArray();
+                } else {
+                    $wishlistProductsArray = [];
+                    $cartProductsArray = [];
+                }
+                
+                // $current_date = Carbon::now();
+                // $current_date = $current_date->format('Y-m-d');
+                // $deal = FlashDeal::with(['products.product.reviews', 'products.product' => function ($query) {
+                //     $query->active();
+                // }])
+                //     ->where(['slug' => $request['slug'],'status' => 1])
+                //     ->whereDate('start_date', '<=', $current_date)
+                //     ->whereDate('end_date', '>=', $current_date)
+                //     ->first();
+                // $discountPrice = FlashDealProduct::with(['product'])->whereHas('product', function ($query) {
+                //     $query->active();
+                // })->get()->map(function ($data) {
+                //     return [
+                //         'discount' => $data->discount,
+                //         'sellPrice' => isset($data->product->unit_price) ? $data->product->unit_price : 0,
+                //         'discountedPrice' => isset($data->product->unit_price) ? $data->product->unit_price - $data->discount : 0,
+        
+                //     ];
+                // })->toArray();
+               
+                // $deals_products = $deal->products;
+                
+                // return $deal_products->products->product->thumbnail;
+                // dd($wishlistProducts);
+        
+                // return $flash_deals_products;
+        
+                return view(
+                    VIEW_FILE_NAMES[$viewName],
+                    compact(
+                        'wishlistProductsArray',
+                        'featured_products',
+                        'topRated',
+                        'bestSellProduct',
+                        'latest_products',
+                        'categories',
+                        'brands',
+                        'deal_of_the_day',
+                        'top_sellers',
+                        'home_categories',
+                        'brand_setting',
+                        'main_banner',
+                        'main_section_banner',
+                        'current_date',
+                        'product',
+                        'footer_banner',
+                        'home_layouts',
+                        'flash_deal',
+                        'flash_deals_products',
+                        'productIds',
+                        'productsInFlashDeal',
+                        'products',
+                        'footer_banner',
+                    )
+                );
+
+        }else{
+            return redirect()->back()->with(['message' => 'Please Login First !', 'status' => 0]);
+        }
+    }
+
+
+    
     public function sub_categories()
     {
         $home_categories = Category::where('home_status', true)->priority()->get();
@@ -5755,10 +6023,8 @@ class WebController extends Controller
                         'shipping_cost' => $request->customer_id,
                     ]);
                 }
-                if (
-                    (!auth('customer')->check() || Cart::where(['customer_id' => auth('customer')->id()])->count() < 1)
-                    && (!Helpers::get_business_settings('guest_checkout') || !session()->has('guest_id') || !session('guest_id'))
-                ) {
+                if (!(Auth::guard('customer')->check())) 
+                {
                     Toastr::error(translate('invalid_access'));
                     return redirect('/');
                 }
@@ -5853,19 +6119,20 @@ class WebController extends Controller
                 $default_location = Helpers::get_business_settings('default_location');
     
                 $user = Helpers::get_customer($request);
+                $customer = Auth::guard('customer')->user();
+
                 $shipping_addresses = ShippingAddress::where([
-                    'customer_id' => $user == 'offline' ? session('guest_id') : auth('customer')->id(),
-                    'is_guest' => $user == 'offline' ? 1 : '0',
-                    'is_billing' => 0,
-                ])->get();
+                    'customer_id' => $customer->id,
+                    'is_default' => 'true',
+                ])->first();
     
                 $billing_addresses = ShippingAddress::where([
                     'customer_id' => $user == 'offline' ? session('guest_id') : auth('customer')->id(),
                     'is_guest' => $user == 'offline' ? 1 : '0',
                     'is_billing' => 1,
                 ])->get();
-    
-                if (count($cart_group_ids) > 0) {
+
+                if (!empty((array)$shippingAddress)) {
                     $shipping_address = DB::table('shipping_addresses')->where('customer_id', $request->customer_id)->first();
                     $customer_data = DB::table('users')->where('id', $request->customer_id)->first();
                     $data = $request;
@@ -5884,7 +6151,7 @@ class WebController extends Controller
                         'billing_addresses'
                     ));
                 } else {
-                    return redirect()->back()->with(['message' => 'Kindly Your Address First', 'status' => 0]);
+                    return redirect()->back()->with(['message' => 'Kindly Add Your Address First', 'status' => 0]);
                 }
             }
         }else{

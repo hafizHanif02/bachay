@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class familyRelation extends Model
 {
     use HasFactory;
+    protected $table = 'family_relation';
 }

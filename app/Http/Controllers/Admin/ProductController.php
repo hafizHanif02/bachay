@@ -713,7 +713,7 @@ class ProductController extends BaseController
 
     public function edit($id)
     {
-        $product = Product::withoutGlobalScopes()->with('translations')->find($id);
+        $product = Product::withoutGlobalScopes()->with('translations','tags')->find($id);
         $product_category = json_decode($product->category_ids);
         $product->colors = json_decode($product->colors);
         $categories = Category::where(['parent_id' => 0])->get();

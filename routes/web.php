@@ -42,6 +42,7 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestC
     // Route::post('/delete-from-wishlist', 'WebController@deleteFromWishlist')->name('wishlist.delete');
     Route::post('/add-to-cart', 'WebController@addToCart')->name('carts.add');
 
+    Route::get('switch-child', 'WebController@switch_child')->name('switch-child');
     Route::get('quick-view', 'WebController@quick_view')->name('quick-view');
     Route::get('searched-products', 'WebController@searched_products')->name('searched-products');
 
