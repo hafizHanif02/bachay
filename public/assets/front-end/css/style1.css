@@ -672,13 +672,13 @@ h1.text-center.textClr {
     grid-template-columns: repeat(4, 1fr);
 
 }
-/* .product-list{
-    grid-template-columns: repeat(4, 1fr);
+.product-list{
+    /* grid-template-columns: repeat(4, 1fr); */
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
-} */
+}
 .image-container p {
     color: #292d32;
     font-family: "Poppins";
