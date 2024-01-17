@@ -12,7 +12,7 @@
 
     <div class="row">
         @foreach ($latest_products as $products)
-            <div class="col-md-4 col-xl-2 col-lg-3 mb-4">
+            <div class="col-md-4  mb-4">
                 <div class="sub-card rounded-3 p-4 pb-0">
                     <div class="card1">
                         <div class="first-sec card1">
