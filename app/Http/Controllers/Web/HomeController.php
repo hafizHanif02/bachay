@@ -125,7 +125,7 @@ class HomeController extends Controller
         $home_layouts = HomeLayout::where('web_status', 1)->orderBy('web_order', 'asc')->get();
 
 
-        $latest_products = $this->product->with(['reviews'])->active()->orderBy('id', 'desc')->take(16)->get();
+        $latest_products = $this->product->with(['reviews'])->active()->orderBy('id', 'desc')->take(12)->get();
 
         $products = $this->product->with(['reviews'])->active()->orderBy('id')->take(16)->get();
 
