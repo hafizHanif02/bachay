@@ -52,7 +52,7 @@ class HomeController extends Controller
     }
     public function index(Request $request)
     {
-        
+
         $theme_name = theme_root_path();
 
         // Get the user agent from the request headers
@@ -76,12 +76,12 @@ class HomeController extends Controller
             };
         }
 
-        
+
     }
 
     public function default_theme($viewName)
     {
-        
+
         $theme_name = theme_root_path();
         $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
         $home_categories = Category::where('home_status', true)->priority()->get();
@@ -125,17 +125,17 @@ class HomeController extends Controller
         $home_layouts = HomeLayout::where('web_status', 1)->orderBy('web_order', 'asc')->get();
 
 
-        $latest_products = $this->product->with(['reviews'])->active()->orderBy('id', 'desc')->take(8)->get();
+        $latest_products = $this->product->with(['reviews'])->active()->orderBy('id', 'desc')->take(16)->get();
 
         $products = $this->product->with(['reviews'])->active()->orderBy('id')->take(16)->get();
 
         $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->take(8)->get();
-        
+
         // $new_arrivals_categories = $this->category
         //     ->with('childes.childes')
         //     ->where(['position' => 0])
         //     ->priority()
-        //     ->latest('created_at') 
+        //     ->latest('created_at')
         //     ->take(5)
         //     ->get();
 
@@ -210,7 +210,7 @@ class HomeController extends Controller
         // ->first();
 
         $flash_deal = FlashDeal::where(['deal_type' => 'flash_deal', 'status' => 1])->get();
-        
+
 
 
         $flash_deals_products = [];
@@ -238,7 +238,7 @@ class HomeController extends Controller
             $wishlistProductsArray = [];
             $cartProductsArray = [];
         }
-        
+
         // $current_date = Carbon::now();
         // $current_date = $current_date->format('Y-m-d');
         // $deal = FlashDeal::with(['products.product.reviews', 'products.product' => function ($query) {
@@ -258,9 +258,9 @@ class HomeController extends Controller
 
         //     ];
         // })->toArray();
-       
+
         // $deals_products = $deal->products;
-        
+
         // return $deal_products->products->product->thumbnail;
         // dd($wishlistProducts);
 
@@ -715,8 +715,8 @@ class HomeController extends Controller
             ->inRandomOrder()->take(3)->get();
 
 
-    
-    
+
+
         return view(
             VIEW_FILE_NAMES['home'],
             compact(
@@ -908,7 +908,7 @@ class HomeController extends Controller
             ->where('position', 0);
 
         $categories = $all_categories->get();
-        
+
         $most_visited_categories = $all_categories->inRandomOrder()->get();
 
 
@@ -1015,7 +1015,7 @@ class HomeController extends Controller
         $categories = $this->category->withCount(['product' => function ($query) {
             $query->active();
         }])->whereIn('id', $category_ids)->orderBy('product_count', 'desc')->take(18)->get();
-        
+
         // Popular Departments
 
         // start latest product
