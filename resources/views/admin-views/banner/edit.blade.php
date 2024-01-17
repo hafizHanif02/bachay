@@ -175,7 +175,7 @@
                                          <!--  For Theme Fashion - New input Field - End -->
                                     </div>
                                 </div>
-
+                                {{-- {{ dd($banner) }} --}}
                                 <div class="col-md-9">
                                     <div class="form-group">
                                         <label class="title-color d-flex align-items-center gap-2">
@@ -184,7 +184,7 @@
                                                 <img width="16" src="{{asset('/public/assets/back-end/img/info-circle.svg')}}" alt="">
                                             </span>
                                         </label>
-                                        <input type="text" class="form-control" placeholder="{{ translate('enter_tag') }}" name="tags" value="{{ implode(', ', json_decode($banner->tags)) }}" data-role="tagsinput">
+                                        <input type="text" class="form-control" placeholder="{{ translate('enter_tag') }}" name="tags" value="{{$banner->tags == null ? '' : implode(', ', json_decode($banner->tags)) }}" data-role="tagsinput">
                                     </div>
                                 </div>
 
