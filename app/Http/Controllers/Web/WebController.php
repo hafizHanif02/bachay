@@ -5625,6 +5625,7 @@ class WebController extends Controller
                     $theme_name = theme_root_path();
                     $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
                     $home_categories = Category::where('home_status', true)->whereJsonContains('tags', $child->tag)->priority()->get();
+                    
                     $home_categories->map(function ($data) {
                         $id = '"' . $data['id'] . '"';
                         $data['products'] = Product::active()
@@ -6772,7 +6773,7 @@ class WebController extends Controller
 
     public function addToCart(Request $request)
     {
-        if(Auth::check()) {
+        if(Auth::guard('customer')->check()) {
         
         $userId = Auth::guard('customer')->user()->id;
         $productId = $request->product_id;

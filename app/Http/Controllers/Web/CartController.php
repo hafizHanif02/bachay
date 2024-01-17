@@ -47,7 +47,7 @@ class CartController extends Controller
             //     ->inRandomOrder()->take(12)->get();
         });
 
-        if(Auth::check()){
+        if(Auth::guard('customer')->check()){
 
             if (Auth::guard('customer')->user()) {
                 $myCartProducts = Cart::where('customer_id', Auth::guard('customer')->user()->id)->with('product')->get();
@@ -344,6 +344,7 @@ class CartController extends Controller
 
     public function add_cart(Request $request)
     {
+        dd($request);
 
         $existingCart = Cart::where('customer_id', $request->customer_id)
             ->where('product_id', $request->product_id)
@@ -1505,11 +1506,10 @@ class CartController extends Controller
      */
     public function removeFromCart(Request $request,$id)
     {
-        // dd($request);
-        if(Auth::check()){
+        if(Auth::guard('customer')->check()){
             $user = Helpers::get_customer();
     
-            $cart = Cart::where(['id' => $id, 'customer_id' => ($user == 'offline' ? session('guest_id') : auth('customer')->id())])->first();
+            $cart = Cart::where(['id' => $id, 'customer_id' => $user->id])->first();
     
             $cart->delete();
     
