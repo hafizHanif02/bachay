@@ -164,6 +164,18 @@
                                         </select>
                                     </div>
 
+                                    <div class="col-md-9">
+                                        <div class="form-group">
+                                            <label class="title-color d-flex align-items-center gap-2">
+                                                {{ translate('search_tags') }}
+                                                <span class="input-label-secondary cursor-pointer" data-toggle="tooltip"  title="{{translate('add_the_product_search_tag_for_this_product_that_customers_can_use_to_search_quickly')}}">
+                                                    <img width="16" src="{{asset('/public/assets/back-end/img/info-circle.svg')}}" alt="">
+                                                </span>
+                                            </label>
+                                            <input type="text" class="form-control" placeholder="{{translate('enter_tag')}}" name="tags" data-role="tagsinput">
+                                        </div>
+                                    </div>
+
                                     <!-- For Theme Fashion - New input Field - Start -->
                                     @if(theme_root_path() == 'theme_fashion')
                                     <div class="form-group mt-4 input_field_for_main_banner">
@@ -574,6 +586,23 @@
     </script>
 
     <script>
+        $('#choice_attributes').on('change', function() {
+            $('#customer_choice_options').html(null);
+            $.each($("#choice_attributes option:selected"), function() {
+                add_more_customer_choice_option($(this).val(), $(this).text());
+            });
+        });
+
+        function add_more_customer_choice_option(i, name) {
+            let n = name.split(' ').join('');
+            $('#customer_choice_options').append(
+                '<div class="col-md-6"><div class="form-group"><input type="hidden" name="choice_no[]" value="' + i + '"><label class="title-color">' + n + '</label><input type="text" name="choice[]" value="' + n +
+                '" hidden><div class=""><input type="text" class="form-control" name="choice_options_' + i + '[]" placeholder="{{ translate('enter_choice_values') }}" data-role="tagsinput" onchange="update_sku()"></div></div></div>'
+            );
+
+            $("input[data-role=tagsinput], select[multiple][data-role=tagsinput]").tagsinput();
+        }
+
         $('#main-banner-add').on('click', function () {
             $('#main-banner').show();
         });

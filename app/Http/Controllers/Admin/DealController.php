@@ -47,6 +47,13 @@ class DealController extends Controller
 
     public function flash_submit(Request $request)
     {
+        if($request->tags != null){
+            $tagsString = $request->tags;
+            $tagsArray = explode(', ', $tagsString);
+        }else{
+            $tagsArray = [];
+        }
+
         $flash_deal_id = DB::table('flash_deals')->insertGetId([
             'title' => $request['title'][array_search('en', $request->lang)],
             'start_date' => $request['start_date'],
@@ -59,6 +66,7 @@ class DealController extends Controller
             'featured' => $request['featured'] == 1 ? 1 : 0,
             'deal_type' => $request['deal_type'] == 'flash_deal' ? 'flash_deal' : 'feature_deal',
             'status' => 0,
+            'tags' => json_encode($tagsArray),
             'created_at' => now(),
             'updated_at' => now(),
         ]);
@@ -100,6 +108,13 @@ class DealController extends Controller
             $deal['banner'] = ImageManager::update('deal/', $deal['banner'], 'webp', $request->file('image'));
         }
 
+        if($request->tags != null){
+            $tagsString = $request->tags;
+            $tagsArray = explode(', ', $tagsString);
+        }else{
+            $tagsArray = [];
+        }
+
         DB::table('flash_deals')->where(['id' => $deal_id])->update([
             'title' => $request['title'][array_search('en', $request->lang)],
             'start_date' => $request['start_date'],
@@ -111,6 +126,7 @@ class DealController extends Controller
             'featured' => $request['featured'] == 'on' ? 1 : 0,
             'deal_type' => $request['deal_type'] == 'flash_deal' ? 'flash_deal' : 'feature_deal',
             'status' => $deal['status'],
+            'tags' => json_encode($tagsArray),
             'updated_at' => now(),
         ]);
 

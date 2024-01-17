@@ -50,6 +50,13 @@ class BannerController extends Controller
 
         ]);
 
+        if($request->tags != null){
+            $tagsString = $request->tags;
+            $tagsArray = explode(', ', $tagsString);
+        }else{
+            $tagsArray = [];
+        }
+
         $banner = new Banner;
         $banner->banner_type = $request->banner_type;
         $banner->resource_type = $request->resource_type;
@@ -62,6 +69,7 @@ class BannerController extends Controller
         $banner->url = $request->url;
         $banner->photo = ImageManager::upload('banner/', 'webp', $request->file('image'));
         $banner->mobile_photo = ImageManager::upload('banner/mobile/', 'webp', $request->file('mobile_image'));
+        $banner->tags = json_encode($tagsArray);
         $banner->save();
         Toastr::success(translate('banner_added_successfully'));
         return back();
@@ -141,6 +149,13 @@ class BannerController extends Controller
             'url.required' => 'url is required!',
         ]);
 
+        if($request->tags != null){
+            $tagsString = $request->tags;
+            $tagsArray = explode(', ', $tagsString);
+        }else{
+            $tagsArray = [];
+        }
+
         $banner = Banner::find($id);
         $banner->banner_type = $request->banner_type;
         $banner->resource_type = $request->resource_type;
@@ -149,6 +164,7 @@ class BannerController extends Controller
         $banner->sub_title = $request->sub_title;
         $banner->button_text = $request->button_text;
         $banner->background_color = $request->background_color;
+        $banner->tags = json_encode($tagsArray);
         $banner->url = $request->url;
         if ($request->file('image')) {
             $banner->photo = ImageManager::update('banner/', $banner['photo'], 'webp', $request->file('image'));

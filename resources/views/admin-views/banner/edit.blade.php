@@ -173,7 +173,18 @@
                                          </div>
                                          @endif
                                          <!--  For Theme Fashion - New input Field - End -->
+                                    </div>
+                                </div>
 
+                                <div class="col-md-9">
+                                    <div class="form-group">
+                                        <label class="title-color d-flex align-items-center gap-2">
+                                            {{ translate('search_tags') }}
+                                            <span class="input-label-secondary cursor-pointer" data-toggle="tooltip"  title="{{translate('add_the_product_search_tag_for_this_product_that_customers_can_use_to_search_quickly')}}">
+                                                <img width="16" src="{{asset('/public/assets/back-end/img/info-circle.svg')}}" alt="">
+                                            </span>
+                                        </label>
+                                        <input type="text" class="form-control" placeholder="{{ translate('enter_tag') }}" name="tags" value="{{ implode(', ', json_decode($banner->tags)) }}" data-role="tagsinput">
                                     </div>
                                 </div>
 
@@ -191,6 +202,20 @@
 @endsection
 
 @push('script')
+    {{-- <script>
+        // Assuming $banner->tags is a JSON-encoded string like "[\"Boy\"]"
+        var tagsString = '{!! $banner->tags !!}'; // Use {!! !!} to output unescaped HTML/JavaScript
+
+        // Parse the JSON string
+        var tagsArray = JSON.parse(tagsString);
+
+        // Get the input field and set its value with the array of tags
+        var tagsInput = document.querySelector('input[name="tags"]');
+        tagsInput.value = tagsArray.join(', '); // Assuming tagsArray is like ["Boy"]
+
+        // Initialize the tagsinput plugin
+        $(tagsInput).tagsinput();
+    </script> --}}
     <script>
         $(document).on('ready', function () {
             theme_wise_ration();

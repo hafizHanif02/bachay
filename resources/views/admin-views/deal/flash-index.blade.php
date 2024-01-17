@@ -88,6 +88,18 @@
                             </div>
                         </div>
 
+                        <div class="col-md-9">
+                            <div class="form-group">
+                                <label class="title-color d-flex align-items-center gap-2">
+                                    {{ translate('search_tags') }}
+                                    <span class="input-label-secondary cursor-pointer" data-toggle="tooltip"  title="{{translate('add_the_product_search_tag_for_this_product_that_customers_can_use_to_search_quickly')}}">
+                                        <img width="16" src="{{asset('/public/assets/back-end/img/info-circle.svg')}}" alt="">
+                                    </span>
+                                </label>
+                                <input type="text" class="form-control" placeholder="{{ translate('enter_tag') }}" name="tags" value="" data-role="tagsinput">
+                            </div>
+                        </div>
+
                         <div class="d-flex justify-content-end gap-3">
                             <button type="reset" id="reset" class="btn btn-secondary px-4">{{ translate('reset')}}</button>
                             <button type="submit" class="btn btn--primary px-4">{{ translate('submit')}}</button>
