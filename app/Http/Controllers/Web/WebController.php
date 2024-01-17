@@ -5624,16 +5624,14 @@ class WebController extends Controller
     
                     $theme_name = theme_root_path();
                     $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
-                    $home_categories = Category::where('home_status', true)->priority()->get();
+                    $home_categories = Category::where('home_status', true)->whereJsonContains('tags', $child->tag)->priority()->get();
                     $home_categories->map(function ($data) {
                         $id = '"' . $data['id'] . '"';
                         $data['products'] = Product::active()
                             ->where('category_ids', 'like', "%{$id}%")
                             ->inRandomOrder()->take(12)->get();
                     });
-            
                     $current_date = date('Y-m-d H:i:s');
-                    //products based on top seller
                     $top_sellers = $this->seller->approved()->with(['shop', 'orders', 'product.reviews'])
                         ->whereHas('orders', function ($query) {
                             $query->where('seller_is', 'seller');
@@ -5652,24 +5650,7 @@ class WebController extends Controller
                         $seller['average_rating'] = $seller['total_rating'] / ($seller['review_count'] == 0 ? 1 : $seller['review_count']);
                     });
             
-                    //end
-            
-                    //feature products finding based on selling
-                    // $featured_products = $products->with(['reviews'])->active()
-                    //     ->where('featured', 1)
-                    //     ->withCount(['order_details'])->orderBy('order_details_count', 'DESC')
-                    //     ->take(12)
-                    //     ->get();
-                    //end
-    
-                    // dd($featured_products);
-            
                     $home_layouts = HomeLayout::where('web_status', 1)->orderBy('web_order', 'asc')->get();
-            
-            
-                    // $latest_products = $products->with(['reviews'])->active()->orderBy('id', 'desc')->take(8)->get();
-            
-                    // $products = $products->with(['reviews'])->active()->orderBy('id')->take(16)->get();
             
                     $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->take(8)->get();
                     
@@ -5716,8 +5697,6 @@ class WebController extends Controller
                 
                     $main_section_banner =  Banner::where(['banner_type' => 'Main Section Banner', 'theme' => $theme_name, 'published' => 1])->whereJsonContains('tags', $child->tag)->orderBy('id', 'desc')->latest()->get();
             
-                    // $product = $products->active()->inRandomOrder()->first();
-            
                     $footer_banner = Banner::
                         where('banner_type', 'Footer Banner')
                         ->where('theme', theme_root_path())
@@ -5725,26 +5704,8 @@ class WebController extends Controller
                         ->orderBy('id', 'desc')
                         ->take(6)
                         ->get();
-            
-                    // Use null coalescing operator to provide an empty array if $footer_banner is null
+
                     $footer_banner = $footer_banner ?? [];
-            
-                    // return  $footer_banner;
-            
-            
-                    // $flash_deals = FlashDeal::with(['products'=>function($query){
-                    //     $query->with(['product.wish_list'=>function($query){
-                    //         return $query->where('customer_id', Auth::guard('customer')->user()->id ?? 0);
-                    //     }, 'product.compare_list'=>function($query){
-                    //         return $query->where('user_id', Auth::guard('customer')->user()->id ?? 0);
-                    //     }])->whereHas('product',function($q){
-                    //         $q->active();
-                    //     });
-                    // }])
-                    // ->where(['deal_type'=>'flash_deal', 'status'=>1])
-                    // ->whereDate('start_date','<=',date('Y-m-d'))
-                    // ->whereDate('end_date','>=',date('Y-m-d'))
-                    // ->first();
             
                     $flash_deal = FlashDeal::where(['deal_type' => 'flash_deal', 'status' => 1])->whereJsonContains('tags', $child->tag)->get();
                     
@@ -5775,33 +5736,6 @@ class WebController extends Controller
                         $wishlistProductsArray = [];
                         $cartProductsArray = [];
                     }
-                    
-                    // $current_date = Carbon::now();
-                    // $current_date = $current_date->format('Y-m-d');
-                    // $deal = FlashDeal::with(['products.product.reviews', 'products.product' => function ($query) {
-                    //     $query->active();
-                    // }])
-                    //     ->where(['slug' => $request['slug'],'status' => 1])
-                    //     ->whereDate('start_date', '<=', $current_date)
-                    //     ->whereDate('end_date', '>=', $current_date)
-                    //     ->first();
-                    // $discountPrice = FlashDealProduct::with(['product'])->whereHas('product', function ($query) {
-                    //     $query->active();
-                    // })->get()->map(function ($data) {
-                    //     return [
-                    //         'discount' => $data->discount,
-                    //         'sellPrice' => isset($data->product->unit_price) ? $data->product->unit_price : 0,
-                    //         'discountedPrice' => isset($data->product->unit_price) ? $data->product->unit_price - $data->discount : 0,
-            
-                    //     ];
-                    // })->toArray();
-                   
-                    // $deals_products = $deal->products;
-                    
-                    // return $deal_products->products->product->thumbnail;
-                    // dd($wishlistProducts);
-            
-                    // return $flash_deals_products;
             }else{
                     return redirect()->back()->with(['message' => 'Not Child Found !', 'status' => 0]);
             }

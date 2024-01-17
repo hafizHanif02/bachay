@@ -55,6 +55,13 @@ class CategoryController extends Controller
             'priority.required' => 'Category priority is required!',
         ]);
 
+        if($request->tags != null){
+            $tagsString = $request->tags;
+            $tagsArray = explode(', ', $tagsString);
+        }else{
+            $tagsArray = [];
+        }
+
         $category = new Category;
         $category->name = $request->name[array_search('en', $request->lang)];
         $category->slug = Str::slug($request->name[array_search('en', $request->lang)]);
@@ -63,6 +70,7 @@ class CategoryController extends Controller
         $category->parent_id = 0;
         $category->position = 0;
         $category->priority = $request->priority;
+        $category->tags = json_encode($tagsArray);
         $category->save();
 
         $data = [];
@@ -93,6 +101,13 @@ class CategoryController extends Controller
 
     public function update(Request $request)
     {
+
+        if($request->tags != null){
+            $tagsString = $request->tags;
+            $tagsArray = explode(', ', $tagsString);
+        }else{
+            $tagsArray = [];
+        }
         $category = Category::find($request->id);
         $category->name = $request->name[array_search('en', $request->lang)];
         $category->slug = Str::slug($request->name[array_search('en', $request->lang)]);
@@ -100,6 +115,7 @@ class CategoryController extends Controller
             $category->icon = ImageManager::update('category/', $category->icon, 'webp', $request->file('image'));
         }
         $category->priority = $request->priority;
+        $category->tags = json_encode($tagsArray);
         $category->save();
 
         foreach ($request->lang as $index => $key) {
