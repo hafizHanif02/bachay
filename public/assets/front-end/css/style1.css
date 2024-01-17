@@ -58,7 +58,7 @@
 }
 @media (min-width: 1920px) {
     .products{
-        padding: 0 !important;
+        /* padding: 0 !important; */
         margin: 0 auto;
         width:1905px !important;
     }
@@ -536,8 +536,11 @@ line-height: 30px;
 .profile_aside{
     width: 20%;
 }
-.profile_content,.All_products{
+.profile_content{
     width: 80%;
+}
+.All_products{
+    width: 85%;
 }
 .dropdown {
     position: relative;
