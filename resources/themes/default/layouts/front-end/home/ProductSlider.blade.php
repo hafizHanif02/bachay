@@ -1,4 +1,4 @@
-<div class="sub-contain container-xxl">
+<div class="sub-contain container-fluid">
     <div class="row mb-4">
         <div class="col-12 d-flex justify-content-between align-items-center">
             <h1 class="textClr m-0">Autumn Whisper</h1>
