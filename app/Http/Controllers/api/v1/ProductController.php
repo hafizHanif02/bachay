@@ -18,14 +18,15 @@ use App\Model\DealOfTheDay;
 use App\Model\MostDemanded;
 use Illuminate\Support\Str;
 use App\CPU\CategoryManager;
+use Illuminate\Http\Request;
 use App\Model\ShippingMethod;
+use App\Models\familyRelation;
 use function App\CPU\translate;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 
 class ProductController extends Controller
 {
@@ -56,40 +57,96 @@ class ProductController extends Controller
         return response()->json($products, 200);
     }
 
-    public function list(){
-        $products = Product::with('brand')->get();
-
-        foreach ($products as $product) {
-            $thumbnailUrl = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
-            $product->thumbnail = $thumbnailUrl;
-
-
-            
-            $imagesArray = json_decode($product->images, true);
-
-            $imageUrls = [];
-            if (is_array($imagesArray)) {
-                foreach ($imagesArray as $image) {
-                    $imageUrl = asset('storage/app/public/product/' . $image);
-                    $imageUrls[] = $imageUrl;
+    public function list(Request $request){
+        if($request->id != null){
+            $child = familyRelation::where('id',$request->id)->first();
+            if($child != null){
+                $child->tag = ($child->gender == 1)?'Boy':'Girl';
+                $allProducts = Product::with(['brand','tags'])->get();
+    
+                $products = [];
+                foreach ($allProducts as $product) {
+                    if ($product->tags != null) {
+                        foreach ($product->tags as $tag) {
+                            if ($tag->tag == $child->tag) {
+                                $products[] = $product;
+                            }
+                        }
+                    }
                 }
+    
+            foreach ($products as $product) {
+                $thumbnailUrl = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
+                $product->thumbnail = $thumbnailUrl;
+    
+    
+                
+                $imagesArray = json_decode($product->images, true);
+    
+                $imageUrls = [];
+                if (is_array($imagesArray)) {
+                    foreach ($imagesArray as $image) {
+                        $imageUrl = asset('storage/app/public/product/' . $image);
+                        $imageUrls[] = $imageUrl;
+                    }
+                }
+                $product->images = $imageUrls;
             }
-            $product->images = $imageUrls;
-        }
-        foreach ($products as $product) {
-            $brandImageUrl = $product->brand->image;
-            if (!Str::startsWith($brandImageUrl, ['http://', 'https://'])) {
-                $brandImageUrl = url('storage/app/public/brand/' . $brandImageUrl);
+            foreach ($products as $product) {
+                $brandImageUrl = $product->brand->image;
+                if (!Str::startsWith($brandImageUrl, ['http://', 'https://'])) {
+                    $brandImageUrl = url('storage/app/public/brand/' . $brandImageUrl);
+                }
+                $product->brand->image = $brandImageUrl;
             }
-            $product->brand->image = $brandImageUrl;
-        }
-        
-        if($products != null){
-            return response()->json($products, 200);
+            
+            if($products != null){
+                return response()->json($products, 200);
+            }else{
+                return response()->json([
+                    'error' => ['message' => 'Product not found!']
+                ], 404);
+            }
+            }else{
+                return response()->json([
+                    'errors' => 'Child not found.',
+                ]);
+            }
         }else{
-            return response()->json([
-                'error' => ['message' => 'Product not found!']
-            ], 404);
+            $products = Product::with('brand')->get();
+    
+            foreach ($products as $product) {
+                $thumbnailUrl = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
+                $product->thumbnail = $thumbnailUrl;
+    
+    
+                
+                $imagesArray = json_decode($product->images, true);
+    
+                $imageUrls = [];
+                if (is_array($imagesArray)) {
+                    foreach ($imagesArray as $image) {
+                        $imageUrl = asset('storage/app/public/product/' . $image);
+                        $imageUrls[] = $imageUrl;
+                    }
+                }
+                $product->images = $imageUrls;
+            }
+            foreach ($products as $product) {
+                $brandImageUrl = $product->brand->image;
+                if (!Str::startsWith($brandImageUrl, ['http://', 'https://'])) {
+                    $brandImageUrl = url('storage/app/public/brand/' . $brandImageUrl);
+                }
+                $product->brand->image = $brandImageUrl;
+            }
+            
+            if($products != null){
+                return response()->json($products, 200);
+            }else{
+                return response()->json([
+                    'error' => ['message' => 'Product not found!']
+                ], 404);
+            }
         }
     }
 

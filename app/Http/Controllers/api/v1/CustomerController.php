@@ -325,7 +325,7 @@ class CustomerController extends Controller
         $vacSub = VaccinationSubmission::where('id',$id)->update([
             'submission_date' => $request->submission_date,
             'is_taken' => 1,
-            'picture' => $filename,
+            'picture' => ($filename ?? ''),
         ]);
         if($vacSub == 0){
             return response()->json('Vaccinaction Submission ID not Found', 401);
@@ -351,21 +351,25 @@ public function VaccinationSubmissionGet($id){
             'id'=> $id,
             'user_id' => Auth::user()->id
         ])->first();
-        $growth =  Growth::where(['vaccination_id'=> $vaccination_data->vaccination_id,
-        'child_id' => $vaccination_data->child_id])->first();
-        $vaccination_data->growth = $growth;
-
-        $vaccinationImg = asset('public/assets/images/customers/child/vaccination/' . $vaccination_data->picture);
-        $vaccination_data->picture = $vaccinationImg;
-        
-        return response()->json($vaccination_data, 200);
+        if($vaccination_data == null){
+            return response()->json(['message' => 'Vaccination Data Not Found'], 200);
+        }else{
+            $growth =  Growth::where(['vaccination_id'=> $vaccination_data->vaccination_id,
+            'child_id' => $vaccination_data->child_id])->first();
+            $vaccination_data->growth = $growth;
+    
+            $vaccinationImg = asset('public/assets/images/customers/child/vaccination/' . $vaccination_data->picture);
+            $vaccination_data->picture = $vaccinationImg;
+            
+            return response()->json($vaccination_data, 200);
+        }
     }else{
         return response()->json(['errors' => 'Please Login First !'], 200);
     }
 }
 
 public function SubmitQuiz(Request $request){
-    if(Auth::check()){
+    if(Auth::guard('customer')->check()){
         $validator = QuizSubmission::make($request->all(), [
             'child_id' => 'required|exists:family_relation,id',
             'quiz_id' => 'required|exists:quiz,id',

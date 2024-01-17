@@ -23,6 +23,15 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::get('category/{id}', [HomeController::class, 'ArticleByCategory']);
         Route::get('/{id}', [HomeController::class, 'ArticleDetail']);
     });
+
+    Route::group(['middleware' => 'auth:api','prefix' => 'auth', 'namespace' => 'auth'], function () {
+        Route::group(['prefix' => 'quiz'],function(){
+            Route::get('all','QuizController@AllQuiz')->name('quiz.all');
+            Route::get('/{id}','QuizController@Quiz')->name('quiz.detail');
+            Route::post('submit','QuizController@SubmitQuiz')->name('quiz.submit');
+        });
+    });
+
     Route::group(['middleware' => 'auth:api'], function () {
         Route::get('switch-user/{id}',[HomeController::class, 'SwitchUser']);
     });
@@ -55,7 +64,6 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::any('social-login', 'SocialAuthController@social_login');
         Route::post('update-phone', 'SocialAuthController@update_phone');
 
-
     });
 
     Route::group(['prefix' => 'config'], function () {
@@ -80,9 +88,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
 
     });
 
-    Route::group(['prefix' => 'quiz'],function(){
-        Route::post('submit','CustomerController@SubmitQuiz')->name('quiz.submit');
-    });
+    
 
     Route::group(['prefix' => 'customer/order', 'middleware'=>'apiGuestCheck'], function () {
         Route::get('get-order', 'CustomerController@get_order_by_id');
