@@ -1,4 +1,4 @@
-<div class="new-arival mt-4 container-xxl">
+<div class="new-arival mt-4 container-fluid">
     <div class="sub-container bg-light pt-5 pb-5 rounded-5">
 
         <h1 class="text-center textClr">Early Breeze New Arrivals</h1>
