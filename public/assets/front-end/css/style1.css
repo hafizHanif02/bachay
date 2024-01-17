@@ -42,14 +42,14 @@
     .imgMAin {
         height: 295px !important;
         width: 255px !important;
-    }   
+    }
 }
 @media (min-width: 1366px) and (max-width: 1599px) {
     .product-list{
         grid-template-columns: repeat(3, 1fr);
         /* display: flex;
         flex-wrap: wrap;
-        justify-content: center; 
+        justify-content: center;
         gap: 10px; */
     }
     .desktop-nav .navbar , #mega-menu .fBorder .sub-nav {
@@ -321,7 +321,7 @@ input.form-control.search-input {
         #845dc2 130.57%
     );
     font-family: myfont;
-    font-size: 52px;
+    font-size: 44px;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -681,6 +681,7 @@ h1.text-center.textClr {
 }
 .Text-color{
     color:#62B00E;
+    font-weight: 800 !important;
 }
 .subdiv p {
     background-color: #F99327;
