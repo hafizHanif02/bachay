@@ -13,10 +13,10 @@
             </div>
         </li>
     </div>
-    <div class="filters-btn d-flex justify-content-between align-items-center mt-3 pb-3 collection">
+    <div class="filters-btn d-flex justify-content-between align-items-center mt-3 pb-3 collection borderline">
         <div class="sub-btn" id="filters-btn">
-            {{-- <button class="boys rounded-3 btn-style"><i class="bi bi-x-lg"></i> Boys</button>
-            <button class="Cloths rounded-3 btn-style"><i class="bi bi-x-lg"></i> Cloths</button> --}}
+            <button class="boys rounded-3 btn-style"><i class="bi bi-x-lg"></i> Boys</button>
+            <button class="Cloths rounded-3 btn-style"><i class="bi bi-x-lg"></i> Cloths</button>
 
         </div>
         <a href="#" class="clear-all-btn">Clear All</a>

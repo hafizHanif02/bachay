@@ -42,15 +42,16 @@
     .imgMAin {
         height: 295px !important;
         width: 255px !important;
-    }
+    }   
 }
 @media (min-width: 1366px) and (max-width: 1599px) {
     .product-list{
         grid-template-columns: repeat(3, 1fr);
         /* display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: center; 
         gap: 10px; */
+        gap: 0 !important;
     }
     .desktop-nav .navbar , #mega-menu .fBorder .sub-nav {
         padding: 0 50px;
@@ -63,10 +64,8 @@
     }
     .imgMAin {
         height: 450px !important;
-        width: 360px !important;
+        width: 345px !important;
     }
-
-
 }
 @media (min-width: 1600px) and (max-width: 1919px) {
     .product-list{
@@ -88,10 +87,6 @@
     .imgMAin {
         height: 450px !important;
         width: 328px !important;
-    }
-
-    .custom-xl-20 {
-        width: 20% !important;
     }
 }
 @media (min-width: 1920px) {
@@ -119,11 +114,6 @@
     .imgMAin {
         height: 450px !important;
         width: 305px !important;
-    }
-
-
-    .custom-xl-20 {
-        width: 20% !important;
     }
 }
 .nav-item a:hover{
@@ -332,7 +322,7 @@ input.form-control.search-input {
         #845dc2 130.57%
     );
     font-family: myfont;
-    font-size: 44px;
+    font-size: 52px;
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
@@ -692,7 +682,6 @@ h1.text-center.textClr {
 }
 .Text-color{
     color:#62B00E;
-    font-weight: 800 !important;
 }
 .subdiv p {
     background-color: #F99327;
@@ -2481,6 +2470,21 @@ input:checked + .se:before {
 .collection li a .color:hover{
     color: #DE8E9D;
 }
+.borderline {
+    border-top: 2px solid lightgrey;
+    border-bottom: 2px solid lightgrey;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Optional: Style for the buttons inside .sub-btn */
+/* .collection button {
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+} */
+
 .nav-btn ul {
     list-style: none;
     padding: 0;
@@ -2921,8 +2925,3 @@ details[open] summary::after {
     }
 
 } */
-
-
-.form-control:focus {
-    box-shadow: 0 0 0 0.25rem rgb(135 93 193 / 29%) !important;
-}
