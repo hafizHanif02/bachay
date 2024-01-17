@@ -12,10 +12,12 @@
     font-family: mysmallcapsfont;
     src: url(/public/fonts/AristotelicaSmallCapsRegular.ttf);
 }
-@media (min-width: 1200px) {
-    /* Styles for screens larger than 1200 pixels */
+@media (min-width: 1366px) and (max-width: 1599px) {
     .product-list{
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(3, 1fr);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 10px;
     }
     .desktop-nav .navbar , #mega-menu .fBorder .sub-nav {
@@ -31,8 +33,57 @@
         height: 450px;
         width: 360px;
     }
-  }
-  .nav-item a:hover{
+}
+@media (min-width: 1600px) and (max-width: 1919px) {
+    .product-list{
+        grid-template-columns: repeat(4, 1fr);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    .desktop-nav .navbar , #mega-menu .fBorder .sub-nav {
+        padding: 0 50px;
+    }
+    header{
+        padding: 10px 0px;
+    }
+    .image-container p{
+        font-size: 17.5px;
+    }
+    .imgMAin {
+        height: 450px;
+        width: 360px;
+    }
+}
+@media (min-width: 1920px) {
+    .products{
+        padding: 0 !important;
+        margin: 0 auto;
+        width:1905px !important;
+    }
+    .product-list{
+        grid-template-columns: repeat(5, 1fr);
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        /* gap: 10px; */
+    }
+    .desktop-nav .navbar , #mega-menu .fBorder .sub-nav {
+        padding: 0 50px;
+    }
+    header{
+        padding: 10px 0px;
+    }
+    .image-container p{
+        font-size: 17.5px;
+    }
+    .imgMAin {
+        height: 450px;
+        width: 360px;
+    }
+}
+.nav-item a:hover{
     color: #845DC2;
 }
 .navbar{
@@ -485,11 +536,8 @@ line-height: 30px;
 .profile_aside{
     width: 20%;
 }
-.profile_content{
+.profile_content,.All_products{
     width: 80%;
-}
-.All_products{
-    width: 85%;
 }
 .dropdown {
     position: relative;
@@ -621,13 +669,13 @@ h1.text-center.textClr {
     grid-template-columns: repeat(4, 1fr);
 
 }
-.product-list{
-    /* grid-template-columns: repeat(3, 1fr); */
+/* .product-list{
+    grid-template-columns: repeat(4, 1fr);
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 10px;
-}
+} */
 .image-container p {
     color: #292d32;
     font-family: "Poppins";
