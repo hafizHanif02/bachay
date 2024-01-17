@@ -12,13 +12,45 @@
     font-family: mysmallcapsfont;
     src: url(/public/fonts/AristotelicaSmallCapsRegular.ttf);
 }
+@media (min-width: 1024px) and (max-width: 1279px) {
+    /* .profile_content, */
+    .All_products{
+        width: 80% !important;
+    }
+    .filter_aside {
+        width: 19% !important;
+    }
+    .product-list{
+        grid-template-columns: repeat(3, 1fr);
+        /* display: flex;
+        flex-wrap: wrap;
+        justify-content: center; */
+        gap: 0 !important;
+    }
+    .desktop-nav .navbar , #mega-menu .fBorder .sub-nav {
+        padding: 0 20px !important;
+        justify-content: space-between !important;
+        gap: 15px !important;
+        padding-top: 0.5rem!important
+    }
+    header{
+        padding: 10px 0px;
+    }
+    .image-container p{
+        font-size: 17.5px;
+    }
+    .imgMAin {
+        height: 295px !important;
+        width: 255px !important;
+    }   
+}
 @media (min-width: 1366px) and (max-width: 1599px) {
     .product-list{
         grid-template-columns: repeat(3, 1fr);
-        display: flex;
+        /* display: flex;
         flex-wrap: wrap;
-        justify-content: center;
-        gap: 10px;
+        justify-content: center; 
+        gap: 10px; */
     }
     .desktop-nav .navbar , #mega-menu .fBorder .sub-nav {
         padding: 0 50px;
@@ -30,17 +62,17 @@
         font-size: 17.5px;
     }
     .imgMAin {
-        height: 450px;
-        width: 360px;
+        height: 450px !important;
+        width: 360px !important;
     }
 }
 @media (min-width: 1600px) and (max-width: 1919px) {
     .product-list{
         grid-template-columns: repeat(4, 1fr);
-        display: flex;
+        /* display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        gap: 10px;
+        gap: 10px; */
     }
     .desktop-nav .navbar , #mega-menu .fBorder .sub-nav {
         padding: 0 50px;
@@ -52,8 +84,8 @@
         font-size: 17.5px;
     }
     .imgMAin {
-        height: 450px;
-        width: 360px;
+        height: 450px !important;
+        width: 328px !important;
     }
 }
 @media (min-width: 1920px) {
@@ -64,10 +96,10 @@
     }
     .product-list{
         grid-template-columns: repeat(5, 1fr);
-        display: flex;
+        /* display: flex;
         flex-wrap: wrap;
-        justify-content: center;
-        /* gap: 10px; */
+        justify-content: center; */
+        gap: 0 !important;
     }
     .desktop-nav .navbar , #mega-menu .fBorder .sub-nav {
         padding: 0 50px;
@@ -79,8 +111,8 @@
         font-size: 17.5px;
     }
     .imgMAin {
-        height: 450px;
-        width: 360px;
+        height: 450px !important;
+        width: 305px !important;
     }
 }
 .nav-item a:hover{
