@@ -6870,7 +6870,8 @@ class WebController extends Controller
 
     public function deleteCart(Request $request)
     {
-        $cart = Cart::where(['product_id' => $request->productId, 'customer_id' => auth('customer')->id()])->delete();
+        $cart = Cart::where(['product_id' => $request->productId, 'customer_id' => auth('customer')->id()])->first();
+        $cart->delete();
         $data = translate('product_has_been_remove_from_cart') . '!';
         return response()->json(['success' => $data]);
     }
