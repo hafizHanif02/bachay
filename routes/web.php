@@ -179,7 +179,7 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestC
     Route::get('delete-compare-list', 'CompareController@delete_compare_list')->name('delete-compare-list');
 
     //profile Route
-    route::get('my-profile', 'UserProfileController@my_profile')->name('my-profile');
+    route::get('my-profile', 'UserProfileController@default_theme')->name('my-profile');
     route::post('address-store', 'UserProfileController@AddressStore')->name('address.store');
     route::post('change-password', 'UserProfileController@ChangePassword')->name('change-password');
     Route::get('user-profile', 'UserProfileController@user_profile')->name('user-profile')->middleware('customer'); //theme_aster

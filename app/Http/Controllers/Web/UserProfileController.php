@@ -58,7 +58,30 @@ class UserProfileController extends Controller
     {
         
     }
+    public function index(Request $request)
+    {
+        $theme_name = theme_root_path();
+        // Get the user agent from the request headers
+        $userAgent = $request->header('User-Agent');
 
+        // Check if the user agent indicates a mobile device
+        if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
+            // User is using a mobile device, load the mobile view
+            return match ($theme_name) {
+                'default' => self::default_theme("home_mobile"),
+                'theme_aster' => self::theme_aster(),
+                'theme_fashion' => self::theme_fashion(),
+                'theme_all_purpose' => self::theme_all_purpose(),
+            };
+        } else {
+            return match ($theme_name) {
+                'default' => self::default_theme("home"),
+                'theme_aster' => self::theme_aster(),
+                'theme_fashion' => self::theme_fashion(),
+                'theme_all_purpose' => self::theme_all_purpose(),
+            };
+        }
+    }
 
     public function user_profile(Request $request)
     {
@@ -73,7 +96,7 @@ class UserProfileController extends Controller
 
         return view(VIEW_FILE_NAMES['user_profile'], compact('customer_detail', 'addresses', 'wishlists', 'total_order', 'total_loyalty_point', 'total_wallet_balance'));
     }
-    public function my_profile()
+    public function default_theme()
     {
         $userData = Auth::guard('customer')->user();
         $home_categories = Category::where('home_status', true)->priority()->get();
