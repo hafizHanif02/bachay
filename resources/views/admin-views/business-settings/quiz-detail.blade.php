@@ -46,6 +46,33 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label class="title-color text-capitalize"
+										   for="exampleFormControlInput1">Quiz Name </label>
+									<input type="text" name="name" placeholder="Enter Quiz Name" value="{{ $quiz->name }}"  class="form-control" required>
+								</div>
+							</div>
+						</div>
+						<div class="row g-3">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="title-color text-capitalize"
+										   for="exampleFormControlInput1">Quiz Image </label>
+									<input type="file" name="image" placeholder="Enter Quiz Image" value="{{ $quiz->image }}"  class="form-control" required>
+								</div>
+							</div>
+						</div>
+						<div class="row g-3">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="title-color text-capitalize"
+										   for="exampleFormControlInput1">Expiry Date </label>
+									<input type="date" name="expiry_date" placeholder="Enter Expiry Date" value="{{ $quiz->expiry_date }}"  class="form-control" required>
+								</div>
+							</div>
+						</div>
+						{{-- <div class="row g-3">
+							<div class="col-md-12">
+								<div class="form-group">
+									<label class="title-color text-capitalize"
 										   for="exampleFormControlInput1">Question </label>
 									<input type="text" name="question" placeholder="Enter Question" value="{{ $quiz->question }}"  class="form-control" required>
 								</div>
@@ -102,7 +129,7 @@
 									</tr>
 								</tbody>
 							</table>
-						</div>
+						</div> --}}
 						<div class="d-flex justify-content-end gap-3">
 							<button type="reset" class="btn btn-secondary">Reset </button>
 							<button type="submit" class="btn btn--primary">Save </button>

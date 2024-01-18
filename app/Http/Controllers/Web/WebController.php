@@ -5491,9 +5491,9 @@ class WebController extends Controller
                 'theme_all_purpose' => self::theme_all_purpose(),
             };
         }
-
-        
+    
     }
+
     public function all__categories($viewName)
     {
         $home_categories = Category::where('home_status', true)->priority()->get();
@@ -5519,7 +5519,7 @@ class WebController extends Controller
 
         // Check if the user agent indicates a mobile device
         if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
-            // User is using a mobile device, load the mobile view
+
             return match ($theme_name) {
                 'default' => self::single__category("single_categories_mobile",$slug),
                 'theme_aster' => self::theme_aster(),

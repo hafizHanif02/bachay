@@ -563,6 +563,13 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
                         Route::get('/view/{id}', 'BusinessSettingsController@QuizDetail')->name('quiz.view');
                         Route::put('/update/{id}', 'BusinessSettingsController@QuizUpdate')->name('quiz.update');
                         Route::post('/delete', 'BusinessSettingsController@QuizDelete')->name('quiz.delete');
+
+                        Route::group(['prefix' => 'question'],function(){
+                            Route::get('/', 'BusinessSettingsController@QuizAllQuestion')->name('quiz.question');
+                            Route::post('/store', 'BusinessSettingsController@QuizQuestionStore')->name('quiz.question.store');
+                            Route::get('/edit/{id}', 'BusinessSettingsController@QuizQuestionEdit')->name('quiz.question.edit');
+                            Route::post('/delete', 'BusinessSettingsController@QuizQuestionDelete')->name('quiz.question.delete');
+                        });
                 });
                 
                 Route::post('update', 'BusinessSettingsController@ArticleUpdate')->name('article.update');

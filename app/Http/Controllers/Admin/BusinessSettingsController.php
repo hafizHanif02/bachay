@@ -16,6 +16,7 @@ use App\Models\QuizAnswer;
 use App\Models\QnaQuestion;
 use App\Models\Vaccination;
 use App\Models\QuizCategory;
+use App\Models\QuizQuestion;
 use Illuminate\Http\Request;
 use App\Model\BusinessSetting;
 use App\Models\ArticleCategory;
@@ -387,47 +388,61 @@ class BusinessSettingsController extends Controller
 
 
     public function AllQuiz(){
-        $quizes = Quiz::with(['quiz_category','answer'])->get();
+        $quizes = Quiz::with(['quiz_category'])->get();
         $quiz_categories = QuizCategory::get();
-        foreach($quizes as $quiz_category){
+        foreach($quiz_categories as $quiz_category){
             $quiz_category->image = asset('public/assets/images/quiz/category/'.$quiz_category->image);
+        }
+        foreach($quizes as $quiz){
+            $quiz->image = asset('public/assets/images/quiz/'.$quiz->image);
         }
         return view('admin-views.business-settings.quiz', compact('quizes','quiz_categories'));
     } 
 
     public function QuizStore(Request $request){
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('assets/images/quiz/'), $filename);
+        }else{
+            $filename = null;
+        }
         $request->validate([
-            'question' => 'required',
-            'options' => 'required',
+            'quiz_category_id' => 'required',
+            'name' => 'required',
+            'expiry_date' => 'required',
         ]);
         $quizId = DB::table('quiz')->insertGetId([
-            'question' => $request->question,
             'quiz_category_id' => $request->quiz_category_id,
+            'name' => $request->name,
+            'image' => $filename,
+            'expiry_date' => $request->expiry_date,
         ]);
-        foreach($request->options as $option){
-            $quizAnswerId = DB::table('quiz_answer')->insertGetId([
-                'answer' => $option,
-                'quiz_id' => $quizId,
-            ]);
+        // foreach($request->options as $option){
+        //     $quizAnswerId = DB::table('quiz_answer')->insertGetId([
+        //         'answer' => $option,
+        //         'quiz_id' => $quizId,
+        //     ]);
 
-            $quiz_options = QuizAnswer::where('id', $quizAnswerId)->get();
-            foreach($quiz_options as $quiz_option){
-                if($quiz_option->answer == $request->correct_answer){
-                    $correct_answer_id = $quiz_option->id;
-                }
-            }
-        }
+        //     $quiz_options = QuizAnswer::where('id', $quizAnswerId)->get();
+        //     foreach($quiz_options as $quiz_option){
+        //         if($quiz_option->answer == $request->correct_answer){
+        //             $correct_answer_id = $quiz_option->id;
+        //         }
+        //     }
+        // }
 
-        Quiz::where('id', $quizId)->update([
-            'answer_id' => $correct_answer_id,
-        ]);
+        // QuizQuestion::where('id', $quizId)->update([
+        //     'answer_id' => $correct_answer_id,
+        // ]);
 
         Toastr::success('Quiz Added');
         return redirect()->back();
     }
 
     public function QuizDetail($id){
-        $quiz = Quiz::with('quiz_category','answer')->where('id',$id)->first();
+        $quiz = Quiz::with('quiz_category')->where('id',$id)->first();
         $quiz_categories = QuizCategory::get();
         return view('admin-views.business-settings.quiz-detail', compact('quiz','quiz_categories'));
     }
@@ -435,31 +450,42 @@ class BusinessSettingsController extends Controller
 
     public function QuizUpdate(Request $request, $id)
 {
+    if ($request->file('image')) {
+        $file = $request->file('image');
+        $extension = $file->getClientOriginalExtension();
+        $filename = $file->getClientOriginalName();
+        $file->move(public_path('assets/images/quiz/'), $filename);
+    }else{
+        $filename = null;
+    }
     $request->validate([
-        'question' => 'required',
-        'options' => 'required',
+        'quiz_category_id' => 'required',
+        'name' => 'required',
+        'expiry_date' => 'required',
     ]);
 
     $correct_answer_id = null; // Initialize outside the loop
 
     DB::table('quiz')->where('id', $id)->update([
-        'question' => $request->question,
         'quiz_category_id' => $request->quiz_category_id,
+        'name' => $request->name,
+        'image' => $filename,
+        'expiry_date' => $request->expiry_date,
     ]);
 
-    foreach ($request->options as $index => $option) {
-        DB::table('quiz_answer')->where('id', $index + 1)->update([
-            'answer' => $option,
-        ]);
+    // foreach ($request->options as $index => $option) {
+    //     DB::table('quiz_answer')->where('id', $index + 1)->update([
+    //         'answer' => $option,
+    //     ]);
 
-        if ($option == $request->correct_answer) {
-            $correct_answer_id = $index + 1;
-        }
-    }
+    //     if ($option == $request->correct_answer) {
+    //         $correct_answer_id = $index + 1;
+    //     }
+    // }
 
-    Quiz::where('id', $id)->update([
-        'answer_id' => $correct_answer_id,
-    ]);
+    // QuizQuestion::where('id', $id)->update([
+    //     'answer_id' => $correct_answer_id,
+    // ]);
 
     Toastr::success('Quiz Updated');
     return redirect()->route('admin.business-settings.quiz');
@@ -472,6 +498,65 @@ class BusinessSettingsController extends Controller
         $quiz->delete();
         Toastr::success('Quiz Deleted');
         return redirect()->back();
+    }
+
+    public function QuizAllQuestion(){
+        $quizes = Quiz::get();
+        $quiz_questions = QuizQuestion::with('quiz')->get();
+        return view('admin-views.business-settings.quiz-question', compact('quizes','quiz_questions'));
+    }
+
+    public function QuizQuestionStore(Request $request){
+        if ($request->file('image')) {
+            $file = $request->file('image');
+            $extension = $file->getClientOriginalExtension();
+            $filename = $file->getClientOriginalName();
+            $file->move(public_path('assets/images/quiz/question/'), $filename);
+        }else{
+            $filename = null;
+        }
+
+        $quizId = DB::table('quiz_questions')->insertGetId([
+            'quiz_id' => $request->quiz_id,
+            'question' => $request->question,
+            'image' => $filename,
+        ]);
+        
+            foreach($request->options as $option){
+                $quizAnswerId = DB::table('quiz_answer')->insertGetId([
+                    'answer' => $option,
+                    'quiz_id' => $quizId,
+                ]);
+
+                $quiz_options = QuizAnswer::where('id', $quizAnswerId)->get();
+                foreach($quiz_options as $quiz_option){
+                    if($quiz_option->answer == $request->correct_answer){
+                        $correct_answer_id = $quiz_option->id;
+                    }
+                }
+            }
+
+            QuizQuestion::where('id', $quizId)->update([
+                'answer_id' => $correct_answer_id,
+            ]);
+
+            Toastr::success('Question Has Been Added');
+            return redirect()->route('admin.business-settings.quiz.question');
+        
+    }
+
+    public function QuizQuestionEdit($id){
+        $quiz_question = QuizQuestion::where('id',$id)->with('quiz','answer')->first();
+        $quizes = Quiz::get();
+        return view('admin-views.business-settings.edit-quiz-question', compact('quiz_question','quizes'));
+    }
+
+
+    public function QuizQuestionDelete(Request $request){
+        $quiz = QuizQuestion::find($request->id);
+        $quiz->delete();
+        Toastr::success('Question Deleted');
+        return redirect()->route('admin.business-settings.quiz.question');
     }
 
     

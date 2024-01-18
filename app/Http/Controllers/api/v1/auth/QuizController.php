@@ -5,6 +5,7 @@ namespace App\Http\Controllers\api\V1\auth;
 use App\Models\Quiz;
 use App\Models\QuizAnswer;
 use App\Models\QuizCategory;
+use App\Models\QuizQuestion;
 use Illuminate\Http\Request;
 use App\Models\familyRelation;
 use App\Models\QuizSubmission;
@@ -18,7 +19,7 @@ class QuizController extends Controller
         if(Auth::check()){
             $user = Auth::user();
             $child = familyRelation::where(['id'=> $request->child_id, 'user_id' => $user->id])->first();
-            $quiz = Quiz::where('id', $request->quiz_id)->with('answer')->first();
+            $quiz = QuizQuestion::where('id', $request->question_id)->with('answer')->first();
             $quizanswer = QuizAnswer::where('id', $request->answer_id)->first();
             if($child != null){
                 $quizsubmission = new QuizSubmission();
@@ -37,7 +38,7 @@ class QuizController extends Controller
     }
 
     // public function AllQuiz(){
-    //     $quiz = Quiz::with('answer')->get();
+    //     $quiz = QuizQuestion::with('answer')->get();
     //     return response()->json($quiz, 200);
     // }
 
@@ -49,8 +50,21 @@ class QuizController extends Controller
             foreach($quizCategoryAll as $quizCategory){
                 $quizCategoryImg = asset('public/assets/images/quiz/category/' . $quizCategory->image);
                 $quizCategory->image = $quizCategoryImg;
+                // foreach($quizCategory->quiz as $quiz){
+                //     $quizImg = asset('public/assets/images/quiz/' . $quiz->image);
+                //     $quiz->image = $quizImg;
+                // }
             }
-            return response()->json($quizCategoryAll, 200);
+            $promo = [];
+            $all_category = [];
+            foreach($quizCategoryAll as $quizCategory){
+                if($quizCategory->id == 1 || $quizCategory->id == 2 || $quizCategory->id == 3){
+                    $promo[] = $quizCategory;
+                }else {
+                    $all_category[] = $quizCategory;
+                }
+            }
+            return response()->json(['promo' => $promo, 'all_category' => $all_category], 200);
         }
     }
 
@@ -61,15 +75,27 @@ class QuizController extends Controller
         }else{
             $quizCategoryImg = asset('public/assets/images/quiz/category/' . $quizCategory->image);
             $quizCategory->image = $quizCategoryImg;
+            foreach($quizCategory->quiz as $quiz){
+                $quizImg = asset('public/assets/images/quiz/' . $quiz->image);
+                $quiz->image = $quizImg;
+            }
             return response()->json($quizCategory, 200);
         }
     }
 
     public function Quiz($id){
-        $quiz = Quiz::where('id',$id)->with('answer')->first();
+        $quiz = Quiz::where('id',$id)->with('quiz_question.answer')->first();
         if($quiz == null){
             return response()->json(['message' => 'Quiz Not Found'], 200);
         }else{
+            $quizImg = asset('public/assets/images/quiz/' . $quiz->image);
+            $quiz->image = $quizImg;
+            foreach($quiz->quiz_question as $question){
+                if($question->image != null){
+                $questionImg = asset('public/assets/images/quiz/question/' . $question->image);
+                $question->image = $questionImg;
+                }
+            }
             return response()->json($quiz, 200);
         }
     }

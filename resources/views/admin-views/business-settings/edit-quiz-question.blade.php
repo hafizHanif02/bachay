@@ -1,6 +1,6 @@
 @extends('layouts.back-end.app')
 
-@section('title', 'Quiz')
+@section('title', 'Quiz Question')
 
 @push('css_or_js')
 
@@ -26,17 +26,17 @@
 			<div class="card">
 				<div class="card-body">
 				  <div class="container">
-					<form action="{{ route('admin.business-settings.quiz.store') }}" method="post" enctype="multipart/form-data">
+					<form action="{{ route('admin.business-settings.quiz.question.store') }}" method="post" enctype="multipart/form-data">
 						@csrf
 						<div class="row g-3">
 							<div class="col-md-12">
 								<div class="form-group">
 									<label class="title-color text-capitalize"
-										   for="exampleFormControlInput1">Quiz Category </label>
-									<select name="quiz_category_id" class="form-control" id="">
-										<option value="" selected disabled> Select Quiz Category</option>
-										@foreach($quiz_categories as $category)
-										<option value="{{ $category->id }}">{{ $category->name }}</option>
+										   for="exampleFormControlInput1">Quiz </label>
+									<select name="quiz_id" class="form-control" id="">
+										<option value="" selected disabled> Select Quiz</option>
+										@foreach($quizes as $quiz)
+										<option value="{{ $quiz->id }}">{{ $quiz->name }}</option>
 										@endforeach
 									</select>
 								</div>
@@ -46,29 +46,68 @@
 							<div class="col-md-12">
 								<div class="form-group">
 									<label class="title-color text-capitalize"
-										   for="exampleFormControlInput1">Quiz Name </label>
-									<input type="text" name="name" placeholder="Enter Quiz Name"  class="form-control" required autocomplete="off">
+										   for="exampleFormControlInput1">Question </label>
+									<input type="text" name="question" value="{{ $quiz_question->question }}" placeholder="Enter Question"  class="form-control" required>
 								</div>
 							</div>
 						</div>
-						<div class="row g-3">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label class="title-color text-capitalize"
-										   for="exampleFormControlInput1">Image </label>
-									<input type="file" name="image" placeholder="Enter Quiz Image"  class="form-control" required autocomplete="off">
-								</div>
-							</div>
+						<div class="col-md-12">
+
+							<table class="table table-bordered">
+								<thead>
+									<tr>
+										<th>Options</th>
+										<th>Actual Answer</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr>
+										<td>
+											@foreach($quiz_question->answer as $answer)
+											<div class="col-md-10 mt-2">
+												<label for="" class="form-label text-center">1</label>
+												<input type="text" name="options[{{ $loop->iteration }}]" id="option{{ $loop->iteration }}" value="{{ $answer->answer }}" class="form-control">
+											</div>
+											@endforeach
+											{{-- <div class="col-md-10 mt-2">
+												<label for="" class="form-label text-center">2</label>
+												<input type="text" name="options[1]" id="option2" class="form-control">
+											</div>
+											<div class="col-md-10 mt-2">
+												<label for="" class="form-label text-center">3</label>
+												<input type="text" name="options[2]" id="option3" class="form-control">
+											</div>
+											<div class="col-md-10 mt-2">
+												<label for="" class="form-label text-center">4</label>
+												<input type="text" name="options[3]" id="option4" class="form-control">
+											</div> --}}
+										</td>
+										<td>
+											@foreach($quiz_question->answer as $answer)
+											<div class="col-md-2 mt-3">
+												<label for="" class="form-label text-center"></label>
+												<input type="radio" name="actual_answer" value="{{ $loop->iteration }}" {{ $answer == $quiz_question ?'Checked':'' }} class="form-control">
+											</div>
+											@endforeach
+											<div class="col-md-2 mt-3">
+												<label for="" class="form-label text-center"></label>
+												<input type="radio" name="actual_answer" value="2" class="form-control">
+											</div>
+											<div class="col-md-2 mt-3">
+												<label for="" class="form-label text-center"></label>
+												<input type="radio" name="actual_answer" value="3" class="form-control">
+											</div>
+											<div class="col-md-2 mt-3">
+												<label for="" class="form-label text-center"></label>
+												<input type="radio" name="actual_answer" value="4" class="form-control">
+											</div>
+											<input type="hidden" name="correct_answer">
+										</td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
-						<div class="row g-3">
-							<div class="col-md-12">
-								<div class="form-group">
-									<label class="title-color text-capitalize"
-										   for="exampleFormControlInput1">Expiry Date </label>
-									<input type="date" name="expiry_date" placeholder="Enter Expiry Date"  class="form-control" required autocomplete="off">
-								</div>
-							</div>
-						</div>
+						
 						<div class="d-flex justify-content-end gap-3">
 							<button type="reset" class="btn btn-secondary">Reset </button>
 							<button type="submit" class="btn btn--primary">Save </button>
@@ -117,19 +156,17 @@
 						<tr class="text-center">
 							<th>S no. </th>
 							<th>Quiz Category</th>
-							<th>Image</th>
 							<th>Quiz</th>
 							<th>Actions</th>
 						</tr>
 						</thead>
 
-						<tbody>
+						{{-- <tbody>
 							@foreach($quizes as $quiz)
 							<tr class="text-center">
 								<td>{{ $loop->iteration }}</td>
 								<td>{{ $quiz->quiz_category->name }}</td>
-								<td><img style="width: 40px;" src="{{$quiz->image}}"></td>
-								<td>{{ $quiz->name }}</td>
+								<td>{{ $quiz->question }}</td>
 								<td>
 									<div class="d-flex justify-content-center gap-2">
 										<a class="btn btn-outline--primary btn-sm edit square-btn"
@@ -151,7 +188,7 @@
 								</td>
 							</tr>
 							@endforeach
-						</tbody>
+						</tbody> --}}
 					</table>
 
 					

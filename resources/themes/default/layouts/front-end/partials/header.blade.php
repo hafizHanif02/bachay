@@ -63,7 +63,7 @@
                             <li class="nav-item position-relative">
                                 <a class="nav-link" href="{{ route('my-cart-address') }}">
                                     @if (isset(auth('customer')->user()->cart))
-                                        <div class="red-dot bg-warning position-absolute rounded-circle cart-w-h ms-2">
+                                        <div class="red-dot bg-warning position-absolute rounded-circle cart-w-h ms-2" style="width: 20px; height: 20px;">
                                         </div>
                                     @endif
                                     <i class="bi bi-cart3"></i> Cart

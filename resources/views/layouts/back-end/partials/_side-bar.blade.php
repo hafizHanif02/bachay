@@ -599,6 +599,17 @@
                                 </span>
                                 </a>
                             </li>
+                            <li class="navbar-vertical-aside-has-menu {{Request::is('admin/quiz*')?'active':''}}">
+                                <a class="js-navbar-vertical-aside-menu-link nav-link"
+                                   href="{{ route('admin.business-settings.quiz.question') }}" >
+                                   <i class="tio nav-icon">&#63;</i>
+                                    <span class="navbar-vertical-aside-mini-mode-hidden-elements text-truncate">
+                                    <span class="position-relative">
+                                        Question
+                                    </span>
+                                </span>
+                                </a>
+                            </li>
                         </li>
 
                         
