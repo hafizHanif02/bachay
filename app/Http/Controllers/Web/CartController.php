@@ -652,7 +652,7 @@ class CartController extends Controller
             $wishlistProductsArray = [];
             $cartProductsArray = [];
         }
-        return view(VIEW_FILE_NAMES['my-cart-added'], (compact('wishlistProductsArray', 'products', 'home_categories')));
+        return view(VIEW_FILE_NAMES['my-cart-added'], (compact('cartProductsArray','wishlistProductsArray', 'products', 'home_categories')));
     }
     public function add_payment()
     {
