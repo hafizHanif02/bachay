@@ -4,6 +4,7 @@ namespace App\Http\Controllers\api\V1\auth;
 
 use App\Models\Quiz;
 use App\Models\QuizAnswer;
+use App\Models\QuizCategory;
 use Illuminate\Http\Request;
 use App\Models\familyRelation;
 use App\Models\QuizSubmission;
@@ -35,9 +36,33 @@ class QuizController extends Controller
         }
     }
 
-    public function AllQuiz(){
-        $quiz = Quiz::with('answer')->get();
-        return response()->json($quiz, 200);
+    // public function AllQuiz(){
+    //     $quiz = Quiz::with('answer')->get();
+    //     return response()->json($quiz, 200);
+    // }
+
+    public function AllQuizCategory(){
+        $quizCategoryAll = QuizCategory::get();
+        if($quizCategoryAll == null){
+            return response()->json(['message' => 'Quiz Category Not Found'], 200);
+        }else{
+            foreach($quizCategoryAll as $quizCategory){
+                $quizCategoryImg = asset('public/assets/images/quiz/category/' . $quizCategory->image);
+                $quizCategory->image = $quizCategoryImg;
+            }
+            return response()->json($quizCategoryAll, 200);
+        }
+    }
+
+    public function QuizCategoryDetail($id){
+        $quizCategory = QuizCategory::where('id',$id)->with('quiz')->first();
+        if($quizCategory == null){
+            return response()->json(['message' => 'Quiz Category Not Found'], 200);
+        }else{
+            $quizCategoryImg = asset('public/assets/images/quiz/category/' . $quizCategory->image);
+            $quizCategory->image = $quizCategoryImg;
+            return response()->json($quizCategory, 200);
+        }
     }
 
     public function Quiz($id){

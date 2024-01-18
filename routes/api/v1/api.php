@@ -26,7 +26,9 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
 
     Route::group(['middleware' => 'auth:api','prefix' => 'auth', 'namespace' => 'auth'], function () {
         Route::group(['prefix' => 'quiz'],function(){
-            Route::get('all','QuizController@AllQuiz')->name('quiz.all');
+            Route::get('category','QuizController@AllQuizCategory')->name('category.all');
+            Route::get('category/{id}','QuizController@QuizCategoryDetail')->name('category.detail');
+            // Route::get('all','QuizController@AllQuiz')->name('quiz.all');
             Route::get('/{id}','QuizController@Quiz')->name('quiz.detail');
             Route::post('submit','QuizController@SubmitQuiz')->name('quiz.submit');
         });
