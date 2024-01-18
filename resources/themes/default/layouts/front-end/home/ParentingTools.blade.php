@@ -8,7 +8,7 @@
                 <div class="card-body bg-purple  ">
                     <div class="row">
                         <div class="col-12 text-center ">
-                            <span class="w-100 bg-white ps-3 pe-3 pt-1 pb-1  articles">
+                            <span class="w-100 bg-white ps-3 pe-3 pt-1 pb-1 articles">
                                 Articles
                             </span>
                         </div>
@@ -31,7 +31,7 @@
                 <div class="card-body bg-orange  ">
                     <div class="row">
                         <div class="col-12 text-center ">
-                            <span class="w-100 bg-white ps-3 pe-3 pt-1 pb-1  Contests">
+                            <span class="w-100 bg-white ps-3 pe-3 pt-1 pb-1 Contests">
                                 Contests
                             </span>
                         </div>
@@ -54,7 +54,7 @@
                 <div class="card-body bg-pink  ">
                     <div class="row">
                         <div class="col-12 text-center ">
-                            <span class="w-100 bg-white ps-2 pe-2 pt-1 pb-1  BabyNames">
+                            <span class="w-100 bg-white ps-2 pe-2 pt-1 pb-1 BabyNames">
                                 Baby Names
                             </span>
                         </div>
@@ -77,7 +77,7 @@
                 <div class="card-body bg-green  ">
                     <div class="row">
                         <div class="col-12 text-center ">
-                            <span class="w-100 bg-white ps-2 pe-2 pt-1 pb-1  Meal-Planner">
+                            <span class="w-100 bg-white ps-2 pe-2 pt-1 pb-1 Meal-Planner">
                                 Meal Planner
                             </span>
                         </div>
@@ -100,7 +100,7 @@
                 <div class="card-body bg-yellow">
                     <div class="row">
                         <div class="col-12 text-center">
-                            <span class="w-100 bg-white ps-1 pe-1 pt-1 pb-1  Vaccinations">
+                            <span class="w-100 bg-white ps-1 pe-1 pt-1 pb-1 Vaccinations">
                                 Vaccinations
                             </span>
                         </div>

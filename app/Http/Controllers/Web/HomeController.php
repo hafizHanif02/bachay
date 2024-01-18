@@ -265,10 +265,11 @@ class HomeController extends Controller
         // dd($wishlistProducts);
 
         // return $flash_deals_products;
+        
 
         return view(
             VIEW_FILE_NAMES[$viewName],
-            compact(
+            compact('cartProductsArray',
                 'wishlistProductsArray',
                 'featured_products',
                 'topRated',
