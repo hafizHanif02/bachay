@@ -254,11 +254,11 @@
                         </li>
                         <li class="nav-item position-relative">
                             <a class="nav-link" href="{{ route('my-cart-address') }}">
-                                <div class="position-relative">
+                                <div class="position-relative d-flex align-items-center">
                                     <span class="badge bg-yellow text-dark position-absolute top-0 start-50 translate-middle">
                                         {{ count($cartProductsArray) }}
                                     </span>
-                                    <i class="bi bi-cart3"></i> Cart
+                                    <i class="bi bi-cart3 me-1 mb-1"></i> Cart
                                 </div>
                             </a>
                         </li>

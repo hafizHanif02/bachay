@@ -1,8 +1,12 @@
 <div class="filter_aside border-right">
     <div class="delivery-details-heading d-flex justify-content-between align-items-center">
-        <h6 class="fs-12 m-0 fw-bold"> <img src="{{ asset('public/images/cart-img.svg') }}" alt=""> Check Delivery
+         <img src="{{ asset('public/images/cart-img.svg') }}" alt=""> 
+         <div class="mt-1">
+            <h6 class="fs-12 m-0 fw-bold">
+            Check Delivery
             Details</h6>
-        <div class="popup">
+        </div>
+        <div class="popup mt-1">
             <i class="bi bi-info-circle"></i></a>
             <div class="popup-content">
                 <a href="#">Choose your locality to get delivery time. Actual time may vary depending on other
@@ -11,10 +15,13 @@
             </div>
         </div>
     </div>
-    <div class="input-bar mt-2 position-relative p-1 rounded-pill">
+    <div class="input-bar mt-2 position-relative p-1 rounded-pill align-items-center">
         <form action="">
-            <input type="text" class="input-field" placeholder="Enter Pin Code" required>
-            <button class="input-button position-absolute rounded-pill">Check</button>
+            <input type="text" class="input-field mb-1" placeholder="Enter Pin Code" required>
+            <div>
+                <button class="input-button position-absolute rounded-pill">Check</button>
+            </div>
+            
         </form>
     </div>
     <div class="filter-by d-flex justify-content-between align-items-center pt-2 pb-2 mt-3">

@@ -640,6 +640,7 @@ line-height: 30px;
 }
 .dropdown_content a:hover {
     background-color: #ddd;
+    border-radius: 15px;
 }
 .sorted-by:hover .dropdown_content {
     display: block;
@@ -1148,8 +1149,8 @@ background-clip: text;
     border-radius: 5px;
     cursor: pointer;
     padding: 5px 20px;
-    right: 1%;
-    bottom: 10%;
+    right: 3%;
+    bottom: 14%;
     font-size: 8px;
 }
 /* gjhf? */
