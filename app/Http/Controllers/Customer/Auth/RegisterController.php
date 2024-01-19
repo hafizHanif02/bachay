@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Customer\Auth;
 
 use App\User;
+use Exception;
 use Carbon\Carbon;
 use App\Model\Cart;
 use App\CPU\Helpers;
@@ -13,6 +14,7 @@ use App\CPU\CartManager;
 use Carbon\CarbonInterval;
 use Illuminate\Http\Request;
 use App\Model\BusinessSetting;
+use App\Mail\EmailVerification;
 use function App\CPU\translate;
 use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
@@ -36,6 +38,7 @@ class RegisterController extends Controller
     {
         session()->put('keep_return_url', url()->previous());
         return view('customer-view.auth.register');
+
     }
 
     public function submit(Request $request)
@@ -56,7 +59,6 @@ class RegisterController extends Controller
         $extension = $file->getClientOriginalExtension();
         $filename = $file->getClientOriginalName();
         $picture = $request->image->move(public_path('assets/images/customers'), $filename);
-
         
         if($request->ajax()) {
             if ($validator->fails()) {
@@ -83,6 +85,32 @@ class RegisterController extends Controller
         if ($request->referral_code){
             $refer_user = User::where(['referral_code' => $request->referral_code])->first();
         }
+
+        $token = rand(1000, 9999);
+        DB::table('phone_or_email_verifications')->insert([
+            'phone_or_email' => $request['email'],
+            'token' => $token,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+
+        $token = PhoneOrEmailVerification::where('phone_or_email',$request['email'])->latest()->first();
+
+        $response_flag = 0;
+        $errormsg = "";
+            $emailServices_smtp = Helpers::get_business_settings('mail_config');
+            if ($emailServices_smtp['status'] == 0) {
+                $emailServices_smtp = Helpers::get_business_settings('mail_config_sendgrid');
+            }
+            if ($emailServices_smtp['status'] == 1) {
+                Mail::to($request->email)->send(new \App\Mail\EmailVerification($token->token));
+                $response_flag = 1;
+            }
+
+        // Mail::to($request->email)->send(new EmailVerification($token));
+
+       
 
 
         $user = User::create([
@@ -140,7 +168,7 @@ class RegisterController extends Controller
                 self::varificaton_check($user->id);
                 return redirect(route('customer.auth.check', [$user->id]));
             }
-            self::varificaton_check($user->id);
+            //self::varificaton_check($user->id);
             Toastr::success(translate('registration_success_login_now'));
             return redirect(route('customer.auth.login'));
         }
@@ -160,6 +188,17 @@ class RegisterController extends Controller
             'updated_at' => now(),
         ]);
 
+        $data = [
+            'name' => 'John Doe',
+            'message' => $token
+        ];
+
+        // Replace 'SampleEmail' with the name of your Mailable class
+        Mail::to($user->email)->send(new EmailVerification($data));
+
+        return 'Email sent successfully!';
+
+        
         $phone_verification = Helpers::get_business_settings('phone_verification');
         $email_verification = Helpers::get_business_settings('email_verification');
         if ($phone_verification && !$user->is_phone_verified) {
@@ -181,24 +220,23 @@ class RegisterController extends Controller
             Toastr::success($response);
         }
 
-        if ($email_verification && !$user->is_email_verified) {
             $emailServices_smtp = Helpers::get_business_settings('mail_config');
-            if ($emailServices_smtp['status'] == 0) {
-                $emailServices_smtp = Helpers::get_business_settings('mail_config_sendgrid');
-            }
-            if ($emailServices_smtp['status'] == 1) {
+            // if ($emailServices_smtp['status'] == 0) {
+            //     dd($emailServices_smtp);
+            //     $emailServices_smtp = Helpers::get_business_settings('mail_config_sendgrid');
+            // }
+            // if ($emailServices_smtp['status'] == 1) {
                 try{
-                    Mail::to($user->email)->send(new \App\Mail\EmailVerification($token));
+                    Mail::to($user->email)->send(new EmailVerification($token));
                     $response = translate('check_your_email');
-                } catch (\Exception $exception) {
+                } catch (Exception $exception) {
                     Toastr::error(translate('email_is_not_configured').'. '.translate('contact_with_the_administrator'));
                     return back();
                 }
-            }else{
-                $response= translate('email_failed');
-            }
+            // }else{
+            //     $response= translate('email_failed');
+            // }
             Toastr::success($response);
-        }
     }
 
     public static function check($id)

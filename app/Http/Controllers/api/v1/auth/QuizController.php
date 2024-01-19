@@ -43,17 +43,17 @@ class QuizController extends Controller
     // }
 
     public function AllQuizCategory(){
-        $quizCategoryAll = QuizCategory::get();
+        $quizCategoryAll = QuizCategory::with('quiz')->get();
         if($quizCategoryAll == null){
             return response()->json(['message' => 'Quiz Category Not Found'], 200);
         }else{
             foreach($quizCategoryAll as $quizCategory){
                 $quizCategoryImg = asset('public/assets/images/quiz/category/' . $quizCategory->image);
                 $quizCategory->image = $quizCategoryImg;
-                // foreach($quizCategory->quiz as $quiz){
-                //     $quizImg = asset('public/assets/images/quiz/' . $quiz->image);
-                //     $quiz->image = $quizImg;
-                // }
+                foreach($quizCategory->quiz as $quiz){
+                    $quizImg = asset('public/assets/images/quiz/' . $quiz->image);
+                    $quiz->image = $quizImg;
+                }
             }
             $promo = [];
             $all_category = [];

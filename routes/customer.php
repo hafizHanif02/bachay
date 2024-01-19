@@ -35,7 +35,7 @@ Route::group(['namespace' => 'Customer', 'prefix' => 'customer', 'as' => 'custom
         Route::post('sign-up', 'RegisterController@submit');
         Route::post('address', 'RegisterController@addressstore')->name('address.store');
 
-        Route::get('check/{id}', 'RegisterController@check')->name('check');
+        Route::get('check/{id}', 'RegisterController@varificaton_check')->name('check');
 
         // Customer Default Verify
         Route::post('verify', 'RegisterController@verify')->name('verify');

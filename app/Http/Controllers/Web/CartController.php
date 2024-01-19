@@ -1289,7 +1289,7 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
-
+        // dd($request);
         $cart = CartManager::add_to_cart($request);
         if ($cart['message'] == 'Out of stock!') {
             return redirect()->back()->with(['message' => 'Product is Out of Stock!', 'status' => 0]);
