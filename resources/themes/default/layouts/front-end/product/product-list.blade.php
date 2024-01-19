@@ -5,7 +5,7 @@
         <li class="nav-item sorted-by rounded-pill p-2 ps-4 pe-4">
             <div class="dropdown">
                 <a class="dropbtn nav-link">Sorted By: New Arrivals <i class="bi bi-chevron-down"></i></a>
-                <div class="dropdown-content">
+                <div class="dropdown_content">
                     <a href="#">Name</a>
                     <a href="#">Price</a>
 
