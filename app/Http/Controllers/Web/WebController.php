@@ -6813,7 +6813,10 @@ class WebController extends Controller
         }
         } else {
             $cart = $request->session()->get('cart', []);
-            $cart[] = $request->product_id;
+            if(!in_array($request->product_id, $cart)) {
+                
+                $cart[] = $request->product_id;
+            }
             $request->session()->put('cart', $cart);
             return response()->json(['status' => 'success', 'message' => 'Product added to cart']);
             // return response()->json(['status' => 'error', 'message' => 'Please Login First']);

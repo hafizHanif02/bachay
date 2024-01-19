@@ -62,14 +62,14 @@ class HomeController extends Controller
         if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
             // User is using a mobile device, load the mobile view
             return match ($theme_name) {
-                'default' => self::default_theme("home_mobile"),
+                'default' => self::default_theme($request, "home_mobile"),
                 'theme_aster' => self::theme_aster(),
                 'theme_fashion' => self::theme_fashion(),
                 'theme_all_purpose' => self::theme_all_purpose(),
             };
         } else {
             return match ($theme_name) {
-                'default' => self::default_theme("home"),
+                'default' => self::default_theme($request, "home"),
                 'theme_aster' => self::theme_aster(),
                 'theme_fashion' => self::theme_fashion(),
                 'theme_all_purpose' => self::theme_all_purpose(),
@@ -79,7 +79,7 @@ class HomeController extends Controller
 
     }
 
-    public function default_theme($viewName)
+    public function default_theme($request, $viewName)
     {
 
         $theme_name = theme_root_path();
@@ -235,8 +235,26 @@ class HomeController extends Controller
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
         } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
+
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
+
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
+            }
+
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
             $wishlistProductsArray = [];
-            $cartProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
         }
 
         // $current_date = Carbon::now();

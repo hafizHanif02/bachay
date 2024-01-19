@@ -120,7 +120,7 @@
                                 data-color="{{ $product->color }}" data-variant="{{ $product->variant }}"
                                 data-slug="{{ $product->slug }}" onclick="addToCart(this)">
                                 <i
-                                    class="bi cart-icon bi-cart  {{ in_array($product->id, $cartProductsArray) ? 'fill' : '' }} text-purple"></i>
+                                    class="bi cart-icon bi-cart{{ in_array($product->id, $cartProductsArray) ? '-fill' : '' }} text-purple"></i>
                             </button>
                         </div>
                     </div>
