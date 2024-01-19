@@ -1,58 +1,55 @@
-    <header>
-        <div class="desktop-nav">
-
-            <nav
-                class="container-xxl navbar navbar-expand-md d-flex justify-content-between align-items-center col-12 pb-0">
-                <div class="d-flex col-md-5">
-                    <a class="navbar-brand col-4" href="{{ url('/') }}">
-                        <img src="{{ asset('public/images/logo.png') }}" alt="Logo">
-                    </a>
-                    <form class="form-inline my-2 my-lg-0 col-7">
-                        <div class="search1 search-bar pt-2 pb-3 col-12">
-                            <input class="form-control pt-3 pb-3 mr-sm-2 search-input" type="text" name="search"
-                                id="search" placeholder="Search for a Category, Brand or Product"
-                                aria-label="Search" />
-                            <ul class="results" id="search-result"></ul>
-                            <div class="search-icon2">
-                                <i class="bi bi-search"></i>
-                            </div>
+<header>
+    <div class=" desktop-nav">
+        <nav class="container-xxl navbar navbar-expand-md d-flex justify-content-between align-items-center col-12 pb-0">
+            <div class="d-flex col-md-5">
+                <a class="navbar-brand col-4" href="{{ url('/') }}">
+                    <img src="{{ asset('public/images/logo.png') }}" alt="Logo">
+                </a>
+                <form class="form-inline my-2 my-lg-0 col-7">
+                    <div class="search1 search-bar pt-2 pb-3 col-12">
+                        <input class="form-control pt-3 pb-3 mr-sm-2 search-input" type="text" name="search"
+                            id="search" placeholder="Search for a Category, Brand or Product"
+                            aria-label="Search" />
+                        <ul class="results" id="search-result"></ul>
+                        <div class="search-icon2">
+                            <i class="bi bi-search"></i>
                         </div>
-                    </form>
-                </div>
-                <div>
-                    <ul class="navbar-nav mr-auto align-items-center gap-1 ">
-
-                        {{-- <li class="nav-item dropdown">
+                    </div>
+                </form>
+            </div>
+            <div>
+                <ul class="navbar-nav mr-auto align-items-center gap-1 ">
+                    <li class="nav-item dropdown">
                         <a class="dropbtn nav-link  ">Stores <i class="bi bi-caret-down-fill"></i></a>
-                        <div class="dropdown-content">
+                        {{-- <div class="dropdown-content">
                             <a href="#">Boys Clothing</a>
                             <a href="#">Girls Clothing</a>
-                        </div>
-                    </li> --}}
-                        <li class="nav-item active">
-                            <a class="nav-link  " href="#">Support</a>
-                        </li>
-                        <li class="nav-item active">
-                            <a class="nav-link  " href="{{ route('product-list') }}">Products</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Parenting</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('track-orders') }}">Track Order</a>
-                        </li>
+                        </div> --}}
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link  " href="#">Support</a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link  " href="{{ route('product-list') }}">Products</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Parenting</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('track-orders') }}">Track Order</a>
+                    </li>
 
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('my-shortlist') }}"><i class="bi bi-heart"></i>
-                                Wishlist</a>
-                        </li>
-                        {{-- @auth --}}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ route('my-shortlist') }}"><i class="bi bi-heart"></i>
+                            Wishlist</a>
+                    </li>
+                    {{-- @auth --}}
 
 
-                        {{-- @endauth --}}
-                        @auth('customer')
-                            {{-- <li class="nav-item">
-                            <a class="nav-link" href="#">Track Order</a>
+                    {{-- @endauth --}}
+                    @auth('customer')
+                        {{-- <li class="nav-item">
+                        <a class="nav-link" href="#">Track Order</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Parenting</a>
@@ -60,57 +57,58 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#"><i class="bi bi-heart"></i> Wishlist</a>
                         </li> --}}
-                            <li class="nav-item position-relative">
-                                <a class="nav-link" href="{{ route('my-cart-address') }}">
-                                    @if (isset(auth('customer')->user()->cart))
-                                        <div class="red-dot bg-warning position-absolute rounded-circle cart-w-h ms-2" style="width: 20px; height: 20px;">
-                                        </div>
-                                    @endif
-                                    <i class="bi bi-cart3"></i> Cart
-                                </a>
-                            </li>
-                            <li class="nav-item d-flex align-items-center ms-2">
-                                <div class="dropdown">
-                                    <a class="nav-link d-flex align-items-center gap-1 px-0">
-                                        <img class="rounded-circle"
-                                            src="{{ asset('public/assets/images/customers/' . auth('customer')->user()->image) }}"
-                                            alt="user avatar" height="30" width="30">Hello,
-
-                                        @if (strlen(auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name) <= 10)
-                                            <p class="m-0">
-                                                {{ auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name }}
-                                            </p>
-                                        @else
-                                            <p class="m-0">
-                                                {{ substr(auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name, 0, 10) }}...
-                                            </p>
-                                        @endif
-                                    </a>
-                                    <div class="dropdown-content">
-                                        <div class="d-flex align-items-center p-0 ps-3 dropdown_item">
-                                            <a class="nav-link p-2 text-center" href="{{ route('my-profile') }}">
-
-                                                <svg class="me-3" xmlns="http://www.w3.org/2000/svg" width="16"
-                                                    height="16" fill="currentColor" class="bi bi-person-plus"
-                                                    viewBox="0 0 16 16">
-                                                    <path
-                                                        d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
-                                                    <path fill-rule="evenodd"
-                                                        d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
-                                                </svg>
-                                                <div>
-                                                    <p class="text-start ms-2 mb-0">My Profile</p>
-                                            </a>
-                                        </div>
+                        <li class="nav-item position-relative">
+                            <a class="nav-link" href="{{ route('my-cart-address') }}">
+                                @if (isset(auth('customer')->user()->cart))
+                                    <div class="red-dot bg-warning position-absolute rounded-circle cart-w-h ms-2">
                                     </div>
+                                @endif
+                                <i class="bi bi-cart3"></i> Cart
+                            </a>
+                        </li>
+                        <li class="nav-item d-flex align-items-center ms-2">
+                            <div class="dropdown">
+                                <a class="nav-link d-flex align-items-center gap-1 px-0">
+                                    <img class="rounded-circle"
+                                        src="{{ asset('public/assets/images/customers/' . auth('customer')->user()->image) }}"
+                                        alt="user avatar" height="30" width="30">Hello,
 
-                                    <div class="d-flex align-items-center ps-3">
-                                        <a class="nav-link p-2 text-center" href="{{ route('my-order') }}">
-                                            <i class="bi bi-box2 me-3"></i>
+                                    @if (strlen(auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name) <= 10)
+                                        <p class="m-0">
+                                            {{ auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name }}
+                                        </p>
+                                    @else
+                                        <p class="m-0">
+                                            {{ substr(auth('customer')->user()->f_name . ' ' . auth('customer')->user()->l_name, 0, 10) }}...
+                                        </p>
+                                    @endif
+                                </a>
+                                <div class="dropdown-content">
+                                    <div class="d-flex align-items-center p-0 ps-3 dropdown_item">
+                                        <a class="nav-link p-2 text-center" href="{{ route('my-profile') }}">
+
+                                            <svg class="me-3" xmlns="http://www.w3.org/2000/svg" width="16"
+                                                height="16" fill="currentColor" class="bi bi-person-plus"
+                                                viewBox="0 0 16 16">
+                                                <path
+                                                    d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                                                <path fill-rule="evenodd"
+                                                    d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                                            </svg>
                                             <div>
-                                                <p class="text-start ms-2 mb-0">Order History</p>
+                                                <p class="text-start ms-2 mb-0">My Profile</p>
+                                            </div>
                                         </a>
                                     </div>
+                                </div>
+
+                                <div class="d-flex align-items-center ps-3">
+                                    <a class="nav-link p-2 text-center" href="{{ route('my-order') }}">
+                                        <i class="bi bi-box2 me-3"></i>
+                                        <div>
+                                            <p class="text-start ms-2 mb-0">Order History</p>
+                                        </div>
+                                    </a>
                                 </div>
                                 <div class="d-flex align-items-center p-0 ps-3">
                                     <a class="nav-link p-2 text-center" href="#">
@@ -123,143 +121,136 @@
                                         </svg>
                                         <div>
                                             <p class="text-start ms-2 mb-0"> My followed stores</p>
+                                        </div>
                                     </a>
                                 </div>
-                    </div>
-                    <div class="d-flex align-items-center p-0 ps-3">
-                        <a class="nav-link p-2 text-center" href="{{ route('manage-returns') }}">
-                            <svg class="me-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                                fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
-                                <path
-                                    d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1z" />
-                                <path
-                                    d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
-                            </svg>
-                            <div>
-                                <p class="text-start ms-2 mb-0">My Refunds & Cancellation</p>
-                        </a>
-                    </div>
-            </div>
-            <div class="d-flex align-items-center p-0 ps-3">
-                <a class="nav-link p-2 text-center" href="{{ route('manage-returns') }}">
-                    <svg class="me-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
-                        class="bi bi-ticket-detailed" viewBox="0 0 16 16">
-                        <path
-                            d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5M5 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2z" />
-                        <path
-                            d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5V6a.5.5 0 0 1-.5.5 1.5 1.5 0 0 0 0 3 .5.5 0 0 1 .5.5v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5V10a.5.5 0 0 1 .5-.5 1.5 1.5 0 1 0 0-3A.5.5 0 0 1 0 6zM1.5 4a.5.5 0 0 0-.5.5v1.05a2.5 2.5 0 0 1 0 4.9v1.05a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-1.05a2.5 2.5 0 0 1 0-4.9V4.5a.5.5 0 0 0-.5-.5z" />
-                    </svg>
-                    <div>
-                        <p class="text-start ms-2 mb-0">Personal details</p>
-                </a>
-            </div>
-            </div>
-            <div class="d-flex align-items-center p-0 ps-3">
-                <a class="nav-link megamenu_text p-2 text-center" href="{{ route('manage-returns') }}">
-                    <svg class="me-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                        fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5" />
-                    </svg>
-                    <div>
-                        <p class="text-start ms-2 mb-0">Manage Returns</p>
-                </a>
-            </div>
-            </div>
-            <div class="d-flex align-items-center p-0 ps-3">
-                <a class="nav-link p-2 text-center" href="{{ route('manage-returns') }}">
-                    <svg class="me-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                        fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
-                        <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
-                        <path
-                            d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2z" />
-                    </svg>
-                    <div>
-                        <p class="text-start ms-2 mb-0">Club Cash</p>
-                </a>
-            </div>
-            </div>
-            <div class="d-flex align-items-center p-0 ps-3">
-                <a class="nav-link p-2 text-center" href="{{ route('manage-returns') }}">
-                    <svg class="me-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                        fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
-                        <path fill-rule="evenodd"
-                            d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0" />
-                        <path
-                            d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z" />
-                    </svg>
-                    <div>
-                        <p class="text-start ms-2 mb-0">Gift Certification</p>
-                </a>
-            </div>
-            </div>
-            <div class="d-flex align-items-center p-0 ps-3">
-                <a class="nav-link p-2 text-center" href="{{ route('my-reviews-upload') }}">
-                    <svg class="me-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                        fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
-                        <path
-                            d="M5.354 5.119 7.538.792A.52.52 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.54.54 0 0 1 16 6.32a.55.55 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.5.5 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.6.6 0 0 1 .085-.302.51.51 0 0 1 .37-.245zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.56.56 0 0 1 .162-.505l2.907-2.77-4.052-.576a.53.53 0 0 1-.393-.288L8.001 2.223 8 2.226z" />
-                    </svg>
-                    <div>
-                        <p class="text-start ms-2 mb-0">My Reviews</p>
-                </a>
-            </div>
-            </div>
-            <div class="d-flex align-items-center p-0 ps-3">
-                <a class="nav-link p-2 text-center" href="{{ route('customer.auth.logout') }}">
-                    <svg class="me-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
-                        fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
-                        <path
-                            d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
-                        <path fill-rule="evenodd"
-                            d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
-                    </svg>
-                    <div>
-                        <p class="text-start ms-2 mb-0">Logout</p>
-
-                </a>
-            </div>
-
-            </div>
-            </div>
-
-            </li>
-        @else
-            <li class="nav-item d-flex align-items-center ms-2 ">
-                <a class="nav-link px-0" href="{{ route('customer.auth.login') }}">Login</a>
-                <span class="px-1">/</span>
-                <a class="nav-link px-0 me-2" href="{{ route('customer.auth.sign-up') }}">Register</a>
-            </li>
-            @php /*
-            <li class="nav-item position-relative">
-                                <a class="nav-link" href="{{ route('my-cart-address') }}">
-            {{-- @if (isset(auth()->user()->cart)) --}}
-            <div class="red-dot bg-warning position-absolute rounded-circle cart-w-h ms-2">
+                                <div class="d-flex align-items-center p-0 ps-3">
+                                    <a class="nav-link p-2 text-center" href="{{ route('manage-returns') }}">
+                                        <svg class="me-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-x-octagon" viewBox="0 0 16 16">
+                                            <path
+                                                d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353zM5.1 1 1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1z" />
+                                            <path
+                                                d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708" />
+                                        </svg>
+                                        <div>
+                                            <p class="text-start ms-2 mb-0">My Refunds & Cancellation</p>
                                         </div>
-            {{-- @endif --}}
-            <i class="bi bi-cart3"></i> Cart
-            </a>
-            </li>
-            */ @endphp 
-
-            <li class="nav-item position-relative">
-                <a class="nav-link" href="{{ route('my-cart-address') }}">
-                    <div class="red-dot bg-warning position-absolute rounded-circle cart-w-h ms-2">
-                    </div>
-                    {{ count($cartProductsArray) }}
-                    <i class="bi bi-cart3"></i>Cart
-                    <span id="cart-count"></span>
-                </a>
-            </li>
-        @endauth
-
-        {{-- @guest
+                                    </a>
+                                </div>
+                                <div class="d-flex align-items-center p-0 ps-3">
+                                    <a class="nav-link p-2 text-center" href="{{ route('manage-returns') }}">
+                                        <svg class="me-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                            class="bi bi-ticket-detailed" viewBox="0 0 16 16">
+                                            <path
+                                                d="M4 5.5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5m0 5a.5.5 0 0 1 .5-.5h7a.5.5 0 0 1 0 1h-7a.5.5 0 0 1-.5-.5M5 7a1 1 0 0 0 0 2h6a1 1 0 1 0 0-2z" />
+                                            <path
+                                                d="M0 4.5A1.5 1.5 0 0 1 1.5 3h13A1.5 1.5 0 0 1 16 4.5V6a.5.5 0 0 1-.5.5 1.5 1.5 0 0 0 0 3 .5.5 0 0 1 .5.5v1.5a1.5 1.5 0 0 1-1.5 1.5h-13A1.5 1.5 0 0 1 0 11.5V10a.5.5 0 0 1 .5-.5 1.5 1.5 0 1 0 0-3A.5.5 0 0 1 0 6zM1.5 4a.5.5 0 0 0-.5.5v1.05a2.5 2.5 0 0 1 0 4.9v1.05a.5.5 0 0 0 .5.5h13a.5.5 0 0 0 .5-.5v-1.05a2.5 2.5 0 0 1 0-4.9V4.5a.5.5 0 0 0-.5-.5z" />
+                                        </svg>
+                                        <div>
+                                            <p class="text-start ms-2 mb-0">Personal details</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="d-flex align-items-center p-0 ps-3">
+                                    <a class="nav-link megamenu_text p-2 text-center" href="{{ route('manage-returns') }}">
+                                        <svg class="me-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-arrow-return-left" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M14.5 1.5a.5.5 0 0 1 .5.5v4.8a2.5 2.5 0 0 1-2.5 2.5H2.707l3.347 3.346a.5.5 0 0 1-.708.708l-4.2-4.2a.5.5 0 0 1 0-.708l4-4a.5.5 0 1 1 .708.708L2.707 8.3H12.5A1.5 1.5 0 0 0 14 6.8V2a.5.5 0 0 1 .5-.5" />
+                                        </svg>
+                                        <div>
+                                            <p class="text-start ms-2 mb-0">Manage Returns</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="d-flex align-items-center p-0 ps-3">
+                                    <a class="nav-link p-2 text-center" href="{{ route('manage-returns') }}">
+                                        <svg class="me-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-cash" viewBox="0 0 16 16">
+                                            <path d="M8 10a2 2 0 1 0 0-4 2 2 0 0 0 0 4" />
+                                            <path
+                                                d="M0 4a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V6a2 2 0 0 1-2-2z" />
+                                        </svg>
+                                        <div>
+                                            <p class="text-start ms-2 mb-0">Club Cash</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="d-flex align-items-center p-0 ps-3">
+                                    <a class="nav-link p-2 text-center" href="{{ route('manage-returns') }}">
+                                        <svg class="me-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-patch-check" viewBox="0 0 16 16">
+                                            <path fill-rule="evenodd"
+                                                d="M10.354 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7 8.793l2.646-2.647a.5.5 0 0 1 .708 0" />
+                                            <path
+                                                d="m10.273 2.513-.921-.944.715-.698.622.637.89-.011a2.89 2.89 0 0 1 2.924 2.924l-.01.89.636.622a2.89 2.89 0 0 1 0 4.134l-.637.622.011.89a2.89 2.89 0 0 1-2.924 2.924l-.89-.01-.622.636a2.89 2.89 0 0 1-4.134 0l-.622-.637-.89.011a2.89 2.89 0 0 1-2.924-2.924l.01-.89-.636-.622a2.89 2.89 0 0 1 0-4.134l.637-.622-.011-.89a2.89 2.89 0 0 1 2.924-2.924l.89.01.622-.636a2.89 2.89 0 0 1 4.134 0l-.715.698a1.89 1.89 0 0 0-2.704 0l-.92.944-1.32-.016a1.89 1.89 0 0 0-1.911 1.912l.016 1.318-.944.921a1.89 1.89 0 0 0 0 2.704l.944.92-.016 1.32a1.89 1.89 0 0 0 1.912 1.911l1.318-.016.921.944a1.89 1.89 0 0 0 2.704 0l.92-.944 1.32.016a1.89 1.89 0 0 0 1.911-1.912l-.016-1.318.944-.921a1.89 1.89 0 0 0 0-2.704l-.944-.92.016-1.32a1.89 1.89 0 0 0-1.912-1.911z" />
+                                        </svg>
+                                        <div>
+                                            <p class="text-start ms-2 mb-0">Gift Certification</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="d-flex align-items-center p-0 ps-3">
+                                    <a class="nav-link p-2 text-center" href="{{ route('my-reviews-upload') }}">
+                                        <svg class="me-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-star-half" viewBox="0 0 16 16">
+                                            <path
+                                                d="M5.354 5.119 7.538.792A.52.52 0 0 1 8 .5c.183 0 .366.097.465.292l2.184 4.327 4.898.696A.54.54 0 0 1 16 6.32a.55.55 0 0 1-.17.445l-3.523 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256a.5.5 0 0 1-.146.05c-.342.06-.668-.254-.6-.642l.83-4.73L.173 6.765a.55.55 0 0 1-.172-.403.6.6 0 0 1 .085-.302.51.51 0 0 1 .37-.245zM8 12.027a.5.5 0 0 1 .232.056l3.686 1.894-.694-3.957a.56.56 0 0 1 .162-.505l2.907-2.77-4.052-.576a.53.53 0 0 1-.393-.288L8.001 2.223 8 2.226z" />
+                                        </svg>
+                                        <div>
+                                            <p class="text-start ms-2 mb-0">My Reviews</p>
+                                        </div>
+                                    </a>
+                                </div>
+                                <div class="d-flex align-items-center p-0 ps-3">
+                                    <a class="nav-link p-2 text-center" href="{{ route('customer.auth.logout') }}">
+                                        <svg class="me-3" xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                            fill="currentColor" class="bi bi-person-plus" viewBox="0 0 16 16">
+                                            <path
+                                                d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H1s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C9.516 10.68 8.289 10 6 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+                                            <path fill-rule="evenodd"
+                                                d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5" />
+                                        </svg>
+                                        <div>
+                                            <p class="text-start ms-2 mb-0">Logout</p>
+                                        </div>
+                                    </a>
+                                </div>
+                            </div>
+                        </li>
+                        @else
+                        {{-- <li class="nav-item position-relative">
+                            <a class="nav-link" href="{{ route('my-cart-address') }}"> --}}
+                                {{-- @if (isset(auth()->user()->cart)) --}}
+                                {{-- <div class="red-dot bg-warning position-absolute rounded-circle cart-w-h ms-2">
+                                </div> --}}
+                                {{-- @endif --}}
+                                {{-- <i class="bi bi-cart3"></i> Cart
+                            </a>
+                        </li> --}}
+                        <li class="nav-item d-flex align-items-center ms-2 ">
+                            <a class="nav-link px-0  " href="{{ route('customer.auth.login') }}">Login</a>
+                            <span class="px-1">/</span>
+                            <a class="nav-link px-0 me-2 " href="{{ route('customer.auth.sign-up') }}">Register</a>
+                        </li>
+                        <li class="nav-item position-relative">
+                            <a class="nav-link" href="{{ route('my-cart-address') }}">
+                                <div class="red-dot bg-warning position-absolute rounded-circle cart-w-h ms-2">
+                                </div>
+                                {{ count($cartProductsArray) }}
+                                <i class="bi bi-cart3"></i>Cart
+                                <span id="cart-count"></span>
+                            </a>
+                        </li>
+                    @endauth
+                    {{-- @guest
                         <li class="nav-item d-flex align-items-center ms-2 ">
                             <a class="nav-link px-0  " href="{{route('customer.auth.login')}}">Login</a>
                             <span class="px-1">/</span>
                             <a class="nav-link px-0  " href="{{route('customer.auth.sign-up')}}">Register</a>
                         </li>
-                    @else
+                        @else
                         <li class="nav-item">
                             <div class="dropdown">
                                 <a class="nav-link d-flex align-items-center gap-2" href="#">
@@ -280,8 +271,8 @@
                             </div>
                         </li>
                     @endguest --}}
-        </ul>
-        </div>
+                </ul>
+            </div>
         </nav>
 
         <div class="nav-btn" id="mega-menu" class="hide-on-med-and-down">
@@ -447,149 +438,148 @@
                             <img class="align-items-center mb-2 me-1" src="{{ asset('public/images/fire.gif') }}"
                                 alt="" width="17px" height="24px"> <span>Hot Deals</span>
                         </a>
-                        {{-- <div class="mega-menu-container">
-                                <div class="mega-menu-grid">
-                                    <div class="sub-nav-column">
-                                        <ul class="collection">
-                                            <li class="collection-item">
-                                                <h4>SHOP BY CATEGORY</h4>
-                                            </li>
-                                            <li><a href="#">Sets & Suits <span class="color">NEW</span></a>
-                                            </li>
-                                            <li><a href="#">T-shirts <span class="color">NEW</span></a></li>
-                                            <li><a href="">Nightwear</a></li>
-                                            <li><a href="#">Sweatshirts<span class="color">NEW</span></a></li>
-                                            <li><a href="#">Jackets <span class="color">NEW</span></a></li>
-                                            <li><a href="#">Sweaters<span class="color">NEW</span></a></li>
-                                            <li><a href="#">Ethnic Wear<span class="color">NEW</span></a></li>
-                                            <li><a href="#">Party Wear<span class="color">NEW</span></a></li>
-                                            <li><a href="#">Jeans & Trousers</a></li>
-                                            <li><a chref="#">Lounge & Trackpants</a></li>
-                                            <li><a href="#">Diaper & Bootie Leggings</a></li>
-                                            <li><a href="#">Shirts <span class="color">NEW</span></a></li>
-                                            <li><a href="#">Onesies & Rompers</a></li>
-                                            <li><a href="#">Athleisure & Sportswear</a></li>
-                                            <li><a href="#">Thermals <span class="color">NEW</span></a></li>
-                                            <li><a href="#">Inner Wear</a></li>
-                                            <li><a href="#">Caps & Gloves <span class="color">NEW</span></a>
-                                            </li>
-                                            <li><a href="#">Bath Time</a></li>
-                                            <li><a href="#">Swim Wear</a></li>
-                                            <li><a href="#">Rainwear</a></li>
-                                            <li><a href="#">Theme Costumes</a></li>
-                                            <li><a href="#">View All</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="sub-nav-column">
-                                        <ul class="collection">
-                                            <li class="collection-item">
-                                                <h4>SHOP BY COLLECTION</h4>
-                                            </li>
-                                            <li><a href="#">Fall For Fashion <span class="color">NEW</span></a>
-                                            </li>
-                                            <li><a href="#">Bestsellers</span></a></li>
-                                            <li><a href="">Multi-packs</a></li>
-                                            <li><a href="#">Baby Essentials <span class="color">NEW</span></a>
-                                            </li>
-                                            <div class="box"></div>
-                                            <li class="collection-item">
-                                                <h4>FASHION ACCESSORIES</h4>
-                                            </li>
-                                            <li><a href="#">Sunglasses</a></li>
-                                            <li><a href="#">Summer Caps <span class="color">NEW</span></a></li>
-                                            <li><a href="#">Watches <span class="color">NEW</span></a></li>
-                                            <li><a href="#">Ties, Belts & Suspenders <span
-                                                        class="color">NEW</span></a>
-                                            </li>
-                                            <li><a href="#">Bags</a></li>
-                                            <li><a href="#">Kids Umbrellas</a></li>
-                                            <div class="box"></div>
-                                            <li class="collection-item">
-                                                <h4>FOOTWEAR</h4>
-                                            </li>
-                                            <li><a href="#">Casual Shoes <span class="color">NEW</span></a>
-                                            </li>
-                                            <li><a href="#">Sneakers & Sports Shoes <span
-                                                        class="color">NEW</span></a>
-                                            </li>
-                                            <li><a href="#">Formal & Partywear <span
-                                                        class="color">NEW</span></a>
-                                            </li>
-                                            <li><a href="#">Booties</a></li>
-                                            <li><a href="#">Clogs </a></li>
-                                            <li><a href="#">Flip Flops</a></li>
-                                            <li><a href="#">Sandals</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="sub-nav-column">
-                                        <ul class="collection">
-                                            <li class="collection-item">
-                                                <h4>SHOP BY AGE</h4>
-                                            </li>
-                                            <li><a href="#">Preemie/Tine Preemie</a></li>
-                                            <li><a href="#">New Born (0-3 M)</span></a></li>
-                                            <li><a href="">3-6 Months</a></li>
-                                            <li><a href="#">6-9 Months</a></li>
-                                            <li><a href="#">9-12 Months</span></a></li>
-                                            <li><a href="#">12-18 Months</a></li>
-                                            <li><a href="#">18-24 Months</a></li>
-                                            <li><a href="#">2 to 4 Years</a></li>
-                                            <li><a href="#">4 to 6 Years</a></li>
-                                            <li><a href="#">6 to 8 Years</a></li>
-                                            <li><a href="#">8+ Years </a></li>
-                                            <div class="box"></div>
-                                            <li class="collection-item">
-                                                <h4>SHOP BY PRICE</h4>
-                                            </li>
-                                            <li><a href="#">All Under 199</a></li>
-                                            <li><a href="#">All Under 299</a></li>
-                                            <li><a href="#">All Under 399</a></li>
-                                            <li><a href="#">All Under 499</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="sub-nav-column">
-                                        <ul class="collection">
-                                            <li class="collection-item">
-                                                <h4>SHOP BY BRANDS</h4>
-                                            </li>
-                                            <li><a href="#">Babyhug</a></li>
-                                            <li><a href="#">Babyoye</a></li>
-                                            <li><a href="">Kookie Kids</a></li>
-                                            <li><a href="#">Carter's</a></li>
-                                            <li><a href="#">Pine Kids</a></li>
-                                            <li><a href="#">Cute Walk</a></li>
-                                            <li><a href="#">Honeyhap</a></li>
-                                            <li><a href="#">OLLINGTON ST.</a></li>
-                                            <li><a href="#">Doodle Poodle</a></li>
-                                            <li><a href="#">Primo Gino</a></li>
-                                            <li><a href="#">Mark & Mia</a></li>
-                                            <li><a href="#">Bonfino</a></li>
-                                            <li><a href="#">Earthy Touch</a></li>
-                                            <li><a href="#">Arias by Lara Dutta</a></li>
-                                            <li><a href="#">Pine Active</a></li>
-                                            <li><a href="#">ToffyHouse</a></li>
-                                            <li><a href="#">Ed-a-mamma</a></li>
-                                            <li><a href="#">UCB</a></li>
-                                            <li><a href="#">U.S. Polo Assn. Kids</a></li>
-                                            <li><a href="#">Monte Carlo</a></li>
-                                            <li><a href="#">Gini & Jony</a></li>
-                                            <li><a href="#">Puma</a></li>
-                                            <li><a href="#">Tommy Hilfiger</a></li>
-                                            <li><a href="#">ADIDAS KIDS</a></li>
-                                            <li><a href="#">RUFF</a></li>
-                                            <li><a href="#">Puma</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="sub-nav-column">
-                                        <div class="z-depth-1 polariod">
-                                            <img class="object-fit-cover rounded-3"
-                                                src="{{ asset('public/images/img2.2.webp') }}" alt="image 2"
-                                                class="theme responsive-img" width="100%" height="100%">
+                        <div class="mega-menu-container">
+                            <div class="mega-menu-grid">
+                                <div class="sub-nav-column">
+                                    <ul class="collection">
+                                        <li class="collection-item">
+                                            <h4>SHOP BY CATEGORY</h4>
+                                        </li>
+                                        <li><a href="#">Sets & Suits <span class="color">NEW</span></a>
+                                        </li>
+                                        <li><a href="#">T-shirts <span class="color">NEW</span></a></li>
+                                        <li><a href="">Nightwear</a></li>
+                                        <li><a href="#">Sweatshirts<span class="color">NEW</span></a></li>
+                                        <li><a href="#">Jackets <span class="color">NEW</span></a></li>
+                                        <li><a href="#">Sweaters<span class="color">NEW</span></a></li>
+                                        <li><a href="#">Ethnic Wear<span class="color">NEW</span></a></li>
+                                        <li><a href="#">Party Wear<span class="color">NEW</span></a></li>
+                                        <li><a href="#">Jeans & Trousers</a></li>
+                                        <li><a chref="#">Lounge & Trackpants</a></li>
+                                        <li><a href="#">Diaper & Bootie Leggings</a></li>
+                                        <li><a href="#">Shirts <span class="color">NEW</span></a></li>
+                                        <li><a href="#">Onesies & Rompers</a></li>
+                                        <li><a href="#">Athleisure & Sportswear</a></li>
+                                        <li><a href="#">Thermals <span class="color">NEW</span></a></li>
+                                        <li><a href="#">Inner Wear</a></li>
+                                        <li><a href="#">Caps & Gloves <span class="color">NEW</span></a>
+                                        </li>
+                                        <li><a href="#">Bath Time</a></li>
+                                        <li><a href="#">Swim Wear</a></li>
+                                        <li><a href="#">Rainwear</a></li>
+                                        <li><a href="#">Theme Costumes</a></li>
+                                        <li><a href="#">View All</a></li>
+                                    </ul>
+                                </div>
+                                <div class="sub-nav-column">
+                                    <ul class="collection">
+                                        <li class="collection-item">
+                                            <h4>SHOP BY COLLECTION</h4>
+                                        </li>
+                                        <li><a href="#">Fall For Fashion <span class="color">NEW</span></a>
+                                        </li>
+                                        <li><a href="#">Bestsellers</span></a></li>
+                                        <li><a href="">Multi-packs</a></li>
+                                        <li><a href="#">Baby Essentials <span class="color">NEW</span></a>
+                                        </li>
+                                        <div class="box"></div>
+                                        <li class="collection-item">
+                                            <h4>FASHION ACCESSORIES</h4>
+                                        </li>
+                                        <li><a href="#">Sunglasses</a></li>
+                                        <li><a href="#">Summer Caps <span class="color">NEW</span></a></li>
+                                        <li><a href="#">Watches <span class="color">NEW</span></a></li>
+                                        <li><a href="#">Ties, Belts & Suspenders <span
+                                                    class="color">NEW</span></a>
+                                        </li>
+                                        <li><a href="#">Bags</a></li>
+                                        <li><a href="#">Kids Umbrellas</a></li>
+                                        <div class="box"></div>
+                                        <li class="collection-item">
+                                            <h4>FOOTWEAR</h4>
+                                        </li>
+                                        <li><a href="#">Casual Shoes <span class="color">NEW</span></a>
+                                        </li>
+                                        <li><a href="#">Sneakers & Sports Shoes <span
+                                                    class="color">NEW</span></a>
+                                        </li>
+                                        <li><a href="#">Formal & Partywear <span class="color">NEW</span></a>
+                                        </li>
+                                        <li><a href="#">Booties</a></li>
+                                        <li><a href="#">Clogs </a></li>
+                                        <li><a href="#">Flip Flops</a></li>
+                                        <li><a href="#">Sandals</a></li>
+                                    </ul>
+                                </div>
+                                <div class="sub-nav-column">
+                                    <ul class="collection">
+                                        <li class="collection-item">
+                                            <h4>SHOP BY AGE</h4>
+                                        </li>
+                                        <li><a href="#">Preemie/Tine Preemie</a></li>
+                                        <li><a href="#">New Born (0-3 M)</span></a></li>
+                                        <li><a href="">3-6 Months</a></li>
+                                        <li><a href="#">6-9 Months</a></li>
+                                        <li><a href="#">9-12 Months</span></a></li>
+                                        <li><a href="#">12-18 Months</a></li>
+                                        <li><a href="#">18-24 Months</a></li>
+                                        <li><a href="#">2 to 4 Years</a></li>
+                                        <li><a href="#">4 to 6 Years</a></li>
+                                        <li><a href="#">6 to 8 Years</a></li>
+                                        <li><a href="#">8+ Years </a></li>
+                                        <div class="box"></div>
+                                        <li class="collection-item">
+                                            <h4>SHOP BY PRICE</h4>
+                                        </li>
+                                        <li><a href="#">All Under 199</a></li>
+                                        <li><a href="#">All Under 299</a></li>
+                                        <li><a href="#">All Under 399</a></li>
+                                        <li><a href="#">All Under 499</a></li>
+                                    </ul>
+                                </div>
+                                <div class="sub-nav-column">
+                                    <ul class="collection">
+                                        <li class="collection-item">
+                                            <h4>SHOP BY BRANDS</h4>
+                                        </li>
+                                        <li><a href="#">Babyhug</a></li>
+                                        <li><a href="#">Babyoye</a></li>
+                                        <li><a href="">Kookie Kids</a></li>
+                                        <li><a href="#">Carter's</a></li>
+                                        <li><a href="#">Pine Kids</a></li>
+                                        <li><a href="#">Cute Walk</a></li>
+                                        <li><a href="#">Honeyhap</a></li>
+                                        <li><a href="#">OLLINGTON ST.</a></li>
+                                        <li><a href="#">Doodle Poodle</a></li>
+                                        <li><a href="#">Primo Gino</a></li>
+                                        <li><a href="#">Mark & Mia</a></li>
+                                        <li><a href="#">Bonfino</a></li>
+                                        <li><a href="#">Earthy Touch</a></li>
+                                        <li><a href="#">Arias by Lara Dutta</a></li>
+                                        <li><a href="#">Pine Active</a></li>
+                                        <li><a href="#">ToffyHouse</a></li>
+                                        <li><a href="#">Ed-a-mamma</a></li>
+                                        <li><a href="#">UCB</a></li>
+                                        <li><a href="#">U.S. Polo Assn. Kids</a></li>
+                                        <li><a href="#">Monte Carlo</a></li>
+                                        <li><a href="#">Gini & Jony</a></li>
+                                        <li><a href="#">Puma</a></li>
+                                        <li><a href="#">Tommy Hilfiger</a></li>
+                                        <li><a href="#">ADIDAS KIDS</a></li>
+                                        <li><a href="#">RUFF</a></li>
+                                        <li><a href="#">Puma</a></li>
+                                    </ul>
+                                </div>
+                                <div class="sub-nav-column">
+                                    <div class="z-depth-1 polariod">
+                                        <img class="object-fit-cover rounded-3"
+                                            src="{{ asset('public/images/img2.2.webp') }}" alt="image 2"
+                                            class="theme responsive-img" width="100%" height="100%">
 
-                                        </div>
                                     </div>
                                 </div>
-                            </div> --}}
+                            </div>
+                        </div>
                     </li>
                     <li><a href="{{ route('product-list') }}" class="drp-btn">Girls Fashion</a>
                         <div class="mega-menu-container">
@@ -2192,8 +2182,8 @@
                 </ul>
             </div>
         </div>
-        </div>
-    </header>
+    </div>
+</header>
     <style>
         .fBorder {
             border-bottom: 1px solid transparent;
@@ -2207,97 +2197,3 @@
             border-image-slice: 1;
         }
     </style>
-    <script>
-
-    </script>
-    {{-- <script>
-        // Add this function to update the cart count
-        function updateCartCount() {
-            $.ajax({
-                type: "GET",
-                url: "/get-cart-count", // Create a route for fetching cart count
-                success: function(data) {
-                    $("#cart-count").text(data.count);
-                },
-                error: function() {
-                    console.error("Error fetching cart count");
-                },
-            });
-        }
-
-        // Update the addToCart function to fetch cart count after adding to the cart
-        function addToCart(button) {
-            // ... (existing code)
-
-            $.ajax({
-                type: "POST",
-                url: "/add-to-carts",
-                data: {
-                    // ... (existing data)
-                },
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                },
-                dataType: "json",
-                success: function(data, status, xhr) {
-                    var cartIcon = $(button).find("i");
-                    if (xhr.status === 200) {
-                        cartIcon.toggleClass("bi-cart bi-cart-fill text-purple");
-                        if (cartIcon.hasClass("bi-cart")) {
-                            deleteFromCart(productId);
-                        }
-                    } else if (xhr.status === 201) {
-                        alert("Something went wrong");
-                    }
-
-                    // Fetch and update the cart count
-                    updateCartCount();
-                },
-                error: function(response) {
-                    // ... (existing code)
-                },
-            });
-        }
-
-        // Add this function to update the cart count after deleting from the cart
-        function deleteFromCart(productId) {
-            $.ajax({
-                type: "POST",
-                url: "/delete-cart",
-                data: {
-                    productId: productId,
-                },
-                headers: {
-                    "X-CSRF-TOKEN": $('meta[name="csrf-token"]').attr("content"),
-                },
-                dataType: "json",
-                success: function(data, status, xhr) {
-                    if (xhr.status === 200) {
-                        Swal.fire(
-                            "Deleted!",
-                            "Your product has been removed from Cart.",
-                            "success"
-                        );
-
-                        // Fetch and update the cart count
-                        updateCartCount();
-                    } else {
-                        alert(
-                            "Failed to delete from cart. Server returned: " +
-                            xhr.status +
-                            " " +
-                            xhr.statusText
-                        );
-                    }
-                },
-                error: function(xhr, status, error) {
-                    alert("Error occurred while deleting from cart");
-                },
-            });
-        }
-
-        // Call the updateCartCount function when the page loads
-        $(document).ready(function() {
-            updateCartCount();
-        });
-    </script> --}}
