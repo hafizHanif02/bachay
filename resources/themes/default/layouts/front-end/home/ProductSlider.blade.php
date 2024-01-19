@@ -1,7 +1,7 @@
 <div class="sub-contain container-fluid">
     <div class="row mb-4">
         <div class="col-12 d-flex justify-content-between align-items-center">
-            <h1 class="textClr m-0">Autumn Whisper</h1>
+            <h1 class="textClr m-0 mt-2">Autumn Whisper</h1>
             <a class="d-flex align-items-center text-dark" href="{{ route('product-list') }}">
                 <h6 class="m-0">See All</h6>
             </a>
@@ -10,7 +10,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 
-    <div class="row">
+    <div class="row bg-white">
         @foreach ($latest_products as $products)
             <div class="col-md-4 custom-xl-20 col-xl-3 col-lg-4 mb-4">
                 <div class="sub-card rounded-3 p-4 pb-0">

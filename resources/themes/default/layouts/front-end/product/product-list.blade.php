@@ -6,8 +6,8 @@
             <div class="dropdown">
                 <a class="dropbtn nav-link">Sorted By: New Arrivals <i class="bi bi-chevron-down"></i></a>
                 <div class="dropdown-content">
-                    <a href="#">Winter</a>
-                    <a href="#">Summer</a>
+                    <a href="#">Name</a>
+                    <a href="#">Price</a>
 
                 </div>
             </div>
