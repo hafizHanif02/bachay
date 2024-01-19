@@ -68,30 +68,18 @@
                             </a>
                         </li> --}}
                         
-                        {{-- <li class="nav-item position-relative">
-                            <a class="nav-link" href="{{ route('my-cart-address') }}">
-                                @php
-                                    $cartCount = optional(auth('customer')->user()->cart)->count();
-                                @endphp
-                        
-                                <i class="bi bi-cart3"></i> Cart
-                        
-                                @if ($cartCount > 0)
-                                    <span class="badge bg-warning text-dark position-absolute rounded-pill cart-count prodQuant cart-icon B18_orange paddinglft">
-                                        {{ $cartCount }}
-                                    </span>
-                                @endif
-                            </a>
-                        </li> --}}
                         <li class="nav-item position-relative">
                             <a class="nav-link" href="{{ route('my-cart-address') }}">
-                                <div class="red-dot bg-warning position-absolute rounded-circle cart-w-h ms-2">
+                                <div class="position-relative">
+                                    <span class="badge bg-yellow text-dark position-absolute top-0 start-50 translate-middle">
+                                        {{ count($cartProductsArray) }}
+                                    </span>
+                                    <i class="bi bi-cart3"></i> Cart
                                 </div>
-                                {{ count($cartProductsArray) }}
-                                <i class="bi bi-cart3"></i>Cart
-                                <span id="cart-count"></span>
                             </a>
                         </li>
+                        
+                        
 
                         
                         
@@ -266,13 +254,15 @@
                         </li>
                         <li class="nav-item position-relative">
                             <a class="nav-link" href="{{ route('my-cart-address') }}">
-                                <div class="red-dot bg-warning position-absolute rounded-circle cart-w-h ms-2">
+                                <div class="position-relative">
+                                    <span class="badge bg-yellow text-dark position-absolute top-0 start-50 translate-middle">
+                                        {{ count($cartProductsArray) }}
+                                    </span>
+                                    <i class="bi bi-cart3"></i> Cart
                                 </div>
-                                {{ count($cartProductsArray) }}
-                                <i class="bi bi-cart3"></i>Cart
-                                <span id="cart-count"></span>
                             </a>
                         </li>
+                        
                     @endauth
                     {{-- @guest
                         <li class="nav-item d-flex align-items-center ms-2 ">
