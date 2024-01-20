@@ -140,7 +140,7 @@
                             {{ translate('forgot_password') }}?
                         </a>
                     </div>
-                    @php($recaptcha = \App\CPU\Helpers::get_business_settings('recaptcha'))
+                    {{-- @php($recaptcha = \App\CPU\Helpers::get_business_settings('recaptcha'))
                     @if (isset($recaptcha) && $recaptcha['status'] == 1)
                         <div id="recaptcha_element" class="w-100" data-type="image"></div>
                         <br />
@@ -159,7 +159,7 @@
                                 </a>
                             </div>
                         </div>
-                    @endif
+                    @endif --}}
                     <button style="background: var( --greadient-normal, linear-gradient( 270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17% ) );" class="loginBtn custom-btn btn btn-block btn-shadow text-light border-none col-12 rounded-pill mt-2" type="submit">{{ translate('log_in') }}</button>
                 </form>
                 <div class="text-center my-3 text-black-50">

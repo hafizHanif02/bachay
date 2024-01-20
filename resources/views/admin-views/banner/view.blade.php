@@ -115,7 +115,7 @@
                                         <label for="product_id"
                                                class="title-color text-capitalize">{{translate('deals')}}</label>
                                         <select class="js-example-responsive form-control w-100"
-                                                name="product_id">
+                                                name="deals_id">
                                             @foreach(\App\Model\FlashDeal::get() as $flashdeal)
                                                 <option value="{{$flashdeal['id']}}">{{$flashdeal['title']}}</option>
                                             @endforeach

@@ -65,7 +65,7 @@ class LoginController extends Controller
     }
     public function tokenView( Request $request )
     {
-
+        
         $token = rand(1000, 9999);
         DB::table('phone_or_email_verifications')->insert([
             'phone_or_email' => $request['user_id'],
@@ -73,10 +73,8 @@ class LoginController extends Controller
             'created_at' => now(),
             'updated_at' => now(),
         ]);
-
-
+        $phone = User::where('email', $request['user_id'])->orWhere('phone', $request['user_id'])->pluck('phone')->first();
         $token = PhoneOrEmailVerification::where('phone_or_email',$request['user_id'])->latest()->first();
-
         $response_flag = 0;
         $errormsg = "";
             $emailServices_smtp = Helpers::get_business_settings('mail_config');
@@ -87,6 +85,56 @@ class LoginController extends Controller
                 Mail::to($request->user_id)->send(new EmailVerification($token->token));
                 $response_flag = 1;
             }
+
+
+            $curl = curl_init();
+            $url = 'https://graph.facebook.com/v18.0/235106213008560/messages';
+                curl_setopt($curl, CURLOPT_URL, $url);
+                curl_setopt($curl, CURLOPT_HTTPHEADER, array('Authorization:Bearer EAAFTwPfvu6IBOxon9H1g7FDwrP30To11IHXYTOPQFTRZCshZCDC5dyfwYCzXZB9UamL8meP8rzbMyOgFFvmPPBnbxMcLs8qf49pqipkXGonoMxxuEUAmxrGy91vO86JpsnZAZBELefAoDQJHjD0oZAkG6k8SuelUK6viLUQAIbOl694ZAJf0xd2vR8PHonnKs9PMCDZCPr82K4Kh5rU8', 'Content-Type: application/json'));
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+                $data = array(
+                    "messaging_product" => "whatsapp",
+                    "recipient_type" => "individual",
+                    "to" => $phone,
+                    "type" => "template",
+                    "template" => array(
+                        "name" => "bachay_otp",
+                        "language" => array(
+                            "code" => "en"
+                        ),
+                        "components" => array(
+                            array(
+                                "type" => "body",
+                                "parameters" => array(
+                                    array(
+                                        "type" => "text",
+                                        "text" => $token->token
+                                    )
+                                )
+                            ),
+                            array(
+                                "type" => "button",
+                                "sub_type" => "url",
+                                "index" => "0",
+                                "parameters" => array(
+                                    array(
+                                        "type" => "text",
+                                        "text" => $token->token
+                                    )
+                                )
+                            )
+                        )
+                    )
+                );
+                
+                $fields_string = json_encode($data);
+                //echo $fields_string;
+                //echo $fields_string;
+                //echo "<br/>";
+                curl_setopt($curl, CURLOPT_POSTFIELDS, $fields_string);
+                $resp = curl_exec($curl);
+                curl_close($curl);
+                // return $resp;
 
         session()->put('keep_return_url', url()->previous());
 

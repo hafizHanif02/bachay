@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\V1\Customer\CMS;
 
 use Carbon\Carbon;
+use App\Model\Banner;
 use App\Model\Category;
 use App\Models\Article;
 use App\Model\FlashDeal;
@@ -177,12 +178,28 @@ class HomeController extends Controller
     public function FlashDealProduct(Request $request){
         $currentDate = Carbon::now();
         $flashdeals = FlashDeal::with('products.product')->where(['status' => 1, 'id'=>$request->id])->whereDate('start_date','<=',date('Y-m-d'))->whereDate('end_date','>=',date('Y-m-d'))->get();
+        foreach($flashdeals as $flashdeal){
+            $banners =  Banner::where([
+                'resource_type' => 'deals',
+                'resource_id' => $flashdeal->id
+            ])->get();
+            
+            $organizedBanners = [];
+            foreach ($banners as $banner) {
+                $banner->photo = asset('storage/app/public/banner/' . $banner->photo);
+                $banner->mobile_photo = asset('storage/app/public/banner/mobile/' . $banner->mobile_photo);
+                $bannerType = $banner->banner_type;
+                if (!isset($organizedBanners[$bannerType])) {
+                    $organizedBanners[$bannerType] = [];
+                }
+                $organizedBanners[$bannerType][] = $banner;
+            }
+            $flashdeal['banners'] = $organizedBanners;
+        }
 
         $formattedFlashDeals = [];
 
         foreach($flashdeals[0]->products as $flashProduct){
-
-
             $flashProduct->product->thumbnail = asset('storage/app/public/product/thumbnail/' . $flashProduct->product->thumbnail);
         }
 
@@ -200,6 +217,35 @@ class HomeController extends Controller
         }
         $imageUrls = array_values($imageUrls);
         return response()->json($imageUrls, 200);
+    }
+
+    public function CategoryDetail($id){
+        $category = Category::where('id',$id)->with(['childes.product','product'])->first();
+
+            $url = asset('storage/app/public/category/' . $category->icon);
+            $category->image = $url;
+
+            $banners = Banner::where([
+                'resource_type' => 'category',
+                'resource_id' => $category->id,
+            ])->get();
+
+            foreach($category->product as $product){
+                $product->thumbnail = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
+            }
+
+            $organizedBanners = [];
+            foreach ($banners as $banner) {
+                $banner->photo = asset('storage/app/public/banner/' . $banner->photo);
+                $banner->mobile_photo = asset('storage/app/public/banner/mobile/' . $banner->mobile_photo);       
+                $bannerType = $banner->banner_type;
+                if (!isset($organizedBanners[$bannerType])) {
+                    $organizedBanners[$bannerType] = [];
+                }
+                $organizedBanners[$bannerType][] = $banner;
+            }
+            $category['banners'] = $organizedBanners;   
+        return response()->json($category, 200);
     }
 
     public function AllArticle(){

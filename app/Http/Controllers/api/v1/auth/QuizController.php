@@ -19,18 +19,20 @@ class QuizController extends Controller
         if(Auth::check()){
             $user = Auth::user();
             $child = familyRelation::where(['id'=> $request->child_id, 'user_id' => $user->id])->first();
-            $quiz = QuizQuestion::where('id', $request->question_id)->with('answer')->first();
-            $quizanswer = QuizAnswer::where('id', $request->answer_id)->first();
-            if($child != null){
-                $quizsubmission = new QuizSubmission();
-                $quizsubmission->quiz_id = $quiz->id;
-                $quizsubmission->child_id = $child->id;
-                $quizsubmission->user_id = $user->id;
-                $quizsubmission->answer_id = $request->answer_id;
-                $quizsubmission->save();
-                return response()->json(['message' => 'Quiz Submitted Successfully'], 200);
-            }else{
-                return response()->json(['errors' => translate('Child Not Found!')], 401);
+            foreach($request->question as $question){
+                $quiz = QuizQuestion::where('id', $question['question_id'])->with('answer')->first();
+                $quizanswer = QuizAnswer::where('id', $question['answer_id'])->first();
+                if($child != null){
+                    $quizsubmission = new QuizSubmission();
+                    $quizsubmission->quiz_id = $quiz->id;
+                    $quizsubmission->child_id = $child->id;
+                    $quizsubmission->user_id = $user->id;
+                    $quizsubmission->answer_id = $question['answer_id'];
+                    $quizsubmission->save();
+                    return response()->json(['message' => 'Quiz Submitted Successfully'], 200);
+                }else{
+                    return response()->json(['errors' => translate('Child Not Found!')], 401);
+                }
             }
         }else{
             return response()->json(['errors' => translate('Please login first!')], 401);
