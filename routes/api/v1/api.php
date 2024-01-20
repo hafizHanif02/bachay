@@ -48,7 +48,8 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
     Route::group(['prefix' => 'auth', 'namespace' => 'auth'], function () {
         Route::get('user', 'PassportAuthController@details');
         Route::post('register', 'PassportAuthController@register');
-        Route::post('login', 'PassportAuthController@login');
+        Route::post('login', 'PassportAuthController@code');
+        Route::post('code', 'PassportAuthController@login')->name('login');
         Route::post('logout', 'PassportAuthController@logout')->middleware('auth:api');
 
         Route::post('check-phone', 'PhoneVerificationController@check_phone');
