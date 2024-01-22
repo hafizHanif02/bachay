@@ -30,7 +30,7 @@ class PassportAuthController extends Controller
         }else{
             $filename = null;
         }
-        
+
         $validator = Validator::make($request->all(), [
             'f_name' => 'required',
             'l_name' => 'required',
@@ -138,7 +138,7 @@ class PassportAuthController extends Controller
                         )
                     )
                 );
-                
+
                 $fields_string = json_encode($data);
                 //echo $fields_string;
                 //echo $fields_string;
@@ -146,7 +146,7 @@ class PassportAuthController extends Controller
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $fields_string);
                 $resp = curl_exec($curl);
                 curl_close($curl);
-                // return $resp;
+                //return $resp;
 
         session()->put('keep_return_url', url()->previous());
         return response()->json(['message' => 'Check Your Mail or Whatsapp for OTP'], 200);
@@ -181,12 +181,12 @@ class PassportAuthController extends Controller
                     ], 403);
                 }
             }
-    
+
             $data = [
                 $medium => $user_id,
                 'password' => $request->password
             ];
-            
+
             $user = User::where([$medium => $user_id])->first();
 
             $max_login_hit = Helpers::get_business_settings('maximum_login_hit') ?? 5;
@@ -194,7 +194,7 @@ class PassportAuthController extends Controller
             if (isset($user)) {
                 $user->temporary_token = Str::random(40);
                 $user->save();
-    
+
                 $phone_verification = Helpers::get_business_settings('phone_verification');
                 $email_verification = Helpers::get_business_settings('email_verification');
                 if ($phone_verification && !$user->is_phone_verified) {
@@ -203,28 +203,28 @@ class PassportAuthController extends Controller
                 if ($email_verification && !$user->is_email_verified) {
                     return response()->json(['temporary_token' => $user->temporary_token], 200);
                 }
-    
+
                 if(isset($user->temp_block_time ) && Carbon::parse($user->temp_block_time)->diffInSeconds() <= $temp_block_time){
                     $time = $temp_block_time - Carbon::parse($user->temp_block_time)->diffInSeconds();
-    
+
                     $errors = [];
                     array_push($errors, ['code' => 'auth-001', 'message' => translate('please_try_again_after_') . CarbonInterval::seconds($time)->cascade()->forHumans()]);
                     return response()->json([
                         'errors' => $errors
                     ], 401);
                 }
-    
+
                 if($user->is_active && auth()->attempt($data)){
                     $token = auth()->user()->createToken('LaravelAuthApp')->accessToken;
-    
+
                     $user->login_hit_count = 0;
                     $user->is_temp_blocked = 0;
                     $user->temp_block_time = null;
                     $user->updated_at = now();
                     $user->save();
-    
+
                     CartManager::cart_to_db($request);
-    
+
                     return response()->json(['token' => $token], 200);
                 }else{
                     // return 'Invalid6';
@@ -232,13 +232,13 @@ class PassportAuthController extends Controller
                     if(isset($user->temp_block_time ) && Carbon::parse($user->temp_block_time)->diffInSeconds() <= $temp_block_time){
                         // return 'Invalid7';
                         $time= $temp_block_time - Carbon::parse($user->temp_block_time)->diffInSeconds();
-    
+
                         $errors = [];
                         array_push($errors, ['code' => 'auth-001', 'message' => translate('please_try_again_after_') . CarbonInterval::seconds($time)->cascade()->forHumans()]);
                         return response()->json([
                             'errors' => $errors
                         ], 401);
-    
+
                     }elseif($user->is_temp_blocked == 1 && Carbon::parse($user->temp_block_time)->diffInSeconds() >= $temp_block_time){
                         // return 'Invalid8';
                         $user->login_hit_count = 0;
@@ -246,33 +246,33 @@ class PassportAuthController extends Controller
                         $user->temp_block_time = null;
                         $user->updated_at = now();
                         $user->save();
-    
+
                         $errors = [];
                         array_push($errors, ['code' => 'auth-001', 'message' => translate('credentials_do_not_match_or_account_has_been_suspended')]);
                         return response()->json([
                             'errors' => $errors
                         ], 401);
-    
+
                     }elseif($user->login_hit_count >= $max_login_hit &&  $user->is_temp_blocked == 0){
                         // return 'Invalid9';
                         $user->is_temp_blocked = 1;
                         $user->temp_block_time = now();
                         $user->updated_at = now();
                         $user->save();
-    
+
                         $time= $temp_block_time - Carbon::parse($user->temp_block_time)->diffInSeconds();
-    
+
                         $errors = [];
                         array_push($errors, ['code' => 'auth-001', 'message' => translate('too_many_attempts. please_try_again_after_'). CarbonInterval::seconds($time)->cascade()->forHumans()]);
                         return response()->json([
                             'errors' => $errors
                         ], 401);
-    
+
                     }else{
                         // return 'Invalid10';
                         $user->login_hit_count += 1;
                         $user->save();
-    
+
                         $errors = [];
                         array_push($errors, ['code' => 'auth-001', 'message' => translate('credentials_do_not_match_or_account_has_been_suspended')]);
                         return response()->json([
