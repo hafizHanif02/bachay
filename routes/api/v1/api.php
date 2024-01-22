@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1\Customer\CMS\HomeController;
+use App\Http\Controllers\api\v1\auth\PassportAuthController;
 
 
 
@@ -46,8 +47,8 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
 
 
     Route::group(['prefix' => 'auth', 'namespace' => 'auth'], function () {
-        Route::get('user', 'PassportAuthController@details');
-        Route::post('register', 'PassportAuthController@register');
+        Route::get('user', [PassportAuthController::class , 'details']);
+        Route::post('register', [PassportAuthController::class , 'register']);
         Route::post('login', 'PassportAuthController@code');
         Route::post('code', 'PassportAuthController@login')->name('login');
         Route::post('logout', 'PassportAuthController@logout')->middleware('auth:api');

@@ -556,6 +556,16 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
                     });
                 });
 
+                Route::group(['prefix' => 'custom-page'],function(){
+                    Route::get('/', 'BusinessSettingsController@AllCustomePage')->name('custom-page');
+                    Route::post('/store', 'BusinessSettingsController@CustomePageStore')->name('custom-page.store');
+                    Route::post('/web/{id}', 'BusinessSettingsController@CustomePageWeb')->name('custom-page.web');
+                    Route::post('/mobile/{id}', 'BusinessSettingsController@CustomePageMobile')->name('custom-page.mobile');
+                    Route::get('/edit/{id}', 'BusinessSettingsController@EditCustomPage')->name('custom-page.edit');
+                    Route::post('/update/{id}', 'BusinessSettingsController@UpdateCustomPage')->name('custom-page.update');
+                    Route::post('/delete', 'BusinessSettingsController@CustomePageStore')->name('custom-page.delete');
+                });
+
                 Route::group(['prefix' => 'quiz'],function(){
                         Route::get('/', 'BusinessSettingsController@AllQuiz')->name('quiz');
                         Route::post('/store', 'BusinessSettingsController@QuizStore')->name('quiz.store');

@@ -4,13 +4,18 @@ namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
 use App\CPU\Helpers;
+use App\Model\Brand;
 use App\Models\Quiz;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
+use App\Model\Product;
+use App\Model\Category;
 use App\Model\Currency;
 use App\Models\Article;
+use App\Model\FlashDeal;
 use App\CPU\ImageManager;
 use App\Model\SocialMedia;
+use App\Models\CustomPage;
 use App\Models\HomeLayout;
 use App\Models\QuizAnswer;
 use App\Models\QnaQuestion;
@@ -559,6 +564,103 @@ class BusinessSettingsController extends Controller
         return redirect()->route('admin.business-settings.quiz.question');
     }
 
+    public function AllCustomePage(){
+        $custom_pages = CustomPage::with('page_data')->get();
+        foreach ($custom_pages as $custom_page) {
+            $resource_model = $custom_page->resource_type;
+            switch ($resource_model) {
+                case 'category':
+                    $model = Category::class;
+                    break;
+                case 'brand':
+                    $model = Brand::class;
+                    break;
+                case 'product':
+                    $model = Product::class;
+                    break;
+                case 'banner':
+                    $model = Banner::class;
+                    break;
+                case 'deals':
+                    $model = FlashDeal::class;
+                    break;
+                default:
+                    $model = null; // Handle the default case if necessary
+            }
+        
+            if ($model) {
+                $custom_page->resource_name = $model::where('id', $custom_page->resource_id)->first();
+            }
+        }
+        
+        
+        
+        return view('admin-views.business-settings.custom_page', compact('custom_pages'));
+    }
+
+    public function EditCustomPage($id){
+        $custom_page = CustomPage::where('id', $id)->with('page_data')->first();
+        return view('admin-views.business-settings.edit_custom_page', compact('custom_page'));
+
+    }
+
+    public function UpdateCustomPage(Request $request, $id){
+        $request->validate([
+            'title' => 'required',
+            'resource_type'=>'required',
+        ]);
+        CustomPage::where('id', $id)->update([
+            'title' => $request->title,
+            'resource_type' => $request->resource_type,
+            'resource_id' => $request[$request->resource_type . '_id'],
+        ]);
+        Toastr::success('Custom Page Has Been Update');
+            return redirect()->route('admin.business-settings.custom-page');
+    }
+
+    
+
+    public function CustomePageWeb(Request $request, $id){
+        $CustomPage = CustomPage::findOrFail($id);
+        $CustomPage->is_web = $CustomPage->is_web ? 0 : 1;
+        $CustomPage->save();
+        return response()->json(['success' => true, 'is_web' => $CustomPage->is_web]);
+    }
+
+    public function CustomePageMobile(Request $request, $id){
+        $CustomPage = CustomPage::findOrFail($id);
+        $CustomPage->is_mobile = $CustomPage->is_mobile ? 0 : 1;
+        $CustomPage->save();
+        return response()->json(['success' => true, 'is_mobile' => $CustomPage->is_mobile]);
+    }
+
+    public function IsHome(Request $request, $id)
+    {
+        $banner = Banner::findOrFail($id);
+
+        // Toggle the value of is_home
+        $banner->is_home = $banner->is_home ? 0 : 1;
+        $banner->save();
+
+        // Additional logic if needed...
+
+        return response()->json(['success' => true, 'is_home' => $banner->is_home]);
+    }
+
+    public function CustomePageStore(Request $request){
+        $request->validate([
+            'title' => 'required',
+            'resource_type'=>'required',
+        ]);
+        CustomPage::create([
+            'title' => $request->title,
+            'resource_type' => $request->resource_type,
+            'resource_id' => $request[$request->resource_type . '_id'],
+        ]);
+        Toastr::success('Custom Page Has Been Created');
+            return redirect()->route('admin.business-settings.custom-page');
+
+    }
     
 
     public function home_layout()

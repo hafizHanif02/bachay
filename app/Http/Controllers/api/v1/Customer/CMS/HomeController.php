@@ -221,10 +221,9 @@ class HomeController extends Controller
 
     public function CategoryDetail($id){
         $category = Category::where('id',$id)->with(['childes.product','product'])->first();
-
+        if($category != null){
             $url = asset('storage/app/public/category/' . $category->icon);
             $category->image = $url;
-
             $banners = Banner::where([
                 'resource_type' => 'category',
                 'resource_id' => $category->id,
@@ -246,6 +245,9 @@ class HomeController extends Controller
             }
             $category['banners'] = $organizedBanners;   
         return response()->json($category, 200);
+        }else{
+            return response()->json(['message'=>'Category not found.'], 200);
+        }
     }
 
     public function AllArticle(){
