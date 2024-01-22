@@ -12,26 +12,26 @@
                 <form class="needs-validation_" id="form-id" action="{{ route('customer.auth.sign-up') }}" enctype="multipart/form-data" method="post"
                     id="sign-up-form">
                     @csrf
-                    <div class="row">
-                        {{-- <div class="col-sm-6">
-                            <div class="form-group">
-                                <label class="form-label font-semibold">{{ translate('first_name') }}</label>
-                                <input class="form-control" value="{{ old('f_name') }}" type="text" name="f_name"
+                    <div class="">
+                        <div class="">
+                            <div class="form-group border-bottom border-secondary">
+                                <label class="form-label font-semibold">{{ translate('name') }}</label>
+                                <input class="form-control border-0" value="{{ old('name') }}" type="text" name="name"
                                     style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};"
                                     placeholder="{{ translate('Ex') }}: Jhone" required>
-                                <div class="invalid-feedback">{{ translate('please_enter_your_first_name') }}!</div>
+                                <div class="invalid-feedback">{{ translate('please_enter_your_name') }}!</div>
                             </div>
-                        </div> --}}
+                        </div>
                         {{-- <div class="col-sm-6">
-                            <div class="form-group">
+                            <div class="form-group border-bottom border-secondary">
                                 <label class="form-label font-semibold">{{ translate('last_name') }}</label>
-                                <input class="form-control" type="text" value="{{ old('l_name') }}" name="l_name"
+                                <input class="form-control border-0" type="text" value="{{ old('l_name') }}" name="l_name"
                                     style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};"
                                     placeholder="{{ translate('Ex') }}: Doe" required>
                                 <div class="invalid-feedback">{{ translate('please_enter_your_last_name') }}!</div>
-                            </div> --}}
-                        </div>
-                        <div class="">
+                            </div>
+                        </div> --}}
+                        <div class="mt-2">
                             <div class="form-group border-bottom border-secondary">
                                 <label class="form-label font-semibold">{{ translate('email_address') }}</label>
                                 <input class="form-control border-0" type="email" value="{{ old('email') }}" name="email"
@@ -40,7 +40,7 @@
                                 <div class="invalid-feedback">{{ translate('please_enter_valid_email_address') }}!</div>
                             </div>
                         </div>
-                        <div class="border-bottom border-secondary">
+                        <div class=" border-bottom border-secondary">
                             <div class="form-group mt-2">
                                 <label class="form-label font-semibold">{{ translate('phone_number') }}
                                     <small class="text-primary">( * {{ translate('country_code_is_must_like_for_BD') }} 880
@@ -64,10 +64,10 @@
                             </div>
                         </div> --}}
                         <div class="">
-                            <div class="form-group border-bottom border-secondary mt-2">
+                            <div class="form-group  mt-2">
                                 <label class="form-label font-semibold">{{ translate('password') }}</label>
                                 <div class="password-toggle rtl">
-                                    <input class="form-control border-0" name="password" type="password" id="si-password"
+                                    <input class="form-control border-0 border-bottom border-secondary" name="password" type="password" id="si-password"
                                         style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};"
                                         placeholder="{{ translate('minimum_8_characters_long') }}" required>
                                     <label class="password-toggle-btn mt-2">
