@@ -146,7 +146,7 @@ class PassportAuthController extends Controller
                 curl_setopt($curl, CURLOPT_POSTFIELDS, $fields_string);
                 $resp = curl_exec($curl);
                 curl_close($curl);
-                return $resp;
+                // return $resp;
 
         session()->put('keep_return_url', url()->previous());
         return response()->json(['message' => 'Check Your Mail or Whatsapp for OTP'], 200);

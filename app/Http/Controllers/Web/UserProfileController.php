@@ -106,7 +106,37 @@ class UserProfileController extends Controller
                         ->where('category_ids', 'like', "%{$id}%")
                         ->inRandomOrder()->take(12)->get();
                 });
-        return view(VIEW_FILE_NAMES['my-profile'],compact('userData','home_categories'));
+
+                if(Auth::guard('customer')->check()){
+                    $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+        
+                    $wishlistProductsArray = $wishlistProducts->toArray();
+        
+                    $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+                    $cartProductsArray = $cartProducts->toArray();
+                    }else{
+                        $totalDiscount = 0;
+                        $totalProductPrice = 0;
+            
+                        $productIds = $request->session()->get('cart', []);
+                        $productIds = array_filter($productIds, 'is_numeric');
+                        $myCartProducts = Product::whereIn('id', $productIds)->get();
+            
+                        foreach ($myCartProducts as $product) {
+                            $totalProductPrice += $product->unit_price;
+                            $discountAmount = ($product->discount / 100) * $product->unit_price;
+                            $totalDiscount += $discountAmount;
+                        }
+            
+                        $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+                        $total_product_price = $totalProductPrice;
+                        $wishlistProductsArray = [];
+                        $products = Product::get();
+                        $cartGroupId = null;
+                        $shippingAddress = [];
+                        $cartProductsArray = $productIds;
+                    }
+        return view(VIEW_FILE_NAMES['my-profile'],compact('cartProductsArray','userData','home_categories'));
 
     }
 
