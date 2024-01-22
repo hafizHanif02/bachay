@@ -2991,9 +2991,6 @@ details[open] summary::after {
         padding: 10px 20px;
     }
 }
-/* .form-control:focus {
-    box-shadow: 0 0 0 0.25rem rgb(135 93 193 / 29%) !important;
-} */
 /* @media screen and (max-width: 768px) {
     #mega-menu {
         display: none;

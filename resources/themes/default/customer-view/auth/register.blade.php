@@ -2,7 +2,6 @@
 @extends('layouts.front-end.sample-app')
 
 @section('title', translate('register'))
-
 @section('content')
 <div class="register_text ">
     <div class="container _inline-7 custom-form-width-sm register" style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};">
@@ -186,6 +185,11 @@
         </div>
     </div>
 </div>
+<style>
+    .form-control:focus {
+    box-shadow: none !important;
+}
+</style>
 @endsection
 
 @push('script')
