@@ -563,6 +563,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
                     Route::post('/mobile/{id}', 'BusinessSettingsController@CustomePageMobile')->name('custom-page.mobile');
                     Route::get('/edit/{id}', 'BusinessSettingsController@EditCustomPage')->name('custom-page.edit');
                     Route::post('/update/{id}', 'BusinessSettingsController@UpdateCustomPage')->name('custom-page.update');
+                    Route::post('/image/store/{id}', 'BusinessSettingsController@ImageStore')->name('custom-page.image.store');
                     Route::post('/delete', 'BusinessSettingsController@CustomePageStore')->name('custom-page.delete');
                 });
 

@@ -164,25 +164,95 @@
               </button>
             </div>
             <div class="modal-body">
-              <form action="">
+              <form action="{{ route('admin.business-settings.custom-page.image.store', $custom_page['id']) }}" method="POST" enctype="multipart/form-data">
+                @csrf
                 <div class="col-md-12">
                     <label for="image" class="form-label">Image</label>
-                    <input type="file" class="form-control" id="image">
+                    <input type="file" name="image" class="form-control" id="image">
                 </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label for="tags" class="form-label">Tags</label>
+                        <input type="text" name="tags" placeholder="Enter Tags" class="form-control" id="tags">
                     </div>
                 </div>
-              </form>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label for="width" class="form-label">Width</label>
+                        <input type="text" name="width" placeholder="Enter Width" class="form-control" id="tags">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="margin_bottom" class="form-label">Margin Bottom</label>
+                        <input type="text" name="margin_bottom" placeholder="Enter Margin Bottom" class="form-control" id="tags">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label for="margin_right" class="form-label">Margin Right</label>
+                        <input type="text" name="margin_right" placeholder="Enter Margin Right" class="form-control" id="tags">
+                    </div>
+                </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-              <button type="button" class="btn btn-primary">Save changes</button>
+              <button type="Submit" class="btn btn-primary">Save changes</button>
             </div>
+        </form>
           </div>
         </div>
       </div>    
+
+      <div class="table-responsive">
+        <table id="columnSearchDatatable"
+               style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};"
+               class="table table-hover table-borderless table-thead-bordered table-nowrap table-align-middle card-table w-100">
+            <thead class="thead-light thead-50 text-capitalize">
+            <tr>
+                <th class="pl-xl-5">{{translate('SL')}}</th>
+                <th>Image</th>
+                <th>Width</th>
+                <th>Margin Bottom</th>
+                <th>Margin Right</th>
+                <th class="text-center">{{translate('action')}}</th>
+            </tr>
+            </thead>
+            @foreach($custom_page->page_data as $page_data)
+                <tbody>
+                <tr id="data-{{$page_data->id}}">
+                    <td class="pl-xl-5">{{ $loop->iteration }}</td>
+                    <td><img  src="{{$page_data->image}}" alt=""></td>
+                    <td>{{$page_data->width}}</td>
+                    <td>{{$page_data->margin_bottom}}</td>
+                    <td>{{$page_data->margin_right}}</td>
+                    <td>
+                        {{-- <form action="{{route('admin.business-settings.custom-page.mobile',$custom_page['id'])}}" method="post" id="mobile_form{{$custom_page['id']}}" >
+                            @csrf
+                            <input type="hidden" name="id" value="{{$custom_page['id']}}">
+                            <label class="switcher">
+                                <input type="checkbox" class="switcher_input" id="mobile{{$custom_page['id']}}" name="status" value="1" {{ $custom_page['is_mobile'] == 1 ? 'checked':'' }} onclick="SubmitMobile({{ $custom_page['id'] }})" >
+                                <span class="switcher_control"></span>
+                            </label>
+                        </form> --}}
+                    </td>
+                    <td>
+                        <div class="d-flex gap-10 justify-content-center">
+                            <a class="btn btn-outline--primary btn-sm cursor-pointer edit"
+                               title="{{ translate('edit')}}"
+                               href="{{route('admin.business-settings.custom-page.edit',$custom_page['id'])}}">
+                                <i class="tio-edit"></i>
+                            </a>
+                            <a class="btn btn-outline-danger btn-sm cursor-pointer delete"
+                               title="{{ translate('delete')}}"
+                               id="{{$custom_page['id']}}">
+                                <i class="tio-delete"></i>
+                            </a>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            @endforeach
+        </table>
+    </div>
     
 @endsection
 

@@ -13,7 +13,7 @@ class CustomPageData extends Model
     protected $fillable = [
         'custom_page_id',
         'image',
-        'filter_data',
+        'tags',
         'width',
         'margin_bottom',
         'margin_right',
