@@ -336,7 +336,7 @@ input.form-control.search-input {
 .sub-contain,
 .SavingsOffer {
     padding: 0 50px;
-    background-image: url(https://img.freepik.com/free-photo/white-texture_1160-786.jpg);
+    /* background-image: url(https://img.freepik.com/free-photo/white-texture_1160-786.jpg); */
 }
 .textClr {
     background: linear-gradient(
@@ -354,6 +354,33 @@ input.form-control.search-input {
     -webkit-text-fill-color: transparent;
     line-height: normal;
 }
+/* Custom CSS for the input group */
+.custom-input-group {
+    position: relative;
+    display: flex;
+    margin-bottom: 15px; /* Add margin for spacing */
+  
+}
+
+/* Custom CSS for the "+" icon */
+.custom-input-group-prepend {
+    background-color: #007bff; /* Background color for the "+" icon */
+    color: #fff; /* Text color for the "+" icon */
+    padding: 8px 12px; /* Adjust padding for the icon */
+    border: 1px solid #007bff; /* Border color for the "+" icon */
+    border-radius: 4px; /* Optional: Add border-radius for rounded corners */
+    
+}
+
+/* Custom CSS for the input field with icon */
+.with-icon {
+    flex: 1 !important;
+    width: 100% !important;
+    padding: 8px !important;
+    border: 1px solid #ccc !important;
+    border-radius: 4px !important;
+}
+
 .savings-card div {
     margin-bottom: 20px;
 }
@@ -2964,9 +2991,9 @@ details[open] summary::after {
         padding: 10px 20px;
     }
 }
-.form-control:focus {
+/* .form-control:focus {
     box-shadow: 0 0 0 0.25rem rgb(135 93 193 / 29%) !important;
-}
+} */
 /* @media screen and (max-width: 768px) {
     #mega-menu {
         display: none;

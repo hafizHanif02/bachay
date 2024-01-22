@@ -4,7 +4,8 @@
 @section('title', translate('register'))
 
 @section('content')
-    <div class="container  __inline-7" style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};">
+<div class="register_text ">
+    <div class="container _inline-7 custom-form-width-sm register" style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};">
         <div class="login-card shadow p-4">
             <div class="mx-auto __max-w-760">
                 <h2 class="text-center h4 mb-4 font-bold text-capitalize fs-18-mobile">{{ translate('sign_up') }}</h2>
@@ -12,7 +13,7 @@
                     id="sign-up-form">
                     @csrf
                     <div class="row">
-                        <div class="col-sm-6">
+                        {{-- <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="form-label font-semibold">{{ translate('first_name') }}</label>
                                 <input class="form-control" value="{{ old('f_name') }}" type="text" name="f_name"
@@ -20,37 +21,40 @@
                                     placeholder="{{ translate('Ex') }}: Jhone" required>
                                 <div class="invalid-feedback">{{ translate('please_enter_your_first_name') }}!</div>
                             </div>
-                        </div>
-                        <div class="col-sm-6">
+                        </div> --}}
+                        {{-- <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="form-label font-semibold">{{ translate('last_name') }}</label>
                                 <input class="form-control" type="text" value="{{ old('l_name') }}" name="l_name"
                                     style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};"
                                     placeholder="{{ translate('Ex') }}: Doe" required>
                                 <div class="invalid-feedback">{{ translate('please_enter_your_last_name') }}!</div>
-                            </div>
+                            </div> --}}
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
+                        <div class="">
+                            <div class="form-group border-bottom border-secondary">
                                 <label class="form-label font-semibold">{{ translate('email_address') }}</label>
-                                <input class="form-control" type="email" value="{{ old('email') }}" name="email"
+                                <input class="form-control border-0" type="email" value="{{ old('email') }}" name="email"
                                     style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};"
                                     placeholder="{{ translate('enter_email_address') }}" autocomplete="off" required>
                                 <div class="invalid-feedback">{{ translate('please_enter_valid_email_address') }}!</div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
+                        <div class="border-bottom border-secondary">
+                            <div class="form-group mt-2">
                                 <label class="form-label font-semibold">{{ translate('phone_number') }}
                                     <small class="text-primary">( * {{ translate('country_code_is_must_like_for_BD') }} 880
                                         )</small></label>
-                                <input class="form-control" type="number" value="{{ old('phone') }}" name="phone"
-                                    style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};"
-                                    placeholder="{{ translate('enter_phone_number') }}" required>
+                                        <div class="custom-input-group d-flex">
+                                            <span class="custom-input-group-prepend mt-1 ms-2">+92</span>
+                                            <input class="form-control with-icon border-0" type="tel" value="{{ old('phone') }}" name="phone"
+                                                style="text-align : {{ Session::get('direction') === 'rtl' ? 'right' : 'left'}};"
+                                                placeholder="{{ translate('enter_phone_number') }}" required>
+                                        </div>
                                 <div class="invalid-feedback">{{ translate('please_enter_your_phone_number') }}!</div>
                             </div>
                         </div>
-                        <div class="col-sm-6">
+                        {{-- <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="form-label font-semibold">{{ translate('image') }}</label>
                                 <input class="form-control" type="file" value="{{ old('image') }}" name="image"
@@ -58,12 +62,12 @@
                                     placeholder="{{ translate('Enter_image') }}" autocomplete="off" required>
                                 <div class="invalid-feedback">{{ translate('please_enter_valid_image') }}!</div>
                             </div>
-                        </div>
-                        <div class="col-sm-6">
-                            <div class="form-group">
+                        </div> --}}
+                        <div class="">
+                            <div class="form-group border-bottom border-secondary mt-2">
                                 <label class="form-label font-semibold">{{ translate('password') }}</label>
                                 <div class="password-toggle rtl">
-                                    <input class="form-control" name="password" type="password" id="si-password"
+                                    <input class="form-control border-0" name="password" type="password" id="si-password"
                                         style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};"
                                         placeholder="{{ translate('minimum_8_characters_long') }}" required>
                                     <label class="password-toggle-btn mt-2">
@@ -75,7 +79,7 @@
                             </div>
 
                         </div>
-                        <div class="col-sm-6">
+                        {{-- <div class="col-sm-6">
                             <div class="form-group">
                                 <label class="form-label font-semibold">{{ translate('confirm_password') }}</label>
                                 <div class="password-toggle rtl">
@@ -92,7 +96,7 @@
                                 </div>
                             </div>
 
-                        </div>
+                        </div> --}}
 
                         @if ($web_config['ref_earning_status'])
                             <div class="col-sm-12">
@@ -108,7 +112,7 @@
                     </div>
                     <div class="col-12">
                         <div class="row g-3">
-                            <div class="col-sm-6">
+                            <div class="">
                                 <div class="rtl mt-2">
                                     <label class="custom-control custom-checkbox m-0 d-flex">
                                         <input type="checkbox" class="custom-control-input me-1" name="remember"
@@ -121,7 +125,7 @@
                                     </label>
                                 </div>
                             </div>
-                            <div class="col-sm-6">
+                            {{-- <div class="col-sm-6">
                                 @php($recaptcha = \App\CPU\Helpers::get_business_settings('recaptcha'))
                                 @if (isset($recaptcha) && $recaptcha['status'] == 1)
                                     <div id="recaptcha_element" class="w-100" data-type="image"></div>
@@ -142,12 +146,12 @@
                                         </div>
                                     </div>
                                 @endif
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div style="direction: {{ Session::get('direction') }}">
                         <div class="mx-auto mt-4 __max-w-356">
-                            <button style="background: var( --greadient-normal, linear-gradient( 270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17% ) );" class="col-12 text-light border-0 p-2 rounded-pill" id="sign-up" type="submit">
+                            <button style="background: var( --greadient-normal, linear-gradient( 270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17% ) );" class= "col-12 text-light border-0 ps-5 pe-5 pt-2 pb-2 rounded-pill" id="sign-up" type="submit">
                                 {{ translate('sign_up') }}
                             </button>
                         </div>
@@ -181,6 +185,7 @@
             </div>
         </div>
     </div>
+</div>
 @endsection
 
 @push('script')
