@@ -51,6 +51,7 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestC
         Route::post('review', 'ReviewController@store')->name('review.store');
         Route::get('deliveryman-review/{id}', 'ReviewController@delivery_man_review')->name('deliveryman-review');
         Route::post('submit-deliveryman-review', 'ReviewController@delivery_man_submit')->name('submit-deliveryman-review');
+        Route::post('update-profile-detail', 'UserProfileController@UpdateProfileDetail')->name('customer.update-profile-detail');
     });
 
     Route::get('checkout-details', 'WebController@checkout_details')->name('checkout-details');

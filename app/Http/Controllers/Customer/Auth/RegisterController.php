@@ -45,21 +45,21 @@ class RegisterController extends Controller
     {
         
         $validator = Validator::make($request->all(), [
-            'f_name' => 'required',
+            'name' => 'required',
             'email' => 'required|email|unique:users',
             'phone' => 'unique:users',
-            'password' => 'required|min:8|same:con_password'
+            'password' => 'required|min:8'
         ], [
-            'f_name.required' => translate('first_name_is_required'),
+            'name.required' => translate('name_is_required'),
             'email.unique' => translate('email_already_has_been_taken'),
             'phone.unique' => translate('phone_number_already_has_been_taken'),
-        ]);
-
-        $file = $request->file('image');
-        $extension = $file->getClientOriginalExtension();
-        $filename = $file->getClientOriginalName();
-        $picture = $request->image->move(public_path('assets/images/customers'), $filename);
-        
+        ]);   
+        // if($request->hasFile('image')) {
+        //     $file = $request->file('image');
+        //     $extension = $file->getClientOriginalExtension();
+        //     $filename = $file->getClientOriginalName();
+        //     $picture = $request->image->move(public_path('assets/images/customers'), $filename);    
+        // }
         if($request->ajax()) {
             if ($validator->fails()) {
                 return response()->json([
@@ -70,21 +70,25 @@ class RegisterController extends Controller
             $validator->validate();
         } 
 
-        $recaptcha = Helpers::get_business_settings('recaptcha');
-        if ($recaptcha['status'] != 1 && strtolower($request->default_recaptcha_value_customer_regi) != strtolower(Session('default_recaptcha_id_customer_regi'))) {
-            Session::forget('default_recaptcha_id_customer_regi');
-            if($request->ajax()) {
-                return response()->json([
-                    'errors' => [0=>translate('Captcha Failed')]
-                ]);
-            }else {
-                return back()->withErrors(\App\CPU\translate('Captcha Failed'));
-            }
-        }
+        $request['phone'] = '92'.$request['phone'];
+
+        // $recaptcha = Helpers::get_business_settings('recaptcha');
+        // if ($recaptcha['status'] != 1 && strtolower($request->default_recaptcha_value_customer_regi) != strtolower(Session('default_recaptcha_id_customer_regi'))) {
+        //     Session::forget('default_recaptcha_id_customer_regi');
+        //     if($request->ajax()) {
+        //         return response()->json([
+        //             'errors' => [0=>translate('Captcha Failed')]
+        //         ]);
+        //     }else {
+        //         return back()->withErrors(\App\CPU\translate('Captcha Failed'));
+        //     }
+        // }
 
         if ($request->referral_code){
             $refer_user = User::where(['referral_code' => $request->referral_code])->first();
         }
+
+
 
         $token = rand(1000, 9999);
         DB::table('phone_or_email_verifications')->insert([
@@ -114,11 +118,10 @@ class RegisterController extends Controller
 
 
         $user = User::create([
-            'f_name' => $request['f_name'],
-            'l_name' => $request['l_name'],
+            'name' => $request['name'],
             'email' => $request['email'],
             'phone' => $request['phone'],
-            'image' => $filename,
+            // 'image' => $filename,
             'is_active' => 1,
             'password' => bcrypt($request['password']),
             'referral_code' => Helpers::generate_referer_code(),

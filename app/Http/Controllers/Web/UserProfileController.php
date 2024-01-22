@@ -83,8 +83,26 @@ class UserProfileController extends Controller
         }
     }
 
+    public function UpdateProfileDetail(Request $request){
+        if(Auth::guard('customer')->check()){
+            if($request->hasFile('avatar')) {
+                    $file = $request->file('avatar');
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = $file->getClientOriginalName();
+                    $picture = $request->avatar->move(public_path('assets/images/customers'), $filename);    
+                }else{
+                    $filename = Auth::guard('customer')->user()->image;
+                }
+            User::where('id',Auth::guard('customer')->user()->id)->update([
+                'name' => $request->name,
+                'image' => $filename
+            ]);
+            return back()->with(['message'=> 'Profile updated successfully','status'=>1]);
+        }
+    }
     public function user_profile(Request $request)
     {
+
         $wishlists = $this->wishlist->whereHas('wishlistProduct', function ($q) {
             return $q;
         })->where('customer_id', auth('customer')->id())->count();

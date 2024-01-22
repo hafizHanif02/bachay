@@ -8,21 +8,20 @@
             </div>
             <div class="modal-body">
                 <div class="">
-                    <form class="MyProfileForm font-poppins" action="#" method="POST"
+                    <form class="MyProfileForm font-poppins" action="{{ route('customer.update-profile-detail') }}" method="POST"
                         enctype="multipart/form-data">
                         @csrf
-                        @method('PUT')
                             <input type="text" id="name" name="name" placeholder="Enter your name *" required
                             value="">
                             @error('name')
                                 <div class="text-danger"></div>
                             @enderror
-                            <br>
+                            {{-- <br>
                             <input type="email" id="email" name="email" placeholder="Enter your email *" required
                                 value="">
                             @error('email')
                                 <div class="text-danger"></div>
-                            @enderror
+                            @enderror --}}
                             <br>
                             <input type="file" id="avatar" name="avatar">
                             @error('avatar')

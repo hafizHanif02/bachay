@@ -4909,7 +4909,7 @@ class WebController extends Controller
                 $shippingAddress = [];
                 $cartProductsArray = $productIds;
             }
-
+ 
         return view(VIEW_FILE_NAMES['gift-certification'], (compact('cartProductsArray','wishlistProductsArray','products', 'home_categories')));
     }
     public function invites_credits()

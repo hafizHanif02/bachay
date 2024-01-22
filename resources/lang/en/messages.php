@@ -6751,4 +6751,5 @@
   'enter_token_that_you_received_on_mail_or_whatsapp' => 'Enter token that you received on mail or whatsapp',
   'please_enter_valid_token' => 'Please enter valid token',
   'please_enter_your_name' => 'Please enter your name',
+  'name_is_required' => 'Name is required',
 );
