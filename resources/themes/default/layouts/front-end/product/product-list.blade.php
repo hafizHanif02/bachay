@@ -83,9 +83,25 @@
                         @endforeach
                     </div> --}}
 
-                    {{-- <div>
+                    
+                    <div class="product-sizes">
+                        <div class="size-box" data-age="12-18M">12-18M</div>
+                        <div class="size-box" data-age="12-18M">12-18M</div>
+                        <div class="size-box" data-age="12-18M">12-18M</div>
+                        <div class="size-box" data-age="12-18M">12-18M</div>
+                        <div class="size-box" data-age="12-18M">12-18M</div>
+                        <div class="size-box" data-age="12-18M">12-18M</div>
+
+                    </div>
+                    <div class="product-colors">
+                        <div class="color-box" style="background-color: #ff0000;"></div>
+                        <div class="color-box" style="background-color: #00ff00;"></div>
+                        <div class="color-box" style="background-color: #0000ff;"></div>
+                    </div>
+                    <div>
                         <p>buy & earn club cash upto : Rs 100 <span class = "q-mark">?</span></p>
-                    </div> --}}
+                    </div>
+                    
 
                     {{-- <div class="product-colors">
                         @foreach ($product->colors as $color)
@@ -313,4 +329,19 @@
         float: right;
         margin-left: 2px;
     }
+    .product-sizes {
+    display: flex;
+    }
+
+    .size-box {
+        width: 80px; /* Adjust the width based on your design */
+        height: 40px; /* Adjust the height based on your design */
+        padding: 5px;
+        margin-right: 10px; /* Adjust spacing between size boxes */
+        border: 1px solid #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
 </style>
