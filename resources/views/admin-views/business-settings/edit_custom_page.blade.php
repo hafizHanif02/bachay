@@ -179,17 +179,17 @@
                 <div class="row mt-3">
                     <div class="col-md-6">
                         <label for="width" class="form-label">Width</label>
-                        <input type="text" name="width" placeholder="Enter Width" class="form-control" id="tags">
+                        <input type="number" name="width" placeholder="Enter Width" class="form-control" id="tags">
                     </div>
                     <div class="col-md-6">
                         <label for="margin_bottom" class="form-label">Margin Bottom</label>
-                        <input type="text" name="margin_bottom" placeholder="Enter Margin Bottom" class="form-control" id="tags">
+                        <input type="number" name="margin_bottom" placeholder="Enter Margin Bottom" class="form-control" id="tags">
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-6">
                         <label for="margin_right" class="form-label">Margin Right</label>
-                        <input type="text" name="margin_right" placeholder="Enter Margin Right" class="form-control" id="tags">
+                        <input type="number" name="margin_right" placeholder="Enter Margin Right" class="form-control" id="tags">
                     </div>
                 </div>
             </div>
