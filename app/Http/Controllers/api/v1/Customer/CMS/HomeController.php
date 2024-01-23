@@ -7,6 +7,7 @@ use App\Model\Banner;
 use App\Model\Category;
 use App\Models\Article;
 use App\Model\FlashDeal;
+use App\Models\CustomPage;
 use Illuminate\Http\Request;
 use App\Models\familyRelation;
 use App\Model\FlashDealProduct;
@@ -244,7 +245,25 @@ class HomeController extends Controller
                 $organizedBanners[$bannerType][] = $banner;
             }
             $category['banners'] = $organizedBanners;   
-        return response()->json($category, 200);
+
+            $custom_page = CustomPage::where([
+                'resource_type'=> 'category',
+                'resource_id'=> $category->id,
+                'is_mobile' => 1
+                ])->with('page_data')->first();
+            
+            if($custom_page != null){
+                if($custom_page->page_data != null){
+                    foreach($custom_page->page_data as $page){
+                        $imgUrl = asset("storage/app/public/category/{$category->name}" . $page->image);
+                        $page->image = $imgUrl;
+                    }
+                    $data = $custom_page;
+                }
+            }else{
+                $data = $category;
+            }
+        return response()->json($data, 200);
         }else{
             return response()->json(['message'=>'Category not found.'], 200);
         }

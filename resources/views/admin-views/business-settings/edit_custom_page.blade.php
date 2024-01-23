@@ -502,39 +502,6 @@
             });
           
         });
-
-        $(document).on('click', '.delete', function () {
-            var id = $(this).attr("id");
-            Swal.fire({
-                title: "{{translate('are_you_sure_delete_this_custom_page')}}?",
-                text: "{{translate('you_will_not_be_able_to_revert_this')}}!",
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: '{{translate("yes_delete_it")}}!',
-                cancelButtonText: '{{ translate("cancel") }}',
-                type: 'warning',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.value) {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
-                        }
-                    });
-                    $.ajax({
-                        url: "{{route('admin.business-settings.custom-page.delete')}}",
-                        method: 'POST',
-                        data: {id: id},
-                        success: function (response) {
-                            console.log(response)
-                            toastr.success('{{translate("custom_page_deleted_successfully")}}');
-                            $('#data-' + id).hide();
-                        }
-                    });
-                }
-            })
-        });
     </script>
     <!-- Page level plugins -->
     <!-- New Added JS - Start -->
