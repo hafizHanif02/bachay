@@ -87,7 +87,7 @@ class PageController extends Controller
                 $shippingAddress = [];
                 $cartProductsArray = $productIds;
             }
-        return view(VIEW_FILE_NAMES['privacy_policy_page'], compact('privacy_policy','page_title_banner', 'home_categories'));
+        return view(VIEW_FILE_NAMES['privacy_policy_page'], compact('privacy_policy','page_title_banner', 'home_categories', 'cartProductsArray'));
     }
 
     public function refund_policy()
