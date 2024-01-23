@@ -176,36 +176,71 @@ class HomeController extends Controller
         return response()->json($flashdeals, 200);
     }
 
-    public function FlashDealProduct(Request $request){
-        $currentDate = Carbon::now();
-        $flashdeals = FlashDeal::with('products.product')->where(['status' => 1, 'id'=>$request->id])->whereDate('start_date','<=',date('Y-m-d'))->whereDate('end_date','>=',date('Y-m-d'))->get();
-        foreach($flashdeals as $flashdeal){
-            $banners =  Banner::where([
-                'resource_type' => 'deals',
-                'resource_id' => $flashdeal->id
-            ])->get();
-            
-            $organizedBanners = [];
-            foreach ($banners as $banner) {
-                $banner->photo = asset('storage/app/public/banner/' . $banner->photo);
-                $banner->mobile_photo = asset('storage/app/public/banner/mobile/' . $banner->mobile_photo);
-                $bannerType = $banner->banner_type;
-                if (!isset($organizedBanners[$bannerType])) {
-                    $organizedBanners[$bannerType] = [];
-                }
-                $organizedBanners[$bannerType][] = $banner;
+    public function FlashDealProduct(Request $request)
+{
+    $currentDate = Carbon::now();
+    $flashdeals = FlashDeal::with('products.product')->where(['status' => 1, 'id'=>$request->id])->whereDate('start_date','<=',date('Y-m-d'))->whereDate('end_date','>=',date('Y-m-d'))->get();
+
+    foreach($flashdeals as $flashdeal){
+        $banners =  Banner::where([
+            'resource_type' => 'deals',
+            'resource_id' => $flashdeal->id
+        ])->get();
+        
+        $organizedBanners = [];
+        foreach ($banners as $banner) {
+            $banner->photo = asset('storage/app/public/banner/' . $banner->photo);
+            $banner->mobile_photo = asset('storage/app/public/banner/mobile/' . $banner->mobile_photo);
+            $bannerType = $banner->banner_type;
+            if (!isset($organizedBanners[$bannerType])) {
+                $organizedBanners[$bannerType] = [];
             }
-            $flashdeal['banners'] = $organizedBanners;
+            $organizedBanners[$bannerType][] = $banner;
+        }
+        $flashdeal['banners'] = $organizedBanners;
+
+        // Apply the custom page logic for deals
+        $custom_page = CustomPage::where([
+            'resource_type' => 'deals',
+            'resource_id' => $flashdeal->id,
+            'is_mobile' => 1
+        ])->with('page_data')->first();
+
+        $inline_array = [];
+        $currentArray = [];
+        $sumWidth = 0;
+
+        if ($custom_page != null) {
+            if ($custom_page->page_data != null) {
+                foreach ($custom_page->page_data as $page) {
+                    $imgUrl = asset("storage/app/public/deal/{$flashdeal->name}" . $page->image);
+                    $page->image = $imgUrl;
+                    $sumWidth += $page->width;
+
+                    if ($sumWidth <= 100) {
+                        $currentArray[] = $page;
+                    } else {
+                        $inline_array[] = $currentArray;
+                        $currentArray = [$page];
+                        $sumWidth = $page->width;
+                    }
+                }
+
+                if (!empty($currentArray)) {
+                    $inline_array[] = $currentArray;
+                }
+            }
+
+            $data = $custom_page;
+            $data['in_line'] = $inline_array;
+        } else {
+            $data = $flashdeal;
         }
 
-        $formattedFlashDeals = [];
-
-        foreach($flashdeals[0]->products as $flashProduct){
-            $flashProduct->product->thumbnail = asset('storage/app/public/product/thumbnail/' . $flashProduct->product->thumbnail);
-        }
-
-        return response()->json($flashdeals, 200);
+        return response()->json($data, 200);
     }
+}
+
 
 
     public function AllCategory(){
