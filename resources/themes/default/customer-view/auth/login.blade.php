@@ -162,9 +162,26 @@
                     @endif --}}
                     <button style="background: var( --greadient-normal, linear-gradient( 270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17% ) );" class="loginBtn custom-btn btn btn-block btn-shadow text-light border-none col-12 rounded-pill mt-2" type="submit">{{ translate('log_in') }}</button>
                 </form>
+                {{-- <div class="text-center my-3 text-dark">
+                    <small>{{ translate('new_to_bachay?') }}? <a href="/customer/auth/sign-up" style="color: blue;">{{ translate('Register Here') }}</a></small>
+                </div> --}}
+                
+                {{-- <div class="text-center my-3 text-black-50">
+                    <small>{{ translate('or_continue_with') }}</small>
+                </div> --}}
                 <div class="text-center my-3 text-black-50">
                     <small>{{ translate('or_continue_with') }}</small>
                 </div>
+                <div class="text-center my-3">
+                    <a href="{{ route('social.redirect', 'google') }}" class="btn btn-danger">
+                        {{ translate('Continue with Google') }}
+                    </a>
+                    <a href="{{ route('social.redirect', 'facebook') }}" class="btn btn-primary">
+                        {{ translate('Continue with Facebook') }}
+                    </a>
+                </div>
+                
+            
                 <div class="d-flex justify-content-center my-3 gap-2">
                     @foreach (\App\CPU\Helpers::get_business_settings('social_login') as $socialLoginService)
                         @if (isset($socialLoginService) && $socialLoginService['status'] == true)

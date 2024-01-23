@@ -6763,4 +6763,6 @@
   'custom_page_deleted_successfully' => 'Custom page deleted successfully',
   'Add_image' => 'Add image',
   'Add Image' => 'Add Image',
+  'Continue with Google' => 'Continue with Google',
+  'Continue with Facebook' => 'Continue with Facebook',
 );

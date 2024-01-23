@@ -27,6 +27,7 @@ use App\Http\Controllers\Payment_Methods\SenangPayController;
 use App\Http\Controllers\Payment_Methods\MercadoPagoController;
 use App\Http\Controllers\Payment_Methods\BkashPaymentController;
 use App\Http\Controllers\Payment_Methods\PaystackController;
+use App\Http\Controllers\Auth\SocialController;
 
 //for maintenance mode
 Route::get('maintenance-mode', 'Web\WebController@maintenance_mode')->name('maintenance-mode');
@@ -104,6 +105,9 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestC
     // Route::get('/product/{slug}', 'ProductDetailsController@product')->name('product');
     // Route::get('products', 'ProductListController@products')->name('products');
 
+    // Social login routes
+    Route::get('/login/{provider}', [SocialController::class, 'redirectToProvider'])->name('social.redirect');
+    Route::get('/login/{provider}/callback', [SocialController::class, 'handleProviderCallback'])->name('social.callback');
 
     Route::get('product-list', 'ProductListController@default_theme')->name('product-list');
     Route::get('product-list/{slug}', 'WebController@flash_deals')->name('product-list-slug');
