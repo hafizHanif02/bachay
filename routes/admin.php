@@ -563,8 +563,9 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
                     Route::post('/mobile/{id}', 'BusinessSettingsController@CustomePageMobile')->name('custom-page.mobile');
                     Route::get('/edit/{id}', 'BusinessSettingsController@EditCustomPage')->name('custom-page.edit');
                     Route::post('/update/{id}', 'BusinessSettingsController@UpdateCustomPage')->name('custom-page.update');
+                    Route::get('/delete/{id}', 'BusinessSettingsController@DeleteCustomPage')->name('custom-page.delete');
                     Route::post('/image/store/{id}', 'BusinessSettingsController@ImageStore')->name('custom-page.image.store');
-                    Route::post('/delete', 'BusinessSettingsController@CustomePageStore')->name('custom-page.delete');
+                    Route::get('/page-data/delete/{id}', 'BusinessSettingsController@DeletePageData')->name('custom-page.page-data.delete');
                 });
 
                 Route::group(['prefix' => 'quiz'],function(){

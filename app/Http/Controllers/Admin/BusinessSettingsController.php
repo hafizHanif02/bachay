@@ -624,11 +624,40 @@ class BusinessSettingsController extends Controller
             if($custom_page->page_data != null){
                 foreach($custom_page->page_data as $page_data){
                     $imageUrl = asset("public/assets/images/{$custom_page->resource_type}/{$resourceData->name}/" . $page_data->image);
-                    $page_data->image = $imageUrl;
+                    $page_data->imageurl = $imageUrl;
                 }
             }
 
         return view('admin-views.business-settings.edit_custom_page', compact('custom_page'));
+    }
+
+    public function DeleteCustomPage($id){
+        $page = CustomPage::where('id', $id)->first();
+        if($page != null){
+            $page->delete();
+            Toastr::success('Page Has Been Deleted!');
+            return redirect()->back();
+        }else{
+            Toastr::error('No Page Found ');
+            return redirect()->back();
+        }
+    }
+
+    public function EditPageData($id){
+        return $id;
+    }
+
+    public function DeletePageData($id){
+        $page_data = CustomPageData::where('id', $id)->first();
+        if($page_data != null){
+            $page_data->delete();
+            Toastr::success('Image Has Been Deleted!');
+            return redirect()->back();
+        }else{
+            Toastr::error('No Image Found ');
+            return redirect()->back();
+        }
+
     }
 
     public function UpdateCustomPage(Request $request, $id){

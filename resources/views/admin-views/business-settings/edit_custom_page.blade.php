@@ -217,31 +217,25 @@
             </tr>
             </thead>
             @foreach($custom_page->page_data as $page_data)
+            {{-- <input type="hidden" id="data{{$page_data->id}}" data-img='{{ $page_data->image }}' data-width='{{ $page_data->width }}' data-margin_bottom='{{ $page_data->margin_bottom }}' data-margin_right='{{ $page_data->margin_right }}' > --}}
                 <tbody>
                 <tr id="data-{{$page_data->id}}">
                     <td class="pl-xl-5">{{ $loop->iteration }}</td>
-                    <td><img  src="{{$page_data->image}}" alt=""></td>
+                    <td><img width="{{ $page_data->width }}px" src="{{$page_data->imageurl}}" alt=""></td>
                     <td>{{$page_data->width}}</td>
                     <td>{{$page_data->margin_bottom}}</td>
                     <td>{{$page_data->margin_right}}</td>
                     <td>
-                        {{-- <form action="{{route('admin.business-settings.custom-page.mobile',$custom_page['id'])}}" method="post" id="mobile_form{{$custom_page['id']}}" >
-                            @csrf
-                            <input type="hidden" name="id" value="{{$custom_page['id']}}">
-                            <label class="switcher">
-                                <input type="checkbox" class="switcher_input" id="mobile{{$custom_page['id']}}" name="status" value="1" {{ $custom_page['is_mobile'] == 1 ? 'checked':'' }} onclick="SubmitMobile({{ $custom_page['id'] }})" >
-                                <span class="switcher_control"></span>
-                            </label>
-                        </form> --}}
-                    </td>
-                    <td>
                         <div class="d-flex gap-10 justify-content-center">
-                            <a class="btn btn-outline--primary btn-sm cursor-pointer edit"
+                            {{-- <a class="btn btn-outline--primary btn-sm cursor-pointer edit"
                                title="{{ translate('edit')}}"
-                               href="{{route('admin.business-settings.custom-page.edit',$custom_page['id'])}}">
+                               href="{{route('admin.business-settings.custom-page.page-data.edit',$page_data['id'])}}">
                                 <i class="tio-edit"></i>
-                            </a>
-                            <a class="btn btn-outline-danger btn-sm cursor-pointer delete"
+                            </a> --}}
+                            {{-- <button type="button" class="btn btn-outline--primary btn-sm" data-toggle="modal" data-target="#exampleModalEdit">
+                                <i class="tio-edit"></i>
+                            </button> --}}
+                            <a class="btn btn-outline-danger btn-sm " href="{{ route('admin.business-settings.custom-page.page-data.delete', $page_data['id']) }}"
                                title="{{ translate('delete')}}"
                                id="{{$custom_page['id']}}">
                                 <i class="tio-delete"></i>
@@ -253,6 +247,54 @@
             @endforeach
         </table>
     </div>
+
+    {{-- <div class="modal fade" id="exampleModalEdit" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Edit Image</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <form action="{{ route('admin.business-settings.custom-page.page-data.update', $custom_page['id']) }}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="col-md-12">
+                    <label for="image" class="form-label">Image</label>
+                    <input type="file" name="image" id="image_input" class="form-control" id="image">
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-12">
+                        <label for="tags" class="form-label">Tags</label>
+                        <input type="text" name="tags" id="tags_input" placeholder="Enter Tags" class="form-control" id="tags">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label for="width" class="form-label">Width</label>
+                        <input type="number" name="width" id="width_input" placeholder="Enter Width" class="form-control" id="tags">
+                    </div>
+                    <div class="col-md-6">
+                        <label for="margin_bottom" class="form-label">Margin Bottom</label>
+                        <input type="number" name="margin_bottom" id="margin_bottom_input" placeholder="Enter Margin Bottom" class="form-control" id="tags">
+                    </div>
+                </div>
+                <div class="row mt-3">
+                    <div class="col-md-6">
+                        <label for="margin_right" class="form-label">Margin Right</label>
+                        <input type="number" name="margin_right" id="margin_right_input" placeholder="Enter Margin Right" class="form-control" id="tags">
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <button type="Submit" class="btn btn-primary">Save changes</button>
+            </div>
+        </form>
+          </div>
+        </div>
+      </div>   --}}
     
 @endsection
 
