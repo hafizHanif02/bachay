@@ -220,55 +220,77 @@ class HomeController extends Controller
         return response()->json($imageUrls, 200);
     }
 
-    public function CategoryDetail($id){
-        $category = Category::where('id',$id)->with(['childes.product','product'])->first();
-        if($category != null){
-            $url = asset('storage/app/public/category/' . $category->icon);
-            $category->image = $url;
-            $banners = Banner::where([
-                'resource_type' => 'category',
-                'resource_id' => $category->id,
-            ])->get();
+    public function CategoryDetail($id)
+{
+    $category = Category::where('id', $id)->with(['childes.product', 'product'])->first();
 
-            foreach($category->product as $product){
-                $product->thumbnail = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
+    if ($category != null) {
+        $url = asset('storage/app/public/category/' . $category->icon);
+        $category->image = $url;
+        $banners = Banner::where([
+            'resource_type' => 'category',
+            'resource_id' => $category->id,
+        ])->get();
+
+        foreach ($category->product as $product) {
+            $product->thumbnail = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
+        }
+
+        $organizedBanners = [];
+        foreach ($banners as $banner) {
+            $banner->photo = asset('storage/app/public/banner/' . $banner->photo);
+            $banner->mobile_photo = asset('storage/app/public/banner/mobile/' . $banner->mobile_photo);
+            $bannerType = $banner->banner_type;
+            if (!isset($organizedBanners[$bannerType])) {
+                $organizedBanners[$bannerType] = [];
             }
+            $organizedBanners[$bannerType][] = $banner;
+        }
+        $category['banners'] = $organizedBanners;
 
-            $organizedBanners = [];
-            foreach ($banners as $banner) {
-                $banner->photo = asset('storage/app/public/banner/' . $banner->photo);
-                $banner->mobile_photo = asset('storage/app/public/banner/mobile/' . $banner->mobile_photo);       
-                $bannerType = $banner->banner_type;
-                if (!isset($organizedBanners[$bannerType])) {
-                    $organizedBanners[$bannerType] = [];
-                }
-                $organizedBanners[$bannerType][] = $banner;
-            }
-            $category['banners'] = $organizedBanners; 
+        $custom_page = CustomPage::where([
+            'resource_type' => 'category',
+            'resource_id' => $category->id,
+            'is_mobile' => 1
+        ])->with('page_data')->first();
 
-            $custom_page = CustomPage::where([
-                'resource_type'=> 'category',
-                'resource_id'=> $category->id,
-                'is_mobile' => 1
-                ])->with('page_data')->first();
-            
-            if($custom_page != null){
-                if($custom_page->page_data != null){
-                    foreach($custom_page->page_data as $page){
-                        $imgUrl = asset("storage/app/public/category/{$category->name}" . $page->image);
-                        $page->image = $imgUrl;
+        $inline_array = [];
+        $currentArray = [];
+        $sumWidth = 0;
+
+        if ($custom_page != null) {
+            if ($custom_page->page_data != null) {
+                foreach ($custom_page->page_data as $page) {
+                    $imgUrl = asset("storage/app/public/category/{$category->name}" . $page->image);
+                    $page->image = $imgUrl;
+                    $sumWidth += $page->width;
+
+                    if ($sumWidth <= 100) {
+                        $currentArray[] = $page;
+                    } else {
+                        $inline_array[] = $currentArray;
+                        $currentArray = [$page];
+                        $sumWidth = $page->width;
                     }
                 }
-                $data = $custom_page;
-            }else{
-                $data = $category;
+
+                if (!empty($currentArray)) {
+                    $inline_array[] = $currentArray;
+                }
             }
-            $data['banners'] = $organizedBanners; 
-        return response()->json($data, 200);
-        }else{
-            return response()->json(['message'=>'Category not found.'], 200);
+
+            $data = $custom_page;
+            $data['in_line'] = $inline_array;
+        } else {
+            $data = $category;
         }
+
+        return response()->json($data, 200);
+    } else {
+        return response()->json(['message' => 'Category not found.'], 200);
     }
+}
+
 
     public function AllArticle(){
         $articles = Article::with('category')->get();
