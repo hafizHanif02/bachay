@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use Carbon\Carbon;
+use App\Model\Shop;
 use App\CPU\Helpers;
 use App\Model\Brand;
 use App\Models\Quiz;
@@ -585,6 +586,9 @@ class BusinessSettingsController extends Controller
                 case 'deals':
                     $model = FlashDeal::class;
                     break;
+                case 'shop':
+                        $model = Shop::class;
+                        break;
                 default:
                     $model = null; // Handle the default case if necessary
             }
@@ -616,6 +620,9 @@ class BusinessSettingsController extends Controller
                 break;
             case 'deals':
                 $model = FlashDeal::class;
+                break;
+            case 'shop':
+                $model = Shop::class;
                 break;
             default:
                 $model = null;
@@ -691,6 +698,9 @@ class BusinessSettingsController extends Controller
                 break;
             case 'deals':
                 $model = FlashDeal::class;
+                break;
+            case 'shop':
+                $model = Shop::class;
                 break;
             default:
                 $model = null;

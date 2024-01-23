@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api\V1\Customer\CMS;
 
 use Carbon\Carbon;
+use App\Model\Shop;
+use App\Model\Brand;
 use App\Model\Banner;
 use App\Model\Category;
 use App\Models\Article;
@@ -238,6 +240,160 @@ class HomeController extends Controller
         }
 
         return response()->json($data, 200);
+    }
+}
+
+public function AllBrands(){
+    $all_brands = Brand::get();
+    foreach($all_brands as $brand){
+        $url = asset('storage/app/public/brand/' . $brand->image);
+        $brand->image = $url;
+    }
+    return response()->json($all_brands, 200);
+}
+
+public function BrandDetails($id)
+{
+    $brand = Brand::where('id', $id)->first();
+
+    if ($brand != null) {
+        $url = asset('storage/app/public/brand/' . $brand->image);
+        $brand->image = $url;
+
+        $banners = Banner::where([
+            'resource_type' => 'brand',
+            'resource_id' => $brand->id,
+        ])->get();
+
+        $organizedBanners = [];
+        foreach ($banners as $banner) {
+            $banner->photo = asset('storage/app/public/banner/' . $banner->photo);
+            $banner->mobile_photo = asset('storage/app/public/banner/mobile/' . $banner->mobile_photo);
+            $bannerType = $banner->banner_type;
+            if (!isset($organizedBanners[$bannerType])) {
+                $organizedBanners[$bannerType] = [];
+            }
+            $organizedBanners[$bannerType][] = $banner;
+        }
+        $brand['banners'] = $organizedBanners;
+
+        $custom_page = CustomPage::where([
+            'resource_type' => 'brand',
+            'resource_id' => $brand->id,
+            'is_mobile' => 1
+        ])->with('page_data')->first();
+
+        $inline_array = [];
+        $currentArray = [];
+        $sumWidth = 0;
+
+        if ($custom_page != null) {
+            if ($custom_page->page_data != null) {
+                foreach ($custom_page->page_data as $page) {
+                    $imgUrl = asset("/public/assets/images/brand/{$brand->name}/" . $page->image);
+                    $page->image = $imgUrl;
+                    $sumWidth += $page->width;
+
+                    if ($sumWidth <= 100) {
+                        $currentArray[] = $page;
+                    } else {
+                        $inline_array[] = $currentArray;
+                        $currentArray = [$page];
+                        $sumWidth = $page->width;
+                    }
+                }
+
+                if (!empty($currentArray)) {
+                    $inline_array[] = $currentArray;
+                }
+            }
+
+            $data = $custom_page;
+            $data['in_line'] = $inline_array;
+        } else {
+            $data = $brand;
+        }
+
+        return response()->json($data, 200);
+    } else {
+        return response()->json(['message' => 'Brand not found.'], 200);
+    }
+}
+
+public function AllShops(){
+    $all_brands = Shop::get();
+    foreach($all_brands as $brand){
+        $url = asset('storage/app/public/shop/' . $brand->image);
+        $brand->image = $url;
+    }
+    return response()->json($all_brands, 200);
+}
+
+public function ShopDetails($id)
+{
+    $shop = Shop::where('id', $id)->first();
+
+    if ($shop != null) {
+        $url = asset('storage/app/public/shop/' . $shop->image);
+        $shop->image = $url;
+
+        $banners = Banner::where([
+            'resource_type' => 'shop',
+            'resource_id' => $shop->id,
+        ])->get();
+
+        $organizedBanners = [];
+        foreach ($banners as $banner) {
+            $banner->photo = asset('storage/app/public/banner/' . $banner->photo);
+            $banner->mobile_photo = asset('storage/app/public/banner/mobile/' . $banner->mobile_photo);
+            $bannerType = $banner->banner_type;
+            if (!isset($organizedBanners[$bannerType])) {
+                $organizedBanners[$bannerType] = [];
+            }
+            $organizedBanners[$bannerType][] = $banner;
+        }
+        $shop['banners'] = $organizedBanners;
+
+        $custom_page = CustomPage::where([
+            'resource_type' => 'shop',
+            'resource_id' => $shop->id,
+            'is_mobile' => 1
+        ])->with('page_data')->first();
+
+        $inline_array = [];
+        $currentArray = [];
+        $sumWidth = 0;
+
+        if ($custom_page != null) {
+            if ($custom_page->page_data != null) {
+                foreach ($custom_page->page_data as $page) {
+                    $imgUrl = asset("/public/assets/images/shop/{$shop->name}/" . $page->image);
+                    $page->image = $imgUrl;
+                    $sumWidth += $page->width;
+
+                    if ($sumWidth <= 100) {
+                        $currentArray[] = $page;
+                    } else {
+                        $inline_array[] = $currentArray;
+                        $currentArray = [$page];
+                        $sumWidth = $page->width;
+                    }
+                }
+
+                if (!empty($currentArray)) {
+                    $inline_array[] = $currentArray;
+                }
+            }
+
+            $data = $custom_page;
+            $data['in_line'] = $inline_array;
+        } else {
+            $data = $shop;
+        }
+
+        return response()->json($data, 200);
+    } else {
+        return response()->json(['message' => 'Shop not found.'], 200);
     }
 }
 

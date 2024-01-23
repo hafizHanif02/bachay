@@ -25,6 +25,15 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::get('/{id}', [HomeController::class, 'ArticleDetail']);
     });
 
+    Route::group(['prefix' => 'brand'], function () {
+        Route::get('/', [HomeController::class, 'AllBrands']);
+        Route::get('/{id}', [HomeController::class, 'BrandDetails']);
+    });
+
+    Route::group(['prefix' => 'shop'], function () {
+        Route::get('/', [HomeController::class, 'AllShops']);
+        Route::get('/{id}', [HomeController::class, 'ShopDetails']);
+    });
     Route::group(['middleware' => 'auth:api','prefix' => 'auth', 'namespace' => 'auth'], function () {
         Route::group(['prefix' => 'quiz'],function(){
             Route::get('category','QuizController@AllQuizCategory')->name('category.all');
