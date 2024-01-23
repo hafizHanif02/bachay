@@ -244,19 +244,25 @@ class HomeController extends Controller
 }
 
 public function AllBrands(){
-    $all_brands = Brand::get();
+    $all_brands = Brand::with('brandProducts')->get();
     foreach($all_brands as $brand){
         $url = asset('storage/app/public/brand/' . $brand->image);
         $brand->image = $url;
+        foreach($brand->brandProducts as $product){
+            $product->thumbnail = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
+        }
     }
     return response()->json($all_brands, 200);
 }
 
 public function BrandDetails($id)
 {
-    $brand = Brand::where('id', $id)->first();
+    $brand = Brand::where('id', $id)->with('brandProducts')->first();
 
     if ($brand != null) {
+        foreach ($brand->brandProducts as $product) {
+            $product->thumbnail = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
+        }
         $url = asset('storage/app/public/brand/' . $brand->image);
         $brand->image = $url;
 
@@ -321,19 +327,27 @@ public function BrandDetails($id)
 }
 
 public function AllShops(){
-    $all_brands = Shop::get();
+    $all_brands = Shop::with('product')->get();
     foreach($all_brands as $brand){
         $url = asset('storage/app/public/shop/' . $brand->image);
         $brand->image = $url;
+        foreach($brand->product as $product){
+            $url = asset('storage/app/public/product/' . $product->thumbnail_img);
+            $product->thumbnail_img = $url;
+        }
     }
     return response()->json($all_brands, 200);
 }
 
 public function ShopDetails($id)
 {
-    $shop = Shop::where('id', $id)->first();
+    $shop = Shop::where('id', $id)->with('product')->first();
 
     if ($shop != null) {
+        foreach($shop->product as $product){
+            $url = asset('storage/app/public/product/' . $product->thumbnail_img);
+            $product->thumbnail_img = $url;
+        }
         $url = asset('storage/app/public/shop/' . $shop->image);
         $shop->image = $url;
 
