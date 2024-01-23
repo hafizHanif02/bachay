@@ -244,7 +244,7 @@ class HomeController extends Controller
                 }
                 $organizedBanners[$bannerType][] = $banner;
             }
-            $category['banners'] = $organizedBanners;   
+            $category['banners'] = $organizedBanners; 
 
             $custom_page = CustomPage::where([
                 'resource_type'=> 'category',
@@ -258,11 +258,12 @@ class HomeController extends Controller
                         $imgUrl = asset("storage/app/public/category/{$category->name}" . $page->image);
                         $page->image = $imgUrl;
                     }
-                    $data = $custom_page;
                 }
+                $data = $custom_page;
             }else{
                 $data = $category;
             }
+            $data['banners'] = $organizedBanners; 
         return response()->json($data, 200);
         }else{
             return response()->json(['message'=>'Category not found.'], 200);
