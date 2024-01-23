@@ -47,7 +47,7 @@ class PageController extends Controller
         return view(VIEW_FILE_NAMES['terms_conditions_page'], compact('terms_condition','page_title_banner'));
     }
 
-    public function privacy_policy()
+    public function privacy_policy(Request $request)
     {
         $home_categories = Category::where('home_status', true)->priority()->get();
         $home_categories->map(function ($data) {
