@@ -44,13 +44,13 @@
                     </button>
                 </div>
                 <p class="product_title product-text mt-0 mb-1">
-                    @if (strlen($product->name) <= 25)
+                    @if (strlen($product->name) <= 45)
                         {{ $product->name }}
                     @else
-                        {{ substr($product->name, 0, 25) }}<span id="dots"> ....</span>
+                        {{ substr($product->name, 0, 45) }}<br>
+                        {{ substr($product->name, 45, 25) }}<span id="dots"> ....</span>
                     @endif
                 </p>
-
 
                 <div class="product_price d-flex">
                     <p class="product-price me-2">Rs.
@@ -58,7 +58,7 @@
                     </p>
                     <p class="card-text"><span class="discount">Rs.
                             {{ $product->unit_price }}</span>
-                        <span class="text-success">-{{ $product->discount }}%</span>
+                        <span class="text-success fw-bold">-({{ $product->discount }}% Off)</span>
                     </p>
                 </div>
 
@@ -76,6 +76,22 @@
 
                         <a href="#" class="delivery-btn">Standard Delivery</a>
                     </div>
+
+                    {{-- <div class="product-sizes">
+                        @foreach ($product->sizes as $size)
+                            <div class="size-box">{{ $size }}</div>
+                        @endforeach
+                    </div> --}}
+
+                    {{-- <div>
+                        <p>buy & earn club cash upto : Rs 100 <span class = "q-mark">?</span></p>
+                    </div> --}}
+
+                    {{-- <div class="product-colors">
+                        @foreach ($product->colors as $color)
+                            <div class="color-box" style="background-color: {{ $color->hex_code }};"></div>
+                        @endforeach
+                    </div> --}}
 
                     <div class="d-flex justify-content-between mt-2">
                         <form action="{{ route('cart.buy-now') }}" method="POST">
@@ -133,7 +149,6 @@
 
 </div>
 <style>
-    
     .wish-list {
         top: 6%;
         right: 8%;
@@ -174,6 +189,7 @@
         border-radius: 5px;
 
     }
+
     /* .product-wrapper:hover::before {
         background: red;
         opacity: 1;
@@ -204,15 +220,18 @@
         width: 30px;
         height: 30px;
         transition: border-color 0.3s ease, border-width 0.3s ease;
-}
+    }
+
     .forBorders:hover {
         border-color: #a894bd;
         border-width: 3px;
     }
+
     .product-wrapper .buy-now:hover {
         background-color: #f3f3f3;
         color: #8b5bc0 !important;
     }
+
     .product-wrapper:hover .buy-now {
         border: 1px solid #8b5bc0;
     }
@@ -259,4 +278,39 @@
     }
   }
 } */
+    .product-colors {
+        display: flex;
+        /* Optional: Use flexbox for horizontal arrangement */
+    }
+
+    .color-box {
+        width: 20px;
+        height: 20px;
+        margin-right: 5px;
+        /* Optional: Adjust spacing between color boxes */
+    }
+
+    .product-sizes {
+        display: flex;
+        /* Optional: Use flexbox for horizontal arrangement */
+    }
+
+    .size-box {
+        padding: 5px;
+        margin-right: 5px;
+        /* Optional: Adjust spacing between size boxes */
+        border: 1px solid #000;
+        /* Optional: Add a border for better visibility */
+    }
+    .q-mark{
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        text-align: center;
+        background: #e0e0e0;
+        margin-right: -5px;
+        margin-top: 2px;
+        float: right;
+        margin-left: 2px;
+    }
 </style>
