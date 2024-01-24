@@ -1,7 +1,7 @@
 <div class="container-fluid products mt-4">
     <div class="row">
         {{-- {{ $prod }} --}}
-        <div class="col-lg-6 col-md-6 col-sm-12 col-12 d-flex flex-column fixedProduct">
+        <div class="col-lg-5 col-md-6 col-sm-12 col-12 d-flex flex-column fixedProduct">
             <div class="row">
                 <div class="col-md-2">
                     <div class="small-images">
@@ -47,26 +47,26 @@
                                     alt="Small Image {{ $key + 1 }}">
                             @endforeach
                         </div>
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
                         {{-- <img class="small-image" src="{{ asset('sstytorage/app/public/product/images' . $photo) }}"
                                         alt="Small Image 1"> --}}
-        
+
                         {{-- <img class="small-image " src="{{ asset('public/images/Frame 134 (2).png') }}" alt="Small Image 2">
                             <img class="small-image" src="{{ asset('public/images/Frame 135 (2).png') }}" alt="Small Image 3">
                             <img class="small-image " src="{{ asset('public/images/Frame 137 (2).png') }}" alt="Small Image 3">
                             <img class="small-image " src="{{ asset('public/images/Frame 855 (2).png') }}" alt="Small Image 3">
                             <img class="small-image " src="{{ asset('public/images/Frame 856 (2).png') }}" alt="Small Image 3"> --}}
-        
-        
-        
-        
+
+
+
+
                     </div>
                 </div>
             </div>
@@ -118,7 +118,7 @@
 
         </div>
 
-        <div class="col-lg-6 col-md-6 col-sm-12 col-12 ">
+        <div class="col-lg-7 col-md-6 col-sm-12 col-12 ">
             <div class="row pt-3 pb-3">
                 <div class="col-12 d-flex align-items-center gap-2">
                     <h6 class="fontPoppins fw-bold boysClothes mb-0">
