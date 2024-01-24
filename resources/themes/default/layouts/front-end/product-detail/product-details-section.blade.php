@@ -2,66 +2,74 @@
     <div class="row">
 
         {{-- {{ $prod }} --}}
-
-
         <div class="col-lg-6 col-md-6 col-sm-12 col-12 d-flex flex-column fixedProduct">
-            <div class="product-container">
-                <div class="slider main-image">
-                    <img id="main-image" class="detailed-product-img object-fit-cover"
-                        src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}" alt="Main Image"
-                        width="100%" height="100%">
-                        <img id="main-image" class="detailed-product-img object-fit-cover"
-                        src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}" alt="Main Image"
-                        width="100%" height="100%">
-                    @foreach (json_decode($product->color_image) as $key => $photo)
-                        <img  id="main-image" class="detailed-product-img object-fit-cover"
-                            src="{{ asset('storage/app/public/product/' . $photo->image_name) }}"
-                            data-url='{{ asset('storage/app/public/product/' . $photo->image_name) }}'
-                            alt="Small Image {{ $key + 1 }}">
-                    @endforeach
-                    @foreach (json_decode($product->images) as $key => $photo)
-                        <img  id="main-image" class="detailed-product-img object-fit-cover"
-                            src="{{ asset('storage/app/public/product/' . $photo) }}"
-                            data-url='{{ asset('storage/app/public/product/' . $photo) }}'
-                            alt="Small Image {{ $key + 1 }}">
-                    @endforeach
-                </div>
-
-
-
-                {{-- <div class="small-images">
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="small-images">
                         <div class="SmallImageCon">
-                                @foreach (json_decode($product->color_image) as $key => $photo)
-                                    <img class="small-image object-fit-cover"
-                                        id="image-#{{ $photo->color ? $photo->color : '' }}"
-                                        src="{{ asset('storage/app/public/product/' . $photo->image_name) }}"
-                                        data-url='{{ asset('storage/app/public/product/' . $photo->image_name) }}'
-                                        alt="Small Image {{ $key + 1 }}">
-                                @endforeach
-                                @foreach (json_decode($product->images) as $key => $photo)
-                                    <img class="small-image object-fit-cover"
-                                        src="{{ asset('storage/app/public/product/' . $photo) }}"
-                                        data-url='{{ asset('storage/app/public/product/' . $photo) }}'
-                                        alt="Small Image {{ $key + 1 }}">
+                            <img class="small-image object-fit-cover" id="image-#{{ $product->thumbnail }}"
+                                    src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}"
+                                    data-url='{{ asset('storage/app/public/product/' . $product->thumbnail) }}'
+                                    alt="Small Image">
+                            @foreach (json_decode($product->color_image) as $key => $photo)
+                                <img class="small-image object-fit-cover" id="image-#{{ $photo->color ? $photo->color : '' }}"
+                                    src="{{ asset('storage/app/public/product/' . $photo->image_name) }}"
+                                    data-url='{{ asset('storage/app/public/product/' . $photo->image_name) }}'
+                                    alt="Small Image {{ $key + 1 }}">
+                            @endforeach
+                            {{-- @foreach (json_decode($product->images) as $key => $photo)
+                                <img class="small-image object-fit-cover"
+                                    src="{{ asset('storage/app/public/product/' . $photo) }}"
+                                    data-url='{{ asset('storage/app/public/product/' . $photo) }}'
+                                    alt="Small Image {{ $key + 1 }}">
+                            @endforeach --}}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <div class="product-container">
+                        <div class="slider main-image">
+                            <img id="main-image" class="detailed-product-img object-fit-cover"
+                                src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}" alt="Main Image"
+                                width="100%" height="100%">
+                            <img id="main-image" class="detailed-product-img object-fit-cover"
+                                src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}" alt="Main Image"
+                                width="100%" height="100%">
+                            @foreach (json_decode($product->color_image) as $key => $photo)
+                                <img id="main-image" class="detailed-product-img object-fit-cover"
+                                    src="{{ asset('storage/app/public/product/' . $photo->image_name) }}"
+                                    data-url='{{ asset('storage/app/public/product/' . $photo->image_name) }}'
+                                    alt="Small Image {{ $key + 1 }}">
+                            @endforeach
+                            @foreach (json_decode($product->images) as $key => $photo)
+                                <img id="main-image" class="detailed-product-img object-fit-cover"
+                                    src="{{ asset('storage/app/public/product/' . $photo) }}"
+                                    data-url='{{ asset('storage/app/public/product/' . $photo) }}'
+                                    alt="Small Image {{ $key + 1 }}">
                             @endforeach
                         </div>
-                </div> --}}
-
-
-
-
-                {{-- <img class="small-image" src="{{ asset('sstytorage/app/public/product/images' . $photo) }}"
-                                alt="Small Image 1"> --}}
-
-                {{-- <img class="small-image " src="{{ asset('public/images/Frame 134 (2).png') }}" alt="Small Image 2">
-                    <img class="small-image" src="{{ asset('public/images/Frame 135 (2).png') }}" alt="Small Image 3">
-                    <img class="small-image " src="{{ asset('public/images/Frame 137 (2).png') }}" alt="Small Image 3">
-                    <img class="small-image " src="{{ asset('public/images/Frame 855 (2).png') }}" alt="Small Image 3">
-                    <img class="small-image " src="{{ asset('public/images/Frame 856 (2).png') }}" alt="Small Image 3"> --}}
-
-
-
-
+        
+        
+        
+        
+        
+        
+        
+        
+                        {{-- <img class="small-image" src="{{ asset('sstytorage/app/public/product/images' . $photo) }}"
+                                        alt="Small Image 1"> --}}
+        
+                        {{-- <img class="small-image " src="{{ asset('public/images/Frame 134 (2).png') }}" alt="Small Image 2">
+                            <img class="small-image" src="{{ asset('public/images/Frame 135 (2).png') }}" alt="Small Image 3">
+                            <img class="small-image " src="{{ asset('public/images/Frame 137 (2).png') }}" alt="Small Image 3">
+                            <img class="small-image " src="{{ asset('public/images/Frame 855 (2).png') }}" alt="Small Image 3">
+                            <img class="small-image " src="{{ asset('public/images/Frame 856 (2).png') }}" alt="Small Image 3"> --}}
+        
+        
+        
+        
+                    </div>
+                </div>
             </div>
             {{-- <img class="detailed-product-img" src="{{ asset('public/images/Frame 83.png') }}" alt=""> --}}
             <div class="col-12 d-flex justify-content-between">
@@ -646,25 +654,27 @@
 
 </div>
 <style>
-    .slick-slider .slick-list, .slick-slider .slick-track{
+    .slick-slider .slick-list,
+    .slick-slider .slick-track {
         height: 500px !important;
     }
+
     .form-group-inline {
         width: 49%;
     }
 
-    .border-ww{
+    .border-ww {
         border: 2px solid #000;
     }
 </style>
 <script>
-   $(".slider").slick({
-    autoplay: true,
-    arrows: true,
-    autoplaySpeed: 5000,
-    slidesToShow: 1,
-    infinite: true,
-});
+    $(".slider").slick({
+        autoplay: true,
+        arrows: true,
+        autoplaySpeed: 5000,
+        slidesToShow: 1,
+        infinite: true,
+    });
 
     function copyToClipboard2() {
         const codeText = document.getElementById('codeSpan2').innerText;
