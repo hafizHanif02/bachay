@@ -106,8 +106,8 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestC
     // Route::get('products', 'ProductListController@products')->name('products');
 
     // Social login routes
-    Route::get('/login/{provider}', [SocialController::class, 'redirectToProvider'])->name('social.redirect');
-    Route::get('/login/{provider}/callback', [SocialController::class, 'handleProviderCallback'])->name('social.callback');
+    // Route::get('/login/{provider}', [SocialController::class, 'redirectToProvider'])->name('social.redirect');
+    // Route::get('/login/{provider}/callback', [SocialController::class, 'handleProviderCallback'])->name('social.callback');
 
     Route::get('product-list', 'ProductListController@default_theme')->name('product-list');
     Route::get('product-list/{slug}', 'WebController@flash_deals')->name('product-list-slug');
