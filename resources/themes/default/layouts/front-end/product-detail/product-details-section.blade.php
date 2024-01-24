@@ -18,11 +18,11 @@
           <div class="xzoom-thumbs">
             <a href="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev"><img class="xzoom-gallery" width="80" src="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev"  xpreview="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev" title="The description goes here"></a>
 
-            <a href="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev"><img class="xzoom-gallery" width="80" src="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev" title="The description goes here"></a>
+            <a href="https://th.bing.com/th/id/OIG.MxQxUggA0RKmKdTjwAqw" title="The description goes here"></a>
 
-            <a href="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev" title="The description goes here"></a>
+            <a href="https://th.bing.com/th/id/OIG.MxQxUggA0RKmKdTjwAqw" title="The description goes here"></a>
 
-            <a href="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev"><img class="xzoom-gallery" width="80" src="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev" title="The description goes here"></a>
+            <a href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE5fPhctwNLodS9VmAniEw_UiLWHgKs0fs1w&usqp=CAU"><img class="xzoom-gallery" width="80" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTE5fPhctwNLodS9VmAniEw_UiLWHgKs0fs1w&usqp=CAU" title="The description goes here"></a>
           </div>
         </div>
       </div>
@@ -688,7 +688,6 @@
 }
 </style>
 
-<script src='https://code.jquery.com/jquery-2.1.1.js'></script>
 <script src='https://unpkg.com/xzoom/dist/xzoom.min.js'></script>
 <script src='https://hammerjs.github.io/dist/hammer.min.js'></script>
 <script src='https://cdnjs.cloudflare.com/ajax/libs/foundation/6.3.1/js/foundation.min.js'></script>
