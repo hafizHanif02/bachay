@@ -14,15 +14,15 @@
         <hr>
       <div class="large-5 column">
         <div class="xzoom-container">
-          <img class="xzoom" id="xzoom-fancy" src="path/to/image.jpg" xoriginal="path/to/full-image.jpg" />
+          <img class="xzoom" id="xzoom-fancy" src="https://via.placeholder.com/1000/2a9d8f/FFFFFF/?text=VRMedia%20Dev" xoriginal="https://via.placeholder.com/1000/2a9d8f/FFFFFF/?text=VRMedia%20Dev" />
           <div class="xzoom-thumbs">
-            <a href="path/to/image.jpg"><img class="xzoom-gallery" width="80" src="path/to/image.jpg"  xpreview="path/to/image.jpg" title="The description goes here"></a>
+            <a href="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev"><img class="xzoom-gallery" width="80" src="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev"  xpreview="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev" title="The description goes here"></a>
 
-            <a href="path/to/image.jpg"><img class="xzoom-gallery" width="80" src="path/to/image.jpg" title="The description goes here"></a>
+            <a href="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev"><img class="xzoom-gallery" width="80" src="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev" title="The description goes here"></a>
 
-            <a href="path/to/image.jpg" title="The description goes here"></a>
+            <a href="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev" title="The description goes here"></a>
 
-            <a href="path/to/image.jpg"><img class="xzoom-gallery" width="80" src="path/to/image.jpg" title="The description goes here"></a>
+            <a href="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev"><img class="xzoom-gallery" width="80" src="https://via.placeholder.com/567/89b0ae/FFFFFF/?text=VRMedia%20Dev" title="The description goes here"></a>
           </div>
         </div>
       </div>
