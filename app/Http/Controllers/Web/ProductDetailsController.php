@@ -56,9 +56,10 @@ class ProductDetailsController extends Controller
             $productVariations = json_decode($product->variation, true);
             $categoryOptions = json_decode($product->choice_options, true);
             $groupedVariations = [];
+            $product['size'] = [];
             foreach ($categoryOptions as $choice) {
                 if ($choice['title'] == 'Size') {
-                    $product['size'] = $choice['options'];  
+                    $product['size'] = $choice['options'];
                 }
             }
             foreach ($productVariations as $variation) {
