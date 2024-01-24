@@ -27,6 +27,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Mikeemoo\PHPColors\Color;
 
 class ProductController extends Controller
 {
@@ -152,12 +153,49 @@ class ProductController extends Controller
 
     public function show($id){
         
-        $product = Product::where('id',$id)->with('brand')->first();
+        $product = Product::where('id',$id)->with(['brand','reviews','rating'])->first();
+
+        $order = DB::table('order_details')->where('product_id',$product->id)->get();
+        if(count($order) > 0){
+            $product->sold_product = count($order);
+        }else{
+            $product->sold_product = 0;
+        }
 
         $brandImageUrl = url('storage/app/public/brand/' . $product->brand->image);
         $product->brand->image = $brandImageUrl;
 
-        if($product != null){
+        if ($product != null) {
+            $productVariations = json_decode($product->variation, true);
+            $categoryOptions = json_decode($product->choice_options, true);
+        
+            $groupedVariations = [];
+            foreach ($categoryOptions as $choice) {
+                if ($choice['title'] == 'Size') {
+                    $product['size'] = $choice['options'];  
+                }
+            }
+            foreach ($productVariations as $variation) {
+                $typeParts = explode('-', $variation['type']);
+                $color = $typeParts[0];
+        
+                // Initialize color array if not exists
+                if (!isset($groupedVariations[$color])) {
+                    $groupedVariations[$color] = [];
+                }
+        
+                // Add variation to the color array
+                $groupedVariations[$color][] = $variation;
+            }
+        
+            // Now $groupedVariations contains the variations separated by color
+            $product->variation = $groupedVariations;
+        
+        
+        
+            
+    
+
             $imagesArray = json_decode($product->images, true);
     
             $imageUrls = [];

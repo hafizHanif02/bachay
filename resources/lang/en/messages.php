@@ -6765,4 +6765,5 @@
   'Add Image' => 'Add Image',
   'Continue with Google' => 'Continue with Google',
   'Continue with Facebook' => 'Continue with Facebook',
+  'Weight' => 'Weight',
 );
