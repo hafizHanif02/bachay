@@ -53,6 +53,26 @@ class ProductDetailsController extends Controller
 
         // dd($product->colors);
         if ($product != null) {
+            $productVariations = json_decode($product->variation, true);
+            $categoryOptions = json_decode($product->choice_options, true);
+            $groupedVariations = [];
+            foreach ($categoryOptions as $choice) {
+                if ($choice['title'] == 'Size') {
+                    $product['size'] = $choice['options'];  
+                }
+            }
+            foreach ($productVariations as $variation) {
+                $typeParts = explode('-', $variation['type']);
+                $color = $typeParts[0];
+                if (!isset($groupedVariations[$color])) {
+                    $groupedVariations[$color] = [];
+                }
+                $groupedVariations[$color][] = $variation;
+            }
+            $product->variation = $groupedVariations;
+
+
+
             $overallRating = ProductManager::get_overall_rating($product->reviews);
             $wishlist_status = Wishlist::where(['product_id' => $product->id, 'customer_id' => auth('customer')->id()])->count();
             $reviews_of_product = Review::where('product_id', $product->id)->latest()->paginate(2);

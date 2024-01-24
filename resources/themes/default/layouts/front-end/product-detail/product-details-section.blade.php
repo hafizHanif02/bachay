@@ -1,6 +1,5 @@
 <div class="container-fluid products mt-4">
     <div class="row">
-
         {{-- {{ $prod }} --}}
         <div class="col-lg-6 col-md-6 col-sm-12 col-12 d-flex flex-column fixedProduct">
             <div class="row">
@@ -11,18 +10,18 @@
                                     src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}"
                                     data-url='{{ asset('storage/app/public/product/' . $product->thumbnail) }}'
                                     alt="Small Image">
-                            @foreach (json_decode($product->color_image) as $key => $photo)
+                            {{-- @foreach (json_decode($product->color_image) as $key => $photo)
                                 <img class="small-image object-fit-cover" id="image-#{{ $photo->color ? $photo->color : '' }}"
                                     src="{{ asset('storage/app/public/product/' . $photo->image_name) }}"
                                     data-url='{{ asset('storage/app/public/product/' . $photo->image_name) }}'
                                     alt="Small Image {{ $key + 1 }}">
-                            @endforeach
-                            {{-- @foreach (json_decode($product->images) as $key => $photo)
+                            @endforeach --}}
+                            @foreach (json_decode($product->images) as $key => $photo)
                                 <img class="small-image object-fit-cover"
                                     src="{{ asset('storage/app/public/product/' . $photo) }}"
                                     data-url='{{ asset('storage/app/public/product/' . $photo) }}'
                                     alt="Small Image {{ $key + 1 }}">
-                            @endforeach --}}
+                            @endforeach
                         </div>
                     </div>
                 </div>
@@ -264,10 +263,16 @@
 
                 <div class="Sizesbtn col-12 pt-2 d-flex align-items-center mb-3">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size</p>
-                    @foreach (json_decode($product->variation) as $variant)
+                    @foreach($product->size as $size)
+                    <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
+                                type="button" value="{{ $size}}" data-price="{{ $size }}"
+                                onclick="InsertVariant('{{ $loop->iteration }}')"
+                                data-discount={{ $product->discount }} id="variant{{ $loop->iteration }}">
+                    @endforeach
+                    {{-- @foreach (json_decode($product->variation) as $variant)
                         @if ($variant->qty > 0)
                             <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
-                                type="button" value="{{ $variant->type }}" data-price="{{ $variant->price }}"
+                                type="hidden" value="{{ $variant->type }}" data-price="{{ $variant->price }}"
                                 onclick="InsertVariant('{{ $loop->iteration }}')"
                                 data-discount={{ $product->discount }} id="variant{{ $loop->iteration }}">
                         @elseif($variant->qty <= 0)
@@ -275,7 +280,7 @@
                                 class="bg-danger text-white square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
                                 disabled title="Not Available" type="button" value="{{ $variant->type }}">
                         @endif
-                    @endforeach
+                    @endforeach --}}
                     {{-- <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins" type="button"
                         value="UK 11 (18.3 CM)">
                     <input class="fontPoppins square square2 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2" type="button"
