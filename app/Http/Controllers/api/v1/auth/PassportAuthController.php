@@ -50,12 +50,35 @@ class PassportAuthController extends Controller
             $refer_user = User::where(['referral_code' => $request->referral_code])->first();
         }
 
+        $phoneNumber = $request->phone;
+
+        // Check and format the phone number
+        if (strpos($phoneNumber, '+92') === 0) {
+            // If the number starts with +92, remove the +
+            $phoneNumber = substr($phoneNumber, 1);
+        } elseif (strpos($phoneNumber, '0092') === 0) {
+            // If the number starts with 0092, remove the 00
+            $phoneNumber = substr($phoneNumber, 2);
+        } elseif (strpos($phoneNumber, '03') === 0) {
+            // If the number starts with 03, remove the 0 and add 92
+            $phoneNumber = '92' . substr($phoneNumber, 1);
+        } elseif (strpos($phoneNumber, '3') === 0) {
+            // If the number starts with 3, add 92
+            $phoneNumber = '92' . $phoneNumber;
+        }
+
+        // Validate the final length of the phone number
+        if (strlen($phoneNumber) != 12) {
+            return response()->json(['error' => 'Invalid phone number'], 400);
+        }
+
+
         $temporary_token = Str::random(40);
         $user = User::create([
             'f_name' => $request->f_name,
             'l_name' => $request->l_name,
             'email' => $request->email,
-            'phone' => $request->phone,
+            'phone' => $phoneNumber,
             'image' => $filename,
             'is_active' => 1,
             'password' => bcrypt($request->password),
