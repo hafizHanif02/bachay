@@ -64,11 +64,14 @@ $readLessButton.on("click", function () {
 
 const $mainImage = $("#main-image");
 const $smallImages = $(".small-image");
-
 $smallImages.first().addClass("active");
 
 $smallImages.click(function () {
     $mainImage.attr("src", $(this).attr("src"));
+   var img = document.getElementById("main-image");
+    const magnifier = document.getElementById("img-magnifier-glass");
+    magnifier.style.backgroundImage = "url('" + img.src + "')";
+
     $smallImages.removeClass("active");
     $(this).addClass("active");
 });

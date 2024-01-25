@@ -1,3 +1,15 @@
+<head>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/drift-zoom/1.3.1/Drift.min.js" integrity="sha512-Pd9pNKoNtEB70QRXTvNWLO5kqcL9zK88R4SIvThaMcQRC3g8ilKFNQawEr+PSyMtf/JTjV7pbFOFnkVdr0zKvw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+</head>
+<style>
+    .overlay {
+    position: relative; /* Adjust as needed */
+}
+
+.drift-zoom-pane {
+    z-index: 1000; /* Make sure this is above other elements */
+}
+</style>
 <div class="container-fluid products mt-4">
     <div class="row">
         
@@ -6,7 +18,7 @@
                 <div class="col-md-2">
                     <div class="small-images">
                         <div class="SmallImageCon">
-                            <img class="small-image object-fit-cover" id="image-#{{ $product->thumbnail }}"
+                            <img  class="small-image object-fit-cover" id="image-#{{ $product->thumbnail }}"
                                     src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}"
                                     data-url='{{ asset('storage/app/public/product/' . $product->thumbnail) }}'
                                     alt="Small Image">
@@ -98,8 +110,8 @@
 
         </div>
 
-        <div class="col-lg-7 col-md-6 col-sm-12 col-12 ">
-            <div class="row pt-3 pb-3">
+        <div  class="col-lg-7 col-md-6 col-sm-12 col-12">
+            <div class="row pt-3 pb-3 overlay">
                 <div class="col-12 d-flex align-items-center gap-2">
                     <h6 class="fontPoppins fw-bold boysClothes mb-0">
                         @if (strlen($categoryName) <= 10)
@@ -193,7 +205,7 @@
                         <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Colors</p>
                         @foreach ($colors as $color)
                             <input type="radio" class="me-3" style="background-color: {{ $color->code }}"
-                                id="btn{{ $loop->iteration }}" onchange="changepicture('{{ $color->code }}')"
+                                id="btn{{ $loop->iteration }}" 
                                 name="Btn">
                         @endforeach
                     </div>
@@ -671,16 +683,6 @@
             });
     }
 
-    function changepicture(code) {
-        $('.active').removeClass('active');
-        var imageSrc = $('#image-' + code).attr('data-url');
-        console.log(code, imageSrc);
-
-
-        $('#main-image').attr('src', imageSrc);
-        $('#image-' + code).addClass('active');
-        $('#color').val('' + code);
-    }
 
     function InsertVariant(index) {
 
@@ -701,4 +703,83 @@
 
 
     }
+
+
+
+    function magnify(imgID, zoom) {
+    var img, glass, w, h, bw;
+    img = document.getElementById(imgID);
+    var overlay = document.querySelector('.overlay');
+
+    // Create magnifier glass
+    glass = document.createElement("DIV");
+    glass.setAttribute("class", "img-magnifier-glass");
+    glass.setAttribute("id", "img-magnifier-glass");
+
+    // Append magnifier glass to the overlay
+    overlay.appendChild(glass);
+
+    // Set background properties for the magnifier glass
+    glass.style.backgroundImage = "url('" + img.src + "')";
+    glass.style.backgroundRepeat = "no-repeat";
+    glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
+    bw = 3;
+    w = glass.offsetWidth / 2;
+    h = glass.offsetHeight / 3;
+
+    // Event listeners for mouse movement
+    img.addEventListener("mousemove", moveMagnifier);
+    glass.addEventListener("mousemove", moveMagnifier);
+    img.addEventListener("touchmove", moveMagnifier);
+    glass.addEventListener("touchmove", moveMagnifier);
+
+    function moveMagnifier(e) {
+        var pos, x, y;
+
+        // Prevent any other actions that may occur when moving over the image
+        e.preventDefault();
+
+        // Get the cursor's x and y positions
+        pos = getCursorPos(e);
+        x = pos.x;
+        y = pos.y;
+
+        // Calculate the position of the magnifier glass
+        glass.style.position = "absolute";
+        
+        glass.style.left = "0";
+        glass.style.top = "0";
+        glass.style.height = "30%";
+        glass.style.width = "80%";
+        
+
+
+        // Display what the magnifier glass "sees"
+        glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + 2 + bw) + "px";
+    }
+
+    function getCursorPos(e) {
+        var a, x = 0, y = 0;
+        e = e || window.event;
+
+        // Get the x and y positions of the image
+        a = img.getBoundingClientRect();
+
+        // Calculate the cursor's x and y coordinates, relative to the image
+        x = e.pageX - a.left;
+        y = e.pageY - a.top;
+
+        // Consider any page scrolling
+        x = x - window.pageXOffset;
+        y = y - window.pageYOffset;
+        return { x: x, y: y };
+    }
+}
+
+// Initiate magnify function
+magnify("main-image", 2);
+
+
+
+
 </script>

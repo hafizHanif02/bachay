@@ -220,6 +220,7 @@
     .product-wrapper:hover {
         overflow: visible;
         box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
+        /* box-shadow: 0 0 4px 1px #aaa; */
         border-radius: 5px;
     }
 
@@ -231,6 +232,7 @@
     .product-wrapper:hover .expandable {
         opacity: 1;
         visibility: visible;
+        
     }
 
     .imgMAin {
