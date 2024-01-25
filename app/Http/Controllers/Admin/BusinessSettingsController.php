@@ -568,7 +568,7 @@ class BusinessSettingsController extends Controller
 
     public function AllCustomePage(){
         $custom_pages = CustomPage::with('page_data')->get();
-        //return $custom_pages;
+        return $custom_pages;
         foreach ($custom_pages as $custom_page) {
             $resource_model = $custom_page->resource_type;
             switch ($resource_model) {
