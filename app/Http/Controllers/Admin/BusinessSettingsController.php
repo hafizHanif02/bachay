@@ -598,7 +598,7 @@ class BusinessSettingsController extends Controller
                 $custom_page->resource_name = $model::where('id', $custom_page->resource_id)->first();
             }
         }
-        return $custom_pages;
+        //return $custom_pages;
 
 
         return view('admin-views.business-settings.custom_page', compact('custom_pages'));
