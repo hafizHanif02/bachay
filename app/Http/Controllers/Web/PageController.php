@@ -24,7 +24,7 @@ class PageController extends Controller
         return view(VIEW_FILE_NAMES['faq'], compact('helps','page_title_banner'));
     }
 
-    public function contacts()
+    public function contacts(Request $request)
     {
         $home_categories = Category::where('home_status', true)->priority()->get();
         $home_categories->map(function ($data) {
@@ -64,7 +64,7 @@ class PageController extends Controller
                 $shippingAddress = [];
                 $cartProductsArray = $productIds;
             }
-            
+
         $recaptcha = \App\CPU\Helpers::get_business_settings('recaptcha');
         return view(VIEW_FILE_NAMES['contacts'],compact('recaptcha', 'home_categories', 'cartProductsArray'));
     }
