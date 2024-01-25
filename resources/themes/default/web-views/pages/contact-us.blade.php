@@ -34,12 +34,14 @@
     <!-- Split section: Map + Contact form-->
     <div class="container rtl" style="text-align: {{Session::get('direction') === "rtl" ? 'right' : 'left'}};">
         <div class="row no-gutters py-5">
-            <div class="col-lg-6 iframe-full-height-wrap ">
-                <img class="for-contac-image" src="{{asset("public/assets/front-end/png/contact.png")}}" alt="">
+            <div class="col-lg-6 iframe-full-height-wrap " >
+                <img class="for-contac-image" src="{{asset("public/assets/front-end/png/contact.png")}}" alt="" style="
+                width: 100%;
+            ">
             </div>
             <div class="col-lg-6">
                 <div class="card">
-                    <div class="card-body for-send-message">
+                    <div class="card-body for-send-message" style="height: 400px !important">
                         <h2 class="h4 mb-4 text-center font-semibold text-black">{{translate('send_us_a_message')}}</h2>
                         <form action="{{route('contact.store')}}" method="POST" id="getResponse">
                             @csrf
@@ -104,7 +106,7 @@
                                 </div>
                             @endif
                             <div class=" ">
-                                <button class="btn btn--primary" type="submit" >{{translate('send')}}</button>
+                                <button class="btn btn-primary" type="submit" >{{translate('send')}}</button>
                             </div>
                         </form>
                     </div>

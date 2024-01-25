@@ -14,7 +14,7 @@
                         <li class="poppins"><a href="/terms" class="text-decoration-none">
                                 <h5>Terms & Conditions</h5>
                             </a></li>
-                        <li class="poppins"><a href="/contacts" class="text-decoration-none">
+                        <li class="poppins"><a href="/contact-us" class="text-decoration-none">
                                 <h5>Contact Us</h5>
                             </a></li>
                         <li class="poppins"><a href="#" class="text-decoration-none">
@@ -98,7 +98,7 @@
                     <ul>
                         <li><a href="#" class="text-decoration-none"><img src="{{ asset('public/images/logo.png') }}"
                                     alt="Logo"></a></li>
-    
+
                         <li class="mt-4 poppins"><a href="#" class="text-decoration-none">
                                 <h6><i class="bi bi-geo-alt"></i> Morem ipsum dolor sit amet.</h6>
                             </a></li>
