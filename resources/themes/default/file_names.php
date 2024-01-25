@@ -96,6 +96,7 @@ return [
 
 
 
+    'categories_mobile' => 'layouts.mobile.categories.all-categories',
 
     'products_mobile_nav_partials' => 'layouts.front-end.partials.cart',
     'products_view_page' => 'web-views.products.view',
