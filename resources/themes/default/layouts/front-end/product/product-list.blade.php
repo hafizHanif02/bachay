@@ -44,11 +44,11 @@
                     </button>
                 </div>
                 <p class="product_title product-text mt-0 mb-1">
-                    @if (strlen($product->name) <= 45)
+                    @if (strlen($product->name) <= 40)
                         {{ $product->name }}
                     @else
-                        {{ substr($product->name, 0, 45) }}<br>
-                        {{ substr($product->name, 45, 25) }}<span id="dots"> ....</span>
+                        {{ substr($product->name, 0, 40) }}<br>
+                        {{ substr($product->name, 40, 25) }}<span id="dots"> ....</span>
                     @endif
                 </p>
 
@@ -143,7 +143,8 @@
                             <input type="hidden" name="product[1][actual_price]" value="{{ $product->unit_price }}">
                             <input type="hidden" name="product[1][price]" value="{{ $product->unit_price }}">
                             <input type="hidden" name="product[1][quantity]" value="1">
-                            <button class="fs-12 buy-now w-100 rounded-pill text-white p-0">Buy Now</button>
+                            <button class="fs-12 buy-now w-100 rounded-pill text-white py-1 px-4">Buy Now</button>
+
                         </form>
                         {{-- <div class="d-flex  mt-1">
                                                 <button type="submit" id="cart-btn"
@@ -220,7 +221,6 @@
         overflow: visible;
         box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
         border-radius: 5px;
-
     }
 
     /* .product-wrapper:hover::before {
