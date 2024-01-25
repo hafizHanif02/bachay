@@ -104,17 +104,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -402,17 +402,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -699,17 +699,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -996,17 +996,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -1562,17 +1562,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -1857,17 +1857,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -2155,17 +2155,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -2186,17 +2186,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -2482,17 +2482,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -2512,17 +2512,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -2810,17 +2810,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -3383,17 +3383,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -3679,17 +3679,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -3975,17 +3975,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -4282,17 +4282,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -4578,17 +4578,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -4896,17 +4896,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -5191,17 +5191,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -5221,17 +5221,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -5240,7 +5240,7 @@ class WebController extends Controller
                 $shippingAddress = [];
                 $cartProductsArray = $productIds;
             }
- 
+
         return view(VIEW_FILE_NAMES['gift-certification'], (compact('cartProductsArray','wishlistProductsArray','products', 'home_categories')));
     }
     public function invites_credits()
@@ -5517,17 +5517,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -5812,17 +5812,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -5846,7 +5846,7 @@ class WebController extends Controller
 
     public function flash_deals(Request $request)
     {
-        
+
         $current_date = Carbon::now();
         $current_date = $current_date->format('Y-m-d');
         $deal = FlashDeal::with(['products.product.reviews', 'products.product' => function ($query) {
@@ -5874,7 +5874,7 @@ class WebController extends Controller
                     ->inRandomOrder()->take(12)->get();
             });
         $deals_products = $deal->products;
-        
+
         // return $deal_products->products->product->thumbnail;
 
         if (isset($deal)) {
@@ -5920,7 +5920,7 @@ class WebController extends Controller
                 'theme_all_purpose' => self::theme_all_purpose(),
             };
         }
-    
+
     }
 
     public function all__categories($viewName)
@@ -5936,8 +5936,39 @@ class WebController extends Controller
         $main_section_banner = DB::table('banners')->where('banner_type', 'Main Section Banner')->get();
         $productsInFlashDeal = FlashDealProduct::with('product')->get();
         $categories = $this->category->with('childes.childes')->where(['position' => 0,'home_status' => true])->priority()->get();
-        return view(VIEW_FILE_NAMES[$viewName], (compact('categories', 'productsInFlashDeal', 'main_section_banner', 'main_banner', 'home_categories')));
-        
+
+
+        if(Auth::guard('customer')->check()){
+            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+            $wishlistProductsArray = $wishlistProducts->toArray();
+
+            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
+        }else{
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
+
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
+
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
+            }
+
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+        return view(VIEW_FILE_NAMES[$viewName], (compact('categories', 'productsInFlashDeal', 'main_section_banner', 'main_banner', 'home_categories', 'cartProductsArray')));
+
     }
 
     public function single_categories($slug, Request $request){
@@ -5988,17 +6019,17 @@ class WebController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -6020,9 +6051,9 @@ class WebController extends Controller
             if($child != null){
 
                 $child->tag = ($child->gender == 1)?'Boy':'Girl';
-    
+
                 $allProducts = Product::with('tags')->get();
-    
+
                 $filteredProducts = [];
                 foreach ($allProducts as $product) {
                     if ($product->tags != null) {
@@ -6033,46 +6064,46 @@ class WebController extends Controller
                         }
                     }
                 }
-                
+
                 $featured_products = collect($filteredProducts)
                     ->where('featured', 1)
                     ->values(); // Re-index the collection keys
-                
+
                 $latest_products = collect($filteredProducts)
                     ->sortByDesc('id')
                     ->take(8)
                     ->values(); // Re-index the collection keys
-                
+
                 $products = collect($filteredProducts)
                     ->sortBy('id')
                     ->take(16)
                     ->values(); // Re-index the collection keys
-                
+
                 $product = collect($filteredProducts)
                     ->shuffle()
                     ->first();
-                
+
                 $productsInFlashDeal = collect($filteredProducts)
                     ->whereIn('id', $product->id)
                     ->values(); // Re-index the collection keys
-                
-    
-                    
-    
+
+
+
+
                     $theme_name = theme_root_path();
-    
+
                     $userAgent = $request->header('User-Agent');
-            
+
                     if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
                             $viewName = "home_mobile";
                     } else {
                             $viewName ="home" ;
                     }
-    
+
                     $theme_name = theme_root_path();
                     $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
                     $home_categories = Category::where('home_status', true)->whereJsonContains('tags', $child->tag)->priority()->get();
-                    
+
                     $home_categories->map(function ($data) {
                         $id = '"' . $data['id'] . '"';
                         $data['products'] = Product::active()
@@ -6087,7 +6118,7 @@ class WebController extends Controller
                         ->withCount(['orders', 'product' => function ($query) {
                             $query->active();
                         }])->orderBy('orders_count', 'DESC')->take(12)->get();
-            
+
                     $top_sellers?->map(function ($seller) {
                         $seller->product?->map(function ($product) {
                             $product['rating'] = $product?->reviews->pluck('rating')->sum();
@@ -6097,13 +6128,13 @@ class WebController extends Controller
                         $seller['review_count'] = $seller->product->pluck('review_count')->sum();
                         $seller['average_rating'] = $seller['total_rating'] / ($seller['review_count'] == 0 ? 1 : $seller['review_count']);
                     });
-            
+
                     $home_layouts = HomeLayout::where('web_status', 1)->orderBy('web_order', 'asc')->get();
-            
+
                     $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->take(8)->get();
-                    
+
                     $brands = Brand::active()->take(15)->get();
-                    
+
                     $bestSellProduct = $this->order_details->with('product.reviews')
                         ->whereHas('product', function ($query) {
                             $query->active();
@@ -6113,8 +6144,8 @@ class WebController extends Controller
                         ->orderBy("count", 'desc')
                         ->take(6)
                         ->get();
-            
-                    
+
+
                     $topRated = Review::with('product')
                         ->whereHas('product', function ($query) {
                             $query->active();
@@ -6124,15 +6155,15 @@ class WebController extends Controller
                         ->orderBy("count", 'desc')
                         ->take(6)
                         ->get();
-            
+
                     if ($bestSellProduct->count() == 0) {
                         $bestSellProduct = $latest_products;
                     }
-            
+
                     if ($topRated->count() == 0) {
                         $topRated = $bestSellProduct;
                     }
-            
+
                     $deal_of_the_day = DealOfTheDay::join('products', 'products.id', '=', 'deal_of_the_days.product_id')->select('deal_of_the_days.*', 'products.unit_price')->where('products.status', 1)->where('deal_of_the_days.status', 1)->first();
                     $main_banner = Banner::where([
                         'banner_type' => 'Main Banner',
@@ -6142,9 +6173,9 @@ class WebController extends Controller
                     ->whereJsonContains('tags', $child->tag)
                     ->latest()
                     ->get();
-                
+
                     $main_section_banner =  Banner::where(['banner_type' => 'Main Section Banner', 'theme' => $theme_name, 'published' => 1])->whereJsonContains('tags', $child->tag)->orderBy('id', 'desc')->latest()->get();
-            
+
                     $footer_banner = Banner::
                         where('banner_type', 'Footer Banner')
                         ->where('theme', theme_root_path())
@@ -6154,30 +6185,30 @@ class WebController extends Controller
                         ->get();
 
                     $footer_banner = $footer_banner ?? [];
-            
+
                     $flash_deal = FlashDeal::where(['deal_type' => 'flash_deal', 'status' => 1])->whereJsonContains('tags', $child->tag)->get();
-                    
-            
-            
+
+
+
                     $flash_deals_products = [];
                     $productIds = null;
                     if (isset($flash_deal->id)) {
-            
+
                         $flash_deals_products = FlashDealProduct::where('flash_deal_id', $flash_deal->id)->get();
                         $productIds = $flash_deals_products->pluck('product_id')->toArray();
                     }
-            
-            
+
+
                     $productsInFlashDeal = [];
                     if (isset($productIds)) {
-            
+
                         $productsInFlashDeal = $products->active()->whereIn('id', $productIds)->get();
                     }
                     if (Auth::guard('customer')->check()) {
                         $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
-            
+
                         $wishlistProductsArray = $wishlistProducts->toArray();
-            
+
                         $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
                         $cartProductsArray = $cartProducts->toArray();
                     } else {
@@ -6187,7 +6218,7 @@ class WebController extends Controller
             }else{
                     return redirect()->back()->with(['message' => 'Not Child Found !', 'status' => 0]);
             }
-        
+
                 return view(
                     VIEW_FILE_NAMES[$viewName],
                     compact(
@@ -6223,7 +6254,7 @@ class WebController extends Controller
     }
 
 
-    
+
     public function sub_categories()
     {
         $home_categories = Category::where('home_status', true)->priority()->get();
@@ -6418,37 +6449,37 @@ class WebController extends Controller
                         'shipping_cost' => $request->customer_id,
                     ]);
                 }
-                if (!(Auth::guard('customer')->check())) 
+                if (!(Auth::guard('customer')->check()))
                 {
                     Toastr::error(translate('invalid_access'));
                     return redirect('/');
                 }
-    
+
                 $cart_group_ids = CartManager::get_cart_group_ids();
                 $shippingMethod = Helpers::get_business_settings('shipping_method');
-    
+
                 $verify_status = OrderManager::minimum_order_amount_verify($request);
-    
-    
+
+
                 if ($verify_status['status'] == 0) {
                     Toastr::info(translate('check_Minimum_Order_Amount_Requirment'));
                     return redirect()->route('shop-cart');
                 }
-    
+
                 $cartItems = Cart::where(['customer_id' => auth('customer')->id()])->withCount(['all_product' => function ($query) {
                     return $query->where('status', 0);
                 }])->get();
-    
-    
-    
+
+
+
                 foreach ($cartItems as $cart) {
                     if (isset($cart->all_product_count) && $cart->all_product_count != 0) {
                         Toastr::info(translate('check_Cart_List_First'));
                         return redirect()->route('shop-cart');
                     }
                 }
-    
-    
+
+
                 $physical_product_view = false;
                 foreach ($cart_group_ids as $group_id) {
                     $carts = Cart::where('cart_group_id', $group_id)->get();
@@ -6458,10 +6489,10 @@ class WebController extends Controller
                         }
                     }
                 }
-    
+
                 foreach ($cart_group_ids as $group_id) {
                     $carts = Cart::where('cart_group_id', $group_id)->get();
-    
+
                     $physical_product = false;
                     foreach ($carts as $cart) {
                         if ($cart->product_type == 'physical') {
@@ -6482,7 +6513,7 @@ class WebController extends Controller
                                     $shipping_type = isset($seller_shipping) == true ? $seller_shipping->shipping_type : 'order_wise';
                                 }
                             }
-    
+
                             // dd('Test');
                             if ($physical_product && $shipping_type == 'order_wise') {
                                 $cart_shipping = CartShipping::where('cart_group_id', $cart->cart_group_id)->first();
@@ -6494,25 +6525,25 @@ class WebController extends Controller
                         }
                     }
                 }
-    
+
                 $country_restrict_status = Helpers::get_business_settings('delivery_country_restriction');
                 $zip_restrict_status = Helpers::get_business_settings('delivery_zip_code_area_restriction');
-    
+
                 if ($country_restrict_status) {
                     $countries = $this->get_delivery_country_array();
                 } else {
                     $countries = COUNTRIES;
                 }
-    
+
                 if ($zip_restrict_status) {
                     $zip_codes = DeliveryZipCode::all();
                 } else {
                     $zip_codes = 0;
                 }
-    
+
                 $billing_input_by_customer = Helpers::get_business_settings('billing_input_by_customer');
                 $default_location = Helpers::get_business_settings('default_location');
-    
+
                 $user = Helpers::get_customer($request);
                 $customer = Auth::guard('customer')->user();
 
@@ -6520,7 +6551,7 @@ class WebController extends Controller
                     'customer_id' => $customer->id,
                     'is_default' => 'true',
                 ])->first();
-    
+
                 $billing_addresses = ShippingAddress::where([
                     'customer_id' => $user == 'offline' ? session('guest_id') : auth('customer')->id(),
                     'is_guest' => $user == 'offline' ? 1 : '0',
@@ -6626,8 +6657,8 @@ class WebController extends Controller
 
         $order = DB::table('orders')->insertGetId([
             'customer_id' => $request->customer_id,
-            // 'customer_type',			
-            // 'payment_status',			
+            // 'customer_type',
+            // 'payment_status',
             // 'order_status',
             'payment_method' => $request->payment_method,
             // 'transaction_ref',
@@ -6671,21 +6702,21 @@ class WebController extends Controller
                 'order_id' => $order,
                 'product_id' => $product['product_id'],
                 'seller_id' => 1,
-                // 'digital_file_after_sell' => $product[', 
-                // 'product_details' => $product['product_details'], 
+                // 'digital_file_after_sell' => $product[',
+                // 'product_details' => $product['product_details'],
                 'qty' => $product['quantity'],
                 'price' => $product['price'],
                 'tax' => $product['tax'],
                 'discount' => $product['discount'],
                 'tax_model' => $product['tax_model'],
-                // 'delivery_status' => $product[', 
-                // 'payment_status' => $product[', 
-                // 'shipping_method_id' => $product[', 
+                // 'delivery_status' => $product[',
+                // 'payment_status' => $product[',
+                // 'shipping_method_id' => $product[',
                 'variant' => $product['variant'],
-                // 'variation' => $product[', 
-                // 'discount_type' => $product[', 
+                // 'variation' => $product[',
+                // 'discount_type' => $product[',
                 'is_stock_decreased' => $product['quantity'],
-                // 'refund_request' => $product[''], 
+                // 'refund_request' => $product[''],
             ]);
         }
 
@@ -6951,7 +6982,7 @@ class WebController extends Controller
 
     public function shop_cart(Request $request)
     {
-        // dd($request); 
+        // dd($request);
 
         $top_rated_shops = [];
         $new_sellers = [];
@@ -7221,7 +7252,7 @@ class WebController extends Controller
     public function addToCart(Request $request)
     {
         if(Auth::guard('customer')->check()) {
-        
+
         $userId = Auth::guard('customer')->user()->id;
         $productId = $request->product_id;
 
@@ -7261,7 +7292,7 @@ class WebController extends Controller
         } else {
             $cart = $request->session()->get('cart', []);
             if(!in_array($request->product_id, $cart)) {
-                
+
                 $cart[] = $request->product_id;
             }
             $request->session()->put('cart', $cart);
