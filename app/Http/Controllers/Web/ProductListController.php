@@ -23,7 +23,7 @@ use Illuminate\Support\Facades\Auth;
 
 class ProductListController extends Controller
 {
-    
+
     public function product_detail()
         {
             $home_categories = Category::where('home_status', true)->priority()->get();
@@ -50,7 +50,7 @@ class ProductListController extends Controller
     }
     public function products(Request $request)
     {
-        
+
         $theme_name = theme_root_path();
 
         return match ($theme_name){
@@ -62,23 +62,23 @@ class ProductListController extends Controller
     }
 
     public function default_theme(Request $request){
-        // dd($request);   
+        // dd($request);
         // $user = Auth::guard('customer')->user();
-        // dd($user);  
-        
-        
+        // dd($user);
+
+
         if(isset($request)){
             $request['sort_by'] == null ? $request['sort_by'] == 'latest' : $request['sort_by'];
 
-            
+
 
 
             if (isset($request->filter) && isset($request->filterprice) ) {
                 $brandIds = [];
-                $shippings = []; 
+                $shippings = [];
                 $colors = [];
                 $tag = [];
-                
+
                 foreach ($request->filter as $colorFilter) {
                     if (isset($colorFilter['color'])) {
                         if (is_array($colorFilter['color'])) {
@@ -98,8 +98,8 @@ class ProductListController extends Controller
                         }
                     }
                 }
-                
-                
+
+
                 foreach ($request->filter as $filter) {
                     if (isset($filter['brand_id'])) {
                         if (is_array($filter['brand_id'])) {
@@ -108,7 +108,7 @@ class ProductListController extends Controller
                             $brandIds[] = $filter['brand_id'];
                         }
                     }
-                    
+
                     if (isset($filter['free_shipping'])) {
                         if (is_array($filter['free_shipping'])) {
                             $shippings = array_merge($shippings, $filter['free_shipping']);
@@ -117,10 +117,10 @@ class ProductListController extends Controller
                         }
                     }
                 }
-            
+
                 $max_price = intval(explode("-", $request->filterprice)[1]);
                 $min_price = intval(explode("-", $request->filterprice)[0]);
-            
+
                 if (!empty($shippings) && !empty($brandIds) && !empty($colors) && !empty($tag)) {
                     $porduct_data = Product::whereIn('brand_id', $brandIds)
                     ->whereIn('free_shipping', $shippings)
@@ -134,7 +134,7 @@ class ProductListController extends Controller
                     })
                     ->with(['reviews', 'brand'])
                     ;
-                } 
+                }
                 elseif (!empty($shippings) && !empty($brandIds) && empty($colors) && !empty($tag)) {
                     $porduct_data = Product::whereIn('free_shipping', $shippings)
                     ->whereIn('brand_id', $brandIds)
@@ -169,7 +169,7 @@ class ProductListController extends Controller
                     ;
                 }elseif (!empty($shippings) && empty($brandIds) && !empty($colors) && empty($tag)) {
                     $porduct_data = Product::whereIn('free_shipping', $shippings)
-                        ->whereJsonContains('colors', $colors) 
+                        ->whereJsonContains('colors', $colors)
                         ->where('unit_price', '>=', $min_price)
                         ->where('unit_price', '<=', $max_price)
                         ->with(['reviews', 'brand']);
@@ -269,7 +269,7 @@ class ProductListController extends Controller
             }
             elseif(isset($request->filter)){
                 $brandIds = [];
-            
+
                 foreach ($request->filter as $filter) {
                     if (is_array($filter['brand_id'])) {
                         $brandIds = array_merge($brandIds, $filter['brand_id']);
@@ -292,7 +292,7 @@ class ProductListController extends Controller
                 $porduct_data = Product::active()->with(['reviews','brand'])->orderBy('unit_price');
             }
 
-            
+
 
             if ($request['data_from'] == 'category') {
                 $products = $porduct_data->get();
@@ -468,8 +468,8 @@ class ProductListController extends Controller
                         }
                     }
                 }
-                
-                
+
+
                 foreach ($request->filter as $colorFilter) {
                     if (isset($colorFilter['color'])) {
                         if (is_array($colorFilter['color'])) {
@@ -480,11 +480,11 @@ class ProductListController extends Controller
                     }
                 }
 
-                
 
-                
 
-                
+
+
+
                 foreach ($request->filter as $filter) {
                     if (isset($filter['brand_id'])) {
                         if (is_array($filter['brand_id'])) {
@@ -493,7 +493,7 @@ class ProductListController extends Controller
                             $brandIds[] = $filter['brand_id'];
                         }
                     }
-                    
+
                     if (isset($filter['free_shipping'])) {
                         if (is_array($filter['free_shipping'])) {
                             $shippings = array_merge($shippings, $filter['free_shipping']);
@@ -502,10 +502,10 @@ class ProductListController extends Controller
                         }
                     }
                 }
-            
+
                 $max_price = intval(explode("-", $request->filterprice)[1]);
                 $min_price = intval(explode("-", $request->filterprice)[0]);
-            
+
                 if (!empty($shippings) && !empty($brandIds) && !empty($colors) && !empty($tag)) {
                     $products = Product::whereIn('brand_id', $brandIds)
                     ->whereIn('free_shipping', $shippings)
@@ -519,7 +519,7 @@ class ProductListController extends Controller
                     })
                     ->with(['reviews', 'brand'])
                     ->get();
-                } 
+                }
                 elseif (!empty($shippings) && !empty($brandIds) && empty($colors) && !empty($tag)) {
                     $products = Product::whereIn('free_shipping', $shippings)
                     ->whereIn('brand_id', $brandIds)
@@ -554,7 +554,7 @@ class ProductListController extends Controller
                     ->get();
                 }elseif (!empty($shippings) && empty($brandIds) && !empty($colors) && empty($tag)) {
                     $products = Product::whereIn('free_shipping', $shippings)
-                        ->whereJsonContains('colors', $colors) 
+                        ->whereJsonContains('colors', $colors)
                         ->where('unit_price', '>=', $min_price)
                         ->where('unit_price', '<=', $max_price)
                         ->with(['reviews', 'brand'])->get();
@@ -651,12 +651,12 @@ class ProductListController extends Controller
                         ->where('unit_price', '<=', $max_price)
                         ->with(['reviews', 'brand'])->get();
                 }
-                
-            
+
+
             }
             elseif(isset($request->filter)){
                 $brandIds = [];
-            
+
                 foreach ($request->filter as $filter) {
                     if (is_array($filter['brand_id'])) {
                         $brandIds = array_merge($brandIds, $filter['brand_id']);
@@ -670,7 +670,7 @@ class ProductListController extends Controller
             elseif(isset($request->filterprice)){
                 $max_price = intval(explode("-", $request->filterprice)[1]);
                 $min_price = intval(explode("-", $request->filterprice)[0]);
-                
+
                 $products = Product::where('unit_price', '>=', $min_price)
                 ->where('unit_price', '<=', $max_price)
                 ->with(['reviews', 'brand'])->get();
@@ -704,17 +704,17 @@ class ProductListController extends Controller
             }else{
                 $totalDiscount = 0;
                 $totalProductPrice = 0;
-    
+
                 $productIds = $request->session()->get('cart', []);
                 $productIds = array_filter($productIds, 'is_numeric');
                 $myCartProducts = Product::whereIn('id', $productIds)->get();
-    
+
                 foreach ($myCartProducts as $product) {
                     $totalProductPrice += $product->unit_price;
                     $discountAmount = ($product->discount / 100) * $product->unit_price;
                     $totalDiscount += $discountAmount;
                 }
-    
+
                 $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
                 $total_product_price = $totalProductPrice;
                 $wishlistProductsArray = [];
@@ -724,27 +724,39 @@ class ProductListController extends Controller
                 $cartProductsArray = $productIds;
             }
 
-            return view(VIEW_FILE_NAMES['products'], compact('cartProductsArray','wishlistProductsArray', 'data','products','home_categories','brands','pricefilter','colors','request'));
+            $filename = theme_root_path();
+
+            // Get the user agent from the request headers
+            $userAgent = $request->header('User-Agent');
+
+            if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
+                // User is using a mobile device, load the mobile view
+                $filename = 'products_mobile';
+            } else {
+                $filename = 'products';
+            }
+
+            return view(VIEW_FILE_NAMES[$filename], compact('cartProductsArray','wishlistProductsArray', 'data','products','home_categories','brands','pricefilter','colors','request'));
         }
-    
+
     }
     public function deals_products(Request $request){
         $deal_product_list = FlashDeal::with('products')->where(['status' => 1, 'slug' => $request['slug']])->first();
-        
-        
+
+
 
         if(isset($request)){
             $request['sort_by'] == null ? $request['sort_by'] == 'latest' : $request['sort_by'];
 
-            
+
 
 
             if (isset($request->filter) && isset($request->filterprice) ) {
                 $brandIds = [];
-                $shippings = []; 
+                $shippings = [];
                 $colors = [];
                 $tag = [];
-                
+
                 foreach ($request->filter as $colorFilter) {
                     if (isset($colorFilter['color'])) {
                         if (is_array($colorFilter['color'])) {
@@ -764,8 +776,8 @@ class ProductListController extends Controller
                         }
                     }
                 }
-                
-                
+
+
                 foreach ($request->filter as $filter) {
                     if (isset($filter['brand_id'])) {
                         if (is_array($filter['brand_id'])) {
@@ -774,7 +786,7 @@ class ProductListController extends Controller
                             $brandIds[] = $filter['brand_id'];
                         }
                     }
-                    
+
                     if (isset($filter['free_shipping'])) {
                         if (is_array($filter['free_shipping'])) {
                             $shippings = array_merge($shippings, $filter['free_shipping']);
@@ -783,10 +795,10 @@ class ProductListController extends Controller
                         }
                     }
                 }
-            
+
                 $max_price = intval(explode("-", $request->filterprice)[1]);
                 $min_price = intval(explode("-", $request->filterprice)[0]);
-            
+
                 if (!empty($shippings) && !empty($brandIds) && !empty($colors) && !empty($tag)) {
                     $porduct_data = Product::whereIn('brand_id', $brandIds)
                     ->whereIn('free_shipping', $shippings)
@@ -800,7 +812,7 @@ class ProductListController extends Controller
                     })
                     ->with(['reviews', 'brand'])
                     ;
-                } 
+                }
                 elseif (!empty($shippings) && !empty($brandIds) && empty($colors) && !empty($tag)) {
                     $porduct_data = Product::whereIn('free_shipping', $shippings)
                     ->whereIn('brand_id', $brandIds)
@@ -835,7 +847,7 @@ class ProductListController extends Controller
                     ;
                 }elseif (!empty($shippings) && empty($brandIds) && !empty($colors) && empty($tag)) {
                     $porduct_data = Product::whereIn('free_shipping', $shippings)
-                        ->whereJsonContains('colors', $colors) 
+                        ->whereJsonContains('colors', $colors)
                         ->where('unit_price', '>=', $min_price)
                         ->where('unit_price', '<=', $max_price)
                         ->with(['reviews', 'brand']);
@@ -935,7 +947,7 @@ class ProductListController extends Controller
             }
             elseif(isset($request->filter)){
                 $brandIds = [];
-            
+
                 foreach ($request->filter as $filter) {
                     if (is_array($filter['brand_id'])) {
                         $brandIds = array_merge($brandIds, $filter['brand_id']);
@@ -958,7 +970,7 @@ class ProductListController extends Controller
                 $porduct_data = Product::active()->with(['reviews','brand'])->orderBy('unit_price');
             }
 
-            
+
 
             if ($request['data_from'] == 'category') {
                 $products = $porduct_data->get();
@@ -1134,8 +1146,8 @@ class ProductListController extends Controller
                         }
                     }
                 }
-                
-                
+
+
                 foreach ($request->filter as $colorFilter) {
                     if (isset($colorFilter['color'])) {
                         if (is_array($colorFilter['color'])) {
@@ -1146,11 +1158,11 @@ class ProductListController extends Controller
                     }
                 }
 
-                
 
-                
 
-                
+
+
+
                 foreach ($request->filter as $filter) {
                     if (isset($filter['brand_id'])) {
                         if (is_array($filter['brand_id'])) {
@@ -1159,7 +1171,7 @@ class ProductListController extends Controller
                             $brandIds[] = $filter['brand_id'];
                         }
                     }
-                    
+
                     if (isset($filter['free_shipping'])) {
                         if (is_array($filter['free_shipping'])) {
                             $shippings = array_merge($shippings, $filter['free_shipping']);
@@ -1168,10 +1180,10 @@ class ProductListController extends Controller
                         }
                     }
                 }
-            
+
                 $max_price = intval(explode("-", $request->filterprice)[1]);
                 $min_price = intval(explode("-", $request->filterprice)[0]);
-            
+
                 if (!empty($shippings) && !empty($brandIds) && !empty($colors) && !empty($tag)) {
                     $products = Product::whereIn('brand_id', $brandIds)
                     ->whereIn('free_shipping', $shippings)
@@ -1185,7 +1197,7 @@ class ProductListController extends Controller
                     })
                     ->with(['reviews', 'brand'])
                     ->get();
-                } 
+                }
                 elseif (!empty($shippings) && !empty($brandIds) && empty($colors) && !empty($tag)) {
                     $products = Product::whereIn('free_shipping', $shippings)
                     ->whereIn('brand_id', $brandIds)
@@ -1220,7 +1232,7 @@ class ProductListController extends Controller
                     ->get();
                 }elseif (!empty($shippings) && empty($brandIds) && !empty($colors) && empty($tag)) {
                     $products = Product::whereIn('free_shipping', $shippings)
-                        ->whereJsonContains('colors', $colors) 
+                        ->whereJsonContains('colors', $colors)
                         ->where('unit_price', '>=', $min_price)
                         ->where('unit_price', '<=', $max_price)
                         ->with(['reviews', 'brand'])->get();
@@ -1317,12 +1329,12 @@ class ProductListController extends Controller
                         ->where('unit_price', '<=', $max_price)
                         ->with(['reviews', 'brand'])->get();
                 }
-                
-            
+
+
             }
             elseif(isset($request->filter)){
                 $brandIds = [];
-            
+
                 foreach ($request->filter as $filter) {
                     if (is_array($filter['brand_id'])) {
                         $brandIds = array_merge($brandIds, $filter['brand_id']);
@@ -1336,7 +1348,7 @@ class ProductListController extends Controller
             elseif(isset($request->filterprice)){
                 $max_price = intval(explode("-", $request->filterprice)[1]);
                 $min_price = intval(explode("-", $request->filterprice)[0]);
-                
+
                 $products = Product::where('unit_price', '>=', $min_price)
                 ->where('unit_price', '<=', $max_price)
                 ->with(['reviews', 'brand'])->get();
@@ -1378,7 +1390,7 @@ class ProductListController extends Controller
                     ->where('category_ids', 'like', "%{$id}%")
                     ->inRandomOrder()->take(12)->get();
             });
-       
+
 
 
 
