@@ -210,7 +210,7 @@ class BusinessSettingsController extends Controller
         return view('admin-views.business-settings.article',compact('articles','categories'));
     }
 
-   
+
 
     public function edit_article($id)
     {
@@ -262,14 +262,14 @@ class BusinessSettingsController extends Controller
 
     public function QNA(){
         $questions = QnaQuestion::with('answers.user', 'user')->get();
-    
+
         if ($questions->isNotEmpty()) {
             foreach ($questions as $question) {
                 if ($question->user->image != null) {
                     $questionImageUrl = asset('public/assets/images/customers/' . $question->user->image);
                     $question->user->avatar = $questionImageUrl;
                 }
-    
+
                 foreach ($question->answers as $answer) {
                     if ($answer->user->image != null) {
                         $answerImageUrl = asset('public/assets/images/customers/' . $answer->user->image);
@@ -294,7 +294,7 @@ class BusinessSettingsController extends Controller
             'to_be_give' => 'required|string',
             'how' => 'required|string',
         ]);
-        
+
         Vaccination::create([
             'name' => $request->name,
             'age' => $request->age,
@@ -321,7 +321,7 @@ class BusinessSettingsController extends Controller
             'to_be_give' => 'required|string',
             'how' => 'required|string',
         ]);
-        
+
         Vaccination::where('id', $request->id)->update([
             'name' => $request->name,
             'age' => $request->age,
@@ -347,7 +347,7 @@ class BusinessSettingsController extends Controller
             $quiz_category->image = asset('public/assets/images/quiz/category/'.$quiz_category->image);
         }
         return view('admin-views.business-settings.quiz-category', compact('quiz_categories'));
-    } 
+    }
 
     public function QuizCategoryStore(Request $request){
         if ($request->file('image')) {
@@ -404,7 +404,7 @@ class BusinessSettingsController extends Controller
             $quiz->image = asset('public/assets/images/quiz/'.$quiz->image);
         }
         return view('admin-views.business-settings.quiz', compact('quizes','quiz_categories'));
-    } 
+    }
 
     public function QuizStore(Request $request){
         if ($request->file('image')) {
@@ -528,7 +528,7 @@ class BusinessSettingsController extends Controller
             'question' => $request->question,
             'image' => $filename,
         ]);
-        
+
             foreach($request->options as $option){
                 $quizAnswerId = DB::table('quiz_answer')->insertGetId([
                     'answer' => $option,
@@ -549,7 +549,7 @@ class BusinessSettingsController extends Controller
 
             Toastr::success('Question Has Been Added');
             return redirect()->route('admin.business-settings.quiz.question');
-        
+
     }
 
     public function QuizQuestionEdit($id){
@@ -568,6 +568,7 @@ class BusinessSettingsController extends Controller
 
     public function AllCustomePage(){
         $custom_pages = CustomPage::with('page_data')->get();
+        return $custom_pages;
         foreach ($custom_pages as $custom_page) {
             $resource_model = $custom_page->resource_type;
             switch ($resource_model) {
@@ -592,14 +593,14 @@ class BusinessSettingsController extends Controller
                 default:
                     $model = null; // Handle the default case if necessary
             }
-        
+
             if ($model) {
                 $custom_page->resource_name = $model::where('id', $custom_page->resource_id)->first();
             }
         }
-        
-        
-        
+
+
+
         return view('admin-views.business-settings.custom_page', compact('custom_pages'));
     }
 
@@ -775,7 +776,7 @@ class BusinessSettingsController extends Controller
             return redirect()->route('admin.business-settings.custom-page');
 
     }
-    
+
 
     public function home_layout()
     {
