@@ -97,7 +97,7 @@ return [
 
 
     'categories_mobile' => 'mobile-views.categories',
-    'products_mobile' => 'mobile-views.add-to-cart',
+    'products_mobile' => 'mobile-views.products',
 
     'products_mobile_nav_partials' => 'layouts.front-end.partials.cart',
     'products_view_page' => 'web-views.products.view',
