@@ -83,8 +83,18 @@
                         @endforeach
                     </div> --}}
 
-                    
-                    <div class="product-sizes">
+                    <div class="dfsize mt-2">
+                        <div class="clr_size fs-12 font-poppins">
+                          <span class="pt-1 pb-1 ps-2 pe-2 mb-2"><a href="#">6 - 9M</a></span>
+                          <span class="pt-1 pb-1 ps-2 pe-2 mb-2"><a href="#">9 - 12M</a></span>
+                          <span class="pt-1 pb-1 ps-2 pe-2 mb-2"><a href="#">12 - 18M</a></span>
+                          <span class="pt-1 pb-1 ps-2 pe-2 mb-2"><a href="#">18 - 24M</a></span>
+                          <span class="pt-1 pb-1 ps-2 pe-2 mb-2"><a href="#">2 - 3Y</a></span>
+                          <span class="pt-1 pb-1 ps-2 pe-2 mb-2"><a href="#">4 - 5Y</a></span>
+                        </div>
+                    </div>
+                      
+                    {{-- <div class="product-sizes">
                         <div class="size-box" data-age="12-18M">12-18M</div>
                         <div class="size-box" data-age="12-18M">12-18M</div>
                         <div class="size-box" data-age="12-18M">12-18M</div>
@@ -92,15 +102,19 @@
                         <div class="size-box" data-age="12-18M">12-18M</div>
                         <div class="size-box" data-age="12-18M">12-18M</div>
 
+                    </div> --}}
+                    <div class="ProductColors col-12 d-flex align-items-center mb-3 mt-3">
+                        <!-- Hardcoded color inputs -->
+                        <input type="radio" class="me-3" style="background-color: red" id="btn1" name="Btn">
+                        <input type="radio" class="me-3" style="background-color: green" id="btn2" name="Btn">
+                        <input type="radio" class="me-3" style="background-color: blue" id="btn3" name="Btn">
                     </div>
-                    <div class="product-colors">
+                    
+                    {{-- <div class="product-colors">
                         <div class="color-box" style="background-color: #ff0000;"></div>
                         <div class="color-box" style="background-color: #00ff00;"></div>
                         <div class="color-box" style="background-color: #0000ff;"></div>
-                    </div>
-                    <div>
-                        <p>buy & earn club cash upto : Rs 100 <span class = "q-mark">?</span></p>
-                    </div>
+                    </div> --}}
                     
 
                     {{-- <div class="product-colors">
@@ -109,8 +123,8 @@
                         @endforeach
                     </div> --}}
 
-                    <div class="d-flex justify-content-between mt-2">
-                        <form action="{{ route('cart.buy-now') }}" method="POST">
+                    <div class="d-flex justify-content-between mt-2 col-12 mb-2">
+                        <form class="col-5" action="{{ route('cart.buy-now') }}" method="POST">
                             @csrf
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
                             <input type="hidden" name="price" id="price" value="{{ $product->unit_price }}">
@@ -129,9 +143,8 @@
                             <input type="hidden" name="product[1][actual_price]" value="{{ $product->unit_price }}">
                             <input type="hidden" name="product[1][price]" value="{{ $product->unit_price }}">
                             <input type="hidden" name="product[1][quantity]" value="1">
-                            <button class="btn-W buy-now rounded-pill text-white mb-2">Buy Now</button>
+                            <button class="fs-12 buy-now w-100 rounded-pill text-white p-0">Buy Now</button>
                         </form>
-
                         {{-- <div class="d-flex  mt-1">
                                                 <button type="submit" id="cart-btn"
                                                     class="p-0 bg-transparent rounded-circle forBorder"
@@ -142,15 +155,16 @@
                                                         onclick="addToCart({{ $product->id }})"></i>
                                                 </button>
                                             </div>
-                                        </form>  --}}
-                        <div class="d-flex mt-0">
+                        </form>  --}}
+                        <div class="d-flex mt-0 col-5">
                             <button id="cart-btn{{ $product->id }}"
-                                class="p-0 bg-transparent rounded-circle forBorders"
+                                class="p-0 bg-transparent AddtoCart rounded-pill fs-12 w-100"
                                 data-product-id="{{ $product->id }}" data-name="{{ $product->name }}"
                                 data-price="{{ $product->unit_price }}" data-discount="{{ $product->discount }}"
                                 data-tax="{{ $product->tax }}" data-thumbnail="{{ $product->thumbnail }}"
                                 data-color="{{ $product->color }}" data-variant="{{ $product->variant }}"
                                 data-slug="{{ $product->slug }}" onclick="addToCart(this)">
+                                Add to cart
                                 <i
                                     class="bi cart-icon bi-cart{{ in_array($product->id, $cartProductsArray) ? '-fill' : '' }} text-purple"></i>
                             </button>
@@ -165,6 +179,9 @@
 
 </div>
 <style>
+    .AddtoCart{
+        border: 1px solid #8b5bc0;
+    }
     .wish-list {
         top: 6%;
         right: 8%;
@@ -176,7 +193,7 @@
     }
 
     .btn-W {
-        width: 110%;
+        width: 100%;
         font-size: 12px;
     }
 
@@ -251,8 +268,30 @@
     .product-wrapper:hover .buy-now {
         border: 1px solid #8b5bc0;
     }
-
-
+    .clr_size{
+        line-height: 30px;
+        text-align: left;
+    }
+    .clr_size span{
+        border-radius: 5px;
+        border: 1px solid black;
+        
+    }
+    .clr_size span a{
+        color: #000;
+    }
+    /* .product-wrapper:after {
+    content: "";
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    height: 100%;
+    opacity: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0s ease;
+    width: 100%;
+    z-index: -1;
+} */
     /* .expandable {
   position: absolute;
   opacity: 0;
