@@ -5907,14 +5907,14 @@ class WebController extends Controller
         if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
             // User is using a mobile device, load the mobile view
             return match ($theme_name) {
-                'default' => self::all__categories("categories_mobile"),
+                'default' => self::all__categories("categories_mobile", $request),
                 'theme_aster' => self::theme_aster(),
                 'theme_fashion' => self::theme_fashion(),
                 'theme_all_purpose' => self::theme_all_purpose(),
             };
         } else {
             return match ($theme_name) {
-                'default' => self::all__categories("categories"),
+                'default' => self::all__categories("categories", $request),
                 'theme_aster' => self::theme_aster(),
                 'theme_fashion' => self::theme_fashion(),
                 'theme_all_purpose' => self::theme_all_purpose(),
@@ -5923,7 +5923,7 @@ class WebController extends Controller
 
     }
 
-    public function all__categories($viewName)
+    public function all__categories($viewName, $request)
     {
         $home_categories = Category::where('home_status', true)->priority()->get();
         $home_categories->map(function ($data) {
