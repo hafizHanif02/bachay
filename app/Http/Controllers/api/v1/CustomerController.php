@@ -46,7 +46,7 @@ class CustomerController extends Controller
             $documentRoot = $_SERVER['DOCUMENT_ROOT'];
             $scriptName = $_SERVER['SCRIPT_NAME'];
             $currentPath = str_replace(basename($scriptName), '', $documentRoot . $scriptName);
-            $url = 'http://' . $_SERVER['HTTP_HOST'] . str_replace($documentRoot, '', $currentPath) . '/public/assets/images/customers/' . $user['image'];
+            $url = 'https://' . $_SERVER['HTTP_HOST'] . str_replace($documentRoot, '', $currentPath) . '/public/assets/images/customers/' . $user['image'];
             $user->avatar = $url;
         }else{
             $user->avatar = null;
@@ -357,10 +357,10 @@ public function VaccinationSubmissionGet($id){
             $growth =  Growth::where(['vaccination_id'=> $vaccination_data->vaccination_id,
             'child_id' => $vaccination_data->child_id])->first();
             $vaccination_data->growth = $growth;
-    
+
             $vaccinationImg = asset('public/assets/images/customers/child/vaccination/' . $vaccination_data->picture);
             $vaccination_data->picture = $vaccinationImg;
-            
+
             return response()->json($vaccination_data, 200);
         }
     }else{
