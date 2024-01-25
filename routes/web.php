@@ -99,7 +99,7 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestC
     Route::get('return-policy', 'PageController@return_policy')->name('return-policy');
     Route::get('cancellation-policy', 'PageController@cancellation_policy')->name('cancellation-policy');
     Route::get('helpTopic', 'PageController@helpTopic')->name('helpTopic');
-    Route::get('contacts', 'PageController@contacts')->name('contacts');
+    Route::get('contact-us', 'PageController@contacts')->name('contacts');
     Route::get('about-us', 'PageController@about_us')->name('about-us');
 
     // Route::get('/product/{slug}', 'ProductDetailsController@product')->name('product');
@@ -251,7 +251,7 @@ Route::group(['namespace' => 'Web', 'middleware' => ['maintenance_mode', 'guestC
     //     Route::post('add-child', 'CustomerController@Addchild');
     //     Route::get('detail/{id}', 'CustomerController@Detailchild');
     //     Route::post('update', 'CustomerController@Updatechild');
-    //     Route::delete('delete/{id}', 'CustomerController@Deletechild');  
+    //     Route::delete('delete/{id}', 'CustomerController@Deletechild');
     // });
 
     //sellerShop
