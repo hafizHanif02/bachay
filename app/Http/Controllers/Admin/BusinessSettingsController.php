@@ -568,7 +568,7 @@ class BusinessSettingsController extends Controller
 
     public function AllCustomePage(){
         $custom_pages = CustomPage::with('page_data')->get();
-        //return $custom_pages;
+
         foreach ($custom_pages as $custom_page) {
             $resource_model = $custom_page->resource_type;
             switch ($resource_model) {
@@ -593,12 +593,12 @@ class BusinessSettingsController extends Controller
                 default:
                     $model = null; // Handle the default case if necessary
             }
-            return $model;
+
             if ($model) {
                 $custom_page->resource_name = $model::where('id', $custom_page->resource_id)->first();
             }
         }
-
+        return $custom_pages;
 
 
         return view('admin-views.business-settings.custom_page', compact('custom_pages'));
