@@ -1,6 +1,6 @@
 <div class="container-fluid products mt-4">
     <div class="row">
-        {{-- {{ $prod }} --}}
+        
         <div class="col-lg-5 col-md-6 col-sm-12 col-12 d-flex flex-column fixedProduct">
             <div class="row">
                 <div class="col-md-2">
@@ -48,29 +48,9 @@
                             @endforeach --}}
                         </div>
 
-
-
-
-
-
-
-
-                        {{-- <img class="small-image" src="{{ asset('sstytorage/app/public/product/images' . $photo) }}"
-                                        alt="Small Image 1"> --}}
-
-                        {{-- <img class="small-image " src="{{ asset('public/images/Frame 134 (2).png') }}" alt="Small Image 2">
-                            <img class="small-image" src="{{ asset('public/images/Frame 135 (2).png') }}" alt="Small Image 3">
-                            <img class="small-image " src="{{ asset('public/images/Frame 137 (2).png') }}" alt="Small Image 3">
-                            <img class="small-image " src="{{ asset('public/images/Frame 855 (2).png') }}" alt="Small Image 3">
-                            <img class="small-image " src="{{ asset('public/images/Frame 856 (2).png') }}" alt="Small Image 3"> --}}
-
-
-
-
                     </div>
                 </div>
             </div>
-            {{-- <img class="detailed-product-img" src="{{ asset('public/images/Frame 83.png') }}" alt=""> --}}
             <div class="col-12 d-flex justify-content-between">
                 <form action="{{ route('cart.buy-now') }}" method="POST" class="form-group-inline">
                     @csrf
