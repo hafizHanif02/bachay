@@ -275,13 +275,13 @@
                     </p>
 
                 </div>
-
                 <div class="Sizesbtn col-12 pt-2 d-flex align-items-center mb-3">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size</p>
                     @foreach ($product->size as $size)
-                        <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
+                        <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 {{ trim($size) == trim($request->Size) ? 'active' : '' }} pe-3 rounded-2 fontPoppins"
                             type="button" value="{{ $size }}" data-price="{{ $size }}"
-                            onclick="InsertVariant('{{ $loop->iteration }}')" data-discount={{ $product->discount }}
+                            {{-- onclick="InsertVariant('{{ $loop->iteration }}')" --}}
+                             data-discount={{ $product->discount }}
                             id="variant{{ $loop->iteration }}">
                     @endforeach
                     {{-- @foreach (json_decode($product->variation) as $variant)
@@ -707,7 +707,6 @@
 
 
     function InsertVariant(index) {
-
         var variant_type = $('#variant' + index).val();
         var discount = $('#variant' + index).data('discount');
         var price = $('#variant' + index).data('price');
