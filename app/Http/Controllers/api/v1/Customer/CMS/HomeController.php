@@ -578,6 +578,10 @@ public function ShopDetails($id)
             'resource_id' => $request->id,
             'is_mobile' => 1
         ])->with('page_data')->first();
+        $inline_array = [];
+        $currentArray = [];
+        $sumWidth = 0;
+
         if ($custom_page != null) {
             if ($custom_page->page_data != null) {
                 foreach ($custom_page->page_data as $page) {
