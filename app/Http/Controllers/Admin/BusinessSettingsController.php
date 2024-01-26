@@ -575,6 +575,9 @@ class BusinessSettingsController extends Controller
                 case 'category':
                     $model = Category::class;
                     break;
+                case 'sub_category':
+                    $model = Category::class;
+                    break;
                 case 'brand':
                     $model = Brand::class;
                     break;

@@ -573,6 +573,9 @@ public function ShopDetails($id)
     }
 }
 
+    public function categoriesPromoSingle(){
+
+    }
 
     public function AllArticle(){
         $articles = Article::with('category')->get();
