@@ -205,7 +205,8 @@
         z-index: 1002;
         box-shadow: 0 -20px 0 white, 0 2px 16px 0 rgba(0, 0, 0, 0.06);
         transition: all 0.2s ease-out;
-        box-shadow: 0 0 4px 1px #aaa;
+        /* box-shadow: 0 0 4px 1px #aaa; */
+        box-shadow: 0 3px 4px 1px #aaa;
         border-bottom-right-radius: 5px;
         border-bottom-left-radius: 5px;
         padding-bottom: 5px;

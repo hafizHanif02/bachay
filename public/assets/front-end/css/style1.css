@@ -1260,7 +1260,7 @@ background-clip: text;
     text-align: left;
 }
 .for-border-g {
-    /* border-top: 2px solid #cccccc; */
+    border-top: 2px solid #cccccc;
     border-bottom: 2px solid #cccccc;
     /* box-shadow: 0 0 4px 1px #aaa; */
     /* box-shadow: -4px 0 4px -1px #aaa, 4px 0 4px -1px #aaa; */
