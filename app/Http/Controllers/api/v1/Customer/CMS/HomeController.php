@@ -66,7 +66,7 @@ class HomeController extends Controller
                     $name[] = $categoryavatar->name;
                 }
                 $imageUrls = array_values($imageUrls);
-                $nameArray = array_values($name);    
+                $nameArray = array_values($name);
             }else{
                 return response()->json(['message'=>'Child not found.'], 200);
             }
@@ -80,6 +80,7 @@ class HomeController extends Controller
             $imageUrls = [];
             $name = [];
             foreach($toparrivalcategorys as $categoryavatar){
+                $categoryavatar->customePage_id = DB::table("custom_page")->where(['resource_type'=> 'category', 'resource_id'=> $categoryavatar->id])->first()->id;
                 $url = asset('storage/app/public/category/' . $categoryavatar->icon);
                 $categoryavatar->image = $url;
                 $imageUrls[] = $url;
@@ -120,7 +121,7 @@ class HomeController extends Controller
                 return response()->json(['message'=>'Child not found.'], 200);
             }
         }else{
-            
+
             $toparrivalcategorys = DB::table('categories')
             ->where('parent_id', '=', 0)
             ->where('priority', '!=', 0)
@@ -153,9 +154,9 @@ class HomeController extends Controller
                 $flashdeals = FlashDeal::with('products')
                 ->whereJsonContains('tags', $child->tag)
                 ->where(['status' => 1, 'deal_type' => 'flash_deal'])->whereDate('start_date','<=',date('Y-m-d'))->whereDate('end_date','>=',date('Y-m-d'))->get();
-        
+
                 $formattedFlashDeals = [];
-        
+
                 foreach($flashdeals as $flashdeal){
                     $url = asset('storage/app/public/product/thumbnail/' . $flashdeal->banner);
                     $flashdeal->banner = asset('storage/app/public/deal/' . $flashdeal->banner);
@@ -166,9 +167,9 @@ class HomeController extends Controller
         }else{
             $currentDate = Carbon::now();
             $flashdeals = FlashDeal::with('products')->where(['status' => 1, 'deal_type' => 'flash_deal'])->whereDate('start_date','<=',date('Y-m-d'))->whereDate('end_date','>=',date('Y-m-d'))->get();
-    
+
             $formattedFlashDeals = [];
-    
+
             foreach($flashdeals as $flashdeal){
                 $url = asset('storage/app/public/product/thumbnail/' . $flashdeal->banner);
                 $flashdeal->banner = asset('storage/app/public/deal/' . $flashdeal->banner);
@@ -188,7 +189,7 @@ class HomeController extends Controller
             'resource_type' => 'deals',
             'resource_id' => $flashdeal->id
         ])->get();
-        
+
         $organizedBanners = [];
         foreach ($banners as $banner) {
             $banner->photo = asset('storage/app/public/banner/' . $banner->photo);
@@ -641,14 +642,14 @@ public function ShopDetails($id)
                     'banner_type'=> 'Footer Banner'
                 ])->whereJsonContains('tags', $child->tag)
                 ->get();
-    
+
             $imageUrls = [];
-    
+
             foreach($banners as $banner){
                 $url = asset('storage/app/public/banner/' . $banner->photo);
                 $imageUrls[] = $url;
             }
-    
+
             $imageUrls = array_values($imageUrls);
             }else{
                 return response()->json(['message'=>'Child not found.'], 200);
@@ -659,14 +660,14 @@ public function ShopDetails($id)
                     'published'=> 1,
                     'banner_type'=> 'Footer Banner'
                 ])->get();
-    
+
             $imageUrls = [];
-    
+
             foreach($banners as $banner){
                 $url = asset('storage/app/public/banner/' . $banner->photo);
                 $imageUrls[] = $url;
             }
-    
+
             $imageUrls = array_values($imageUrls);
         }
 
