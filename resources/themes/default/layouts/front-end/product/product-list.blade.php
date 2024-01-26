@@ -180,6 +180,14 @@
 
 </div>
 <style>
+    .product-wrapper:hover .product_title {
+    display: none;
+    }
+
+    .product-wrapper .product_title {
+        display: block; /* Set the default display style for the product names */
+    }
+
     .AddtoCart{
         border: 1px solid #8b5bc0;
     }
@@ -281,7 +289,7 @@
     }
     .clr_size span a{
         color: #000;
-    }
+        text-decoration: none;    }
     /* .product-wrapper:after {
     content: "";
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
