@@ -118,7 +118,6 @@ class HomeController extends Controller
                         ->where('resource_type', 'category');
                 })
                 ->orderBy('priority', 'asc')
-                ->take(10)
                 ->get();
                 $imageUrls = [];
                 $name = [];
@@ -143,7 +142,6 @@ class HomeController extends Controller
                       ->where('resource_type', 'category');
             })
             ->orderBy('priority', 'asc')
-            ->take(10)
             ->get();
             $imageUrls = [];
             $name = [];
