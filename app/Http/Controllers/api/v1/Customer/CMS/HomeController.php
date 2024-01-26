@@ -141,6 +141,7 @@ class HomeController extends Controller
                 ->get();
             $imageUrls = [];
             $name = [];
+            retrun response()->json($topArrivalCategories, 200);
             foreach($topArrivalCategories as $categoryavatar){
                 if($categoryavatar->customPage != null){
                     $url = asset('storage/app/public/category/' . $categoryavatar->icon);
