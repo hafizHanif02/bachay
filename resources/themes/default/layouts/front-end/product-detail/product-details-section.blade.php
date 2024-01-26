@@ -1,39 +1,63 @@
 <head>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/drift-zoom/1.3.1/Drift.min.js" integrity="sha512-Pd9pNKoNtEB70QRXTvNWLO5kqcL9zK88R4SIvThaMcQRC3g8ilKFNQawEr+PSyMtf/JTjV7pbFOFnkVdr0zKvw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/drift-zoom/1.3.1/Drift.min.js"
+        integrity="sha512-Pd9pNKoNtEB70QRXTvNWLO5kqcL9zK88R4SIvThaMcQRC3g8ilKFNQawEr+PSyMtf/JTjV7pbFOFnkVdr0zKvw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 </head>
 <style>
     .overlay {
-    position: relative; /* Adjust as needed */
-}
+        position: relative;
+        /* Adjust as needed */
+    }
 
-.drift-zoom-pane {
-    z-index: 1000; /* Make sure this is above other elements */
-}
+    .drift-zoom-pane {
+        z-index: 1000;
+        /* Make sure this is above other elements */
+    }
 </style>
 <div class="container-fluid products mt-4">
     <div class="row">
-        
+
         <div class="col-lg-5 col-md-6 col-sm-12 col-12 d-flex flex-column fixedProduct">
             <div class="row">
-                <div class="col-md-2">
+                <div class="col-md-2 d-flex align-items-center">
                     <div class="small-images">
                         <div class="SmallImageCon">
-                            <img  class="small-image object-fit-cover" id="image-#{{ $product->thumbnail }}"
-                                    src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}"
-                                    data-url='{{ asset('storage/app/public/product/' . $product->thumbnail) }}'
-                                    alt="Small Image">
-                            @foreach (json_decode($product->color_image) as $key => $photo)
+                            <img class="small-image object-fit-cover" id="image-#{{ $product->thumbnail }}"
+                                src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}"
+                                data-url='{{ asset('storage/app/public/product/' . $product->thumbnail) }}'
+                                alt="Small Image">
+                            {{-- @foreach (json_decode($product->color_image) as $key => $photo)
                                 <img class="small-image object-fit-cover" id="image-#{{ $photo->color ? $photo->color : '' }}"
                                     src="{{ asset('storage/app/public/product/' . $photo->image_name) }}"
                                     data-url='{{ asset('storage/app/public/product/' . $photo->image_name) }}'
                                     alt="Small Image {{ $key + 1 }}">
+                            @endforeach --}}
+                            @foreach (json_decode($product->color_image) as $key => $photo)
+                                @if ($key < 2)
+                                    <img class="small-image object-fit-cover"
+                                        id="image-#{{ $photo->color ? $photo->color : '' }}"
+                                        src="{{ asset('storage/app/public/product/' . $photo->image_name) }}"
+                                        data-url='{{ asset('storage/app/public/product/' . $photo->image_name) }}'
+                                        alt="Small Image {{ $key + 1 }}">
+                                @endif
                             @endforeach
                             @foreach (json_decode($product->images) as $key => $photo)
+                            @if($key < 3)
                                 <img class="small-image object-fit-cover"
                                     src="{{ asset('storage/app/public/product/' . $photo) }}"
                                     data-url='{{ asset('storage/app/public/product/' . $photo) }}'
                                     alt="Small Image {{ $key + 1 }}">
-                            @endforeach
+                            @else
+                                @break
+                            @endif
+                        @endforeach
+                        
+                            {{-- @foreach (json_decode($product->images) as $key => $photo)
+                                <img class="small-image object-fit-cover"
+                                    src="{{ asset('storage/app/public/product/' . $photo) }}"
+                                    data-url='{{ asset('storage/app/public/product/' . $photo) }}'
+                                    alt="Small Image {{ $key + 1 }}">
+                            @endforeach --}}
                         </div>
                     </div>
                 </div>
@@ -41,8 +65,8 @@
                     <div class="product-container">
                         <div class="main-image">
                             <img id="main-image" class="detailed-product-img object-fit-cover"
-                                src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}" alt="Main Image"
-                                width="100%" height="100%">
+                                src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}"
+                                alt="Main Image" width="100%" height="100%">
                             {{-- <img id="main-image" class="detailed-product-img object-fit-cover"
                                 src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}" alt="Main Image"
                                 width="100%" height="100%"> --}}
@@ -102,7 +126,7 @@
                         value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
 
                     <div class="mt-3">
-                        <button type="submit" class="w-100 rounded-pill text-dark fw-bold pt-3 pb-3">Add to
+                        <button type="submit" class="w-100 rounded-pill text-dark fw-bold pt-3 pb-3" style="background: #fff;">Add to
                             Cart</button>
                     </div>
                 </form>
@@ -110,7 +134,7 @@
 
         </div>
 
-        <div  class="col-lg-7 col-md-6 col-sm-12 col-12">
+        <div class="col-lg-7 col-md-6 col-sm-12 col-12">
             <div class="row pt-3 pb-3 overlay">
                 <div class="col-12 d-flex align-items-center gap-2">
                     <h6 class="fontPoppins fw-bold boysClothes mb-0">
@@ -205,8 +229,7 @@
                         <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Colors</p>
                         @foreach ($colors as $color)
                             <input type="radio" class="me-3" style="background-color: {{ $color->code }}"
-                                id="btn{{ $loop->iteration }}" 
-                                name="Btn">
+                                id="btn{{ $loop->iteration }}" name="Btn">
                         @endforeach
                     </div>
                 @endif
@@ -255,11 +278,11 @@
 
                 <div class="Sizesbtn col-12 pt-2 d-flex align-items-center mb-3">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size</p>
-                    @foreach($product->size as $size)
-                    <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
-                                type="button" value="{{ $size}}" data-price="{{ $size }}"
-                                onclick="InsertVariant('{{ $loop->iteration }}')"
-                                data-discount={{ $product->discount }} id="variant{{ $loop->iteration }}">
+                    @foreach ($product->size as $size)
+                        <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
+                            type="button" value="{{ $size }}" data-price="{{ $size }}"
+                            onclick="InsertVariant('{{ $loop->iteration }}')" data-discount={{ $product->discount }}
+                            id="variant{{ $loop->iteration }}">
                     @endforeach
                     {{-- @foreach (json_decode($product->variation) as $variant)
                         @if ($variant->qty > 0)
@@ -660,7 +683,6 @@
     }
 </style>
 <script>
-
     function copyToClipboard2() {
         const codeText = document.getElementById('codeSpan2').innerText;
         navigator.clipboard.writeText(codeText)
@@ -707,79 +729,79 @@
 
 
     function magnify(imgID, zoom) {
-    var img, glass, w, h, bw;
-    img = document.getElementById(imgID);
-    var overlay = document.querySelector('.overlay');
+        var img, glass, w, h, bw;
+        img = document.getElementById(imgID);
+        var overlay = document.querySelector('.overlay');
 
-    // Create magnifier glass
-    glass = document.createElement("DIV");
-    glass.setAttribute("class", "img-magnifier-glass");
-    glass.setAttribute("id", "img-magnifier-glass");
+        // Create magnifier glass
+        glass = document.createElement("DIV");
+        glass.setAttribute("class", "img-magnifier-glass");
+        glass.setAttribute("id", "img-magnifier-glass");
 
-    // Append magnifier glass to the overlay
-    overlay.appendChild(glass);
+        // Append magnifier glass to the overlay
+        overlay.appendChild(glass);
 
-    // Set background properties for the magnifier glass
-    glass.style.backgroundImage = "url('" + img.src + "')";
-    glass.style.backgroundRepeat = "no-repeat";
-    glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
-    bw = 3;
-    w = glass.offsetWidth / 2;
-    h = glass.offsetHeight / 3;
+        // Set background properties for the magnifier glass
+        glass.style.backgroundImage = "url('" + img.src + "')";
+        glass.style.backgroundRepeat = "no-repeat";
+        glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
+        bw = 3;
+        w = glass.offsetWidth / 2;
+        h = glass.offsetHeight / 3;
 
-    // Event listeners for mouse movement
-    img.addEventListener("mousemove", moveMagnifier);
-    glass.addEventListener("mousemove", moveMagnifier);
-    img.addEventListener("touchmove", moveMagnifier);
-    glass.addEventListener("touchmove", moveMagnifier);
+        // Event listeners for mouse movement
+        img.addEventListener("mousemove", moveMagnifier);
+        glass.addEventListener("mousemove", moveMagnifier);
+        img.addEventListener("touchmove", moveMagnifier);
+        glass.addEventListener("touchmove", moveMagnifier);
 
-    function moveMagnifier(e) {
-        var pos, x, y;
+        function moveMagnifier(e) {
+            var pos, x, y;
 
-        // Prevent any other actions that may occur when moving over the image
-        e.preventDefault();
+            // Prevent any other actions that may occur when moving over the image
+            e.preventDefault();
 
-        // Get the cursor's x and y positions
-        pos = getCursorPos(e);
-        x = pos.x;
-        y = pos.y;
+            // Get the cursor's x and y positions
+            pos = getCursorPos(e);
+            x = pos.x;
+            y = pos.y;
 
-        // Calculate the position of the magnifier glass
-        glass.style.position = "absolute";
-        
-        glass.style.left = "0";
-        glass.style.top = "0";
-        glass.style.height = "30%";
-        glass.style.width = "80%";
-        
+            // Calculate the position of the magnifier glass
+            glass.style.position = "absolute";
+
+            glass.style.left = "0";
+            glass.style.top = "0";
+            glass.style.height = "30%";
+            glass.style.width = "100%";
 
 
-        // Display what the magnifier glass "sees"
-        glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + 2 + bw) + "px";
+
+            // Display what the magnifier glass "sees"
+            glass.style.backgroundPosition = "-" + ((x * zoom) - w + bw) + "px -" + ((y * zoom) - h + 2 + bw) + "px";
+        }
+
+        function getCursorPos(e) {
+            var a, x = 0,
+                y = 0;
+            e = e || window.event;
+
+            // Get the x and y positions of the image
+            a = img.getBoundingClientRect();
+
+            // Calculate the cursor's x and y coordinates, relative to the image
+            x = e.pageX - a.left;
+            y = e.pageY - a.top;
+
+            // Consider any page scrolling
+            x = x - window.pageXOffset;
+            y = y - window.pageYOffset;
+            return {
+                x: x,
+                y: y
+            };
+        }
     }
 
-    function getCursorPos(e) {
-        var a, x = 0, y = 0;
-        e = e || window.event;
-
-        // Get the x and y positions of the image
-        a = img.getBoundingClientRect();
-
-        // Calculate the cursor's x and y coordinates, relative to the image
-        x = e.pageX - a.left;
-        y = e.pageY - a.top;
-
-        // Consider any page scrolling
-        x = x - window.pageXOffset;
-        y = y - window.pageYOffset;
-        return { x: x, y: y };
-    }
-}
-
-// Initiate magnify function
-magnify("main-image", 2);
-
-
-
-
+    // Initiate magnify function
+    magnify("main-image", 2);
 </script>
