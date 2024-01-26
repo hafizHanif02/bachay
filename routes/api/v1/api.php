@@ -2,7 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1\Customer\CMS\HomeController;
-use App\Http\Controllers\api\v1\ProductController;
+use App\Http\Controllers\Api\v1\ProductController;
 
 
 
