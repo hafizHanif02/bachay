@@ -80,7 +80,10 @@ class HomeController extends Controller
             $imageUrls = [];
             $name = [];
             foreach($toparrivalcategorys as $categoryavatar){
-                $categoryavatar->customePage_id = DB::table("custom_page")->where(['resource_type'=> 'category', 'resource_id'=> $categoryavatar->id])->first()->id;
+                 $custome_page= DB::table("custom_page")->where(['resource_type'=> 'category', 'resource_id'=> $categoryavatar->id])->get();
+                if(count($custome_page)> 0){
+                    $categoryavatar->customePage_id = $custome_page[0]->id;
+                }
                 $url = asset('storage/app/public/category/' . $categoryavatar->icon);
                 $categoryavatar->image = $url;
                 $imageUrls[] = $url;
