@@ -237,6 +237,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
         Route::delete('delete-address/{id}', 'CustomerController@DeleteAddress');
         Route::get('address-detail/{id}', 'CustomerController@GetAdress');
         Route::get('address', 'CustomerController@Address');
+        Route::get('address-list', 'CustomerController@Address');
         Route::put('update-profile', 'CustomerController@update_profile');
         Route::post('change-avatar', 'CustomerController@ChangeAvatar');
         Route::get('account-delete/{id}','CustomerController@account_delete');
