@@ -1260,9 +1260,12 @@ background-clip: text;
     text-align: left;
 }
 .for-border-g {
-    border-top: 2px solid #cccccc;
+    /* border-top: 2px solid #cccccc; */
     border-bottom: 2px solid #cccccc;
-    padding: 5px 0;
+    /* box-shadow: 0 0 4px 1px #aaa; */
+    /* box-shadow: -4px 0 4px -1px #aaa, 4px 0 4px -1px #aaa; */
+
+    padding: 5px 15px;
 }
 
 .delivery-btn {
