@@ -142,10 +142,13 @@ class HomeController extends Controller
             $imageUrls = [];
             $name = [];
             foreach($topArrivalCategories as $categoryavatar){
-                $url = asset('storage/app/public/category/' . $categoryavatar->icon);
-                $categoryavatar->image = $url;
-                $imageUrls[] = $url;
-                $name[] = $categoryavatar->name;
+                if($categoryavatar->customPage != null){
+                    $url = asset('storage/app/public/category/' . $categoryavatar->icon);
+                    $categoryavatar->image = $url;
+                    $imageUrls[] = $url;
+                    $name[] = $categoryavatar->name;
+                }
+
             }
             $imageUrls = array_values($imageUrls);
             $nameArray = array_values($name);
