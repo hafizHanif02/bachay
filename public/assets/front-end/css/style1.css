@@ -438,7 +438,7 @@ input.form-control.search-input {
     position: sticky;
     top: 20px;
     /* margin-bottom: var(--su8); */
-    max-height: 100vh;
+    /* max-height: 150vh; */
     /* overflow-y: auto; */
 }
 /* .All_products{
@@ -521,10 +521,10 @@ button.slick-prev.slick-arrow {
     color: #292D32;
     line-height: normal;
     font-size: 16px;
-font-family: 'Poppins';
-font-style: normal;
-font-weight: 600;
-line-height: 30px;
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    line-height: 30px;
 }
 .popup {
     position: relative;
@@ -552,20 +552,46 @@ line-height: 30px;
     display: block;
 }
 .scroll{
-    height: 60vh;
-    overflow: hidden;
-}
-.scroll::-webkit-scrollbar {
-    width: 10px;
-  }
-  /* Handle */
-  .scroll::-webkit-scrollbar-thumb {
-    background: #d3d3d3;
-    border-radius: 10px;
-  }
-.scroll:hover{
+    height: 150px;
+    /* height: 60vh; */
+    /* overflow: hidden; */
     overflow-y: scroll !important;
 }
+.scroll::-webkit-scrollbar {
+    width: 5px;
+  }
+  /* Handle */
+.scroll::-webkit-scrollbar-thumb {
+    /* background: #8b5bc0; */
+    background: #d3d3d3;
+    border-radius: 10px;
+}
+  /* Track */
+.scroll::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px #d4d3d3; 
+    border-radius: 10px;
+}
+/* .scroll:hover{
+    overflow-y: scroll !important;
+} */
+/* main scroller of side bar */
+/* .scroll-main{
+    height: 60vh;
+    overflow: hidden;
+    overflow-y: scroll !important;
+    padding-right: 5px;
+} */
+/* .scroll-main::-webkit-scrollbar {
+    width: 8px;
+} */
+  /* Handle */
+/* .scroll-main::-webkit-scrollbar-thumb {
+background: #C1C1C1;
+border-radius: 10px;
+}
+.scroll-main:hover{
+    overflow-y: scroll !important;
+} */
 .search-bar {
     position: relative;
     display: flex;
@@ -1260,7 +1286,7 @@ background-clip: text;
     text-align: left;
 }
 .for-border-g {
-    /* border-top: 2px solid #cccccc; */
+    border-top: 2px solid #cccccc;
     border-bottom: 2px solid #cccccc;
     /* box-shadow: 0 0 4px 1px #aaa; */
     /* box-shadow: -4px 0 4px -1px #aaa, 4px 0 4px -1px #aaa; */
