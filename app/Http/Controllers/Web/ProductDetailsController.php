@@ -61,15 +61,32 @@ class ProductDetailsController extends Controller
                     $product['size'] = $choice['options'];
                 }
             }
+            
             foreach ($productVariations as $variation) {
                 $typeParts = explode('-', $variation['type']);
+                $title = ['color'];
+
                 $color = $typeParts[0];
                 if (!isset($groupedVariations[$color])) {
                     $groupedVariations[$color] = [];
                 }
-                $groupedVariations[$color][] = $variation;
+                foreach($categoryOptions as $key=> $categoryOption){
+                    $title []= $categoryOption['title'] ;
+                }
+                
+                foreach($typeParts as $key => $typePart){
+                    
+                    $variation[$title[$key]] = $typePart;
+                }
+            //    foreach($productVariations as $vari){
+            //        $vari['title'] = $title;
+            //    }
+              
+               $groupedVariations[$color][] = $variation;
             }
-            dd( $groupedVariations);
+            
+            // return $groupedVariations;
+
             $product->variation = $groupedVariations;
 
 
