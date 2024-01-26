@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\v1;
+namespace App\Http\Controllers\Api\V1;
 
 use App\CPU\Helpers;
 use App\Model\Brand;
@@ -64,7 +64,7 @@ class ProductController extends Controller
             if($child != null){
                 $child->tag = ($child->gender == 1)?'Boy':'Girl';
                 $allProducts = Product::with(['brand','tags'])->get();
-    
+
                 $products = [];
                 foreach ($allProducts as $product) {
                     if ($product->tags != null) {
@@ -75,15 +75,15 @@ class ProductController extends Controller
                         }
                     }
                 }
-    
+
             foreach ($products as $product) {
                 $thumbnailUrl = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
                 $product->thumbnail = $thumbnailUrl;
-    
-    
-                
+
+
+
                 $imagesArray = json_decode($product->images, true);
-    
+
                 $imageUrls = [];
                 if (is_array($imagesArray)) {
                     foreach ($imagesArray as $image) {
@@ -100,7 +100,7 @@ class ProductController extends Controller
                 }
                 $product->brand->image = $brandImageUrl;
             }
-            
+
             if($products != null){
                 return response()->json($products, 200);
             }else{
@@ -115,15 +115,15 @@ class ProductController extends Controller
             }
         }else{
             $products = Product::with('brand')->get();
-    
+
             foreach ($products as $product) {
                 $thumbnailUrl = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
                 $product->thumbnail = $thumbnailUrl;
-    
-    
-                
+
+
+
                 $imagesArray = json_decode($product->images, true);
-    
+
                 $imageUrls = [];
                 if (is_array($imagesArray)) {
                     foreach ($imagesArray as $image) {
@@ -140,7 +140,7 @@ class ProductController extends Controller
                 }
                 $product->brand->image = $brandImageUrl;
             }
-            
+
             if($products != null){
                 return response()->json($products, 200);
             }else{
@@ -152,7 +152,7 @@ class ProductController extends Controller
     }
 
     public function show($id){
-        
+
         $product = Product::where('id',$id)->with(['brand','reviews','rating'])->first();
 
         $order = DB::table('order_details')->where('product_id',$product->id)->get();
@@ -168,36 +168,36 @@ class ProductController extends Controller
         if ($product != null) {
             $productVariations = json_decode($product->variation, true);
             $categoryOptions = json_decode($product->choice_options, true);
-        
+
             $groupedVariations = [];
             foreach ($categoryOptions as $choice) {
                 if ($choice['title'] == 'Size') {
-                    $product['size'] = $choice['options'];  
+                    $product['size'] = $choice['options'];
                 }
             }
             foreach ($productVariations as $variation) {
                 $typeParts = explode('-', $variation['type']);
                 $color = $typeParts[0];
-        
+
                 // Initialize color array if not exists
                 if (!isset($groupedVariations[$color])) {
                     $groupedVariations[$color] = [];
                 }
-        
+
                 // Add variation to the color array
                 $groupedVariations[$color][] = $variation;
             }
-        
+
             // Now $groupedVariations contains the variations separated by color
             $product->variation = $groupedVariations;
-        
-        
-        
-            
-    
+
+
+
+
+
 
             $imagesArray = json_decode($product->images, true);
-    
+
             $imageUrls = [];
             if (is_array($imagesArray)) {
                 foreach ($imagesArray as $image) {
@@ -205,12 +205,12 @@ class ProductController extends Controller
                     $imageUrls[] = $imageUrl;
                 }
             }
-    
+
             $thumbnailUrl = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
-            
+
             $product->thumbnail = $thumbnailUrl;
             $product->images = $imageUrls;
-    
+
             return response()->json($product, 200);
         }else{
             return response()->json([
