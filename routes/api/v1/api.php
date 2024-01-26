@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\api\v1\Customer\CMS\HomeController;
+use App\Http\Controllers\Api\v1\ProductController;
 
 
 
@@ -53,8 +54,8 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
     });
 
     Route::group(['prefix' => 'product'], function () {
-        Route::get('/list', 'ProductController@list')->name('list');
-        Route::get('/detail/{id}', 'ProductController@show')->name('detail');
+        Route::get('/list', [ProductController::class, 'list'])->name('list');
+        Route::get('/detail/{id}', [ProductController::class, 'show'])->name('detail');
     });
 
 
@@ -138,31 +139,31 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
     });
 
     Route::group(['prefix' => 'products'], function () {
-        Route::get('reviews/{product_id}', 'ProductController@get_product_reviews');
-        Route::get('rating/{product_id}', 'ProductController@get_product_rating');
-        Route::get('counter/{product_id}', 'ProductController@counter');
-        Route::get('shipping-methods', 'ProductController@get_shipping_methods');
-        Route::get('social-share-link/{product_id}', 'ProductController@social_share_link');
-        Route::post('reviews/submit', 'ProductController@submit_product_review')->middleware('auth:api');
+        Route::get('reviews/{product_id}', [ProductController::class, 'get_product_reviews']);
+        Route::get('rating/{product_id}', [ProductController::class, 'get_product_rating']);
+        Route::get('counter/{product_id}', [ProductController::class, 'counter']);
+        Route::get('shipping-methods', [ProductController::class, 'get_shipping_methods']);
+        Route::get('social-share-link/{product_id}', [ProductController::class, 'social_share_link']);
+        Route::post('reviews/submit', [ProductController::class, 'submit_product_review'])->middleware('auth:api');
     });
 
     Route::group(['middleware' => 'auth:api'], function () {
         Route::group(['prefix' => 'products'], function () {
-            Route::get('latest', 'ProductController@get_latest_products');
-            Route::get('featured', 'ProductController@get_featured_products');
-            Route::get('top-rated', 'ProductController@get_top_rated_products');
-            Route::any('search', 'ProductController@get_searched_products');
-            Route::post('filter', 'ProductController@product_filter');
-            Route::any('suggestion-product', 'ProductController@get_suggestion_product');
-            Route::get('details/{slug}', 'ProductController@get_product');
-            Route::get('related-products/{product_id}', 'ProductController@get_related_products');
-            Route::get('best-sellings', 'ProductController@get_best_sellings');
-            Route::get('home-categories', 'ProductController@get_home_categories');
-            Route::get('discounted-product', 'ProductController@get_discounted_product');
-            Route::get('most-demanded-product', 'ProductController@get_most_demanded_product');
-            Route::get('shop-again-product', 'ProductController@get_shop_again_product')->middleware('auth:api');
-            Route::get('just-for-you', 'ProductController@just_for_you');
-            Route::get('most-searching', 'ProductController@get_most_searching_products');
+            Route::get('latest', [ProductController::class, 'get_latest_products']);
+            Route::get('featured', [ProductController::class, 'get_featured_products']);
+            Route::get('top-rated', [ProductController::class, 'get_top_rated_products']);
+            Route::any('search', [ProductController::class, 'get_searched_products']);
+            Route::post('filter', [ProductController::class, 'product_filter']);
+            Route::any('suggestion-product', [ProductController::class, 'get_suggestion_product']);
+            Route::get('details/{slug}', [ProductController::class, 'get_product']);
+            Route::get('related-products/{product_id}', [ProductController::class, 'get_related_products']);
+            Route::get('best-sellings', [ProductController::class, 'get_best_sellings']);
+            Route::get('home-categories', [ProductController::class, 'get_home_categories']);
+            Route::get('discounted-product', [ProductController::class, 'get_discounted_product']);
+            Route::get('most-demanded-product', [ProductController::class, 'get_most_demanded_product']);
+            Route::get('shop-again-product', [ProductController::class, 'get_shop_again_product'])->middleware('auth:api');
+            Route::get('just-for-you', [ProductController::class, 'just_for_you']);
+            Route::get('most-searching', [ProductController::class, 'get_most_searching_products']);
         });
 
         Route::group(['prefix' => 'seller'], function () {
@@ -279,7 +280,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
             Route::post('refund-store', 'OrderController@store_refund');
             Route::get('refund-details', 'OrderController@refund_details');
             Route::get('list', 'CustomerController@get_order_list');
-            Route::post('deliveryman-reviews/submit', 'ProductController@submit_deliveryman_review')->middleware('auth:api');
+            Route::post('deliveryman-reviews/submit', [ProductController::class, 'submit_deliveryman_review'])->middleware('auth:api');
             Route::post('again', 'OrderController@order_again');
         });
         // Chatting
