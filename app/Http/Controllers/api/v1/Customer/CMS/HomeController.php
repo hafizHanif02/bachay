@@ -53,13 +53,11 @@ class HomeController extends Controller
                 $toparrivalcategorys = DB::table('categories')
                 ->where('parent_id', 0)
                 ->where('priority', '!=', 0)
-                ->whereNotIn('id', function($query) {
-                    $query->select('resource_id')
-                        ->from('custom_page')
-                        ->where('resource_type', 'category');
-                })
                 ->orderBy('priority', 'asc')
                 ->take(10)
+                ->with(['customPage' => function ($query) {
+                    $query->where('resource_type', 'category');
+                }])
                 ->get();
                 $imageUrls = [];
                 $name = [];
@@ -78,13 +76,11 @@ class HomeController extends Controller
             $toparrivalcategorys = DB::table('categories')
             ->where('parent_id', 0)
             ->where('priority', '!=', 0)
-            ->whereNotIn('id', function($query) {
-                $query->select('resource_id')
-                      ->from('custom_page')
-                      ->where('resource_type', 'category');
-            })
             ->orderBy('priority', 'asc')
             ->take(10)
+            ->with(['customPage' => function ($query) {
+                $query->where('resource_type', 'category');
+            }])
             ->get();
             $imageUrls = [];
             $name = [];
@@ -118,6 +114,7 @@ class HomeController extends Controller
                         ->where('resource_type', 'category');
                 })
                 ->orderBy('priority', 'asc')
+                ->take(10)
                 ->get();
                 $imageUrls = [];
                 $name = [];
@@ -142,6 +139,7 @@ class HomeController extends Controller
                       ->where('resource_type', 'category');
             })
             ->orderBy('priority', 'asc')
+            ->take(10)
             ->get();
             $imageUrls = [];
             $name = [];
