@@ -100,13 +100,13 @@
                                     alt="Logo"></a></li>
 
                         <li class="mt-4 poppins"><a href="#" class="text-decoration-none">
-                                <h6><i class="bi bi-geo-alt"></i> Morem ipsum dolor sit amet.</h6>
+                                <h6><i class="bi bi-geo-alt"></i> Coming soon....</h6>
                             </a></li>
                         <li class="poppins mt-3"><a href="tel:" class="text-decoration-none">
-                                <h6><i class="bi bi-telephone"></i> 0000-000-0000 </h6>
+                                <h6><i class="bi bi-telephone"></i> Coming soon....</h6>
                             </a></li>
                         <li class="poppins mt-3"><a href="mailto:" class="text-decoration-none">
-                                <h6><i class="bi bi-envelope"></i> bac@company.com</h6>
+                                <h6><i class="bi bi-envelope"></i> Coming soon....</h6>
                             </a></li>
                     </ul>
                 </div>
