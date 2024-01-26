@@ -30,28 +30,27 @@ class ProductDetailsController extends Controller
         private Product      $product,
     ) {
     }
-    public function product($id)
+    public function product($id, Request $request)
     {
         $theme_name = theme_root_path();
 
         return match ($theme_name) {
-            'default' => self::default_theme($id),
+            'default' => self::default_theme($id, $request),
             'theme_aster' => self::theme_aster($id),
             'theme_fashion' => self::theme_fashion($id),
             'theme_all_purpose' => self::theme_all_purpose($id),
         };
     }
 
-    public function default_theme($id)
+    public function default_theme($id, $request)
     {
+        // dd($request->all());
         $product = Product::active()->with(['reviews', 'seller.shop'])->where('id', $id)->first();
         $products = Product::get();
         $tax = Product::where([
             'id' => $id,
             'tax_model' => 'exclude'
         ])->pluck('tax')->first();
-
-        // dd($product->colors);
         if ($product != null) {
             $productVariations = json_decode($product->variation, true);
             $categoryOptions = json_decode($product->choice_options, true);
@@ -180,9 +179,10 @@ class ProductDetailsController extends Controller
                 $wishlistProductsArray = [];
                 $cartProductsArray = [];
             }
+            $request = $request;
             // $wishlistProductsArray = $wishlistProducts->toArray();
 
-            return view(VIEW_FILE_NAMES['product-detail'], compact('cartProductsArray',
+            return view(VIEW_FILE_NAMES['product-detail'], compact('request','cartProductsArray',
                 'wishlistProductsArray',
                 'tax',
                 'userData',

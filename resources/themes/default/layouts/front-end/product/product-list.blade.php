@@ -89,21 +89,32 @@
                     <div class="expand_btn">
                         <div class="dfsize mt-2">
                             <div class="clr_size fs-12 font-poppins">
-                                <button class="pt-1 pb-1 ps-2 pe-2 mb-1 bg-transparent"><a href="#">6 - 9M</a></button>
-                                <button class="pt-1 pb-1 ps-2 pe-2 mb-1 bg-transparent"><a href="#">9 - 12M</a></button>
-                                <button class="pt-1 pb-1 ps-2 pe-2 mb-1 bg-transparent"><a href="#">12 - 18M</a></button>
-                                <button class="pt-1 pb-1 ps-2 pe-2 mb-1 bg-transparent"><a href="#">18 - 24M</a></button>
-                                <button class="pt-1 pb-1 ps-2 pe-2 mb-1 bg-transparent"><a href="#">2 - 3Y</a></button>
-                                <button class="pt-1 pb-1 ps-2 pe-2 mb-1 bg-transparent"><a href="#">4 - 5Y</a></button>
+                                @foreach (($product->size) as $size)
+                                {{-- <form  action="{{ route('product-detail',$product->id) }}" method="GET">
+                                    @csrf --}}
+                                    {{-- <input type="hidden" name="Size" value="{{ $size }}">
+                                    @if(!empty(json_decode($product->colors)))
+                                    <input type="hidden" name="Color" value="{{ json_decode($product->colors)[0] }}">
+                                    @endif --}}
+                                    <button type="submit" class="pt-1 pb-1 ps-2 pe-2 mb-1 bg-transparent"><a href="{{ route('product-detail',$product->id.'?Size='.$size) }}">{{ $size}}</a></button>
+                                {{-- </form> --}}
+                                @endforeach
                             </div>
                         </div>
                         <div class="ProductColors col-12 d-flex align-items-center mb-3 mt-3">
-                            <input type="radio" class="me-3" style="background-color: red" id="btn1"
+                                {{-- @if($product->id == '2')
+                                {{ dd($product->size) }}
+                                @endif --}}
+
+                                
+                            @foreach(json_decode($product->colors) as $color)
+                            <input type="radio" class="me-3" style="background-color: {{ $color }}" id="btn1"
                                 name="Btn">
-                            <input type="radio" class="me-3" style="background-color: green" id="btn2"
+                            {{-- <input type="radio" class="me-3" style="background-color: green" id="btn2"
                                 name="Btn">
                             <input type="radio" class="me-3" style="background-color: blue" id="btn3"
-                                name="Btn">
+                                name="Btn"> --}}
+                            @endforeach
                         </div>
                         {{-- <div class="product-colors">
                             @foreach ($product->colors as $color)

@@ -736,6 +736,27 @@ class ProductListController extends Controller
                 $filename = 'products';
             }
 
+            foreach($products as $product){
+                $productVariations = json_decode($product->variation, true);
+                $categoryOptions = json_decode($product->choice_options, true);
+                $groupedVariations = [];
+                $product['size'] = [];
+                foreach ($categoryOptions as $choice) {
+                    if ($choice['title'] == 'Size') {
+                        $product['size'] = $choice['options'];
+                    }
+                }
+                foreach ($productVariations as $variation) {
+                    $typeParts = explode('-', $variation['type']);
+                    $color = $typeParts[0];
+                    if (!isset($groupedVariations[$color])) {
+                        $groupedVariations[$color] = [];
+                    }
+                    $groupedVariations[$color][] = $variation;
+                }
+                $product->variation = $groupedVariations;
+            }
+
             return view(VIEW_FILE_NAMES[$filename], compact('cartProductsArray','wishlistProductsArray', 'data','products','home_categories','brands','pricefilter','colors','request'));
         }
 
