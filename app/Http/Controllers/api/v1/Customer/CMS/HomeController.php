@@ -53,62 +53,7 @@ class HomeController extends Controller
                 $toparrivalcategorys = DB::table('categories')
                 ->where('parent_id', 0)
                 ->where('priority', '!=', 0)
-                ->orderBy('priority', 'asc')
-                ->take(10)
-                ->with(['customPage' => function ($query) {
-                    $query->where('resource_type', 'category');
-                }])
-                ->get();
-                $imageUrls = [];
-                $name = [];
-                foreach($toparrivalcategorys as $categoryavatar){
-                    $url = asset('storage/app/public/category/' . $categoryavatar->icon);
-                    $categoryavatar->image = $url;
-                    $imageUrls[] = $url;
-                    $name[] = $categoryavatar->name;
-                }
-                $imageUrls = array_values($imageUrls);
-                $nameArray = array_values($name);
-            }else{
-                return response()->json(['message'=>'Child not found.'], 200);
-            }
-        }else{
-            $toparrivalcategorys = DB::table('categories')
-            ->where('parent_id', 0)
-            ->where('priority', '!=', 0)
-            ->orderBy('priority', 'asc')
-            ->take(10)
-            ->with(['customPage' => function ($query) {
-                $query->where('resource_type', 'category');
-            }])
-            ->get();
-            $imageUrls = [];
-            $name = [];
-            foreach($toparrivalcategorys as $categoryavatar){
-                $url = asset('storage/app/public/category/' . $categoryavatar->icon);
-                $categoryavatar->image = $url;
-                $imageUrls[] = $url;
-                $name[] = $categoryavatar->name;
-            }
-            $imageUrls = array_values($imageUrls);
-            $nameArray = array_values($name);
-        }
-        // $latestCategory = DB::table('categories')->orderBy('id', 'desc')->first();
-        // $url = asset('storage/app/public/category/' . $latestCategory->icon);
-        // $latestCategory->image = $url;
-
-        return response()->json(['image'=>$imageUrls,'name'=> $nameArray], 200);
-    }
-
-    public function categoriesPromo(Request $request){
-        if($request->id != null){
-            $child = familyRelation::where('id',$request->id)->first();
-            if($child != null){
-                $child->tag = ($child->gender == 1)?'Boy':'Girl';
-                $toparrivalcategorys = DB::table('categories')
-                ->where('parent_id', 0)
-                ->where('priority', '!=', 0)
-                ->where('id', function($query) {
+                ->whereNotIn('id', function($query) {
                     $query->select('resource_id')
                         ->from('custom_page')
                         ->where('resource_type', 'category');
@@ -133,7 +78,7 @@ class HomeController extends Controller
             $toparrivalcategorys = DB::table('categories')
             ->where('parent_id', 0)
             ->where('priority', '!=', 0)
-            ->where('id', function($query) {
+            ->whereNotIn('id', function($query) {
                 $query->select('resource_id')
                       ->from('custom_page')
                       ->where('resource_type', 'category');
@@ -141,6 +86,61 @@ class HomeController extends Controller
             ->orderBy('priority', 'asc')
             ->take(10)
             ->get();
+            $imageUrls = [];
+            $name = [];
+            foreach($toparrivalcategorys as $categoryavatar){
+                $url = asset('storage/app/public/category/' . $categoryavatar->icon);
+                $categoryavatar->image = $url;
+                $imageUrls[] = $url;
+                $name[] = $categoryavatar->name;
+            }
+            $imageUrls = array_values($imageUrls);
+            $nameArray = array_values($name);
+        }
+        // $latestCategory = DB::table('categories')->orderBy('id', 'desc')->first();
+        // $url = asset('storage/app/public/category/' . $latestCategory->icon);
+        // $latestCategory->image = $url;
+
+        return response()->json(['image'=>$imageUrls,'name'=> $nameArray], 200);
+    }
+
+    public function categoriesPromo(Request $request){
+        if($request->id != null){
+            $child = familyRelation::where('id',$request->id)->first();
+            if($child != null){
+                $child->tag = ($child->gender == 1)?'Boy':'Girl';
+                $topArrivalCategories = DB::table('categories')
+                ->where('parent_id', 0)
+                ->where('priority', '!=', 0)
+                ->orderBy('priority', 'asc')
+                ->take(10)
+                ->with(['customPage' => function ($query) {
+                    $query->where('resource_type', 'category');
+                }])
+                ->get();
+                $imageUrls = [];
+                $name = [];
+                foreach($toparrivalcategorys as $categoryavatar){
+                    $url = asset('storage/app/public/category/' . $categoryavatar->icon);
+                    $categoryavatar->image = $url;
+                    $imageUrls[] = $url;
+                    $name[] = $categoryavatar->name;
+                }
+                $imageUrls = array_values($imageUrls);
+                $nameArray = array_values($name);
+            }else{
+                return response()->json(['message'=>'Child not found.'], 200);
+            }
+        }else{
+            $topArrivalCategories = DB::table('categories')
+                ->where('parent_id', 0)
+                ->where('priority', '!=', 0)
+                ->orderBy('priority', 'asc')
+                ->take(10)
+                ->with(['customPage' => function ($query) {
+                    $query->where('resource_type', 'category');
+                }])
+                ->get();
             $imageUrls = [];
             $name = [];
             foreach($toparrivalcategorys as $categoryavatar){
