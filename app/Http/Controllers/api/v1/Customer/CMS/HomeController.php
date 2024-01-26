@@ -133,7 +133,6 @@ class HomeController extends Controller
         }else{
             $topArrivalCategories = Category::where('parent_id', 0)
                 ->where('parent_id', '=', 0)
-                ->where('id', 146)
                 ->orderBy('priority', 'asc')
                 ->take(10)
                 ->with(['customPage' => function ($query) {
@@ -145,7 +144,7 @@ class HomeController extends Controller
 
             return $topArrivalCategories;
             foreach($topArrivalCategories as $categoryavatar){
-                if($categoryavatar->customPage != null){
+                if(count($categoryavatar->customPage) > 0){
                     $url = asset('storage/app/public/category/' . $categoryavatar->icon);
                     $categoryavatar->image = $url;
                     $imageUrls[] = $url;
