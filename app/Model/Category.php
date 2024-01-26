@@ -68,6 +68,12 @@ class Category extends Model
         return $query->orderBy('priority', 'asc');
     }
 
+    public function customPage()
+    {
+        return $this->hasMany(CustomPage::class, 'resource_id')
+                    ->where('resource_type', 'category');
+    }
+
     protected static function boot()
     {
         parent::boot();
