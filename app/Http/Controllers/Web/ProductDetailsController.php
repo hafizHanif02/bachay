@@ -69,6 +69,7 @@ class ProductDetailsController extends Controller
                 }
                 $groupedVariations[$color][] = $variation;
             }
+            dd( $groupedVariations);
             $product->variation = $groupedVariations;
 
 
