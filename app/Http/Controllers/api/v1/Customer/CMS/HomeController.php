@@ -50,10 +50,14 @@ class HomeController extends Controller
             $child = familyRelation::where('id',$request->id)->first();
             if($child != null){
                 $child->tag = ($child->gender == 1)?'Boy':'Girl';
-                $toparrivalcategorys = DB::table('categories')
-                ->where('parent_id', '=', 0)
+                $topArrivalCategories = DB::table('categories')
+                ->where('parent_id', 0)
                 ->where('priority', '!=', 0)
-                ->whereJsonContains('tags', $child->tag)
+                ->whereNotIn('id', function($query) {
+                    $query->select('resource_id')
+                        ->from('custom_page')
+                        ->where('resource_type', 'category');
+                })
                 ->orderBy('priority', 'asc')
                 ->take(10)
                 ->get();
@@ -71,19 +75,20 @@ class HomeController extends Controller
                 return response()->json(['message'=>'Child not found.'], 200);
             }
         }else{
-            $toparrivalcategorys = DB::table('categories')
-            ->where('parent_id', '=', 0)
+            $topArrivalCategories = DB::table('categories')
+            ->where('parent_id', 0)
             ->where('priority', '!=', 0)
+            ->whereNotIn('id', function($query) {
+                $query->select('resource_id')
+                      ->from('custom_page')
+                      ->where('resource_type', 'category');
+            })
             ->orderBy('priority', 'asc')
             ->take(10)
             ->get();
             $imageUrls = [];
             $name = [];
             foreach($toparrivalcategorys as $categoryavatar){
-                 $custome_page= DB::table("custom_page")->where(['resource_type'=> 'category', 'resource_id'=> $categoryavatar->id])->get();
-                if(count($custome_page)> 0){
-                    $categoryavatar->customePage_id = $custome_page[0]->id;
-                }
                 $url = asset('storage/app/public/category/' . $categoryavatar->icon);
                 $categoryavatar->image = $url;
                 $imageUrls[] = $url;
@@ -96,7 +101,7 @@ class HomeController extends Controller
         // $url = asset('storage/app/public/category/' . $latestCategory->icon);
         // $latestCategory->image = $url;
 
-        return response()->json(['image'=>$imageUrls,'name'=> $nameArray, 'toparrivalcategorys'=>$toparrivalcategorys], 200);
+        return response()->json(['image'=>$imageUrls,'name'=> $nameArray], 200);
     }
 
     public function AllCategorys(Request $request){
