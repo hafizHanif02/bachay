@@ -13,6 +13,9 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
     Route::get('/categories', [HomeController::class, 'NewArrtival']);
     Route::get('/categories/all', [HomeController::class, 'AllCategory']);
     Route::get('/categories/{id}', [HomeController::class, 'CategoryDetail']);
+
+    Route::get('/categoriesPromo', [HomeController::class, 'categoriesPromo']);
+
     Route::get('/main-banner', [HomeController::class, 'MainBanner']);
     Route::get('/main-banner-section', [HomeController::class, 'MainBannerSection']);
     Route::get('/flash-deals', [HomeController::class, 'FlashDeals']);
@@ -100,7 +103,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
 
     });
 
-    
+
 
     Route::group(['prefix' => 'customer/order', 'middleware'=>'apiGuestCheck'], function () {
         Route::get('get-order', 'CustomerController@get_order_by_id');
