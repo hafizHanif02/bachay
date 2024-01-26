@@ -160,7 +160,7 @@ class HomeController extends Controller
                 }
 
             }
-            
+
             $imageUrls = array_values($imageUrls);
             $nameArray = array_values($name);
         }
@@ -168,7 +168,7 @@ class HomeController extends Controller
         // $url = asset('storage/app/public/category/' . $latestCategory->icon);
         // $latestCategory->image = $url;
 
-        return response()->json(['image'=>$imageUrls,'name'=> $nameArray], 200);
+        return response()->json(['image'=>$imageUrls,'name'=> $nameArray,'ids' => $ids], 200);
     }
 
 
