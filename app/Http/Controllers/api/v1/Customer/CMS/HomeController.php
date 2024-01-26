@@ -575,14 +575,13 @@ public function ShopDetails($id)
 
     public function categoriesPromoSingle(Request $request){
         $custom_page = CustomPage::where([
-            'resource_type' => 'category',
             'resource_id' => $request->id,
             'is_mobile' => 1
         ])->with('page_data')->first();
         if ($custom_page != null) {
             if ($custom_page->page_data != null) {
                 foreach ($custom_page->page_data as $page) {
-                    $imgUrl = asset("storage/app/public/category/{$category->name}" . $page->image);
+                    $imgUrl = asset("storage/app/public/category/{$custom_page->resource_type}" . $page->image);
                     $page->image = $imgUrl;
                     $sumWidth += $page->width;
 
