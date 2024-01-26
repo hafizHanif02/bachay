@@ -573,8 +573,38 @@ public function ShopDetails($id)
     }
 }
 
-    public function categoriesPromoSingle(){
+    public function categoriesPromoSingle(Request $request){
+        $custom_page = CustomPage::where([
+            'resource_type' => 'category',
+            'resource_id' => $request->id,
+            'is_mobile' => 1
+        ])->with('page_data')->first();
+        if ($custom_page != null) {
+            if ($custom_page->page_data != null) {
+                foreach ($custom_page->page_data as $page) {
+                    $imgUrl = asset("storage/app/public/category/{$category->name}" . $page->image);
+                    $page->image = $imgUrl;
+                    $sumWidth += $page->width;
 
+                    if ($sumWidth <= 100) {
+                        $currentArray[] = $page;
+                    } else {
+                        $inline_array[] = $currentArray;
+                        $currentArray = [$page];
+                        $sumWidth = $page->width;
+                    }
+                }
+
+                if (!empty($currentArray)) {
+                    $inline_array[] = $currentArray;
+                }
+            }
+
+            $data = $custom_page;
+            $data['in_line'] = $inline_array;
+            return response()->json($data, 200);
+        }
+        return response()->json("No page foundes", 401);
     }
 
     public function AllArticle(){
