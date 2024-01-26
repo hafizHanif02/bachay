@@ -212,6 +212,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
 
     Route::group(['prefix' => 'child', 'middleware' => 'auth:api'], function () {
         Route::get('/', 'CustomerController@Mychild');
+        Route::get('list', 'CustomerController@Mychild');
         Route::post('add-child', 'CustomerController@Addchild');
         Route::put('update/{id}', 'CustomerController@Updatechild');
         Route::get('detail/{id}', 'CustomerController@Detailchild');
