@@ -132,7 +132,8 @@ class HomeController extends Controller
             }
         }else{
             $topArrivalCategories = Category::where('parent_id', 0)
-                ->where('priority', '!=', 0)
+                ->where('parent_id', '=', 0)
+                ->where('id', 146)
                 ->orderBy('priority', 'asc')
                 ->take(10)
                 ->with(['customPage' => function ($query) {
