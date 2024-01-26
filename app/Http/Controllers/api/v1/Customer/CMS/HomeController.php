@@ -50,7 +50,7 @@ class HomeController extends Controller
             $child = familyRelation::where('id',$request->id)->first();
             if($child != null){
                 $child->tag = ($child->gender == 1)?'Boy':'Girl';
-                $topArrivalCategories = DB::table('categories')
+                $toparrivalcategorys = DB::table('categories')
                 ->where('parent_id', 0)
                 ->where('priority', '!=', 0)
                 ->whereNotIn('id', function($query) {
@@ -75,7 +75,7 @@ class HomeController extends Controller
                 return response()->json(['message'=>'Child not found.'], 200);
             }
         }else{
-            $topArrivalCategories = DB::table('categories')
+            $toparrivalcategorys = DB::table('categories')
             ->where('parent_id', 0)
             ->where('priority', '!=', 0)
             ->whereNotIn('id', function($query) {
