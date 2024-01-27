@@ -258,7 +258,6 @@ class CartManager
 
     public static function add_to_cart($request, $from_api = false)
     {
-        // dd($request);
         $str = '';
         $variations = [];
         $price = 0;
@@ -320,9 +319,12 @@ class CartManager
                 'message' => translate('out_of_stock!')
             ];
         }
-
-        $cart['variations'] = json_encode($variations);
-        $cart['variant'] = $str;
+        if(!empty($request->variant)){
+            $cart['variations'] = $request->variant;
+            $cart['variant'] = $str;
+        }else{
+            $request->variant = '';
+        }
 
             // dd($cart);
 
@@ -372,6 +374,12 @@ class CartManager
             } else {
                 $cart['cart_group_id'] = ($user == 'offline' ? 'guest' : $user->id) . '-' . Str::random(5) . '-' . time();
             }
+
+            if($request->discount != null | $request->price != null){
+                $discount_amount = $request->price * $request->discount / 100;
+            }else{
+                $discount_amount = Helpers::get_product_discount($product, $price);
+            }
             //generate group id end
             // dd($request['price']);
 
@@ -380,10 +388,11 @@ class CartManager
         $cart['quantity'] = $request['quantity'];
         $cart['price'] = $request['price'];
         $cart['tax'] = $tax;
+        $cart['variant'] = $request->variant;
         $cart['tax_model'] = $product->tax_model;
         $cart['slug'] = $product->slug;
         $cart['name'] = $product->name;
-        $cart['discount'] = Helpers::get_product_discount($product, $price);
+        $cart['discount'] = $discount_amount;
         $cart['thumbnail'] = $product->thumbnail;
         $cart['seller_id'] = ($product->added_by == 'admin') ? 1 : $product->user_id;
         $cart['seller_is'] = $product->added_by;
@@ -411,6 +420,7 @@ class CartManager
             }
         }
         $cart['shipping_type']=$shipping_type;
+
         $cart->save();
 
         return [

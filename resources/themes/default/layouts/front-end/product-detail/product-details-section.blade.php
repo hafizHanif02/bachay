@@ -111,7 +111,7 @@
                 </form>
                 <form action="{{ route('cart.add') }}" method="POST" class="form-group-inline">
                     @csrf
-                    <input type="hidden" name="price" id="price" value="{{ $product->unit_price }}">
+                    <input type="hidden" name="price" id="price_input" value="{{ $product->unit_price }}">
                     <input type="hidden" name="discount" id="discount" value="{{ $product->discount }}">
                     <input type="hidden" name="product_id" id="product_id" value="{{ $product->id }}">
                     <input type="hidden" name="thumbnail" value="{{ $product->thumbnail }}">
@@ -120,7 +120,7 @@
                     <input type="hidden" name="quantity" value="1">
                     <input type="hidden" name="shipping_cost" value="{{ $product->shipping_cost }}">
                     <input type="hidden" name="color" id="color">
-                    <input type="hidden" name="variant" id="variant">
+                    <input type="hidden" name="variant" id="variant_input">
                     <input type="hidden" name="slug" id="slug" value="{{ $product->slug }}">
                     <input type="hidden" name="customer_id" id="customer_id"
                         value="{{ auth('customer')->check() ? auth('customer')->user()->id : '' }}">
@@ -281,13 +281,10 @@
                 <div class="Sizesbtn col-12 pt-2 d-flex align-items-center mb-3">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size</p>
                     <div id="sizebtns">
-                        @foreach ($product->size as $size)
-                        <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 {{ trim($size) == trim($request->Size) ? 'active' : '' }} pe-3 rounded-2 fontPoppins"
-                        type="button" value="{{ $size }}" data-price=""
-                        onclick="InsertVariant('{{ $loop->iteration }}')"
-                        data-discount={{ $product->discount }}
-                        id="variant{{ $loop->iteration }}">
-                        @endforeach
+                        {{-- @foreach ($product->size as $size) --}}
+                        <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 text-dark pe-3 rounded-2 fontPoppins"
+                        type="button" disabled value="Select Color First" >
+                        {{-- @endforeach --}}
                     </div>
                     {{-- @foreach (json_decode($product->variation) as $variant)
                         @if ($variant->qty > 0)
@@ -713,21 +710,21 @@
 
     function InsertVariant(index) {
         var variant_type = $('#variant' + index).val();
+        var full_data = $('#variant' + index).data('full');
         var discount = $('#variant' + index).data('discount');
         var price = $('#variant' + index).data('price');
         var discountPercentage = parseFloat(discount) / 100;
         var actual_price = (parseFloat(price) - parseFloat((parseFloat(price) * discountPercentage).toFixed(1)))
             .toFixed(1);
+        
         $('#discounted_price').html('Rs. ' + actual_price);
-        $('#price').val(price);
+        $('#price_input').val(price);
         $('#actual_price').html('Rs. ' + price);
         $('#discount').html('-' + discount);
-        $('#variant').val(variant_type);
+        $('#variant_input').val(JSON.stringify(full_data));
 
 
-        $('#price').val(price);
-
-
+        $('#price_input').val(price);
     }
 
     function ChangeColor(color, index) {
@@ -739,11 +736,13 @@
         discount = $('#discount').val();
         $('#sizebtns').empty();
         allDatas.forEach(function(variation, iteration) {
+            var escapedJSON = JSON.stringify(variation).replace(/"/g, '&quot;');
         // var isActive = trim(variation.Size) == trim($request->Size) ? 'active' : '';
         var button = `<input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3  pe-3 rounded-2 fontPoppins"
                         type="button" value="${variation.Size}" data-price="${variation.price}"
                         onclick="InsertVariant('${iteration +1}')"
                         data-discount="${discount}"
+                        data-full ="${escapedJSON}"
                         id="variant${iteration + 1}">`;
         $('#sizebtns').append(button);
     });
