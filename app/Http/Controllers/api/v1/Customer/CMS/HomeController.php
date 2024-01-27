@@ -582,10 +582,33 @@ public function ShopDetails($id)
         $currentArray = [];
         $sumWidth = 0;
 
+        switch ($CustomPage->resource_type) {
+            case 'category':
+                $model = Category::class;
+                break;
+            case 'brand':
+                $model = Brand::class;
+                break;
+            case 'product':
+                $model = Product::class;
+                break;
+            case 'banner':
+                $model = Banner::class;
+                break;
+            case 'deals':
+                $model = FlashDeal::class;
+                break;
+            case 'shop':
+                $model = Shop::class;
+                break;
+            default:
+                $model = null;
+            }
+            $resourceData = $model::where('id', $CustomPage->resource_id)->first();
         if ($custom_page != null) {
             if ($custom_page->page_data != null) {
                 foreach ($custom_page->page_data as $page) {
-                    $imgUrl = "https://bachay.com/public/assets/images/category/{$custom_page->resource_type}" . $page->image;
+                    $imgUrl = "https://bachay.com/public/assets/images/category/{$resourceData}/{$custom_page->resource_type}" . $page->image;
                     $page->image = $imgUrl;
                     $sumWidth += $page->width;
 
