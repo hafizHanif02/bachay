@@ -5,7 +5,7 @@
 @push('css_or_js')
     <meta name="csrf-token" content="{{ csrf_token() }}">
 @endpush
-       
+
 
 @section('content')
     <div class="content container-fluid">
@@ -90,7 +90,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-    
+
                                     <div class="form-group mb-3 {{ $custom_page['resource_type'] == 'category' ? '' : 'd--none' }}" id="resource-category">
                                         <label for="name"
                                                class="title-color text-capitalize">{{translate('category')}}</label>
@@ -101,7 +101,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-    
+
                                     <div class="form-group mb-3 {{ $custom_page['resource_type'] == 'sub_category' ? '' : 'd--none' }}" id="resource-sub_category">
                                         <label for="name"
                                                class="title-color text-capitalize">{{translate('sub_category')}}</label>
@@ -112,7 +112,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-    
+
                                     <div class="form-group mb-3 {{ $custom_page['resource_type'] == 'shop' ? '' : 'd--none' }}" id="resource-shop">
                                         <label for="shop_id" class="title-color">{{translate('shop')}}</label>
                                         <select class="w-100 js-example-responsive form-control" name="shop_id">
@@ -121,7 +121,7 @@
                                             @endforeach
                                         </select>
                                     </div>
-    
+
                                     <div class="form-group mb-3 {{ $custom_page['resource_type'] == 'brand' ? '' : 'd--none' }}" id="resource-brand">
                                         <label for="brand_id"
                                                class="title-color text-capitalize">{{translate('brand')}}</label>
@@ -179,17 +179,17 @@
                 <div class="row mt-3">
                     <div class="col-md-6">
                         <label for="width" class="form-label">Width</label>
-                        <input type="number" name="width" placeholder="Enter Width" class="form-control" id="tags">
+                        <input type="number" name="width" placeholder="Enter Width" class="form-control" id="tags" value="20">
                     </div>
                     <div class="col-md-6">
                         <label for="margin_bottom" class="form-label">Margin Bottom</label>
-                        <input type="number" name="margin_bottom" placeholder="Enter Margin Bottom" class="form-control" id="tags">
+                        <input type="number" name="margin_bottom" placeholder="Enter Margin Bottom" class="form-control" id="tags" value="0">
                     </div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-6">
                         <label for="margin_right" class="form-label">Margin Right</label>
-                        <input type="number" name="margin_right" placeholder="Enter Margin Right" class="form-control" id="tags">
+                        <input type="number" name="margin_right" placeholder="Enter Margin Right" class="form-control" id="tags" value="0">
                     </div>
                 </div>
             </div>
@@ -200,7 +200,7 @@
         </form>
           </div>
         </div>
-      </div>    
+      </div>
 
       <div class="table-responsive">
         <table id="columnSearchDatatable"
@@ -295,7 +295,7 @@
           </div>
         </div>
       </div>   --}}
-    
+
 @endsection
 
 @push('script')
@@ -304,7 +304,7 @@
         function SubmitHome(id) {
             let form = $('#home_form' + id);
             console.log(form.serialize());
-            
+
 
             $.ajax({
                 type: 'POST',
@@ -340,7 +340,7 @@
         function SubmitMobile(id) {
             let form = $('#mobile_form' + id);
             console.log(form.serialize());
-            
+
 
             $.ajax({
                 type: 'POST',
@@ -500,7 +500,7 @@
                     'X-CSRF-TOKEN': $('meta[name="_token"]').attr('content')
                 }
             });
-          
+
         });
     </script>
     <!-- Page level plugins -->
