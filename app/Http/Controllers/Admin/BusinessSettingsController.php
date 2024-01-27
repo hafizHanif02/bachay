@@ -714,7 +714,7 @@ class BusinessSettingsController extends Controller
             $file = $request->file('image');
             $extension = $file->getClientOriginalExtension();
             $filename = $file->getClientOriginalName();
-            $file->move(public_path("assets/images/{$CustomPage->resource_type}/{$resourceData->name}"), $filename);
+            $file->move(public_path("assets/images/{$CustomPage->id}/{$resourceData->id}"), $filename);
         }else{
             $filename = null;
         }

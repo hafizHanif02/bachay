@@ -608,7 +608,7 @@ public function ShopDetails($id)
         if ($custom_page != null) {
             if ($custom_page->page_data != null) {
                 foreach ($custom_page->page_data as $page) {
-                    $imgUrl = asset("/assets/images/{$custom_page->resource_type}/{$resourceData->name}/" . $page->image);
+                    $imgUrl = asset("/public/assets/images/{$custom_page->resource_type}/{$resourceData->name}/" . $page->image);
                     $page->image = $imgUrl;
                     $sumWidth += $page->width;
 
