@@ -73,7 +73,7 @@ class ProductDetailsController extends Controller
                 foreach($categoryOptions as $key=> $categoryOption){
                     $title []= $categoryOption['title'] ;
                 }
-                return $title;
+                return $typeParts;
                 foreach($typeParts as $key => $typePart){
 
                     $variation[$title[$key]] = $typePart;
