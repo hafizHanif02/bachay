@@ -604,7 +604,7 @@ public function ShopDetails($id)
             default:
                 $model = null;
             }
-            $resourceData = $model::where('id', $CustomPage->resource_id)->first();
+            $resourceData = $model::where('id', $custom_page->resource_id)->first();
         if ($custom_page != null) {
             if ($custom_page->page_data != null) {
                 foreach ($custom_page->page_data as $page) {
