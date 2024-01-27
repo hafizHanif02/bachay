@@ -54,42 +54,38 @@ class ProductDetailsController extends Controller
         if ($product != null) {
             $productVariations = json_decode($product->variation, true);
             $categoryOptions = json_decode($product->choice_options, true);
+
             $groupedVariations = [];
-            $product['size'] = [];
             foreach ($categoryOptions as $choice) {
                 if ($choice['title'] == 'Size') {
                     $product['size'] = $choice['options'];
                 }
             }
-
             foreach ($productVariations as $variation) {
                 $typeParts = explode('-', $variation['type']);
+                $color = $typeParts[0];
                 $title = ['color'];
 
-                $color = $typeParts[0];
+                // Initialize color array if not exists
                 if (!isset($groupedVariations[$color])) {
                     $groupedVariations[$color] = [];
                 }
+
                 foreach($categoryOptions as $key=> $categoryOption){
                     $title []= $categoryOption['title'] ;
                 }
-                
+
                 foreach($typeParts as $key => $typePart){
 
                     $variation[$title[$key]] = $typePart;
                 }
-            //    foreach($productVariations as $vari){
-            //        $vari['title'] = $title;
-            //    }
 
-               $groupedVariations[$color][] = $variation;
+                // Add variation to the color array
+                $groupedVariations[$color][] = $variation;
             }
 
-            // return $groupedVariations;
-
-            $product->variation = $groupedVariations;
-
-
+            // Now $groupedVariations contains the variations separated by color
+            $product->variations = $groupedVariations;
 
             $overallRating = ProductManager::get_overall_rating($product->reviews);
             $wishlist_status = Wishlist::where(['product_id' => $product->id, 'customer_id' => auth('customer')->id()])->count();

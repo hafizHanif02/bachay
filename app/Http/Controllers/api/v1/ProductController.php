@@ -178,10 +178,20 @@ class ProductController extends Controller
             foreach ($productVariations as $variation) {
                 $typeParts = explode('-', $variation['type']);
                 $color = $typeParts[0];
+                $title = ['color'];
 
                 // Initialize color array if not exists
                 if (!isset($groupedVariations[$color])) {
                     $groupedVariations[$color] = [];
+                }
+
+                foreach($categoryOptions as $key=> $categoryOption){
+                    $title []= $categoryOption['title'] ;
+                }
+
+                foreach($typeParts as $key => $typePart){
+
+                    $variation[$title[$key]] = $typePart;
                 }
 
                 // Add variation to the color array
@@ -191,7 +201,7 @@ class ProductController extends Controller
             // Now $groupedVariations contains the variations separated by color
             $product->variation = $groupedVariations;
 
-
+            
 
 
 

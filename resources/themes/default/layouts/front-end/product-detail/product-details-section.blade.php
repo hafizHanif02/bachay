@@ -191,6 +191,7 @@
                     <h6 class="text-secondary text-decoration-line-through pe-1 fontPoppins" id="actual_price">Rs.
                         {{ $product->unit_price }}</h6>
                     <h6 class="discountPercent fontPoppins"> - {{ $product->discount }}% Off</h6>
+                    <input type="hidden" id='discount' value="{{ $product->discount }}">
                 </div>
                 <div class="col-12">
                     <h6 class="text-secondary txtFontWeight fontPoppins">
@@ -223,16 +224,18 @@
 
                     </div>
                 </div>
-                @if ($colors->isNotEmpty())
-
-                    <div class="ProductColors col-12 d-flex align-items-center pb-4">
-                        <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Colors</p>
-                        @foreach ($colors as $color)
-                            <input type="radio" class="me-3" style="background-color: {{ $color->code }}"
-                                id="btn{{ $loop->iteration }}" name="Btn">
-                        @endforeach
-                    </div>
+                @if (!empty($product->variations))
+                <div class="ProductColors col-12 d-flex align-items-center pb-4">
+                    <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Colors</p>
+                    @foreach ($product->variations as $color => $variations)
+                            <input type="radio" onclick="ChangeColor('{{ $color }}', {{ $loop->iteration }})" class="me-3" style="background-color: {{ $color }};" id="btn{{ $loop->iteration }}" name="Btn">
+                                    @foreach ($variations as $variation)
+                                        <input type="hidden"  id="{{ $color }}-variation-{{ $loop->iteration }}" class="{{ $color }}-variations" value="{{ json_encode($variation) }}">
+                                    @endforeach
+                    @endforeach
+                </div>
                 @endif
+
                 <div class="col-12 d-flex align-items-center pb-2">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size Basics</p>
                     <select name="" id=""
@@ -277,13 +280,15 @@
                 </div>
                 <div class="Sizesbtn col-12 pt-2 d-flex align-items-center mb-3">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size</p>
-                    @foreach ($product->size as $size)
+                    <div id="sizebtns">
+                        @foreach ($product->size as $size)
                         <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 {{ trim($size) == trim($request->Size) ? 'active' : '' }} pe-3 rounded-2 fontPoppins"
-                            type="button" value="{{ $size }}" data-price="{{ $size }}"
-                            {{-- onclick="InsertVariant('{{ $loop->iteration }}')" --}}
-                             data-discount={{ $product->discount }}
-                            id="variant{{ $loop->iteration }}">
-                    @endforeach
+                        type="button" value="{{ $size }}" data-price=""
+                        onclick="InsertVariant('{{ $loop->iteration }}')"
+                        data-discount={{ $product->discount }}
+                        id="variant{{ $loop->iteration }}">
+                        @endforeach
+                    </div>
                     {{-- @foreach (json_decode($product->variation) as $variant)
                         @if ($variant->qty > 0)
                             <input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2 fontPoppins"
@@ -723,6 +728,25 @@
         $('#price').val(price);
 
 
+    }
+
+    function ChangeColor(color, index) {
+        var allDatas = [];
+        $(`.${color}-variations`).each(function() {
+            var variationData = JSON.parse($(this).val());
+            allDatas.push(variationData);
+        });
+        discount = $('#discount').val();
+        $('#sizebtns').empty();
+        allDatas.forEach(function(variation, iteration) {
+        // var isActive = trim(variation.Size) == trim($request->Size) ? 'active' : '';
+        var button = `<input class="square square1 ms-1 me-1 pt-2 pb-2 ps-3  pe-3 rounded-2 fontPoppins"
+                        type="button" value="${variation.Size}" data-price="${variation.price}"
+                        onclick="InsertVariant('${iteration +1}')"
+                        data-discount="${discount}"
+                        id="variant${iteration + 1}">`;
+        $('#sizebtns').append(button);
+    });
     }
 
 
