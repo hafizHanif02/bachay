@@ -608,7 +608,7 @@ public function ShopDetails($id)
         if ($custom_page != null) {
             if ($custom_page->page_data != null) {
                 foreach ($custom_page->page_data as $page) {
-                    $imgUrl = "https://bachay.com/public/assets/images/category/{$custom_page->resource_type}/{$resourceData->name}/" . $page->image;
+                    $imgUrl = asset("/assets/images/{$custom_page->resource_type}/{$resourceData->name}/" . $page->image);
                     $page->image = $imgUrl;
                     $sumWidth += $page->width;
 
