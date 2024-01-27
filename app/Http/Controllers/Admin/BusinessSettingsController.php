@@ -634,7 +634,7 @@ class BusinessSettingsController extends Controller
             $resourceData = $model::where('id', $custom_page->resource_id)->first();
             if($custom_page->page_data != null){
                 foreach($custom_page->page_data as $page_data){
-                    $imageUrl = asset("public/assets/images/{$custom_page->resource_type}/{$resourceData->name}/" . $page_data->image);
+                    $imageUrl = asset("public/assets/images/customePage/{$custom_page->id}/{$resourceData->id}/" . $page_data->image);
                     $page_data->imageurl = $imageUrl;
                 }
             }
