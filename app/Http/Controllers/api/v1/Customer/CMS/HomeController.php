@@ -582,7 +582,7 @@ public function ShopDetails($id)
         $currentArray = [];
         $sumWidth = 0;
 
-        switch ($CustomPage->resource_type) {
+        switch ($custom_page->resource_type) {
             case 'category':
                 $model = Category::class;
                 break;
