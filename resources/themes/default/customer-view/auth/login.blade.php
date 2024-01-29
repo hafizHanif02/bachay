@@ -107,12 +107,11 @@
                     id="form-id">
                     @csrf
                     <div class="mb-3">
-                        <label for="si-email" class="form-label font-semibold">{{ translate('email') }} /
-                            {{ translate('phone') }}</label>
+                        <label for="si-email" class="form-label font-semibold">{{ translate('email') }}</label>
                         <input type="text" class="form-control" name="user_id" id="si-email"
                             style="text-align: {{ Session::get('direction') === 'rtl' ? 'right' : 'left' }};"
                             value="{{ old('user_id') }}"
-                            placeholder="{{ translate('enter_email_address_or_phone_number') }}" required>
+                            placeholder="{{ translate('enter_email_address') }}" required>
                         <div class="invalid-feedback">{{ translate('please_provide_valid_email_or_phone_number') }}.</div>
                     </div>
                     <div class="mb-2">
