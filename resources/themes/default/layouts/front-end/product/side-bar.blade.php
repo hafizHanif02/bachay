@@ -60,7 +60,7 @@
             <div class="promo-services mt-3 border-top pt-4">
                 Promotion & Services
             </div>
-            <div class="scroll">
+            {{-- <div class="scroll"> --}}
                 <label class="col-12 f-spacing">
                     @if (isset($request->filter) && isset($request->filter[1]['free_shipping']))
                         <input type="checkbox" name="filter[1][free_shipping]" value="1" checked>
@@ -78,14 +78,14 @@
                     @endif
                     Standard Delivery <span class="Reviews"></span>
                 </label>
-            </div>
+            {{-- </div> --}}
         
 
 
             <div class="promo-services mt-4 border-top pt-4">
                 Top Brands Here
             </div>
-            <div class="scroll">
+            {{-- <div class="scroll"> --}}
                 @foreach ($brands as $brand)
                     <label class="col-12 f-spacing">
                         @if (isset($request->filter))
@@ -105,7 +105,7 @@
                         <input type="hidden" id="brand_name{{ $loop->iteration }}" value="{{ $brand->name }}">
                     </label>
                 @endforeach
-            </div>
+            {{-- </div> --}}
 
 
             <div class="promo-services mt-4 border-top pt-4">
