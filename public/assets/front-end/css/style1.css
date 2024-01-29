@@ -137,7 +137,23 @@
     .desktop-nav .nav-btn ul li {
         padding: 15px 5px 15px 5px;
     }
+   
 }
+.dropdown_item:hover a {
+
+    color:#8456b6; /* Change this to the desired text color on hover */
+}
+
+.dropdown_item:hover svg {
+    fill:#8456b6; /* Change this to the desired icon color on hover */
+}
+.dropdown_item:hover {
+    background-color: #ddd; 
+}
+/* .dropdown_item a:hover {
+color: #8456b6;
+} */
+
 .nav-link .bi.bi-cart3 {
     font-size: 24px; /* Adjust the size as needed */
 }
@@ -665,7 +681,7 @@ border-radius: 10px;
     display: none;
     position: absolute;
     right: 0;
-    top: 110%;
+    top: 100%;
     background-color: #f1f1f1;
     min-width: -webkit-fill-available;
     box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
@@ -700,10 +716,11 @@ border-radius: 10px;
 }
 /* .dropdown-content:hover{
     color: #845DC2;
+    } */            
+
+    /* .dropdown_item :hover{
+    color: #845dc2;
     } */
-    .dropdown_item :hover{
-color: #845dc2;
-    }
 
 .dropdown-content a {
     color: black;
@@ -716,7 +733,7 @@ h1.text-center.textClr {
     margin: 0 auto;
 }
 .dropdown-content a:hover {
-    background-color: #ddd;
+    /* background-color: #ddd; */
 }
 .dropdown:hover .dropdown-content {
     display: block;
