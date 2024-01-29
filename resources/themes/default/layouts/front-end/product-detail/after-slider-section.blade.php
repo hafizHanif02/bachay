@@ -60,21 +60,21 @@
             <div class="row">
                 <div class="col-4 d-flex align-items-center">
                     <img class="pe-4" src="{{asset('public/images/image 28.png')}}" alt="">
-                    <h4 class="">
+                    <h5 class="">
                         Hassel Free Returns or Exchange
-                    </h4>
+                    </h5>
                 </div>
                 <div class="col-3 d-flex align-items-center">
                     <img class="pe-4" src="{{asset('public/images/image 29.png')}}" alt="">
-                    <h4 class="">
+                    <h5 class="">
                         Handpicked Products
-                    </h4>
+                    </h5>
                 </div>
                 <div class="col-4 d-flex align-items-center">
                     <img class="pe-4" src="{{asset('public/images/image 30.png')}}" alt="">
-                    <h4 class="">
+                    <h5 class="">
                         Easy Return Or Exchange
-                    </h4>
+                    </h5>
                 </div>
             </div>
         </div>

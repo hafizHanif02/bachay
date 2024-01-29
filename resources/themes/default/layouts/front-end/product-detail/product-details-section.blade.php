@@ -318,14 +318,15 @@
                 </div>
                 <div class="col-12">
                     <h5 class="pt-3 pb-2 fw-bold fontPoppins">
-                        Offers & Discounts
+                        Offers & Discounts 
+                        <span class = "CmgSoon">(Coming soon)...</span>
                     </h5>
                 </div>
 
                 <div class="col-12 mb-5">
                     <div class="row">
                         <div class="col-6 ">
-                            <div class="offer pt-4 pb-4 ps-3 pe-3 rounded-4">
+                            <div class="offer pt-4 pb-4 ps-3 pe-3 rounded-4 opacity-50">
                                 <div class="row align-items-start">
                                     <div class="col-2">
                                         <img class="offerIMG" src="{{ asset('public/images/join.png') }}"
@@ -353,7 +354,7 @@
                                             class=" fontPoppins p-0 codde btn d-flex justify-content-around align-items-center">
                                             <span id="codeSpan"
                                                 class="text-start codeTxt text-white fontPoppins">FJ3478</span>
-                                            <button class="copyCode text-end border-0 bg-transparent p-2"
+                                            <button disabled class="copyCode text-end border-0 bg-transparent p-2"
                                                 onclick="copyToClipboard()"><img class="copyIMG"
                                                     src="{{ asset('public/images/copy.png') }}"
                                                     alt="">Copy</button>
@@ -368,7 +369,7 @@
                             </div>
                         </div>
                         <div class="col-6 ">
-                            <div class="offer pt-4 pb-4 ps-3 pe-3 rounded-4">
+                            <div class="offer pt-4 pb-4 ps-3 pe-3 rounded-4 opacity-50">
                                 <div class="row align-items-start">
                                     <div class="col-2">
                                         <img class="offerIMG" src="{{ asset('public/images/join.png') }}"
@@ -396,7 +397,7 @@
                                             class=" fontPoppins p-0 codde btn d-flex justify-content-around align-items-center">
                                             <span id="codeSpan2"
                                                 class="text-start codeTxt text-white fontPoppins">GHD673</span>
-                                            <button class="copyCode text-end border-0 bg-transparent p-2"
+                                            <button disabled class="copyCode text-end border-0 bg-transparent p-2"
                                                 onclick="copyToClipboard2()"><img class="copyIMG"
                                                     src="{{ asset('public/images/copy.png') }}"
                                                     alt="">Copy</button>
@@ -418,10 +419,11 @@
                 </div>
                 <div class="col-12">
                     <h5 class="pt-3 pb-2 fw-bold fontPoppins">
-                        Bachay Club Benefits
+                        Bachay Club Benefits 
+                        <span class = "CmgSoon">(Coming soon)...</span>
                     </h5>
                 </div>
-                <div class="col-12 d-flex justify-content-between mt-2 mb-5 gap-2">
+                <div class="col-12 d-flex justify-content-between mt-2 mb-5 gap-2 opacity-50">
                     <div class="text-center clubCash">
                         <img class="mb-2 benefitsImg" src="{{ asset('public/images/Group 901.png') }}"
                             alt="">
@@ -682,6 +684,19 @@
 
     .border-ww {
         border: 2px solid #000;
+    }
+    .CmgSoon{
+        font-family: 'myfont';
+        background: linear-gradient(
+                270deg,
+                #845dc2 -0.09%,
+                #d55fad 36.37%,
+                #fc966c 72.82%,
+                #f99327 100.48%,
+                #ffc55d 145.17%
+            );
+        -webkit-background-clip: text;
+        color: transparent;
     }
 </style>
 <script>
