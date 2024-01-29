@@ -64,7 +64,7 @@
                 <div class="col-md-10">
                     <div class="product-container">
                         <div class="main-image">
-                            <img id="main-image" class="detailed-product-img object-fit-cover"
+                            <img id="main-image" class="detailed-product-img object-fit-contain"
                                 src="{{ asset("storage/app/public/product/thumbnail/$product->thumbnail") }}"
                                 alt="Main Image" width="100%" height="100%">
                             {{-- <img id="main-image" class="detailed-product-img object-fit-cover"
