@@ -154,7 +154,7 @@
                                 {{ translate('sign_up') }}
                             </button>
                         </div>
-                        <div class="text-center m-3 text-black-50">
+                        {{-- <div class="text-center m-3 text-black-50">
                             <small>{{ translate('or_continue_with') }}</small>
                         <div class="text-center my-3">
                             <a href="{{ route('social.redirect', 'google') }}" class="btn btn-danger">
@@ -163,7 +163,7 @@
                             <a href="{{ route('social.redirect', 'facebook') }}" class="btn btn-primary">
                                 {{ translate('Continue with Facebook') }}
                             </a>
-                        </div>
+                        </div> --}}
                         <div class="d-flex justify-content-center my-3 gap-2">
                             @foreach (\App\CPU\Helpers::get_business_settings('social_login') as $socialLoginService)
                                 @if (isset($socialLoginService) && $socialLoginService['status'] == true)
