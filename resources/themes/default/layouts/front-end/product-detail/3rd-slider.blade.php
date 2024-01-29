@@ -64,8 +64,8 @@
                                 <div class="subdiv d-flex justify-content-between">
                                     <span href="#">Standard Delivery</span>
                                     {{-- @foreach ($products->reviews as $reviews) --}}
-                                    <p class="rounded-pill text-white">4.9
-                                        <img class="mb-1" src="{{ asset('public/images/star.svg') }}" alt="">
+                                    <p class="d-flex rounded-pill text-white">4.9
+                                        <img class=" mb-1 ms-2" src="{{ asset('public/images/star.svg') }}" alt="">
                                     </p>
                                     {{-- @endforeach --}}
 
