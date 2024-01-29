@@ -68,7 +68,7 @@ $smallImages.first().addClass("active");
 
 $smallImages.click(function () {
     $mainImage.attr("src", $(this).attr("src"));
-   var img = document.getElementById("main-image");
+    var img = document.getElementById("main-image");
     const magnifier = document.getElementById("img-magnifier-glass");
     magnifier.style.backgroundImage = "url('" + img.src + "')";
 
@@ -110,8 +110,8 @@ $(".card-slider").slick({
     infinite: false,
     speed: 300,
     arrows: true,
-    slidesToShow: 5,
-    slidesToScroll: 1,
+    slidesToShow: 4,
+    slidesToScroll: 4,
     responsive: [
         {
             breakpoint: 1024,

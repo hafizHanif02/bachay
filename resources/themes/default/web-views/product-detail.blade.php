@@ -24,9 +24,12 @@
 @endforeach --}}
 
 @include('layouts.front-end.product-detail.product-details-section')
-@include('layouts.front-end.product-detail.slider-1')
+{{-- @include('layouts.front-end.product-detail.slider-1') --}}
+@include('layouts.front-end.product-detail.1st-slider')
+@include('layouts.front-end.product-detail.2nd-slider')
 @include('layouts.front-end.product-detail.after-slider-section')
-@include('layouts.front-end.product-detail.last-slider')
+{{-- @include('layouts.front-end.product-detail.last-slider') --}}
+@include('layouts.front-end.product-detail.3rd-slider')
 
 
 
