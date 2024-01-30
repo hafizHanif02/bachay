@@ -686,7 +686,7 @@
         border: 2px solid #000;
     }
     .CmgSoon{
-        font-family: 'myfont';
+        font-size: 16;
         background: linear-gradient(
                 270deg,
                 #845dc2 -0.09%,
