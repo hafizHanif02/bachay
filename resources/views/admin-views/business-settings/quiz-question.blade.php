@@ -33,7 +33,7 @@
 								<div class="form-group">
 									<label class="title-color text-capitalize"
 										   for="exampleFormControlInput1">Quiz </label>
-									<select name="quiz_id" class="form-control" id="">
+									<select name="quiz_id" class="form-control" id="" required>
 										<option value="" selected disabled> Select Quiz</option>
 										@foreach($quizes as $quiz)
 										<option value="{{ $quiz->id }}">{{ $quiz->name }}</option>
