@@ -783,8 +783,8 @@
         glass.style.backgroundRepeat = "no-repeat";
         glass.style.backgroundSize = (img.width * zoom) + "px " + (img.height * zoom) + "px";
         bw = 3;
-        w = glass.offsetWidth / 2;
-        h = glass.offsetHeight / 3;
+        w = glass.offsetWidth / 200;
+        h = glass.offsetHeight / 300;
 
         // Event listeners for mouse movement
         img.addEventListener("mousemove", moveMagnifier);
@@ -820,21 +820,21 @@
         function getCursorPos(e) {
             var a, x = 0,
                 y = 0;
-            e = e || window.event;
+                e = e || window.event;
 
-            // Get the x and y positions of the image
-            a = img.getBoundingClientRect();
+                // Get the x and y positions of the image
+                a = img.getBoundingClientRect();
 
-            // Calculate the cursor's x and y coordinates, relative to the image
-            x = e.pageX - a.left;
-            y = e.pageY - a.top;
+                // Calculate the cursor's x and y coordinates, relative to the image
+                x = e.pageX - a.left;
+                y = e.pageY - a.top;
 
-            // Consider any page scrolling
-            x = x - window.pageXOffset;
-            y = y - window.pageYOffset;
-            return {
-                x: x,
-                y: y
+                // Consider any page scrolling
+                x = x - window.pageXOffset;
+                y = y - window.pageYOffset;
+                return {
+                    x: x,
+                    y: y
             };
         }
     }
