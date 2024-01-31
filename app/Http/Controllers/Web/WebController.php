@@ -94,36 +94,36 @@ class WebController extends Controller
                 ->inRandomOrder()->take(12)->get();
         });
 
-        if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
-        return view(VIEW_FILE_NAMES['my-order'], compact('cartProductsArray','home_categories'));
+
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+        return view(VIEW_FILE_NAMES['my-order'], compact('cartProductsArray', 'home_categories'));
     }
 
     public function manage_returns()
@@ -392,37 +392,37 @@ class WebController extends Controller
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
 
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
 
-        return view(VIEW_FILE_NAMES['manage-returns'], compact('cartProductsArray','wishlistProductsArray', 'products', 'home_categories'));
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+
+        return view(VIEW_FILE_NAMES['manage-returns'], compact('cartProductsArray', 'wishlistProductsArray', 'products', 'home_categories'));
     }
     public function return_detail()
     {
@@ -689,36 +689,36 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
-        return view(VIEW_FILE_NAMES['return-detail'], compact('cartProductsArray','wishlistProductsArray','products', 'home_categories'));
+
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+        return view(VIEW_FILE_NAMES['return-detail'], compact('cartProductsArray', 'wishlistProductsArray', 'products', 'home_categories'));
     }
     public function quick_reorder()
     {
@@ -986,36 +986,36 @@ class WebController extends Controller
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
 
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
-        return view(VIEW_FILE_NAMES['quick-reorder'], compact('cartProductsArray','wishlistProductsArray','products', 'home_categories'));
+
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+        return view(VIEW_FILE_NAMES['quick-reorder'], compact('cartProductsArray', 'wishlistProductsArray', 'products', 'home_categories'));
     }
     public function order_available()
     {
@@ -1552,36 +1552,36 @@ class WebController extends Controller
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
 
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
-        return view(VIEW_FILE_NAMES['track-orders'], compact('cartProductsArray','wishlistProductsArray','products', 'home_categories'));
+
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+        return view(VIEW_FILE_NAMES['track-orders'], compact('cartProductsArray', 'wishlistProductsArray', 'products', 'home_categories'));
     }
     public function your_query()
     {
@@ -1847,36 +1847,36 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
-        return view(VIEW_FILE_NAMES['your-query'], (compact('cartProductsArray','wishlistProductsArray','products', 'home_categories')));
+
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+        return view(VIEW_FILE_NAMES['your-query'], (compact('cartProductsArray', 'wishlistProductsArray', 'products', 'home_categories')));
     }
     public function club_cash()
     {
@@ -2145,67 +2145,67 @@ class WebController extends Controller
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
 
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
 
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
 
-        if(Auth::guard('customer')->check()){
+
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
-        return view(VIEW_FILE_NAMES['club-cash'], compact('cartProductsArray','wishlistProductsArray','products', 'home_categories'));
+
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+        return view(VIEW_FILE_NAMES['club-cash'], compact('cartProductsArray', 'wishlistProductsArray', 'products', 'home_categories'));
     }
     public function cash_refund()
     {
@@ -2472,67 +2472,67 @@ class WebController extends Controller
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
 
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
 
-        if(Auth::guard('customer')->check()){
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
 
-        return view(VIEW_FILE_NAMES['cash-refund'], (compact('cartProductsArray','wishlistProductsArray','products', 'home_categories')));
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+
+        return view(VIEW_FILE_NAMES['cash-refund'], (compact('cartProductsArray', 'wishlistProductsArray', 'products', 'home_categories')));
     }
     public function payments_not_added()
     {
@@ -2800,36 +2800,36 @@ class WebController extends Controller
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
 
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
-        return view(VIEW_FILE_NAMES['my-payment-detail-not-added'], (compact('cartProductsArray','wishlistProductsArray','products', 'home_categories')));
+
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+        return view(VIEW_FILE_NAMES['my-payment-detail-not-added'], (compact('cartProductsArray', 'wishlistProductsArray', 'products', 'home_categories')));
     }
     public function payments_added()
     {
@@ -3373,36 +3373,36 @@ class WebController extends Controller
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
 
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
-        return view(VIEW_FILE_NAMES['cash-coupons'], (compact('cartProductsArray','wishlistProductsArray','products', 'home_categories')));
+
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+        return view(VIEW_FILE_NAMES['cash-coupons'], (compact('cartProductsArray', 'wishlistProductsArray', 'products', 'home_categories')));
     }
     public function cash_back_codes()
     {
@@ -3669,36 +3669,36 @@ class WebController extends Controller
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
 
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
-        return view(VIEW_FILE_NAMES['cash-back-codes'], (compact('cartProductsArray','wishlistProductsArray','products', 'home_categories')));
+
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+        return view(VIEW_FILE_NAMES['cash-back-codes'], (compact('cartProductsArray', 'wishlistProductsArray', 'products', 'home_categories')));
     }
     public function no_refund()
     {
@@ -3965,36 +3965,36 @@ class WebController extends Controller
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
 
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
-        return view(VIEW_FILE_NAMES['my-refund-no-refund'], (compact('cartProductsArray','wishlistProductsArray','products', 'home_categories')));
+
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+        return view(VIEW_FILE_NAMES['my-refund-no-refund'], (compact('cartProductsArray', 'wishlistProductsArray', 'products', 'home_categories')));
     }
     public function my_refund()
     {
@@ -4272,36 +4272,36 @@ class WebController extends Controller
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
 
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
-        return view(VIEW_FILE_NAMES['my-bpl-vouchers'], (compact('cartProductsArray','wishlistProductsArray','products', 'home_categories')));
+
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+        return view(VIEW_FILE_NAMES['my-bpl-vouchers'], (compact('cartProductsArray', 'wishlistProductsArray', 'products', 'home_categories')));
     }
     public function guaranteed_savings()
     {
@@ -4568,36 +4568,36 @@ class WebController extends Controller
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
 
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
-        return view(VIEW_FILE_NAMES['guaranteed-savings'], (compact('cartProductsArray','wishlistProductsArray','products', 'home_categories')));
+
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+        return view(VIEW_FILE_NAMES['guaranteed-savings'], (compact('cartProductsArray', 'wishlistProductsArray', 'products', 'home_categories')));
     }
     public function guaranteed_savings_offer()
     {
@@ -4886,36 +4886,36 @@ class WebController extends Controller
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
 
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
-        return view(VIEW_FILE_NAMES['intelli-education'], (compact('cartProductsArray','wishlistProductsArray','products', 'home_categories')));
+
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+        return view(VIEW_FILE_NAMES['intelli-education'], (compact('cartProductsArray', 'wishlistProductsArray', 'products', 'home_categories')));
     }
     public function gift_certification()
     {
@@ -5181,67 +5181,67 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
 
-        if(Auth::guard('customer')->check()){
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
 
-        return view(VIEW_FILE_NAMES['gift-certification'], (compact('cartProductsArray','wishlistProductsArray','products', 'home_categories')));
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+
+        return view(VIEW_FILE_NAMES['gift-certification'], (compact('cartProductsArray', 'wishlistProductsArray', 'products', 'home_categories')));
     }
     public function invites_credits()
     {
@@ -5507,36 +5507,36 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
-        return view(VIEW_FILE_NAMES['invites-credits'], (compact('cartProductsArray','wishlistProductsArray','products', 'home_categories')));
+
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+        return view(VIEW_FILE_NAMES['invites-credits'], (compact('cartProductsArray', 'wishlistProductsArray', 'products', 'home_categories')));
     }
     public function my_reviews_upload()
     {
@@ -5802,37 +5802,37 @@ class WebController extends Controller
         // $brands = Brand::get();
         $colors = Color::whereIn('name', $color)->get();
         $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
 
-        return view(VIEW_FILE_NAMES['my-reviews-upload'], (compact('cartProductsArray','wishlistProductsArray','products', 'home_categories')));
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
+
+        return view(VIEW_FILE_NAMES['my-reviews-upload'], (compact('cartProductsArray', 'wishlistProductsArray', 'products', 'home_categories')));
     }
 
     public function maintenance_mode()
@@ -5846,13 +5846,12 @@ class WebController extends Controller
 
     public function flash_deals(Request $request)
     {
-
         $current_date = Carbon::now();
         $current_date = $current_date->format('Y-m-d');
         $deal = FlashDeal::with(['products.product.reviews', 'products.product' => function ($query) {
             $query->active();
         }])
-            ->where(['slug' => $request['slug'],'status' => 1])
+            ->where(['slug' => $request['slug'], 'status' => 1])
             ->whereDate('start_date', '<=', $current_date)
             ->whereDate('end_date', '>=', $current_date)
             ->first();
@@ -5866,19 +5865,29 @@ class WebController extends Controller
 
             ];
         })->toArray();
-         $home_categories = Category::where('home_status', true)->priority()->get();
-            $home_categories->map(function ($data) {
-                $id = '"' . $data['id'] . '"';
-                $data['products'] = Product::active()
-                    ->where('category_ids', 'like', "%{$id}%")
-                    ->inRandomOrder()->take(12)->get();
-            });
+        $home_categories = Category::where('home_status', true)->priority()->get();
+        $home_categories->map(function ($data) {
+            $id = '"' . $data['id'] . '"';
+            $data['products'] = Product::active()
+                ->where('category_ids', 'like', "%{$id}%")
+                ->inRandomOrder()->take(12)->get();
+        });
         $deals_products = $deal->products;
+        if (Auth::guard('customer')->check()) {
+            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
+            $wishlistProductsArray = $wishlistProducts->toArray();
+
+            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+            $cartProductsArray = $cartProducts->toArray();
+        } else {
+            $wishlistProductsArray = [];
+            $cartProductsArray = [];
+        }
         // return $deal_products->products->product->thumbnail;
 
         if (isset($deal)) {
-            return view(VIEW_FILE_NAMES['deals_products'], compact('home_categories','deals_products','deal', 'discountPrice'));
+            return view(VIEW_FILE_NAMES['deals_products'], compact('home_categories', 'deals_products', 'deal', 'discountPrice', 'cartProductsArray'));
         }
         Toastr::warning(translate('not_found'));
         return back();
@@ -5920,7 +5929,6 @@ class WebController extends Controller
                 'theme_all_purpose' => self::theme_all_purpose(),
             };
         }
-
     }
 
     public function all__categories($viewName, $request)
@@ -5935,17 +5943,17 @@ class WebController extends Controller
         $main_banner = DB::table('banners')->where('banner_type', 'Main Banner')->get();
         $main_section_banner = DB::table('banners')->where('banner_type', 'Main Section Banner')->get();
         $productsInFlashDeal = FlashDealProduct::with('product')->get();
-        $categories = $this->category->with('childes.childes')->where(['position' => 0,'home_status' => true])->priority()->get();
+        $categories = $this->category->with('childes.childes')->where(['position' => 0, 'home_status' => true])->priority()->get();
 
 
-        if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-        }else{
+        } else {
             $totalDiscount = 0;
             $totalProductPrice = 0;
 
@@ -5968,10 +5976,10 @@ class WebController extends Controller
             $cartProductsArray = $productIds;
         }
         return view(VIEW_FILE_NAMES[$viewName], (compact('categories', 'productsInFlashDeal', 'main_section_banner', 'main_banner', 'home_categories', 'cartProductsArray')));
-
     }
 
-    public function single_categories($slug, Request $request){
+    public function single_categories($slug, Request $request)
+    {
         $theme_name = theme_root_path();
 
         // Get the user agent from the request headers
@@ -5981,14 +5989,14 @@ class WebController extends Controller
         if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
 
             return match ($theme_name) {
-                'default' => self::single__category("single_categories_mobile",$slug),
+                'default' => self::single__category("single_categories_mobile", $slug),
                 'theme_aster' => self::theme_aster(),
                 'theme_fashion' => self::theme_fashion(),
                 'theme_all_purpose' => self::theme_all_purpose(),
             };
         } else {
             return match ($theme_name) {
-                'default' => self::single__category("single_categories",$slug),
+                'default' => self::single__category("single_categories", $slug),
                 'theme_aster' => self::theme_aster(),
                 'theme_fashion' => self::theme_fashion(),
                 'theme_all_purpose' => self::theme_all_purpose(),
@@ -6000,57 +6008,59 @@ class WebController extends Controller
 
     }
 
-    public function single__category($viewName,$slug){
+    public function single__category($viewName, $slug)
+    {
         $category = Category::where('slug', $slug)->first();
         $category_banners = Banner::where([
             'resource_type' => 'category',
             'resource_id' => $category->id
         ])->get();
-        $sub_category = Category::where('parent_id',$category->id)->get();
+        $sub_category = Category::where('parent_id', $category->id)->get();
         $products = Product::where('category_id', $category->id)->get();
 
-         if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
             $wishlistProductsArray = $wishlistProducts->toArray();
 
             $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
             $cartProductsArray = $cartProducts->toArray();
-            }else{
-                $totalDiscount = 0;
-                $totalProductPrice = 0;
+        } else {
+            $totalDiscount = 0;
+            $totalProductPrice = 0;
 
-                $productIds = $request->session()->get('cart', []);
-                $productIds = array_filter($productIds, 'is_numeric');
-                $myCartProducts = Product::whereIn('id', $productIds)->get();
+            $productIds = $request->session()->get('cart', []);
+            $productIds = array_filter($productIds, 'is_numeric');
+            $myCartProducts = Product::whereIn('id', $productIds)->get();
 
-                foreach ($myCartProducts as $product) {
-                    $totalProductPrice += $product->unit_price;
-                    $discountAmount = ($product->discount / 100) * $product->unit_price;
-                    $totalDiscount += $discountAmount;
-                }
-
-                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-                $total_product_price = $totalProductPrice;
-                $wishlistProductsArray = [];
-                $products = Product::get();
-                $cartGroupId = null;
-                $shippingAddress = [];
-                $cartProductsArray = $productIds;
+            foreach ($myCartProducts as $product) {
+                $totalProductPrice += $product->unit_price;
+                $discountAmount = ($product->discount / 100) * $product->unit_price;
+                $totalDiscount += $discountAmount;
             }
+
+            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+            $total_product_price = $totalProductPrice;
+            $wishlistProductsArray = [];
+            $products = Product::get();
+            $cartGroupId = null;
+            $shippingAddress = [];
+            $cartProductsArray = $productIds;
+        }
         // return $sub_category;
-        return view(VIEW_FILE_NAMES[$viewName], (compact('category','sub_category','products','category_banners','wishlistProductsArray')));
+        return view(VIEW_FILE_NAMES[$viewName], (compact('category', 'sub_category', 'products', 'category_banners', 'wishlistProductsArray')));
     }
 
-    public function switch_child(Request $request){
-        if(Auth::guard('customer')->check()){
+    public function switch_child(Request $request)
+    {
+        if (Auth::guard('customer')->check()) {
             $child = familyRelation::where([
-                'id'=> $request->id,
-                'user_id'=> Auth::guard('customer')->user()->id,
-                ])->first();
-            if($child != null){
+                'id' => $request->id,
+                'user_id' => Auth::guard('customer')->user()->id,
+            ])->first();
+            if ($child != null) {
 
-                $child->tag = ($child->gender == 1)?'Boy':'Girl';
+                $child->tag = ($child->gender == 1) ? 'Boy' : 'Girl';
 
                 $allProducts = Product::with('tags')->get();
 
@@ -6090,165 +6100,163 @@ class WebController extends Controller
 
 
 
-                    $theme_name = theme_root_path();
+                $theme_name = theme_root_path();
 
-                    $userAgent = $request->header('User-Agent');
+                $userAgent = $request->header('User-Agent');
 
-                    if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
-                            $viewName = "home_mobile";
-                    } else {
-                            $viewName ="home" ;
-                    }
+                if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
+                    $viewName = "home_mobile";
+                } else {
+                    $viewName = "home";
+                }
 
-                    $theme_name = theme_root_path();
-                    $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
-                    $home_categories = Category::where('home_status', true)->whereJsonContains('tags', $child->tag)->priority()->get();
+                $theme_name = theme_root_path();
+                $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
+                $home_categories = Category::where('home_status', true)->whereJsonContains('tags', $child->tag)->priority()->get();
 
-                    $home_categories->map(function ($data) {
-                        $id = '"' . $data['id'] . '"';
-                        $data['products'] = Product::active()
-                            ->where('category_ids', 'like', "%{$id}%")
-                            ->inRandomOrder()->take(12)->get();
+                $home_categories->map(function ($data) {
+                    $id = '"' . $data['id'] . '"';
+                    $data['products'] = Product::active()
+                        ->where('category_ids', 'like', "%{$id}%")
+                        ->inRandomOrder()->take(12)->get();
+                });
+                $current_date = date('Y-m-d H:i:s');
+                $top_sellers = $this->seller->approved()->with(['shop', 'orders', 'product.reviews'])
+                    ->whereHas('orders', function ($query) {
+                        $query->where('seller_is', 'seller');
+                    })
+                    ->withCount(['orders', 'product' => function ($query) {
+                        $query->active();
+                    }])->orderBy('orders_count', 'DESC')->take(12)->get();
+
+                $top_sellers?->map(function ($seller) {
+                    $seller->product?->map(function ($product) {
+                        $product['rating'] = $product?->reviews->pluck('rating')->sum();
+                        $product['review_count'] = $product->reviews->count();
                     });
-                    $current_date = date('Y-m-d H:i:s');
-                    $top_sellers = $this->seller->approved()->with(['shop', 'orders', 'product.reviews'])
-                        ->whereHas('orders', function ($query) {
-                            $query->where('seller_is', 'seller');
-                        })
-                        ->withCount(['orders', 'product' => function ($query) {
-                            $query->active();
-                        }])->orderBy('orders_count', 'DESC')->take(12)->get();
+                    $seller['total_rating'] = $seller?->product->pluck('rating')->sum();
+                    $seller['review_count'] = $seller->product->pluck('review_count')->sum();
+                    $seller['average_rating'] = $seller['total_rating'] / ($seller['review_count'] == 0 ? 1 : $seller['review_count']);
+                });
 
-                    $top_sellers?->map(function ($seller) {
-                        $seller->product?->map(function ($product) {
-                            $product['rating'] = $product?->reviews->pluck('rating')->sum();
-                            $product['review_count'] = $product->reviews->count();
-                        });
-                        $seller['total_rating'] = $seller?->product->pluck('rating')->sum();
-                        $seller['review_count'] = $seller->product->pluck('review_count')->sum();
-                        $seller['average_rating'] = $seller['total_rating'] / ($seller['review_count'] == 0 ? 1 : $seller['review_count']);
-                    });
+                $home_layouts = HomeLayout::where('web_status', 1)->orderBy('web_order', 'asc')->get();
 
-                    $home_layouts = HomeLayout::where('web_status', 1)->orderBy('web_order', 'asc')->get();
+                $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->take(8)->get();
 
-                    $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->take(8)->get();
+                $brands = Brand::active()->take(15)->get();
 
-                    $brands = Brand::active()->take(15)->get();
-
-                    $bestSellProduct = $this->order_details->with('product.reviews')
-                        ->whereHas('product', function ($query) {
-                            $query->active();
-                        })
-                        ->select('product_id', DB::raw('COUNT(product_id) as count'))
-                        ->groupBy('product_id')
-                        ->orderBy("count", 'desc')
-                        ->take(6)
-                        ->get();
+                $bestSellProduct = $this->order_details->with('product.reviews')
+                    ->whereHas('product', function ($query) {
+                        $query->active();
+                    })
+                    ->select('product_id', DB::raw('COUNT(product_id) as count'))
+                    ->groupBy('product_id')
+                    ->orderBy("count", 'desc')
+                    ->take(6)
+                    ->get();
 
 
-                    $topRated = Review::with('product')
-                        ->whereHas('product', function ($query) {
-                            $query->active();
-                        })
-                        ->select('product_id', DB::raw('AVG(rating) as count'))
-                        ->groupBy('product_id')
-                        ->orderBy("count", 'desc')
-                        ->take(6)
-                        ->get();
+                $topRated = Review::with('product')
+                    ->whereHas('product', function ($query) {
+                        $query->active();
+                    })
+                    ->select('product_id', DB::raw('AVG(rating) as count'))
+                    ->groupBy('product_id')
+                    ->orderBy("count", 'desc')
+                    ->take(6)
+                    ->get();
 
-                    if ($bestSellProduct->count() == 0) {
-                        $bestSellProduct = $latest_products;
-                    }
+                if ($bestSellProduct->count() == 0) {
+                    $bestSellProduct = $latest_products;
+                }
 
-                    if ($topRated->count() == 0) {
-                        $topRated = $bestSellProduct;
-                    }
+                if ($topRated->count() == 0) {
+                    $topRated = $bestSellProduct;
+                }
 
-                    $deal_of_the_day = DealOfTheDay::join('products', 'products.id', '=', 'deal_of_the_days.product_id')->select('deal_of_the_days.*', 'products.unit_price')->where('products.status', 1)->where('deal_of_the_days.status', 1)->first();
-                    $main_banner = Banner::where([
-                        'banner_type' => 'Main Banner',
-                        'theme' => $theme_name,
-                        'published' => 1
-                    ])
+                $deal_of_the_day = DealOfTheDay::join('products', 'products.id', '=', 'deal_of_the_days.product_id')->select('deal_of_the_days.*', 'products.unit_price')->where('products.status', 1)->where('deal_of_the_days.status', 1)->first();
+                $main_banner = Banner::where([
+                    'banner_type' => 'Main Banner',
+                    'theme' => $theme_name,
+                    'published' => 1
+                ])
                     ->whereJsonContains('tags', $child->tag)
                     ->latest()
                     ->get();
 
-                    $main_section_banner =  Banner::where(['banner_type' => 'Main Section Banner', 'theme' => $theme_name, 'published' => 1])->whereJsonContains('tags', $child->tag)->orderBy('id', 'desc')->latest()->get();
+                $main_section_banner =  Banner::where(['banner_type' => 'Main Section Banner', 'theme' => $theme_name, 'published' => 1])->whereJsonContains('tags', $child->tag)->orderBy('id', 'desc')->latest()->get();
 
-                    $footer_banner = Banner::
-                        where('banner_type', 'Footer Banner')
-                        ->where('theme', theme_root_path())
-                        ->where('published', 1)
-                        ->orderBy('id', 'desc')
-                        ->take(6)
-                        ->get();
+                $footer_banner = Banner::where('banner_type', 'Footer Banner')
+                    ->where('theme', theme_root_path())
+                    ->where('published', 1)
+                    ->orderBy('id', 'desc')
+                    ->take(6)
+                    ->get();
 
-                    $footer_banner = $footer_banner ?? [];
+                $footer_banner = $footer_banner ?? [];
 
-                    $flash_deal = FlashDeal::where(['deal_type' => 'flash_deal', 'status' => 1])->whereJsonContains('tags', $child->tag)->get();
-
+                $flash_deal = FlashDeal::where(['deal_type' => 'flash_deal', 'status' => 1])->whereJsonContains('tags', $child->tag)->get();
 
 
-                    $flash_deals_products = [];
-                    $productIds = null;
-                    if (isset($flash_deal->id)) {
 
-                        $flash_deals_products = FlashDealProduct::where('flash_deal_id', $flash_deal->id)->get();
-                        $productIds = $flash_deals_products->pluck('product_id')->toArray();
-                    }
+                $flash_deals_products = [];
+                $productIds = null;
+                if (isset($flash_deal->id)) {
+
+                    $flash_deals_products = FlashDealProduct::where('flash_deal_id', $flash_deal->id)->get();
+                    $productIds = $flash_deals_products->pluck('product_id')->toArray();
+                }
 
 
-                    $productsInFlashDeal = [];
-                    if (isset($productIds)) {
+                $productsInFlashDeal = [];
+                if (isset($productIds)) {
 
-                        $productsInFlashDeal = $products->active()->whereIn('id', $productIds)->get();
-                    }
-                    if (Auth::guard('customer')->check()) {
-                        $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+                    $productsInFlashDeal = $products->active()->whereIn('id', $productIds)->get();
+                }
+                if (Auth::guard('customer')->check()) {
+                    $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
 
-                        $wishlistProductsArray = $wishlistProducts->toArray();
+                    $wishlistProductsArray = $wishlistProducts->toArray();
 
-                        $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
-                        $cartProductsArray = $cartProducts->toArray();
-                    } else {
-                        $wishlistProductsArray = [];
-                        $cartProductsArray = [];
-                    }
-            }else{
-                    return redirect()->back()->with(['message' => 'Not Child Found !', 'status' => 0]);
+                    $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+                    $cartProductsArray = $cartProducts->toArray();
+                } else {
+                    $wishlistProductsArray = [];
+                    $cartProductsArray = [];
+                }
+            } else {
+                return redirect()->back()->with(['message' => 'Not Child Found !', 'status' => 0]);
             }
 
-                return view(
-                    VIEW_FILE_NAMES[$viewName],
-                    compact(
-                        'wishlistProductsArray',
-                        'featured_products',
-                        'topRated',
-                        'bestSellProduct',
-                        'latest_products',
-                        'categories',
-                        'brands',
-                        'deal_of_the_day',
-                        'top_sellers',
-                        'home_categories',
-                        'brand_setting',
-                        'main_banner',
-                        'main_section_banner',
-                        'current_date',
-                        'product',
-                        'footer_banner',
-                        'home_layouts',
-                        'flash_deal',
-                        'flash_deals_products',
-                        'productIds',
-                        'productsInFlashDeal',
-                        'products',
-                        'footer_banner',
-                    )
-                );
-
-        }else{
+            return view(
+                VIEW_FILE_NAMES[$viewName],
+                compact(
+                    'wishlistProductsArray',
+                    'featured_products',
+                    'topRated',
+                    'bestSellProduct',
+                    'latest_products',
+                    'categories',
+                    'brands',
+                    'deal_of_the_day',
+                    'top_sellers',
+                    'home_categories',
+                    'brand_setting',
+                    'main_banner',
+                    'main_section_banner',
+                    'current_date',
+                    'product',
+                    'footer_banner',
+                    'home_layouts',
+                    'flash_deal',
+                    'flash_deals_products',
+                    'productIds',
+                    'productsInFlashDeal',
+                    'products',
+                    'footer_banner',
+                )
+            );
+        } else {
             return redirect()->back()->with(['message' => 'Please Login First !', 'status' => 0]);
         }
     }
@@ -6439,7 +6447,7 @@ class WebController extends Controller
 
     public function checkout_details(Request $request)
     {
-        if(Auth::guard('customer')->check()){
+        if (Auth::guard('customer')->check()) {
             $shippingAddress = DB::table('shipping_addresses')->where('customer_id', $request->customer_id)->first();
             if ($shippingAddress !== null) {
                 $exsisting_cart_shipping = DB::table('cart_shippings')->where('cart_group_id', $request->cart_group_id)->first();
@@ -6449,8 +6457,7 @@ class WebController extends Controller
                         'shipping_cost' => $request->customer_id,
                     ]);
                 }
-                if (!(Auth::guard('customer')->check()))
-                {
+                if (!(Auth::guard('customer')->check())) {
                     Toastr::error(translate('invalid_access'));
                     return redirect('/');
                 }
@@ -6580,7 +6587,7 @@ class WebController extends Controller
                     return redirect()->back()->with(['message' => 'Kindly Add Your Address First', 'status' => 0]);
                 }
             }
-        }else{
+        } else {
             return redirect()->back()->with(['message' => 'Please Login First', 'status' => 0]);
         }
 
@@ -7251,47 +7258,47 @@ class WebController extends Controller
 
     public function addToCart(Request $request)
     {
-        if(Auth::guard('customer')->check()) {
+        if (Auth::guard('customer')->check()) {
 
-        $userId = Auth::guard('customer')->user()->id;
-        $productId = $request->product_id;
+            $userId = Auth::guard('customer')->user()->id;
+            $productId = $request->product_id;
 
-        // Retrieve data from the request sent by JavaScript
-        $name = $request->name;
-        $price = $request->price;
-        $discount = $request->discount;
-        $tax = $request->tax;
-        $thumbnail = $request->thumbnail;
-        $color = $request->color;
-        $variant = $request->variant;
-        $slug = $request->slug;
-        $quantity = $request->quantity;
+            // Retrieve data from the request sent by JavaScript
+            $name = $request->name;
+            $price = $request->price;
+            $discount = $request->discount;
+            $tax = $request->tax;
+            $thumbnail = $request->thumbnail;
+            $color = $request->color;
+            $variant = $request->variant;
+            $slug = $request->slug;
+            $quantity = $request->quantity;
 
-        if ($userId) {
-            if (!Cart::where('customer_id', $userId)->where('product_id', $productId)->exists()) {
-                Cart::create([
-                    'customer_id' => $userId,
-                    'product_id' => $productId,
-                    'name' => $name,
-                    'price' => $price,
-                    'discount' => $discount,
-                    'tax' => $tax,
-                    'thumbnail' => $thumbnail,
-                    'color' => $color,
-                    'variant' => $variant,
-                    'slug' => $slug,
-                    'quantity' => $quantity,
-                    // Include other necessary fields
-                ]);
+            if ($userId) {
+                if (!Cart::where('customer_id', $userId)->where('product_id', $productId)->exists()) {
+                    Cart::create([
+                        'customer_id' => $userId,
+                        'product_id' => $productId,
+                        'name' => $name,
+                        'price' => $price,
+                        'discount' => $discount,
+                        'tax' => $tax,
+                        'thumbnail' => $thumbnail,
+                        'color' => $color,
+                        'variant' => $variant,
+                        'slug' => $slug,
+                        'quantity' => $quantity,
+                        // Include other necessary fields
+                    ]);
 
-                return response()->json(['status' => 'success', 'message' => 'Product added to cart']);
-            } else {
-                return response()->json(['status' => 'error', 'message' => 'Product already in cart']);
+                    return response()->json(['status' => 'success', 'message' => 'Product added to cart']);
+                } else {
+                    return response()->json(['status' => 'error', 'message' => 'Product already in cart']);
+                }
             }
-        }
         } else {
             $cart = $request->session()->get('cart', []);
-            if(!in_array($request->product_id, $cart)) {
+            if (!in_array($request->product_id, $cart)) {
 
                 $cart[] = $request->product_id;
             }

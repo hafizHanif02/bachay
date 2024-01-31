@@ -250,7 +250,8 @@
     }
 
     .imgMAin {
-        height: 300px;
+        height: 300px !important;
+        width: 300px !important;
         padding: 15px;
     }
 
@@ -259,17 +260,17 @@
     }
 
     .product-wrapper {
-  border: 1.5px solid transparent;
-  transition: border-color 0.5s ease; 
-  transition: transform 0.5s ease; 
+        border: 1.5px solid transparent;
+        transition: border-color 0.5s ease;
+        transition: transform 0.5s ease;
 
-}
+    }
 
-.product-wrapper:hover {
-  border-color: #c5c0c0;
-  transform: scale(1.03);
-  
-}
+    .product-wrapper:hover {
+        border-color: #c5c0c0;
+        transform: scale(1.03);
+
+    }
 
     /* .expandable {
         position: absolute;
