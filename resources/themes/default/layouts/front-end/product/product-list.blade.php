@@ -67,18 +67,21 @@
                 </div>
 
                 <div class="expandable">
-                    <div class="d-flex justify-content-between for-border-g">
-                        <div class="ratings-reviews d-flex">
-                            <img class="me-2" src="{{ asset('public/images/Vector-star.svg') }}" alt="">
-                            <p class="m-0 mt-1">5.0<span class="Reviews">({{ $product->reviews_count }})</span></p>
+                    <div class="main_content">
+                        <div class="d-flex justify-content-between for-border-g">
+                            <div class="ratings-reviews d-flex">
+                                <img class="me-2" src="{{ asset('public/images/Vector-star.svg') }}" alt="">
+                                <p class="m-0 mt-1">5.0<span class="Reviews">({{ $product->reviews_count }})</span></p>
+                            </div>
+    
+                            @foreach ($product->reviews as $review)
+                                <p class="m-0">{{ $review }}<span
+                                        class="Reviews">({{ $product->reviews_count }})</span></p>
+                            @endforeach
+    
+                            <a href="#" class="delivery-btn">Standard Delivery</a>
                         </div>
 
-                        @foreach ($product->reviews as $review)
-                            <p class="m-0">{{ $review }}<span
-                                    class="Reviews">({{ $product->reviews_count }})</span></p>
-                        @endforeach
-
-                        <a href="#" class="delivery-btn">Standard Delivery</a>
                     </div>
 
                     {{-- <div class="product-sizes">
@@ -226,7 +229,9 @@
         overflow: hidden;
         margin-top: 15px;
     }
-
+    .main_content{
+        padding: 0 15px;
+    }
     .product-wrapper::before {
         box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
     }
