@@ -2647,12 +2647,13 @@ input:checked + .se:before {
   .NewSeasonBorder:hover {
         margin-top: -10px;
   }
-.sub-card {
+/* .sub-card {
     border: 1px solid transparent;
     transition: border 0.5s ease;
-}
+} */
 .sub-card:hover {
-    border: 1px solid #dbdcd4;
+    /* border: 1px solid #dbdcd4; */
+    box-shadow: 0 0 4px 1px #aaa;
 }
 
 .sub-nav > li:hover {

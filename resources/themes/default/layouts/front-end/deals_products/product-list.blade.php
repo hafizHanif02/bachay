@@ -251,7 +251,7 @@
 
     .imgMAin {
         height: 300px !important;
-        width: 300px !important;
+        width: fit-content !important;
         padding: 15px;
     }
 

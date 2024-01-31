@@ -1,4 +1,5 @@
-<div class="sub-contain container-fluid">
+<div class="sub-contain container-fluid">   
+{{-- <div class="sub-contain back_img container-xxl mt-5"> --}}
     <div class="row mb-4">
         <div class="col-12 d-flex justify-content-between align-items-center">
             <h1 class="textClr m-0 mt-2">Autumn Whisper</h1>
