@@ -1,15 +1,16 @@
-<div class="border-t pt-4">
-    <h5 class="font-poppins slider-heading">
-        Others Offerings From Babyoye
-    </h5>
-</div>
+<div class="container-xxl">
+    <div class="border-t pt-4">
+        <h5 class="font-poppins slider-heading">
+            Others Offerings From Babyoye
+        </h5>
+    </div>
 
     @php
         $latest_products = $products->shuffle();
     @endphp
     <div class="mt-5 card-slider">
         @foreach ($latest_products as $products)
-            <div class="col-md-4 custom-xl-20 col-xl-3 col-lg-4 mb-4">
+            <div class="col-md-4 col-xl-3 col-lg-4 mb-4">
                 <div class="sub-card rounded-3 p-4 pb-0">
                     <div class="card1">
                         <div class="first-sec card1">
@@ -77,7 +78,4 @@
             </div>
         @endforeach
     </div>
-
-    
-
 </div>
