@@ -51,7 +51,7 @@
                                 @break
                             @endif
                         @endforeach
-                        
+
                             {{-- @foreach (json_decode($product->images) as $key => $photo)
                                 <img class="small-image object-fit-cover"
                                     src="{{ asset('storage/app/public/product/' . $photo) }}"
@@ -109,7 +109,7 @@
                     <input type="hidden" name="product[1][quantity]" value="1">
                     <button type="submit" class="buy-now rounded-pill w-100 text-white pt-3 pb-3 mt-3">Buy Now</button>
                 </form>
-                <form action="{{ route('cart.add') }}" method="POST" class="form-group-inline">
+                <form action="{{ route('carts.add') }}" method="POST" class="form-group-inline">
                     @csrf
                     <input type="hidden" name="price" id="price_input" value="{{ $product->unit_price }}">
                     <input type="hidden" name="discount" id="discount" value="{{ $product->discount }}">
@@ -318,7 +318,7 @@
                 </div>
                 <div class="col-12">
                     <h5 class="pt-3 pb-2 fw-bold fontPoppins">
-                        Offers & Discounts 
+                        Offers & Discounts
                         <span class = "CmgSoon">(Coming soon)...</span>
                     </h5>
                 </div>
@@ -419,7 +419,7 @@
                 </div>
                 <div class="col-12">
                     <h5 class="pt-3 pb-2 fw-bold fontPoppins">
-                        Bachay Club Benefits 
+                        Bachay Club Benefits
                         <span class = "CmgSoon">(Coming soon)...</span>
                     </h5>
                 </div>
@@ -731,7 +731,7 @@
         var discountPercentage = parseFloat(discount) / 100;
         var actual_price = (parseFloat(price) - parseFloat((parseFloat(price) * discountPercentage).toFixed(1)))
             .toFixed(1);
-        
+
         $('#discounted_price').html('Rs. ' + actual_price);
         $('#price_input').val(price);
         $('#actual_price').html('Rs. ' + price);
