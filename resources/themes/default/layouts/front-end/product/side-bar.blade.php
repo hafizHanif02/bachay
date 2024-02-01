@@ -85,7 +85,7 @@
             <div class="promo-services mt-4 border-top pt-4">
                 Top Brands Here
             </div>
-            {{-- <div class="scroll"> --}}
+            <div class="scroll">
                 @foreach ($brands as $brand)
                     <label class="col-12 f-spacing">
                         @if (isset($request->filter))
@@ -105,7 +105,7 @@
                         <input type="hidden" id="brand_name{{ $loop->iteration }}" value="{{ $brand->name }}">
                     </label>
                 @endforeach
-            {{-- </div> --}}
+            </div>
 
 
             <div class="promo-services mt-4 border-top pt-4">
