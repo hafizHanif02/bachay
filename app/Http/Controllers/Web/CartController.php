@@ -1334,8 +1334,10 @@ class CartController extends Controller
                         // Include other necessary fields
                     ]);
 
+                    return redirect()->back()->with(['message' => 'Product Has Been Added to Cart !', 'status' => 1]);
                     return response()->json(['status' => 'success', 'message' => 'Product added to cart']);
                 } else {
+                    return redirect()->back()->with(['message' => 'Error', 'status' => 1]);
                     return response()->json(['status' => 'error', 'message' => 'Product already in cart']);
                 }
             }
@@ -1346,6 +1348,7 @@ class CartController extends Controller
                 $cart[] = $request->product_id;
             }
             $request->session()->put('cart', $cart);
+            return redirect()->back()->with(['message' => 'Product Has Been Added to Cart !', 'status' => 1]);
             return response()->json(['status' => 'success', 'message' => 'Product added to cart']);
             // return response()->json(['status' => 'error', 'message' => 'Please Login First']);
         }
