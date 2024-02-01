@@ -185,11 +185,13 @@ class HomeController extends Controller
                 ->get();
                 $imageUrls = [];
                 $name = [];
+                $ids = [];
                 foreach($toparrivalcategorys as $categoryavatar){
                     $url = asset('storage/app/public/category/' . $categoryavatar->icon);
                     $categoryavatar->image = $url;
                     $imageUrls[] = $url;
                     $name[] = $categoryavatar->name;
+                    $ids [] = $categoryavatar->id;
                 }
                 $imageUrls = array_values($imageUrls);
                 $nameArray = array_values($name);
@@ -210,6 +212,7 @@ class HomeController extends Controller
                 $categoryavatar->image = $url;
                 $imageUrls[] = $url;
                 $name[] = $categoryavatar->name;
+                $ids [] = $categoryavatar->id;
             }
             $imageUrls = array_values($imageUrls);
             $nameArray = array_values($name);
