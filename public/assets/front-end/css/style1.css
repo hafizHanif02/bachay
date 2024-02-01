@@ -64,8 +64,8 @@
         font-size: 17.5px;
     }
     .imgMAin {
-        height: 430px !important;
-        width: 280px !important;
+        height: 450px !important;
+        width: 295px !important;
     }
 }
 @media (min-width: 1600px) and (max-width: 1919px) {
@@ -87,7 +87,7 @@
     }
     .imgMAin {
         height: 450px !important;
-        width: 328px !important;
+        width: 295px !important;
     }
     .custom-xl-20 {
         width: 20% !important;
