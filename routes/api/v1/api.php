@@ -12,7 +12,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
 
     Route::get('/home', [HomeController::class, 'index'])->name('home');
     Route::get('/categories', [HomeController::class, 'NewArrtival']);
-    Route::get('/categories/all', [HomeController::class, 'AllCategory']);
+    Route::get('/categories/all', [HomeController::class, 'AllCategorys']);
     Route::get('/categories/{id}', [HomeController::class, 'CategoryDetail']);
 
     Route::get('/promo', [HomeController::class, 'categoriesPromo']);
