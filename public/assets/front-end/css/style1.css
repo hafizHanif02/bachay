@@ -64,8 +64,8 @@
         font-size: 17.5px;
     }
     .imgMAin {
-        height: 450px !important;
-        width: 295px !important;
+        height: 430px !important;
+        width: 280px !important;
     }
 }
 @media (min-width: 1600px) and (max-width: 1919px) {
