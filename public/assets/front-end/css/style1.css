@@ -43,14 +43,14 @@
     .imgMAin {
         height: 295px !important;
         width: 255px !important;
-    }   
+    }
 }
 @media (min-width: 1366px) and (max-width: 1599px) {
     .product-list{
         grid-template-columns: repeat(3, 1fr);
         /* display: flex;
         flex-wrap: wrap;
-        justify-content: center; 
+        justify-content: center;
         gap: 10px; */
         gap: 0 !important;
     }
@@ -65,7 +65,7 @@
     }
     .imgMAin {
         height: 450px !important;
-        width: 345px !important;
+        width: 295px !important;
     }
 }
 @media (min-width: 1600px) and (max-width: 1919px) {
@@ -137,7 +137,7 @@
     .desktop-nav .nav-btn ul li {
         padding: 15px 5px 15px 5px;
     }
-   
+
 }
 .dropdown_item:hover a {
 
@@ -148,7 +148,7 @@
     fill:#8456b6; /* Change this to the desired icon color on hover */
 }
 .dropdown_item:hover {
-    background-color: #ddd; 
+    background-color: #ddd;
 }
 /* .dropdown_item a:hover {
 color: #8456b6;
@@ -375,7 +375,7 @@ input.form-control.search-input {
     position: relative;
     display: flex;
     margin-bottom: 15px; /* Add margin for spacing */
-  
+
 }
 
 /* Custom CSS for the "+" icon */
@@ -385,7 +385,7 @@ input.form-control.search-input {
     padding: 8px 12px; /* Adjust padding for the icon */
     border: 1px solid #007bff; /* Border color for the "+" icon */
     border-radius: 4px; /* Optional: Add border-radius for rounded corners */
-    
+
 }
 
 /* Custom CSS for the input field with icon */
@@ -584,7 +584,7 @@ button.slick-prev.slick-arrow {
 }
   /* Track */
 .scroll::-webkit-scrollbar-track {
-    box-shadow: inset 0 0 5px #d4d3d3; 
+    box-shadow: inset 0 0 5px #d4d3d3;
     border-radius: 10px;
 }
 /* .scroll:hover{
@@ -716,7 +716,7 @@ border-radius: 10px;
 }
 /* .dropdown-content:hover{
     color: #845DC2;
-    } */            
+    } */
 
     /* .dropdown_item :hover{
     color: #845dc2;
