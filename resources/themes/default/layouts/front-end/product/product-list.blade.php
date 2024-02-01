@@ -68,7 +68,7 @@
 
                 <div class="expandable">
                     <div class="main_content">
-                        <div class="d-flex justify-content-between for-border-g">
+                        {{-- <div class="d-flex justify-content-between for-border-g">
                             <div class="ratings-reviews d-flex">
                                 <img class="me-2" src="{{ asset('public/images/Vector-star.svg') }}" alt="">
                                 <p class="m-0 mt-1">5.0<span class="Reviews">({{ $product->reviews_count }})</span></p>
@@ -79,6 +79,29 @@
                                         class="Reviews">({{ $product->reviews_count }})</span></p>
                             @endforeach
     
+                            <a href="#" class="delivery-btn">Standard Delivery</a>
+                        </div> --}}
+                        <div class="d-flex justify-content-between for-border-g">
+                            <div class="ratings-reviews d-flex">
+                                @if ($product->reviews->isEmpty())
+                                    @for ($i = 0; $i < 5; $i++)
+                                        <span class="bi bi-star me-2" style="color: #ffc107;"></span>
+                                    @endfor
+                                    <p class="m-0 mt-1"><span class="Reviews">No ratings<span></p>
+                                    
+                                @else
+                                    @php $averageRating = $product->reviews->avg('rating'); @endphp
+                                    @for ($i = 0; $i < 5; $i++)
+                                        @if ($i < round($averageRating))
+                                            <span class="bi bi-star-fill me-2" style="color: #ffc107;"></span>
+                                        @else
+                                            <span class="bi bi-star me-2" style="color: #ffc107;"></span>
+                                        @endif
+                                    @endfor
+                                    <span class="Reviews">({{ $product->reviews_count }} @if($product->reviews_count == 1) Rating @else Ratings @endif)</span>
+                                @endif
+                            </div>
+                        
                             <a href="#" class="delivery-btn">Standard Delivery</a>
                         </div>
 
