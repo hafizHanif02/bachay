@@ -234,7 +234,7 @@
                                         <input type="hidden"  id="{{ $color }}-variation-{{ $loop->iteration }}" class="{{ $color }}-variations" value="{{ json_encode($variation) }}">
                                     @endforeach
 
-                                    @if ($loop->first)
+                                    @if ($loop->iteration == 1)
                                         <script>
                                             ChangeColor('{{ $color }}', {{ $loop->iteration }});
                                         </script>
