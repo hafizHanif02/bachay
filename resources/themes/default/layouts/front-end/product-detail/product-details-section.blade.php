@@ -228,17 +228,17 @@
                 <div class="ProductColors col-12 d-flex align-items-center pb-4">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Colors</p>
                     @foreach ($product->variations as $color => $variations)
-                     @if($loop->iteration == 1)
-                     <input type="radio" onclick="ChangeColor('{{ $color }}', {{ $loop->iteration }}); document.getElementById('btn{{ $loop->iteration }}').checked = true" class="me-3" style="background-color: {{ $color }};" id="btn{{ $loop->iteration }}" name="Btn">
-                     @foreach ($variations as $variation)
-                         <input type="hidden"  id="{{ $color }}-variation-{{ $loop->iteration }}" class="{{ $color }}-variations" value="{{ json_encode($variation) }}">
-                     @endforeach
-                     @else
+
                             <input type="radio" onclick="ChangeColor('{{ $color }}', {{ $loop->iteration }})" class="me-3" style="background-color: {{ $color }};" id="btn{{ $loop->iteration }}" name="Btn">
                                     @foreach ($variations as $variation)
                                         <input type="hidden"  id="{{ $color }}-variation-{{ $loop->iteration }}" class="{{ $color }}-variations" value="{{ json_encode($variation) }}">
                                     @endforeach
-                     @endif
+
+                                    @if ($loop->first)
+                                        <script>
+                                            ChangeColor('{{ $color }}', {{ $loop->iteration }});
+                                        </script>
+                                    @endif
                     @endforeach
                 </div>
                 @endif
