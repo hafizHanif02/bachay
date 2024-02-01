@@ -87,13 +87,14 @@
                                     @for ($i = 0; $i < 5; $i++)
                                         <span class="bi bi-star me-2" style="color: #ffc107;"></span>
                                     @endfor
-                                    <p class="m-0 mt-1"><span class="Reviews">No ratings<span></p>
-                                    
+                                    <p class="m-0 mt-1"><span class="Reviews">No ratings</span></p>
                                 @else
                                     @php $averageRating = $product->reviews->avg('rating'); @endphp
                                     @for ($i = 0; $i < 5; $i++)
-                                        @if ($i < round($averageRating))
+                                        @if ($i < floor($averageRating))
                                             <span class="bi bi-star-fill me-2" style="color: #ffc107;"></span>
+                                        @elseif ($i == floor($averageRating) && $averageRating - $i >= 0.5)
+                                            <span class="bi bi-star-half me-2" style="color: #ffc107;"></span>
                                         @else
                                             <span class="bi bi-star me-2" style="color: #ffc107;"></span>
                                         @endif
@@ -104,6 +105,7 @@
                         
                             <a href="#" class="delivery-btn">Standard Delivery</a>
                         </div>
+                        
 
                     </div>
 
