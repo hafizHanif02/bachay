@@ -29,7 +29,7 @@ use Illuminate\Support\Facades\Auth;
 // {
 //     public function index()
 //     {
-//         return view('my-cart-address'); 
+//         return view('my-cart-address');
 //     }
 // }
 
@@ -38,7 +38,7 @@ class CartController extends Controller
 {
     public function cart_address(Request $request)
     {
-        
+
         $home_categories = Category::where('home_status', true)->priority()->get();
         $home_categories->map(function ($data) {
             $id = '"' . $data['id'] . '"';
@@ -51,10 +51,10 @@ class CartController extends Controller
 
             if (Auth::guard('customer')->user()) {
                 $myCartProducts = Cart::where('customer_id', Auth::guard('customer')->user()->id)->with('product')->get();
-            } 
-    
-    
-    
+            }
+
+
+
             if ($myCartProducts->isNotEmpty()) {
                 $cartGroupIds = Cart::where('customer_id', Auth::guard('customer')->user()->id)
                     ->first()
@@ -63,7 +63,7 @@ class CartController extends Controller
             } else {
                 $cartGroupId = 0;
             }
-    
+
             $total_product_price = Cart::where('customer_id', Auth::guard('customer')->user()->id)
                 ->with('product')
                 ->sum('price');
@@ -72,8 +72,8 @@ class CartController extends Controller
                 ->selectRaw('SUM(price * discount / 100) as total_discount')
                 ->first()
                 ->total_discount;
-    
-    
+
+
             $userData = DB::table('users')->where('id', Auth::guard('customer')->user()->id)->first();
             $shippingAddress = DB::table('shipping_addresses')->where('customer_id', Auth::guard('customer')->user()->id)->first();
             // dd($userData);
@@ -82,8 +82,8 @@ class CartController extends Controller
                 $shippings = [];
                 $colors = [];
                 $tag = [];
-    
-    
+
+
                 foreach ($request->filter as $tagFilter) {
                     if (isset($tagFilter['tag'])) {
                         if (is_array($tagFilter['tag'])) {
@@ -93,8 +93,8 @@ class CartController extends Controller
                         }
                     }
                 }
-    
-    
+
+
                 foreach ($request->filter as $colorFilter) {
                     if (isset($colorFilter['color'])) {
                         if (is_array($colorFilter['color'])) {
@@ -104,12 +104,12 @@ class CartController extends Controller
                         }
                     }
                 }
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
                 foreach ($request->filter as $filter) {
                     if (isset($filter['brand_id'])) {
                         if (is_array($filter['brand_id'])) {
@@ -118,7 +118,7 @@ class CartController extends Controller
                             $brandIds[] = $filter['brand_id'];
                         }
                     }
-    
+
                     if (isset($filter['free_shipping'])) {
                         if (is_array($filter['free_shipping'])) {
                             $shippings = array_merge($shippings, $filter['free_shipping']);
@@ -127,10 +127,10 @@ class CartController extends Controller
                         }
                     }
                 }
-    
+
                 $max_price = intval(explode("-", $request->filterprice)[1]);
                 $min_price = intval(explode("-", $request->filterprice)[0]);
-    
+
                 if (!empty($shippings) && !empty($brandIds) && !empty($colors) && !empty($tag)) {
                     $products = Product::whereIn('brand_id', $brandIds)
                         ->whereIn('free_shipping', $shippings)
@@ -266,7 +266,7 @@ class CartController extends Controller
                 }
             } elseif (isset($request->filter)) {
                 $brandIds = [];
-    
+
                 foreach ($request->filter as $filter) {
                     if (is_array($filter['brand_id'])) {
                         $brandIds = array_merge($brandIds, $filter['brand_id']);
@@ -279,16 +279,16 @@ class CartController extends Controller
             } elseif (isset($request->filterprice)) {
                 $max_price = intval(explode("-", $request->filterprice)[1]);
                 $min_price = intval(explode("-", $request->filterprice)[0]);
-    
+
                 $products = Product::where('unit_price', '>=', $min_price)
                     ->where('unit_price', '<=', $max_price)
                     ->with(['reviews', 'brand'])->get();
             } else {
                 $products = Product::with(['reviews', 'brand', 'tags'])->active()->orderBy('id')->get();
-    
+
                 // dd($products);
             }
-    
+
             $color = [
                 'Red',
                 'Blue',
@@ -298,16 +298,16 @@ class CartController extends Controller
                 'Aqua',
                 'Amethyst'
             ];
-    
+
             // $brands = Brand::get();
             $colors = Color::whereIn('name', $color)->get();
             $pricefilter = ceil(Product::orderBy('unit_price', 'DESC')->value('unit_price') / 300);
-    
+
             if (Auth::guard('customer')->check()) {
                 $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
-    
+
                 $wishlistProductsArray = $wishlistProducts->toArray();
-    
+
                 $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
                 $cartProductsArray = $cartProducts->toArray();
             } else {
@@ -1289,17 +1289,67 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
-        // dd($request);
-        $cart = CartManager::add_to_cart($request);
-        if ($cart['message'] == 'Out of stock!') {
-            return redirect()->back()->with(['message' => 'Product is Out of Stock!', 'status' => 0]);
+        // // dd($request);
+        // $cart = CartManager::add_to_cart($request);
+        // if ($cart['message'] == 'Out of stock!') {
+        //     return redirect()->back()->with(['message' => 'Product is Out of Stock!', 'status' => 0]);
+        // }
+        // session()->forget('coupon_code');
+        // session()->forget('coupon_type');
+        // session()->forget('coupon_bearer');
+        // session()->forget('coupon_discount');
+        // session()->forget('coupon_seller_id');
+        // // return response()->json($cart);
+
+        if (Auth::guard('customer')->check()) {
+
+            $userId = Auth::guard('customer')->user()->id;
+            $productId = $request->product_id;
+
+            // Retrieve data from the request sent by JavaScript
+            $name = $request->name;
+            $price = $request->price;
+            $discount = $request->discount;
+            $tax = $request->tax;
+            $thumbnail = $request->thumbnail;
+            $color = $request->color;
+            $variant = $request->variant;
+            $slug = $request->slug;
+            $quantity = $request->quantity;
+
+            if ($userId) {
+                if (!Cart::where('customer_id', $userId)->where('product_id', $productId)->exists()) {
+                    Cart::create([
+                        'customer_id' => $userId,
+                        'product_id' => $productId,
+                        'name' => $name,
+                        'price' => $price,
+                        'discount' => $discount,
+                        'tax' => $tax,
+                        'thumbnail' => $thumbnail,
+                        'color' => $color,
+                        'variant' => $variant,
+                        'slug' => $slug,
+                        'quantity' => $quantity,
+                        // Include other necessary fields
+                    ]);
+
+                    return response()->json(['status' => 'success', 'message' => 'Product added to cart']);
+                } else {
+                    return response()->json(['status' => 'error', 'message' => 'Product already in cart']);
+                }
+            }
+        } else {
+            $cart = $request->session()->get('cart', []);
+            if (!in_array($request->product_id, $cart)) {
+
+                $cart[] = $request->product_id;
+            }
+            $request->session()->put('cart', $cart);
+            return response()->json(['status' => 'success', 'message' => 'Product added to cart']);
+            // return response()->json(['status' => 'error', 'message' => 'Please Login First']);
         }
-        session()->forget('coupon_code');
-        session()->forget('coupon_type');
-        session()->forget('coupon_bearer');
-        session()->forget('coupon_discount');
-        session()->forget('coupon_seller_id');
-        // return response()->json($cart);
+
         return redirect()->back()->with(['message' => 'Product Has Been Added to Cart !', 'status' => 1]);
     }
 
@@ -1508,13 +1558,13 @@ class CartController extends Controller
     {
         if(Auth::guard('customer')->check()){
             $user = Helpers::get_customer();
-    
+
             $cart = Cart::where(['id' => $id, 'customer_id' => $user->id])->first();
-    
+
             $cart->delete();
-    
+
             // Cart::where(['id' => $request->cart_id, 'customer_id' => ($user == 'offline' ? session('guest_id') : auth('customer')->id())])->delete();
-    
+
             session()->forget('coupon_code');
             session()->forget('coupon_type');
             session()->forget('coupon_bearer');
