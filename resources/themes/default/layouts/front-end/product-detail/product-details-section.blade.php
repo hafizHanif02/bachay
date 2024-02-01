@@ -228,23 +228,30 @@
                 <div class="ProductColors col-12 d-flex align-items-center pb-4">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Colors</p>
                     @foreach ($product->variations as $color => $variations)
+                     @if($loop->iteration == 0)
+                     <input type="radio" onclick="ChangeColor('{{ $color }}', {{ $loop->iteration }}); document.getElementById('btn{{ $loop->iteration }}').checked = true" class="me-3" style="background-color: {{ $color }};" id="btn{{ $loop->iteration }}" name="Btn">
+                     @foreach ($variations as $variation)
+                         <input type="hidden"  id="{{ $color }}-variation-{{ $loop->iteration }}" class="{{ $color }}-variations" value="{{ json_encode($variation) }}">
+                     @endforeach
+                     @else
                             <input type="radio" onclick="ChangeColor('{{ $color }}', {{ $loop->iteration }})" class="me-3" style="background-color: {{ $color }};" id="btn{{ $loop->iteration }}" name="Btn">
                                     @foreach ($variations as $variation)
                                         <input type="hidden"  id="{{ $color }}-variation-{{ $loop->iteration }}" class="{{ $color }}-variations" value="{{ json_encode($variation) }}">
                                     @endforeach
+                     @endif
                     @endforeach
                 </div>
                 @endif
 
                 <div class="col-12 d-flex align-items-center pb-2">
-                    <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size Basics</p>
+                    {{-- <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size Basics</p>
                     <select name="" id=""
                         class="SizeLocation btn btn-sm border-secondary font-poppins pt-1 pb-1 ps-1 pe-3">
                         <option value="usa">USA</option>
                         <option value="uae">UAE</option>
                         <option value="pak">PAK</option>
                         <option value="aus">AUS</option>
-                    </select>
+                    </select> --}}
                     <div class="ms-3 d-flex align-items-center">
                         <button type="button" class="btn sizeBTN fontPoppins" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
@@ -271,13 +278,13 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-12 mb-3">
+                {{-- <div class="col-12 mb-3">
                     <p class="text-secondary toetoHeel  mb-0 fontPoppins">Toe to Heel Size (in CM): <span
                             class="sizeToeSpan ">19.5</span> | Age: <span class="sizeToeSpan">6 - 6.5 Y</span> | Size:
                         <span class="sizeToeSpan">EU 31</span> | Brand Size: <span class="sizeToeSpan">32</span>
                     </p>
 
-                </div>
+                </div> --}}
                 <div class="Sizesbtn col-12 pt-2 d-flex align-items-center mb-3">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size</p>
                     <div id="sizebtns">
