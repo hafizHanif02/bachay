@@ -109,7 +109,7 @@
                     <input type="hidden" name="product[1][quantity]" value="1">
                     <button type="submit" class="buy-now rounded-pill w-100 text-white pt-3 pb-3 mt-3">Buy Now</button>
                 </form>
-                <form action="{{ route('carts.add') }}" method="POST" class="form-group-inline">
+                <form action="{{ route('cart.add') }}" method="POST" class="form-group-inline">
                     @csrf
                     <input type="hidden" name="price" id="price_input" value="{{ $product->unit_price }}">
                     <input type="hidden" name="discount" id="discount" value="{{ $product->discount }}">
