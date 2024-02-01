@@ -313,9 +313,11 @@
                         <div class="first-sec card1">
                             <div class="image-container">
                                 <div class="imgCon">
-                                    <img src="{{ asset("storage/app/public/product/thumbnail/$products->thumbnail") }}"
+                                    <a class="text-decoration-none product-link"
+                                        href="{{ route('product-detail', $products->id) }}">
+                                        <img src="{{ asset("storage/app/public/product/thumbnail/$products->thumbnail") }}"
                                         alt="" class="object-fit-cover rounded-3" width="100%" height="100%">
-
+                                    </a>
                                 </div>
                                 <div class="sec-best-seller mt-3">
                                     <p>Best Seller</p>

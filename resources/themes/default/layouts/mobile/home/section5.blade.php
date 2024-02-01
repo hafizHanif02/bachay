@@ -9,14 +9,13 @@
                     @endphp --}}
                     <div class="col-lg-4 col-md-6 col-sm-12 mb-4 pt-3">
                         <div class="card rounded-5 cardMobile">
-                            <a href="#">
+                            <a href="{{ route('product-list-slug', $deal->slug) }}">
                                 <div class="deal-alert-circle">-{{ $deal->discount_percent }}%</div>
-                                <div class="icon_main">
-
-                                    <img class="card-img rounded-5 object-fit-cover imgCardMobile"
-                                        src="{{ asset('storage/app/public/deal/' . $deal->banner) }}"
-                                        alt="Flash Sale 1" />
-                                </div>
+                                    <div class="icon_main">
+                                        <img class="card-img rounded-5 object-fit-cover imgCardMobile"
+                                            src="{{ asset('storage/app/public/deal/' . $deal->banner) }}"
+                                            alt="Flash Sale 1" />
+                                    </div>
                                 <div class="card-img-overlay h-100 d-flex flex-column justify-content-end">
 
                                     @if (strlen($deal->title) <= 20)
