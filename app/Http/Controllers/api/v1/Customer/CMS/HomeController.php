@@ -281,6 +281,9 @@ class HomeController extends Controller
         }
         $flashdeal['banners'] = $organizedBanners;
 
+        foreach($flashdeal->products as $product){
+            $product->thumbnail = asset('storage/app/public/product/thumbnail/' . $product->product->thumbnail);
+        }
         // Apply the custom page logic for deals
         $custom_page = CustomPage::where([
             'resource_type' => 'deals',
