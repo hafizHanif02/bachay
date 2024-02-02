@@ -4,7 +4,7 @@
         <h1 class="text-center textClr">Early Breeze New Arrivals</h1>
         <div class="container New_arrival row justify-content-evenly ps-5 pe-5 pt-5" style="margin:0 auto;">
             {{-- @foreach ($new_arrivals_categories as $arrivals) --}}
-            @foreach ($categories->sortByDesc('created_at')->take(5) as $category)
+            @foreach ($categories->sortByDesc('created_at')->where('parent_id', 0) as $category)
                 <div class="col-lg-2 col-md-4 col-sm-6 col-12 p-0">
                     <a href="#" class="text-decoration-none">
 
