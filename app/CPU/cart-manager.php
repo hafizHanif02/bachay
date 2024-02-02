@@ -72,10 +72,23 @@ class CartManager
     {
         $user = Helpers::get_customer($request);
 
+        
         if ($user == 'offline') {
             $cart_ids = Cart::where(['customer_id' => session('guest_id') ?? ($request->guest_id ?? 0), 'is_guest'=>1])->groupBy('cart_group_id')->pluck('cart_group_id')->toArray();
         } else {
             $cart_ids = Cart::where(['customer_id' => $user->id, 'is_guest'=>'0'])->groupBy('cart_group_id')->pluck('cart_group_id')->toArray();
+        }
+
+        if($cart_ids[0] == null){
+            $cart_check = Cart::where([
+                'customer_id' => $user->id])->first();
+            }
+            
+            if (isset($cart_check)) {
+                $cart['cart_group_id'] = $cart_check['cart_group_id'];
+            } else {
+                $cart['cart_group_id'] = ($user == 'offline' ? 'guest' : $user->id) . '-' . Str::random(5) . '-' . time();
+            
         }
 
         return $cart_ids;

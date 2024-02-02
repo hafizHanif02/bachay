@@ -53,11 +53,23 @@
                                 <p class="m-0 fw-semibold font-poppins me-4">Size</p>
 
                                 <p class="font-poppins m-0 sizes-btn rounded-2 p-1 fs-6">
-                                    <span class="fw-bold"></span> <span
-                                        class="text-secondary">{{ $Cartproduct->variant }}</span>
-                                    <input type="hidden" name="product[{{ $loop->iteration }}][variant]"
-                                        value="{{ $Cartproduct->variant }}">
-                                </p>
+                                    <span class="fw-bold"></span>
+                                    <span class="text-secondary">
+                                        @php
+                                            $sizeMapping = [
+                                                'M' => 'Medium',
+                                                'S' => 'Small',
+                                                'L' => 'Large',
+                                                'XL' => 'Extra Large',
+                                            ];
+                                
+                                            $sizeCode = json_decode($Cartproduct->variant)->Size;
+                                            $size = $sizeMapping[$sizeCode] ?? 'Unknown'; // Default to 'Unknown' if the code is not found
+                                            echo $size;
+                                        @endphp
+                                    </span>
+                                    <input type="hidden" name="product[{{ $loop->iteration }}][variant]" value="{{ $Cartproduct->variant }}">
+                                </p>                                
                             @endif
 
                         </div>
@@ -111,11 +123,11 @@
                 </div>
                 <div class="col-4">
                     <h3 class="product-price mb-1" id="showedprice{{ $loop->iteration }}">
-                        Rs. {{ $Cartproduct->unit_price - ($Cartproduct->discount / 100) * $Cartproduct->unit_price }}
+                        Rs. {{ $Cartproduct->price - ($Cartproduct->discount / 100) * $Cartproduct->price }}
                     </h3>
 
                     <div class="d-flex align-items-center">
-                        <h6 class="text-decoration-line-through m-0 discount-off">Rs. {{ $Cartproduct->unit_price }}</h6>
+                        <h6 class="text-decoration-line-through m-0 discount-off">Rs. {{ $Cartproduct->price }}</h6>
                         <span class="text-success fw-bold font-poppins"> - {{ $Cartproduct->discount }}% Off</span>
 
                     </div>
@@ -123,10 +135,10 @@
                         MRP Includes all taxes
                     </p>
                     <input type="hidden" class="price" id="price{{ $loop->iteration }}"
-                        value="{{ $Cartproduct->unit_price }}" name="product[{{ $loop->iteration }}][price]">
-                    <input type="hidden" id="pricejs{{ $loop->iteration }}" value="{{ $Cartproduct->unit_price }}"
+                        value="{{ $Cartproduct->price }}" name="product[{{ $loop->iteration }}][price]">
+                    <input type="hidden" id="pricejs{{ $loop->iteration }}" value="{{ $Cartproduct->price }}"
                         name="product[{{ $loop->iteration }}][price]">
-                    <input type="hidden" id="actual_price{{ $loop->iteration }}" value="{{ $Cartproduct->unit_price }}"
+                    <input type="hidden" id="actual_price{{ $loop->iteration }}" value="{{ $Cartproduct->price }}"
                         name="product[{{ $loop->iteration }}][actual_price]" class="actual_price">
                     <input type="hidden" id="discount{{ $loop->iteration }}"
                         value="{{ $Cartproduct->discount }}" name="product[{{ $loop->iteration }}][discount]">
@@ -201,11 +213,23 @@
                                 <p class="m-0 fw-semibold font-poppins me-4">Size</p>
 
                                 <p class="font-poppins m-0 sizes-btn rounded-2 p-1 fs-6">
-                                    <span class="fw-bold"></span> <span
-                                        class="text-secondary">{{ $Cartproduct->variant }}</span>
-                                    <input type="hidden" name="product[{{ $loop->iteration }}][variant]"
-                                        value="{{ $Cartproduct->variant }}">
-                                </p>
+                                    <span class="fw-bold"></span>
+                                    <span class="text-secondary">
+                                        @php
+                                            $sizeMapping = [
+                                                'M' => 'Medium',
+                                                'S' => 'Small',
+                                                'L' => 'Large',
+                                                'XL' => 'Extra Large',
+                                            ];
+                                
+                                            $sizeCode = json_decode($Cartproduct->variant)->Size;
+                                            $size = $sizeMapping[$sizeCode] ?? 'Unknown'; // Default to 'Unknown' if the code is not found
+                                            echo $size;
+                                        @endphp
+                                    </span>
+                                    <input type="hidden" name="product[{{ $loop->iteration }}][variant]" value="{{ $Cartproduct->variant }}">
+                                </p>                                
                             @endif
 
                         </div>
@@ -259,11 +283,11 @@
                 </div>
                 <div class="col-4">
                     <h3 class="product-price mb-1" id="showedprice{{ $loop->iteration }}">
-                        Rs. {{ $Cartproduct->unit_price - ($Cartproduct->discount / 100) * $Cartproduct->unit_price }}
+                        Rs. {{ $Cartproduct->price - ($Cartproduct->discount / 100) * $Cartproduct->price }}
                     </h3>
 
                     <div class="d-flex align-items-center">
-                        <h6 class="text-decoration-line-through m-0 discount-off">Rs. {{ $Cartproduct->unit_price }}</h6>
+                        <h6 class="text-decoration-line-through m-0 discount-off">Rs. {{ $Cartproduct->price }}</h6>
                         <span class="text-success fw-bold font-poppins"> - {{ $Cartproduct->discount }}% Off</span>
 
                     </div>
@@ -271,10 +295,10 @@
                         MRP Includes all taxes
                     </p>
                     <input type="hidden" class="price" id="price{{ $loop->iteration }}"
-                        value="{{ $Cartproduct->unit_price }}" name="product[{{ $loop->iteration }}][price]">
-                    <input type="hidden" id="pricejs{{ $loop->iteration }}" value="{{ $Cartproduct->unit_price }}"
+                        value="{{ $Cartproduct->price }}" name="product[{{ $loop->iteration }}][price]">
+                    <input type="hidden" id="pricejs{{ $loop->iteration }}" value="{{ $Cartproduct->price }}"
                         name="product[{{ $loop->iteration }}][price]">
-                    <input type="hidden" id="actual_price{{ $loop->iteration }}" value="{{ $Cartproduct->unit_price }}"
+                    <input type="hidden" id="actual_price{{ $loop->iteration }}" value="{{ $Cartproduct->price }}"
                         name="product[{{ $loop->iteration }}][actual_price]" class="actual_price">
                     <input type="hidden" id="discount{{ $loop->iteration }}"
                         value="{{ $Cartproduct->discount }}" name="product[{{ $loop->iteration }}][discount]">

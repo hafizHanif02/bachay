@@ -175,7 +175,7 @@
             @foreach($data->product as $product)
             {{-- {{ dd($product) }} --}}
             <input type="hidden" name="product[{{ $loop->iteration }}][product_id]" value="{{ ($product['product_id'] ?? '') }}">
-            <input type="hidden" name="product[{{ $loop->iteration }}][tax]" value="{{ ($product['tax'] ?? '') }}">
+            <input type="hidden" name="product[{{ $loop->iteration }}][tax]" value="{{ ($product['tax'] ?? '0') }}">
             <input type="hidden" name="product[{{ $loop->iteration }}][tax_model]" value="{{ ($product['tax_model'] ?? '') }}">
             <input type="hidden" name="product[{{ $loop->iteration }}][color]" value="{{ ($product['color'] ?? '') }}">
             <input type="hidden" name="product[{{ $loop->iteration }}][variant]" value="{{ ($product['variant'] ?? '') }}">
@@ -189,7 +189,7 @@
             <div class="mt-4">
                 @if($web_config['guest_checkout_status'] || auth('customer')->check())
                 {{-- <a  style="background: var( --greadient-normal, linear-gradient( 270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17% ) ); border: 0px;" onclick="checkout()" class="col-12 btn btn--primary rounded-pill text-light btn-block proceed_to_next_button {{$cart->count() <= 0 ? 'disabled' : ''}}" >{{translate('proceed_to_Next')}}</a> --}}
-                <button type="button" onclick="CheckoutFormSubmit()"  style="background: var( --greadient-normal, linear-gradient( 270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17% ) ); border: 0px;" onclick="checkout()" class="col-12 btn btn--primary rounded-pill text-light btn-block proceed_to_next_button {{$cart->count() <= 0 ? 'disabled' : ''}}" >Place Order</button>
+                <button type="button" onclick="CheckoutFormSubmit()"  style="background: var( --greadient-normal, linear-gradient( 270deg, #845dc2 -0.09%, #d55fad 36.37%, #fc966c 72.82%, #f99327 100.48%, #ffc55d 145.17% ) ); border: 0px;" onclick="checkout()" class="col-12 btn btn--primary rounded-pill text-light btn-block proceed_to_next_button {{$cart->count() <= 0 ? '' : ''}}" >Place Order</button>
                 @else
                     <a href="{{route('customer.auth.login')}}" class="btn btn--primary btn-block proceed_to_next_button {{$cart->count() <= 0 ? 'disabled' : ''}}" >Place Order</a>
                 @endif
@@ -218,9 +218,9 @@
         &nbsp; <strong  class="text-base">{{\App\CPU\Helpers::currency_converter($sub_total+$total_tax+$total_shipping_cost-$coupon_dis-$total_discount_on_product-$order_wise_shipping_discount)}}</strong>
     </div>
     @if($web_config['guest_checkout_status'] || auth('customer')->check())
-        <a onclick="checkout()" class="btn btn--primary btn-block proceed_to_next_button text-capitalize {{$cart->count() <= 0 ? 'disabled' : ''}}">{{translate('Place_order')}}</a>
+        <a onclick="checkout()" class="btn btn--primary btn-block proceed_to_next_button text-capitalize {{$cart->count() <= 0 ? '' : ''}}">{{translate('Place_order')}}</a>
     @else
-        <a href="{{route('customer.auth.login')}}" class="btn btn--primary btn-block proceed_to_next_button text-capitalize {{$cart->count() <= 0 ? 'disabled' : ''}}">{{translate('Place_order')}}</a>
+        <a href="{{route('customer.auth.login')}}" class="btn btn--primary btn-block proceed_to_next_button text-capitalize {{$cart->count() <= 0 ? '' : ''}}">{{translate('Place_order')}}</a>
     @endif
 </div>
 @push('script')

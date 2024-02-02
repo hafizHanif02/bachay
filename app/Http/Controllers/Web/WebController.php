@@ -6463,11 +6463,12 @@ class WebController extends Controller
                 }
 
                 $cart_group_ids = CartManager::get_cart_group_ids();
+
                 $shippingMethod = Helpers::get_business_settings('shipping_method');
 
                 $verify_status = OrderManager::minimum_order_amount_verify($request);
 
-
+                
                 if ($verify_status['status'] == 0) {
                     Toastr::info(translate('check_Minimum_Order_Amount_Requirment'));
                     return redirect()->route('shop-cart');
@@ -6569,6 +6570,12 @@ class WebController extends Controller
                     $shipping_address = DB::table('shipping_addresses')->where('customer_id', $request->customer_id)->first();
                     $customer_data = DB::table('users')->where('id', $request->customer_id)->first();
                     $data = $request;
+
+                foreach ($data['product'] as  $dataproduct) {
+                    
+                    $product = Product::where('id', $dataproduct['product_id'])->pluck('tax');
+                    $dataproduct['tax_percentage'] = $product[0];
+                }
                     return view(VIEW_FILE_NAMES['order_shipping'], compact(
                         'shipping_address',
                         'customer_data',
@@ -6586,6 +6593,8 @@ class WebController extends Controller
                 } else {
                     return redirect()->back()->with(['message' => 'Kindly Add Your Address First', 'status' => 0]);
                 }
+            }else{
+                return redirect()->back()->with(['message' => 'Kindly Add Your Address First', 'status' => 0]);
             }
         } else {
             return redirect()->back()->with(['message' => 'Please Login First', 'status' => 0]);
@@ -6842,7 +6851,6 @@ class WebController extends Controller
 
     public function checkout_complete(Request $request)
     {
-        // dd($request->all());
         // if($request->payment_method != 'cash_on_delivery'){
         //     return back()->with('error', 'Something went wrong!');
         // }
@@ -6864,8 +6872,9 @@ class WebController extends Controller
                 $physical_product = true;
             }
         }
+        // dd($carts);
 
-        if ($physical_product) {
+        // if ($physical_product) {
             foreach ($cart_group_ids as $group_id) {
                 $data = [
                     'payment_method' => 'cash_on_delivery',
@@ -6878,7 +6887,7 @@ class WebController extends Controller
                 // dd($data);
                 $order_id = OrderManager::generate_order($data);
                 array_push($order_ids, $order_id);
-            }
+            // }
 
             CartManager::cart_clean();
 
@@ -6886,7 +6895,7 @@ class WebController extends Controller
             return view(VIEW_FILE_NAMES['order_complete'], compact('order_ids'));
         }
 
-        return back()->with('error', 'Something went wrong!');
+        // return back()->with('error', 'Something went wrong!');
     }
 
     public function offline_payment_checkout_complete(Request $request)

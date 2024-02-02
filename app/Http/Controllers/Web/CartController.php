@@ -53,8 +53,6 @@ class CartController extends Controller
                 $myCartProducts = Cart::where('customer_id', Auth::guard('customer')->user()->id)->with('product')->get();
             }
 
-
-
             if ($myCartProducts->isNotEmpty()) {
                 $cartGroupIds = Cart::where('customer_id', Auth::guard('customer')->user()->id)
                     ->first()
@@ -355,7 +353,6 @@ class CartController extends Controller
 
     public function add_cart(Request $request)
     {
-        dd($request);
 
         $existingCart = Cart::where('customer_id', $request->customer_id)
             ->where('product_id', $request->product_id)
@@ -1300,25 +1297,36 @@ class CartController extends Controller
 
     public function addToCart(Request $request)
     {
-        // // dd($request);
+
+        $user = Helpers::get_customer($request);
+            $cart_check = Cart::where([
+                'customer_id' => $user->id])->first();
+            
+            
+            if (isset($cart_check)) {
+                $cart['cart_group_id'] = $cart_check['cart_group_id'];
+            } else {
+                $cart['cart_group_id'] = ($user == 'offline' ? 'guest' : $user->id) . '-' . Str::random(5) . '-' . time();
+            
+        }
         // $cart = CartManager::add_to_cart($request);
         // if ($cart['message'] == 'Out of stock!') {
-        //     return redirect()->back()->with(['message' => 'Product is Out of Stock!', 'status' => 0]);
-        // }
-        // session()->forget('coupon_code');
-        // session()->forget('coupon_type');
-        // session()->forget('coupon_bearer');
-        // session()->forget('coupon_discount');
-        // session()->forget('coupon_seller_id');
-        // // return response()->json($cart);
-
-        if (Auth::guard('customer')->check()) {
-
-            $userId = Auth::guard('customer')->user()->id;
-            $productId = $request->product_id;
-
-            // Retrieve data from the request sent by JavaScript
-            $name = $request->name;
+            //     return redirect()->back()->with(['message' => 'Product is Out of Stock!', 'status' => 0]);
+            // }
+            // session()->forget('coupon_code');
+            // session()->forget('coupon_type');
+            // session()->forget('coupon_bearer');
+            // session()->forget('coupon_discount');
+            // session()->forget('coupon_seller_id');
+            // // return response()->json($cart);
+            
+            if (Auth::guard('customer')->check()) {
+                
+                $userId = Auth::guard('customer')->user()->id;
+                $productId = $request->product_id;
+                
+                // Retrieve data from the request sent by JavaScript
+                $name = $request->name;
             $price = $request->price;
             $discount = $request->discount;
             $tax = $request->tax;
@@ -1326,13 +1334,15 @@ class CartController extends Controller
             $color = $request->color;
             $variant = $request->variant;
             $slug = $request->slug;
+            $cart_group_id = $cart['cart_group_id'];
             $quantity = $request->quantity;
-
+            
             if ($userId) {
                 if (!Cart::where('customer_id', $userId)->where('product_id', $productId)->exists()) {
                     Cart::create([
                         'customer_id' => $userId,
                         'product_id' => $productId,
+                        'cart_group_id' => $cart_group_id,
                         'name' => $name,
                         'price' => $price,
                         'discount' => $discount,
