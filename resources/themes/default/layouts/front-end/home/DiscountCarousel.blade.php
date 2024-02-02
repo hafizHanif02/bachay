@@ -3,7 +3,7 @@
         height: 450px;
     }
 </style>
-<div class="slider-container pt-3 mb-5 container-xxl">
+<div class="slider-container pt-0 mb-1 container-xxl">
     <div class="slider">
         @foreach ($main_banner as $banner)
             <div>

@@ -1,12 +1,12 @@
 <div class="bgcolor">
     <div class="flash-sales container-xxl">
         <h1 class="text-center textClr">Flash Sales For Child Products Get Crazy Discounts</h1>
-        <div class="row mt-2 col-12 flash-sales-container">
+        <div class="row mt-0 col-12 flash-sales-container">
             {{-- $flash_deal --}}
 
             
                 @foreach ($flash_deal as $deal)
-                    <div class="icon col-lg-4 col-md-6 col-sm-12 mb-4 mt-3">
+                    <div class="icon col-lg-4 col-md-6 col-sm-12 mb-1 mt-1">
                         <div class="card card_image rounded-5">
                             <a href="{{ route('product-list-slug', $deal->slug) }}">
                                 <div class="deal-alert-circle">-{{ $deal->discount_percent }}%</div>
