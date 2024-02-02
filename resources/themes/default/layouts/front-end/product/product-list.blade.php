@@ -103,6 +103,7 @@
                                 @endif
                             </div> --}}
                             <div class="ratings-reviews d-flex">
+                                @php $averageRating = $product->reviews->avg('rating'); @endphp
                                 @if ($product->reviews->isEmpty())
                                     <p class="m-0 mt-1">No reviews yet</p>
                                 @else
