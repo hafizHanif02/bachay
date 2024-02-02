@@ -55,6 +55,7 @@
                     </p>
 
                     <div class="product_price d-flex">
+                        
                         <p class="product-price me-2 mb-1">Rs.
                             {{ $product->unit_price - ($product->unit_price * $product->discount) / 100 }}
                         </p>
