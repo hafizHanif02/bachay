@@ -14,7 +14,7 @@
         /* Make sure this is above other elements */
     }
 </style>
-<div class="container-fluid products mt-4">
+<div class="container-fluid products mt-0">
     <div class="row">
 
         <div class="col-lg-5 col-md-6 col-sm-12 col-12 d-flex flex-column fixedProduct">
@@ -173,16 +173,16 @@
                     </div>
                 </div>
                 <div class="col-12">
-                    <h6 class="pt-3 pb-2 fw-bold fontPoppins m-0">
+                    <h6 class="pt-2 pb-2 fw-bold fontPoppins m-0">
 
                         {{ $product->name }}
                     </h6>
                 </div>
-                <div class="col-12 d-flex align-items-center pb-2">
+                <div class="col-12 d-flex align-items-center pb-0">
                     <h6 class="text-secondary pe-2 fontPoppins">Product ID: </h6>
                     <h6 class="text-dark fw-bold fontPoppins">{{ $product->id }}</h6>
                 </div>
-                <div class="col-12 pb-3">
+                <div class="col-12 pb-2">
                     <div class="hl "></div>
                 </div>
                 <div class="col-12 d-flex align-items-center">
@@ -199,7 +199,7 @@
                     </h6>
                 </div>
 
-                <div class="col-8 pb-4 pt-3">
+                <div class="col-8 pb-2 pt-2">
                     <div class=" rounded-pill border border-2 border-secondary p-2 ">
 
                         <div class="row align-items-center">
@@ -252,8 +252,8 @@
                         <option value="pak">PAK</option>
                         <option value="aus">AUS</option>
                     </select> --}}
-                    <div class="ms-3 d-flex align-items-center">
-                        <button type="button" class="btn sizeBTN fontPoppins" data-bs-toggle="modal"
+                    <div class="d-flex align-items-center">
+                        <button type="button" class="btn sizeBTN fontPoppins ps-0" data-bs-toggle="modal"
                             data-bs-target="#exampleModal">
                             <img class="sizeChartImg" src="{{ asset('public/images/size chart.png') }}"
                                 alt="Size Chart">
@@ -285,7 +285,7 @@
                     </p>
 
                 </div> --}}
-                <div class="Sizesbtn col-12 pt-2 d-flex align-items-center mb-3">
+                <div class="Sizesbtn col-12 pt-0 d-flex align-items-center mb-3">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Size</p>
                     <div id="sizebtns">
                         {{-- @foreach ($product->size as $size) --}}
@@ -314,23 +314,23 @@
                     <input class="fontPoppins square square4 ms-1 me-1 pt-2 pb-2 ps-3 pe-3 rounded-2" type="button"
                         value="UK 13 (20.2 CM)"> --}}
                 </div>
-                <div class="col-12 mb-4 mt-2">
+                <div class="col-12 mb-3 mt-1">
                     <p class="text-secondary toetoHeel fontPoppins mb-0">Size: <span class="sizeToeSpan">I = Infants,
                             K =
                             Kid</span></p>
 
                 </div>
-                <div class="col-12 pb-3">
+                <div class="col-12 pb-2">
                     <div class="hl "></div>
                 </div>
                 <div class="col-12">
-                    <h5 class="pt-3 pb-2 fw-bold fontPoppins">
+                    <h5 class="pt-2 pb-2 fw-bold fontPoppins">
                         Offers & Discounts
                         <span class = "CmgSoon">(Coming soon)...</span>
                     </h5>
                 </div>
 
-                <div class="col-12 mb-5">
+                <div class="col-12 mb-4">
                     <div class="row">
                         <div class="col-6 ">
                             <div class="offer pt-4 pb-4 ps-3 pe-3 rounded-4 opacity-50">
@@ -421,16 +421,16 @@
                     </div>
                 </div>
 
-                <div class="col-12 pb-3">
+                <div class="col-12 pb-2">
                     <div class="hl "></div>
                 </div>
                 <div class="col-12">
-                    <h5 class="pt-3 pb-2 fw-bold fontPoppins">
+                    <h5 class="pt-2 pb-2 fw-bold fontPoppins">
                         Bachay Club Benefits
                         <span class = "CmgSoon">(Coming soon)...</span>
                     </h5>
                 </div>
-                <div class="col-12 d-flex justify-content-between mt-2 mb-5 gap-2 opacity-50">
+                <div class="col-12 d-flex justify-content-between mt-2 mb-4 gap-2 opacity-50">
                     <div class="text-center clubCash">
                         <img class="mb-2 benefitsImg" src="{{ asset('public/images/Group 901.png') }}"
                             alt="">
