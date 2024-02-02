@@ -6,7 +6,7 @@
 
             
                 @foreach ($flash_deal as $deal)
-                    <div class="icon col-lg-4 col-md-6 col-sm-12 mb-1 mt-1">
+                    <div class="icon col-lg-4 col-md-6 col-sm-12 mb-2 mt-2">
                         <div class="card card_image rounded-5">
                             <a href="{{ route('product-list-slug', $deal->slug) }}">
                                 <div class="deal-alert-circle">-{{ $deal->discount_percent }}%</div>
