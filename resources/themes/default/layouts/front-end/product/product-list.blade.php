@@ -108,8 +108,8 @@
                                     <p class="m-0 mt-1 font-poppins" style="font-size: 12px;">No reviews</p>
                                 @else
                                     <img src="{{ asset('public/images/Vector-star.svg') }}" alt="">
-                                    <span class="font-poppins" style="font-size: 12px; font-weight: 600;"> {{ $averageRating }}.0</span>
-                                    <span class="Reviews font-poppins" style="font-size: 12px;">({{ $product->reviews_count }})</span>
+                                    <span class="font-poppins" style="font-size: 14px; font-weight: 600;"> {{ $averageRating }}.0</span>
+                                    <span class="Reviews font-poppins" style="font-size: 14px;">({{ $product->reviews_count }})</span>
                                 @endif
                             </div>
                             
