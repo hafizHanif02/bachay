@@ -8,9 +8,9 @@
 <div class="row g-3 mx-max-md-0">
     <!-- List of items-->
     <section class="col-lg-8 px-max-md-0">
-        @if(count($cart)==0)
+        {{-- @if(count($cart)==0)
             @php($physical_product = false)
-        @endif
+        @endif --}}
             <!-- for web -->
             <div class="table-responsive d-none d-lg-block">
                 <table class="table table-borderless table-thead-bordered table-nowrap table-align-middle card-table __cart-table">
