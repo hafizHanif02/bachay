@@ -225,7 +225,7 @@
                     </div>
                 </div>
                 @if (!empty($product->variations))
-                <div class="ProductColors col-12 d-flex align-items-center pb-4">
+                <div class="ProductColors col-12 d-flex align-items-center mb-2 mt-2">
                     <p class="text-dark simpleText fs-6 mb-0 pe-3 fontPoppins">Colors</p>
                     @foreach ($product->variations as $color => $variations)
 
