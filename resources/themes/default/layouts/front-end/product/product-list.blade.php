@@ -82,7 +82,7 @@
                             <a href="#" class="delivery-btn">Standard Delivery</a>
                         </div> --}}
                         <div class="d-flex justify-content-between for-border-g">
-                            <div class="ratings-reviews d-flex">
+                            {{-- <div class="ratings-reviews d-flex">
                                 @if ($product->reviews->isEmpty())
                                     @for ($i = 0; $i < 5; $i++)
                                         <span class="bi bi-star me-2" style="color: #ffc107;"></span>
@@ -101,7 +101,25 @@
                                     @endfor
                                     <span class="Reviews">({{ $product->reviews_count }} @if($product->reviews_count == 1) Rating @else Ratings @endif)</span>
                                 @endif
+                            </div> --}}
+                            <div class="ratings-reviews d-flex">
+                                @if ($product->reviews->isEmpty())
+                                    <p class="m-0 mt-1">No reviews yet</p>
+                                @else
+                                    @php $averageRating = $product->reviews->avg('rating'); @endphp
+                                    @for ($i = 0; $i < 5; $i++)
+                                        @if ($i < floor($averageRating))
+                                            <span class="bi bi-star-fill me-2" style="color: #ffc107;"></span>
+                                        @elseif ($i == floor($averageRating) && $averageRating - $i >= 0.5)
+                                            <span class="bi bi-star-half me-2" style="color: #ffc107;"></span>
+                                        @else
+                                            <span class="bi bi-star me-2" style="color: #ffc107;"></span>
+                                        @endif
+                                    @endfor
+                                    <span class="Reviews">({{ $product->reviews_count }} @if($product->reviews_count == 1) Review @else Reviews @endif)</span>
+                                @endif
                             </div>
+                            
                         
                             <a href="#" class="delivery-btn">Standard Delivery</a>
                         </div>
