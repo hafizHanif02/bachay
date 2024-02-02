@@ -1,5 +1,5 @@
 
-<div class="sub-banner container-xxl">
+<div class="sub-banner container-xxl pb-4">
     @if (count($main_section_banner) > 0 && $main_section_banner)
         <img class="rounded-5 imgBanner object-fit-cover" src="{{ asset('storage/app/public/banner/'.$main_section_banner[0]->photo) }}" alt="banner" width="100%" height="280px">
     @endif
