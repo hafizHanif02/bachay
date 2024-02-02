@@ -107,7 +107,8 @@
                                 @if ($product->reviews->isEmpty())
                                     <p class="m-0 mt-1">No reviews yet</p>
                                 @else
-                                    <span class="bi bi-star-fill me-2" style="color: #ffc107;"></span>
+                                    {{-- <span class="bi bi-star-fill me-2" style="color: #ffc107;"></span> --}}
+                                    <img src="{{ asset('public/images/Vector-star.svg') }}" alt="">
                                     <span>{{ $averageRating }}.0</span>
                                     <span class="Reviews">({{ $product->reviews_count }} @if($product->reviews_count == 1) Review @else Reviews @endif)</span>
                                 @endif
