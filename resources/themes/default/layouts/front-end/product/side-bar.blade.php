@@ -36,24 +36,27 @@
                 Tag
             </div>
             <div class="scroll">
+                @php
+                    $allTags = collect(); // Create a collection to store all tags
+                @endphp
+
                 @foreach ($products as $product)
-                    @foreach ($product->tags as $tag)
-                        <label class="col-12 f-spacing">
-                            @if (isset($request->filter))
-                                <input type="checkbox"
-                                    @foreach ($request->filter as $filter)
-                                        @if (isset($filter['tag']))
-                                            {{ $filter['tag'] == $tag->tag ? 'checked' : '' }}
-                                        @endif @endforeach
-                                    name="filter[{{ $loop->iteration }}][tag]" value="{{ $tag->tag }}">
-                                {{ $tag->tag }} <span class="Reviews"></span>
-                            @else
-                                <input type="checkbox" name="filter[{{ $loop->iteration }}][tag]"
-                                    value="{{ $tag->tag }}"> {{ $tag->tag }} <span class="Reviews"></span>
-                            @endif
-                        </label>
-                    @endforeach
+                    @php
+                        $allTags = $allTags->merge($product->tags); // Merge tags for all products
+                    @endphp
                 @endforeach
+
+                @foreach ($allTags->unique('tag') as $tag)
+                    @php
+                        $isChecked = isset($request->filter) && collect($request->filter)->contains('tag', $tag->tag);
+                    @endphp
+
+                    <label class="col-12 f-spacing">
+                        <input type="checkbox" name="filter[{{ $loop->iteration }}][tag]" value="{{ $tag->tag }}" {{ $isChecked ? 'checked' : '' }}>
+                        {{ $tag->tag }} <span class="Reviews"></span>
+                    </label>
+                @endforeach
+
             </div>
       
 
