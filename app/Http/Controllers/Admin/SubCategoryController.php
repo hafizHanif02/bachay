@@ -20,14 +20,14 @@ class SubCategoryController extends Controller
         if($request->has('search'))
         {
             $key = explode(' ', $request['search']);
-            $categories = Category::where(['position'=>1])->where(function ($q) use ($key) {
+            $categories = Category::where(['position'=>'1'])->where(function ($q) use ($key) {
                 foreach ($key as $value) {
                     $q->orWhere('name', 'like', "%{$value}%");
                 }
             });
             $query_param = ['search' => $request['search']];
         }else{
-            $categories=Category::where(['position'=>1]);
+            $categories=Category::where(['position'=>'1']);
         }
         $categories = $categories->latest()->paginate(Helpers::pagination_limit())->appends($query_param);
         return view('admin-views.category.sub-category-view',compact('categories','search'));

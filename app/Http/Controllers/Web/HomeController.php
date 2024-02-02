@@ -129,8 +129,7 @@ class HomeController extends Controller
 
         $products = $this->product->with(['reviews'])->active()->orderBy('id')->take(16)->get();
 
-        $categories = Category::with('childes.childes')->where(['home_status' => '1','parent_id'=> '0'])->orderBy('priority', 'asc')->take(10)->get();
-        
+        $categories = Category::with('childes.childes')->where(['home_status' => '1'])->orderBy('priority', 'asc')->get();
         // $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->take(10)->get();
 
         // $new_arrivals_categories = $this->category
