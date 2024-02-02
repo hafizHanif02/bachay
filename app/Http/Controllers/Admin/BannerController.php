@@ -42,10 +42,10 @@ class BannerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'url' => 'required',
+            // 'url' => 'required',
             'image' => 'required',
         ], [
-            'url.required' => 'url is required!',
+            // 'url.required' => 'url is required!',
             'image.required' => 'Image is required!',
 
         ]);
