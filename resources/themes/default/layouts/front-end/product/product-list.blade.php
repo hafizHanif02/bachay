@@ -107,7 +107,8 @@
                                     <p class="m-0 mt-1">No reviews yet</p>
                                 @else
                                     @php $averageRating = $product->reviews->avg('rating'); @endphp
-                                    @for ($i = 0; $i < 1; $i++)
+                                    {{ $averageRating }};
+                                    {{-- @for ($i = 0; $i < 1; $i++)
                                         @if ($i < floor($averageRating))
                                             <span class="bi bi-star-fill me-2" style="color: #ffc107;"></span>
                                         @elseif ($i == floor($averageRating) && $averageRating - $i >= 0.5)
@@ -115,7 +116,7 @@
                                         @else
                                             <span class="bi bi-star me-2" style="color: #ffc107;"></span>
                                         @endif
-                                    @endfor
+                                    @endfor --}}
                                     {{-- <span class="Reviews">({{ $product->reviews_count }}
                                          @if($product->reviews_count == 1) Review @else Reviews @endif)
                                         </span> --}}
