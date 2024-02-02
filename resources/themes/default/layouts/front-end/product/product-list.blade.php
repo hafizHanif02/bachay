@@ -116,7 +116,12 @@
                                             <span class="bi bi-star me-2" style="color: #ffc107;"></span>
                                         @endif
                                     @endfor
-                                    <span class="Reviews">({{ $product->reviews_count }} @if($product->reviews_count == 1) Review @else Reviews @endif)</span>
+                                    {{-- <span class="Reviews">({{ $product->reviews_count }}
+                                         @if($product->reviews_count == 1) Review @else Reviews @endif)
+                                        </span> --}}
+                                        <span class="Reviews">({{ $product->reviews_count }})
+                                            
+                                           </span>
                                 @endif
                             </div>
                             
