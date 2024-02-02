@@ -102,7 +102,7 @@
                                     <span class="Reviews">({{ $product->reviews_count }} @if($product->reviews_count == 1) Rating @else Ratings @endif)</span>
                                 @endif
                             </div> --}}
-                            <div class="ratings-reviews d-flex align-items-center">
+                            <div class="ratings-reviews d-flex align-items-center gap-1">
                                 @php $averageRating = $product->reviews->avg('rating'); @endphp
                                 @if ($product->reviews->isEmpty())
                                     <p class="m-0 mt-1 font-poppins" style="font-size: 12px;">No reviews</p>
