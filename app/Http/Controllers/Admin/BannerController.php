@@ -66,7 +66,7 @@ class BannerController extends Controller
         $banner->sub_title = $request->sub_title;
         $banner->button_text = $request->button_text;
         $banner->background_color = $request->background_color;
-        $banner->url = $request->url;
+        $banner->url = ($request->url == null) ? '#' : $request->url;
         $banner->photo = ImageManager::upload('banner/', 'webp', $request->file('image'));
         $banner->mobile_photo = ImageManager::upload('banner/mobile/', 'webp', $request->file('mobile_image'));
         $banner->tags = json_encode($tagsArray);
@@ -143,11 +143,11 @@ class BannerController extends Controller
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'url' => 'required',
-        ], [
-            'url.required' => 'url is required!',
-        ]);
+        // $request->validate([
+        //     'url' => 'required',
+        // ], [
+        //     'url.required' => 'url is required!',
+        // ]);
 
         if($request->tags != null){
             $tagsString = $request->tags;
@@ -165,7 +165,7 @@ class BannerController extends Controller
         $banner->button_text = $request->button_text;
         $banner->background_color = $request->background_color;
         $banner->tags = json_encode($tagsArray);
-        $banner->url = $request->url;
+        $banner->url = ($request->url == null ? '#' : $request->url);
         if ($request->file('image')) {
             $banner->photo = ImageManager::update('banner/', $banner['photo'], 'webp', $request->file('image'));
         }
