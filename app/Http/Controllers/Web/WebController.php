@@ -5943,7 +5943,7 @@ class WebController extends Controller
         $main_banner = DB::table('banners')->where('banner_type', 'Main Banner')->get();
         $main_section_banner = DB::table('banners')->where('banner_type', 'Main Section Banner')->get();
         $productsInFlashDeal = FlashDealProduct::with('product')->get();
-        $categories = $this->category->with('childes.childes')->where(['position' => 0, 'home_status' => true])->priority()->get();
+        $categories = Category::with('childes.childes')->where(['home_status' => '1'])->orderBy('priority', 'asc')->get();
 
 
         if (Auth::guard('customer')->check()) {
