@@ -102,13 +102,13 @@
                                     <span class="Reviews">({{ $product->reviews_count }} @if($product->reviews_count == 1) Rating @else Ratings @endif)</span>
                                 @endif
                             </div> --}}
-                            <div class="ratings-reviews d-flex">
+                            <div class="ratings-reviews d-flex align-items-center">
                                 @php $averageRating = $product->reviews->avg('rating'); @endphp
                                 @if ($product->reviews->isEmpty())
                                     <p class="m-0 mt-1 font-poppins" style="font-size: 12px;">No reviews</p>
                                 @else
                                     <img src="{{ asset('public/images/Vector-star.svg') }}" alt="">
-                                    <span class="font-poppins" style="font-size: 12px;"> {{ $averageRating }}.0</span>
+                                    <span class="font-poppins" style="font-size: 12px; font-weight: 600;"> {{ $averageRating }}.0</span>
                                     <span class="Reviews font-poppins" style="font-size: 12px;">({{ $product->reviews_count }})</span>
                                 @endif
                             </div>
