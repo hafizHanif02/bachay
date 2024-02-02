@@ -1,6 +1,6 @@
 <div class="sub-contain container-fluid">   
 {{-- <div class="sub-contain back_img container-xxl mt-5"> --}}
-    <div class="row mb-4">
+    <div class="row mb-2">
         <div class="col-12 d-flex justify-content-between align-items-center">
             <h1 class="textClr m-0 mt-2">Autumn Whisper</h1>
             <a class="d-flex align-items-center text-dark" href="{{ route('product-list') }}">
@@ -13,8 +13,8 @@
 
     <div class="row bg-white">
         @foreach ($latest_products as $products)
-            <div class="col-md-4 custom-xl-20 col-xl-3 col-lg-4 mb-4">
-                <div class="sub-card rounded-3 p-4 pb-0">
+            <div class="col-md-4 custom-xl-20 col-xl-3 col-lg-4 mb-2">
+                <div class="sub-card rounded-3 p-3 pb-0">
                     <div class="card1">
                         <div class="first-sec card1">
                             <div class="image-container">

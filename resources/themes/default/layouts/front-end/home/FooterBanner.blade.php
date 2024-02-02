@@ -4,7 +4,7 @@
         {{-- @foreach ($footer_banner->take(3) as $banner) --}}
         @foreach ($categories->sortByDesc('created_at')->take(3) as $category)
        
-        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 position-relative mb-5">
+        <div class="col-xl-4 col-lg-4 col-md-4 col-sm-12 col-12 position-relative mb-4">
                 <a href="">
 
 

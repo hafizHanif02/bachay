@@ -1,5 +1,5 @@
 <div class="new-arival mt-4 container-fluid">
-    <div class="sub-container bg-light pt-5 pb-5 rounded-5">
+    <div class="sub-container bg-light pt-4 pb-4 rounded-5">
 
         <h1 class="text-center textClr">Early Breeze New Arrivals</h1>
         <div class="container New_arrival row justify-content-evenly ps-5 pe-5 pt-5" style="margin:0 auto;">

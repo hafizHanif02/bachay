@@ -1,17 +1,17 @@
-<div class="sub-contain back_img container-xxl mt-5">
+<div class="products_all sub-contain back_img container-xxl">
     <div class="row">
         <div class="col-12 d-flex justify-content-between align-items-center">
-            <h1 class="textClr m-0 pb-1 mt-2">Upcomings</h1>
+            <h1 class="textClr m-0 pb-1 mt-1">Upcomings</h1>
             <a class="d-flex align-items-center text-dark" href="{{ route('product-list') }}">
                 <h6 class="m-0">See All</h6>
             </a>
         </div>
     </div>
-    <div class="main-con mt-4">
+    <div class="main-con mt-1">
         <div class="row bg-white">
             @foreach ($latest_products as $products)
-                <div class="col-md-6 col-lg-3 mb-4">
-                    <div class="sub-card rounded-3 p-4 pb-0">
+                <div class="col-md-6 col-lg-3 mb-2">
+                    <div class="sub-card rounded-3 p-3 pb-0">
                         <div class="card1">
                             <div class="first-sec card1">
                                 <div class="image-container">
@@ -85,3 +85,8 @@
     </div>
 </div>
 
+<style>
+    .products_all {
+        margin-top: 25px;
+    }
+</style>

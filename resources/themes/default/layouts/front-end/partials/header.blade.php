@@ -7,7 +7,7 @@
                 </a>
                 <form class="form-inline my-2 my-lg-0 col-7">
                     <div class="search1 search-bar pt-2 pb-3 col-12">
-                        <input class="form-control pt-3 pb-3 mr-sm-2 search-input" type="text" name="search"
+                        <input class="form-control pt-2 pb-2 mr-sm-2 search-input" type="text" name="search"
                             id="search" placeholder="Search for a Category, Brand or Product" aria-label="Search" />
                         <ul class="results" id="search-result"></ul>
                         <div class="search-icon2">
@@ -303,7 +303,7 @@
 
     <div class="nav-btn" id="mega-menu" class="hide-on-med-and-down">
         <div class="fBorder">
-            <ul class="container-xxl sub-nav d-flex justify-content-between align-items-baseline pt-3 pb-3 mb-0">
+            <ul class="container-xxl sub-nav d-flex justify-content-between align-items-baseline pt-2 pb-2 mb-0">
                 <li>
                     <a href="{{ route('categories') }}">
                         <button class="browse-all-cate">

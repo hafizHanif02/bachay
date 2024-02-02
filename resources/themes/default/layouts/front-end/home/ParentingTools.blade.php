@@ -1,8 +1,8 @@
-<div class="sub-banner container-xxl" id="parenting">
-    <h1 class="textClr text-center pb-1">
+<div class="sub-banner container-xxl pt-4 pb-2" id="parenting">
+    <h1 class="textClr text-center pb-2">
         Parenting Tools
     </h1>
-    <div class="col mb-5 ParentingTool gap-4 mt-5">
+    <div class="col mb-5 ParentingTool gap-4 mt-4">
         <div class="outer1">
             <div class="card card-1">
                 <div class="card-body bg-purple  ">
