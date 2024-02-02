@@ -7023,12 +7023,22 @@ class WebController extends Controller
             });
             $new_sellers     =  $seller_list->sortByDesc('id')->take(12);
             $top_rated_shops =  $seller_list->where('rating_count', '!=', 0)->sortByDesc('average_rating')->take(12);
-
+            if (Auth::guard('customer')->check()) {
+                $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+    
+                $wishlistProductsArray = $wishlistProducts->toArray();
+    
+                $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+                $cartProductsArray = $cartProducts->toArray();
+            } else {
+                $wishlistProductsArray = [];
+                $cartProductsArray = [];
+            }
             /*
             * end Top Rated store and new seller
             */
         }
-        return view(VIEW_FILE_NAMES['cart_list'], compact('top_rated_shops', 'new_sellers', 'current_date', 'request'));
+        return view(VIEW_FILE_NAMES['cart_list'], compact('cartProductsArray','top_rated_shops', 'new_sellers', 'current_date', 'request'));
     }
 
     //ajax filter (category based)
