@@ -198,13 +198,11 @@ class ProductListController extends Controller
                             foreach($tag as $value){
                                 $tagdata = DB::table('tags')->where('tag', $value)->first();
                                 $product_tag_table = DB::table('product_tag')->where('product_id', $product->id)->where('tag_id', $tagdata->id)->first();
+                                dd($product_tag_table);
                                 if($product_tag_table != null){
                                     $porduct_data[] = $product;
-                                }else{
-                                    $porduct_data[] = null;
                                 }
                             }
-                            dd($porduct_data);
                     }
                        
                 }
