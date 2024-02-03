@@ -2,7 +2,7 @@
     <h1 class="textClr text-center pb-0">
         Parenting Tools
     </h1>
-    <div class="col mb-2 ParentingTool gap-4 mt-4">
+    <div class="col mb-4 ParentingTool gap-4 mt-4">
         <div class="outer1">
             <div class="card card-1">
                 <div class="card-body bg-purple  ">
