@@ -140,7 +140,7 @@ class ProductListController extends Controller
                     ;
                 }
                 elseif (!empty($shippings) && !empty($brandIds) && empty($colors) && !empty($tag)) {
-                    
+                    dd($colors);
                     $porduct_data = Product::whereIn('free_shipping', $shippings)
                     ->whereIn('brand_id', $brandIds)
                     ->where('unit_price', '>=', $min_price)
