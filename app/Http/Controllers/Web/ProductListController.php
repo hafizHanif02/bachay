@@ -328,13 +328,14 @@ class ProductListController extends Controller
                 }
                 $query = $porduct_data->whereIn('id', $product_ids);
             }
+            dd($porduct_data, $products);
 
             if ($request['data_from'] == 'brand') {
                 $query = $porduct_data->where('brand_id', $request['id']);
             }
 
             if (!$request->has('data_from') || $request['data_from'] == 'latest') {
-                dd($porduct_data, $products);
+                
                 $query = $porduct_data;
             }
 
