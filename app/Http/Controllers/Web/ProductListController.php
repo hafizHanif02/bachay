@@ -1008,6 +1008,7 @@ class ProductListController extends Controller
                         ->with(['reviews', 'brand']);
                 }
                 elseif (empty($shippings) && empty($brandIds) && !empty($colors) && empty($tag)) {
+                    dd($colors, $min_price, $max_price);
                     $porduct_data = Product::whereJsonContains('colors', $colors)
                         ->where('unit_price', '>=', $min_price)
                         ->where('unit_price', '<=', $max_price)
