@@ -102,7 +102,7 @@ class ProductListController extends Controller
 
 
                 foreach ($request->filter as $filter) {
-                    dd('brand' . $filter['brand_id']);
+                    dd('brand' . $filter);
                     if (isset($filter["brand_id"])) {
                         
                         if (is_array($filter['brand_id'])) {
