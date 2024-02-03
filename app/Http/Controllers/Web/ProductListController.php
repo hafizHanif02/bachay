@@ -194,12 +194,12 @@ class ProductListController extends Controller
                         ->where('unit_price', '>=', $min_price)
                         ->where('unit_price', '<=', $max_price)
                         ->with(['reviews', 'brand'])->get();
-                        dd($tags_products);
+                        // dd($tags_products);
                         foreach($tags_products as $product){
                             foreach($tag as $value){
                                 $tagdata = DB::table('tags')->where('tag', $value)->first();
                                 $product_tag_table = DB::table('product_tag')->where('product_id', $product->id)->where('tag_id', $tagdata->id)->first();
-                                dd($product_tag_table);
+                                // dd($product_tag_table);
                                 if($product_tag_table != null){
                                     $porduct_data[] = $product;
                                 }
