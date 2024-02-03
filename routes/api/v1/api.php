@@ -81,6 +81,7 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
 
         Route::any('social-login', 'SocialAuthController@social_login');
         Route::post('update-phone', 'SocialAuthController@update_phone');
+        Route::post('profile/update-user', 'SocialAuthController@update_user');
 
     });
 

@@ -2,18 +2,19 @@
 
 namespace App\Http\Controllers\api\v1\auth;
 
-use App\CPU\CartManager;
 use App\CPU\Helpers;
-use App\Http\Controllers\Controller;
-use App\User;
+use App\Models\User;
+use Firebase\JWT\JWT;
 use GuzzleHttp\Client;
+use App\CPU\CartManager;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Model\BusinessSetting;
+use function App\CPU\translate;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Str;
-use Firebase\JWT\JWT;
-use function App\CPU\translate;
-use App\Model\BusinessSetting;
 
 class SocialAuthController extends Controller
 {
@@ -158,6 +159,27 @@ class SocialAuthController extends Controller
         }
 
         return response()->json(['error' => translate('email_does_not_match')]);
+    }
+
+    public function update_user(Request $request){
+        $validator = Validator::make($request->all(), [
+            'gender' => 'required',
+            'date_of_birth' => 'required|Date',
+            'name' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return response()->json(['errors' => Helpers::error_processor($validator)], 403);
+        }else{
+            if(Auth::guard('customer')->check()){
+                User::where('id', Auth::guard('customer')->user()->id)->update([
+                    'name' => $request['name'],
+                    'gender' => $request['gender'],
+                    'date_of_birth' => $request['date_of_birth'],
+                ]);
+            }else{
+                return response()->json(['error' => translate('Customer_not_found_or_Account_has_been_suspended')]);
+            }
+        }
     }
 
     public static function login_process_passport($user, $email, $password)
