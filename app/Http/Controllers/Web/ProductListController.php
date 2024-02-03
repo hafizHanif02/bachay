@@ -50,8 +50,6 @@ class ProductListController extends Controller
     }
     public function products(Request $request)
     {
-        dd($request);
-
         $theme_name = theme_root_path();
 
         return match ($theme_name){
@@ -63,6 +61,7 @@ class ProductListController extends Controller
     }
 
     public function default_theme(Request $request){
+        dd($request);
         // $user = Auth::guard('customer')->user();
         // dd($user);
 
