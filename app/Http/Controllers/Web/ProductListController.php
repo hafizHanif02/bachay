@@ -201,7 +201,7 @@ class ProductListController extends Controller
                                     $porduct_data[] = $product;
                                 }
                             }
-                            // dd($products);
+                            // dd($porduct_data);
                     }
                        
                 }
@@ -243,7 +243,7 @@ class ProductListController extends Controller
                                     $porduct_data[] = $product;
                                 }
                             }
-                            // dd($products);
+                            // dd($porduct_data);
                     }
                        
                 }
@@ -334,6 +334,7 @@ class ProductListController extends Controller
             }
 
             if (!$request->has('data_from') || $request['data_from'] == 'latest') {
+                dd($porduct_data, $products);
                 $query = $porduct_data;
             }
 
