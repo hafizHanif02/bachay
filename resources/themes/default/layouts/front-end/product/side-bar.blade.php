@@ -26,7 +26,9 @@
         <h6 class="m-0">
             Filter By
         </h6>
-        <a class="clear-all-btn mt-1" href="">Clear All</a>
+        {{-- <a class="clear-all-btn mt-1" href="">Clear All</a> --}}
+        <a href="{{ route('product-list') }}" class="clear-all-btn">Clear All</a>
+
     </div>
     <form action="{{ route('product-list') }}" method="GET">
         <div class="scroll-main fs-14">
