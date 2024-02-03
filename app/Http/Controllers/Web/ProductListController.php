@@ -123,6 +123,7 @@ class ProductListController extends Controller
 
                 $max_price = intval(explode("-", $request->filterprice)[1]);
                 $min_price = intval(explode("-", $request->filterprice)[0]);
+                $porduct_data = [];
 
                 if (!empty($shippings) && !empty($brandIds) && !empty($colors) && !empty($tag)) {
                     
@@ -337,7 +338,6 @@ class ProductListController extends Controller
             }
 
             if (!$request->has('data_from') || $request['data_from'] == 'latest') {
-                
                 $query = $porduct_data;
             }
 
