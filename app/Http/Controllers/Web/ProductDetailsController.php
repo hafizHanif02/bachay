@@ -33,16 +33,26 @@ class ProductDetailsController extends Controller
     public function product($id, Request $request)
     {
         $theme_name = theme_root_path();
-
-        return match ($theme_name) {
-            'default' => self::default_theme($id, $request),
-            'theme_aster' => self::theme_aster($id),
-            'theme_fashion' => self::theme_fashion($id),
-            'theme_all_purpose' => self::theme_all_purpose($id),
-        };
+        $userAgent = $request->header('User-Agent');
+        if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
+            // User is using a mobile device, load the mobile view
+            return match ($theme_name) {
+                'default' => self::default_theme($id, $request, "add-to-cart"),
+                'theme_aster' => self::theme_aster(),
+                'theme_fashion' => self::theme_fashion(),
+                'theme_all_purpose' => self::theme_all_purpose(),
+            };
+        } else {
+            return match ($theme_name) {
+                'default' => self::default_theme($id, $request, "product-detail"),
+                'theme_aster' => self::theme_aster(),
+                'theme_fashion' => self::theme_fashion(),
+                'theme_all_purpose' => self::theme_all_purpose(),
+            };
+        }
     }
 
-    public function default_theme($id, $request)
+    public function default_theme($id, $request, $viewName)
     {
         // dd($request->all());
         $product = Product::active()->with(['reviews', 'seller.shop'])->where('id', $id)->first();
@@ -196,7 +206,7 @@ class ProductDetailsController extends Controller
             $request = $request;
             // $wishlistProductsArray = $wishlistProducts->toArray();
 
-            return view(VIEW_FILE_NAMES['product-detail'], compact('request','cartProductsArray',
+            return view(VIEW_FILE_NAMES[$viewName], compact('request','cartProductsArray',
                 'wishlistProductsArray',
                 'tax',
                 'userData',
