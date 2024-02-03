@@ -33,16 +33,27 @@ class ProductDetailsController extends Controller
     public function product($id, Request $request)
     {
         $theme_name = theme_root_path();
+        $userAgent = $request->header('User-Agent');
 
-        return match ($theme_name) {
-            'default' => self::default_theme($id, $request),
-            'theme_aster' => self::theme_aster($id),
-            'theme_fashion' => self::theme_fashion($id),
-            'theme_all_purpose' => self::theme_all_purpose($id),
-        };
+        if (strpos($userAgent, 'Mobile') !== false || strpos($userAgent, 'Android') !== false) {
+            // User is using a mobile device, load the mobile view
+            return match ($theme_name) {
+                'default' => self::default_theme($id, $request, 'add-to-cart'),
+                'theme_aster' => self::theme_aster(),
+                'theme_fashion' => self::theme_fashion(),
+                'theme_all_purpose' => self::theme_all_purpose(),
+            };
+        } else {
+            return match ($theme_name) {
+                'default' => self::default_theme($id, $request, "product-detail"),
+                'theme_aster' => self::theme_aster(),
+                'theme_fashion' => self::theme_fashion(),
+                'theme_all_purpose' => self::theme_all_purpose(),
+            };
+        }
     }
 
-    public function default_theme($id, $request)
+    public function default_theme($id, $request, $ViewFile)
     {
         // dd($request->all());
         $product = Product::active()->with(['reviews', 'seller.shop'])->where('id', $id)->first();
@@ -71,11 +82,11 @@ class ProductDetailsController extends Controller
                     $groupedVariations[$color] = [];
                 }
 
-                foreach($categoryOptions as $key=> $categoryOption){
-                    $title []= $categoryOption['title'] ;
+                foreach ($categoryOptions as $key => $categoryOption) {
+                    $title[] = $categoryOption['title'];
                 }
 
-                foreach($typeParts as $key => $typePart){
+                foreach ($typeParts as $key => $typePart) {
 
                     $variation[$title[$key]] = $typePart;
                 }
@@ -128,10 +139,10 @@ class ProductDetailsController extends Controller
                     ->inRandomOrder()->take(12)->get();
             });
             $categoryId = $product->category_id;
-            $categoryName = Category::where('id',$categoryId)->first();
-            if($categoryName == null){
+            $categoryName = Category::where('id', $categoryId)->first();
+            if ($categoryName == null) {
                 $categoryName = "None";
-            }else {
+            } else {
                 $categoryName = $categoryName->name;
             }
 
@@ -196,7 +207,9 @@ class ProductDetailsController extends Controller
             $request = $request;
             // $wishlistProductsArray = $wishlistProducts->toArray();
 
-            return view(VIEW_FILE_NAMES['product-detail'], compact('request','cartProductsArray',
+            return view(VIEW_FILE_NAMES[$ViewFile], compact(
+                'request',
+                'cartProductsArray',
                 'wishlistProductsArray',
                 'tax',
                 'userData',
