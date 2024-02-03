@@ -204,7 +204,7 @@ class ProductListController extends Controller
                                     $porduct_data[] = null;
                                 }
                             }
-                            // dd($porduct_data);
+                            dd($porduct_data);
                     }
                        
                 }
