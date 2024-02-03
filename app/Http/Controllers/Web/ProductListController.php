@@ -200,9 +200,11 @@ class ProductListController extends Controller
                                 $product_tag_table = DB::table('product_tag')->where('product_id', $product->id)->where('tag_id', $tagdata->id)->first();
                                 if($product_tag_table != null){
                                     $porduct_data[] = $product;
+                                }else{
+                                    $porduct_data[] = null;
                                 }
                             }
-                            dd($porduct_data);
+                            // dd($porduct_data);
                     }
                        
                 }
