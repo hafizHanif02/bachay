@@ -61,7 +61,7 @@ class ProductListController extends Controller
     }
 
     public function default_theme(Request $request){
-        dd($request);
+        // dd($request);
         // $user = Auth::guard('customer')->user();
         // dd($user);
 
@@ -102,7 +102,7 @@ class ProductListController extends Controller
 
 
                 foreach ($request->filter as $filter) {
-                    if (isset($filter['brand_id'])) {
+                    if (isset($filter["brand_id"])) {
                         dd('brand' . $filter['brand_id']);
                         
                         if (is_array($filter['brand_id'])) {
