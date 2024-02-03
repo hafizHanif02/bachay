@@ -50,6 +50,7 @@ class ProductListController extends Controller
     }
     public function products(Request $request)
     {
+        dd($request->all());
 
         $theme_name = theme_root_path();
 
