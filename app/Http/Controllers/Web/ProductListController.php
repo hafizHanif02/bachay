@@ -118,7 +118,7 @@ class ProductListController extends Controller
                             $shippings[] = $filter['free_shipping'];
                         }
                     }
-                    // dd($brandIds, $shippings, $colors, $tag);
+                    dd($brandIds, $shippings, $colors, $tag); 
                 }
 
                 $max_price = intval(explode("-", $request->filterprice)[1]);
