@@ -1,7 +1,18 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <div class="All_products">
     <div class="collection pb-3 d-flex justify-content-between align-items-center">
-        <h5>Shoes Collection</h5>
+        {{-- <h5>Shoes Collection</h5> --}}
+        @if (isset($request->filter) && count($request->filter) > 0)
+            <h5>
+                @foreach ($request->filter as $key => $value)
+                    @if (is_array($value))
+                        {{ ucfirst($key) }}: {{ implode(', ', $value) }}
+                    @else
+                        {{ ucfirst($key) }}: {{ $value }}
+                    @endif
+                @endforeach
+            </h5>
+        @endif
         <li class="nav-item sorted-by rounded-pill p-2 ps-4 pe-4">
             <div class="dropdown">
                 <a class="dropbtn nav-link">Sorted By: New Arrivals <i class="bi bi-chevron-down"></i></a>
@@ -15,11 +26,28 @@
     </div>
     <div class="filters-btn d-flex justify-content-between align-items-center mt-3 pb-3 collection borderline">
         <div class="sub-btn" id="filters-btn">
-            <button class="boys rounded-3 btn-style"><i class="bi bi-x-lg"></i> Boys</button>
-            <button class="Cloths rounded-3 btn-style"><i class="bi bi-x-lg"></i> Cloths</button>
-
+            {{-- <button class="boys rounded-3 btn-style"><i class="bi bi-x-lg"></i> Boys</button>
+            <button class="Cloths rounded-3 btn-style"><i class="bi bi-x-lg"></i> Cloths</button> --}}
+            @if (isset($request->filter) && count($request->filter) > 0)
+                @foreach ($request->filter as $key => $value)
+                    @if (is_array($value))
+                        @foreach ($value as $item)
+                            <button class="rounded-3 btn-style">
+                                <i class="bi bi-x-lg"></i> {{ ucfirst($key) }}: {{ $item }}
+                            </button>
+                        @endforeach
+                    @else
+                        <button class="rounded-3 btn-style">
+                            <i class="bi bi-x-lg"></i> {{ ucfirst($key) }}: {{ $value }}
+                        </button>
+                    @endif
+                @endforeach
+            @endif
         </div>
-        <a href="#" class="clear-all-btn">Clear All</a>
+        {{-- <a href="#" class="clear-all-btn">Clear All</a> --}}
+        @if (isset($request->filter) && count($request->filter) > 0)
+            <a href="{{ route('product-list') }}" class="clear-all-btn">Clear All</a>
+        @endif
     </div>
 
 

@@ -2,9 +2,7 @@
     <div class="delivery-details-heading d-flex justify-content-between align-items-center">
          <img src="{{ asset('public/images/cart-img.svg') }}" alt=""> 
          <div class="mt-1">
-            <h6 class="fs-10 m-0 fw-bold">
-            Check Delivery
-            Details</h6>
+            <h6 class="fs-10 m-0 fw-bold">Check Delivery Details</h6>
         </div>
         <div class="popup mt-1">
             <i class="bi bi-info-circle"></i></a>
