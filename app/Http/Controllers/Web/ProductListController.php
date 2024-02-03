@@ -268,11 +268,11 @@ class ProductListController extends Controller
                         ->with(['reviews', 'brand']);
                 }
                 elseif (empty($shippings) && empty($brandIds) && !empty($colors) && empty($tag)) {
-                    dd($colors, $min_price, $max_price);
+                    // dd($colors);
                     $porduct_data = Product::whereJsonContains('colors', $colors)
-                        ->where('unit_price', '>=', $min_price)
-                        ->where('unit_price', '<=', $max_price)
-                        ->with(['reviews', 'brand']);
+                    ->where('unit_price', '>=', $min_price)
+                    ->where('unit_price', '<=', $max_price)
+                    ->with(['reviews', 'brand']);
                 }
                 elseif (empty($shippings) && empty($brandIds) && empty($colors) && !empty($tag)) {
                     $porduct_data = Product::where('unit_price', '>=', $min_price)
@@ -1008,7 +1008,6 @@ class ProductListController extends Controller
                         ->with(['reviews', 'brand']);
                 }
                 elseif (empty($shippings) && empty($brandIds) && !empty($colors) && empty($tag)) {
-                    dd($colors, $min_price, $max_price);
                     $porduct_data = Product::whereJsonContains('colors', $colors)
                         ->where('unit_price', '>=', $min_price)
                         ->where('unit_price', '<=', $max_price)
