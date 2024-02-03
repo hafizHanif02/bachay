@@ -140,7 +140,6 @@ class ProductListController extends Controller
                     ;
                 }
                 elseif (!empty($shippings) && !empty($brandIds) && empty($colors) && !empty($tag)) {
-                    dd($colors);
                     $porduct_data = Product::whereIn('free_shipping', $shippings)
                     ->whereIn('brand_id', $brandIds)
                     ->where('unit_price', '>=', $min_price)
@@ -269,6 +268,7 @@ class ProductListController extends Controller
                         ->with(['reviews', 'brand']);
                 }
                 elseif (empty($shippings) && empty($brandIds) && !empty($colors) && empty($tag)) {
+                    dd($colors, $min_price, $max_price);
                     $porduct_data = Product::whereJsonContains('colors', $colors)
                         ->where('unit_price', '>=', $min_price)
                         ->where('unit_price', '<=', $max_price)
