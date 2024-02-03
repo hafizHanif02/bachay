@@ -63,7 +63,6 @@ class ProductListController extends Controller
     }
 
     public function default_theme(Request $request){
-        dd($request);
         // $user = Auth::guard('customer')->user();
         // dd($user);
 
@@ -113,6 +112,7 @@ class ProductListController extends Controller
                         }
                     }
 
+                    
                     if (isset($filter['free_shipping'])) {
                         if (is_array($filter['free_shipping'])) {
                             $shippings = array_merge($shippings, $filter['free_shipping']);
@@ -120,6 +120,7 @@ class ProductListController extends Controller
                             $shippings[] = $filter['free_shipping'];
                         }
                     }
+                    dd($brandIds, $shippings, $colors, $tag);
                 }
 
                 $max_price = intval(explode("-", $request->filterprice)[1]);
