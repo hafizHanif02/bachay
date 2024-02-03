@@ -571,7 +571,7 @@ button.slick-prev.slick-arrow {
     height: 150px;
     /* height: 60vh; */
     /* overflow: hidden; */
-    overflow-y: scroll !important;
+    overflow-y: auto !important;
 }
 .scroll::-webkit-scrollbar {
     width: 5px;
