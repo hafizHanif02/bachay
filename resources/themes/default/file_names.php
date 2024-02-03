@@ -56,7 +56,6 @@ return [
     'add-payment' => 'web-views.add-payment',
     'my-shortlist' => 'web-views.my-shortlist',
     'product-detail' => 'web-views.product-detail',
-    'add-to-cart' => 'mobile-views.add-to-cart',
     'my-profile' => 'web-views.my-profile',
     'my-order' => 'web-views.my-order',
     'manage-returns' => 'web-views.manage-returns',
