@@ -102,8 +102,7 @@ class ProductListController extends Controller
 
 
                 foreach ($request->filter as $filter) {
-                    if (isset($filter["brand_id"])) {
-                        dd('brand' , $filter);                        
+                    if (isset($filter["brand_id"])) {                        
                         if (is_array($filter['brand_id'])) {
                             $brandIds = array_merge($brandIds, $filter['brand_id']);
                         } else {
