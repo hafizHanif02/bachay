@@ -75,187 +75,363 @@ class HomeController extends Controller
                 'theme_all_purpose' => self::theme_all_purpose(),
             };
         }
-
-
     }
 
     public function default_theme($request, $viewName)
     {
 
-        $theme_name = theme_root_path();
-        $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
-        $home_categories = Category::where('home_status', true)->priority()->get();
-        $home_categories->map(function ($data) {
-            $id = '"' . $data['id'] . '"';
-            $data['products'] = Product::active()
-                ->where('category_ids', 'like', "%{$id}%")
-                ->inRandomOrder()->take(12)->get();
-        });
-
-        $current_date = date('Y-m-d H:i:s');
-        //products based on top seller
-        $top_sellers = $this->seller->approved()->with(['shop', 'orders', 'product.reviews'])
-            ->whereHas('orders', function ($query) {
-                $query->where('seller_is', 'seller');
-            })
-            ->withCount(['orders', 'product' => function ($query) {
-                $query->active();
-            }])->orderBy('orders_count', 'DESC')->take(12)->get();
-
-        $top_sellers?->map(function ($seller) {
-            $seller->product?->map(function ($product) {
-                $product['rating'] = $product?->reviews->pluck('rating')->sum();
-                $product['review_count'] = $product->reviews->count();
+        if ($viewName == 'home') {
+            $theme_name = theme_root_path();
+            $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
+            $home_categories = Category::where('home_status', true)->priority()->get();
+            $home_categories->map(function ($data) {
+                $id = '"' . $data['id'] . '"';
+                $data['products'] = Product::active()
+                    ->where('category_ids', 'like', "%{$id}%")
+                    ->inRandomOrder()->take(12)->get();
             });
-            $seller['total_rating'] = $seller?->product->pluck('rating')->sum();
-            $seller['review_count'] = $seller->product->pluck('review_count')->sum();
-            $seller['average_rating'] = $seller['total_rating'] / ($seller['review_count'] == 0 ? 1 : $seller['review_count']);
-        });
 
-        //end
+            $current_date = date('Y-m-d H:i:s');
+            //products based on top seller
+            $top_sellers = $this->seller->approved()->with(['shop', 'orders', 'product.reviews'])
+                ->whereHas('orders', function ($query) {
+                    $query->where('seller_is', 'seller');
+                })
+                ->withCount(['orders', 'product' => function ($query) {
+                    $query->active();
+                }])->orderBy('orders_count', 'DESC')->take(12)->get();
 
-        //feature products finding based on selling
-        $featured_products = $this->product->with(['reviews'])->active()
-            ->where('featured', 1)
-            ->withCount(['order_details'])->orderBy('order_details_count', 'DESC')
-            ->take(12)
-            ->get();
-        //end
+            $top_sellers?->map(function ($seller) {
+                $seller->product?->map(function ($product) {
+                    $product['rating'] = $product?->reviews->pluck('rating')->sum();
+                    $product['review_count'] = $product->reviews->count();
+                });
+                $seller['total_rating'] = $seller?->product->pluck('rating')->sum();
+                $seller['review_count'] = $seller->product->pluck('review_count')->sum();
+                $seller['average_rating'] = $seller['total_rating'] / ($seller['review_count'] == 0 ? 1 : $seller['review_count']);
+            });
 
-        $home_layouts = HomeLayout::where('web_status', 1)->orderBy('web_order', 'asc')->get();
+            //end
 
+            //feature products finding based on selling
+            $featured_products = $this->product->with(['reviews'])->active()
+                ->where('featured', 1)
+                ->withCount(['order_details'])->orderBy('order_details_count', 'DESC')
+                ->take(12)
+                ->get();
+            //end
 
-        $latest_products = $this->product->with(['reviews'])->active()->orderBy('id', 'desc')->take(10)->get();
-
-        $products = $this->product->with(['reviews'])->active()->orderBy('id')->take(16)->get();
-
-        $categories = Category::with('childes.childes')->where(['home_status' => '1'])->get();
-        // $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->take(10)->get();
-
-        // $new_arrivals_categories = $this->category
-        //     ->with('childes.childes')
-        //     ->where(['position' => 0])
-        //     ->priority()
-        //     ->latest('created_at')
-        //     ->take(5)
-        //     ->get();
-
-        // dd($new_arrivals_categories);
-        $brands = Brand::active()->take(15)->get();
-        //best sell product
-        $bestSellProduct = $this->order_details->with('product.reviews')
-            ->whereHas('product', function ($query) {
-                $query->active();
-            })
-            ->select('product_id', DB::raw('COUNT(product_id) as count'))
-            ->groupBy('product_id')
-            ->orderBy("count", 'desc')
-            ->take(6)
-            ->get();
-
-        //Top-rated
-        $topRated = Review::with('product')
-            ->whereHas('product', function ($query) {
-                $query->active();
-            })
-            ->select('product_id', DB::raw('AVG(rating) as count'))
-            ->groupBy('product_id')
-            ->orderBy("count", 'desc')
-            ->take(6)
-            ->get();
-
-        if ($bestSellProduct->count() == 0) {
-            $bestSellProduct = $latest_products;
-        }
-
-        if ($topRated->count() == 0) {
-            $topRated = $bestSellProduct;
-        }
-
-        $deal_of_the_day = DealOfTheDay::join('products', 'products.id', '=', 'deal_of_the_days.product_id')->select('deal_of_the_days.*', 'products.unit_price')->where('products.status', 1)->where('deal_of_the_days.status', 1)->first();
-        $main_banner = $this->banner->where(['banner_type' => 'Main Banner', 'theme' => $theme_name, 'published' => 1])->latest()->get();
-        $main_section_banner = $this->banner->where(['banner_type' => 'Main Section Banner', 'theme' => $theme_name, 'published' => 1])->orderBy('id', 'desc')->latest()->get();
-
-        // return $deal_of_the_day;
-        // return $main_banner;
-
-        $product = $this->product->active()->inRandomOrder()->first();
-        // $footer_banner = $this->banner->where('banner_type','Footer Banner')->where('theme', theme_root_path())->where('published',1)->orderBy('id','desc')->take(6)->get();
-
-        $footer_banner = $this->banner
-            ->where('banner_type', 'Footer Banner')
-            ->where('theme', theme_root_path())
-            ->where('published', 1)
-            ->orderBy('id', 'desc')
-            ->take(6)
-            ->get();
-
-        // Use null coalescing operator to provide an empty array if $footer_banner is null
-        $footer_banner = $footer_banner ?? [];
-
-        // return  $footer_banner;
+            $home_layouts = HomeLayout::where('web_status', 1)->orderBy('web_order', 'asc')->get();
 
 
-        // $flash_deals = FlashDeal::with(['products'=>function($query){
-        //     $query->with(['product.wish_list'=>function($query){
-        //         return $query->where('customer_id', Auth::guard('customer')->user()->id ?? 0);
-        //     }, 'product.compare_list'=>function($query){
-        //         return $query->where('user_id', Auth::guard('customer')->user()->id ?? 0);
-        //     }])->whereHas('product',function($q){
-        //         $q->active();
-        //     });
-        // }])
-        // ->where(['deal_type'=>'flash_deal', 'status'=>1])
-        // ->whereDate('start_date','<=',date('Y-m-d'))
-        // ->whereDate('end_date','>=',date('Y-m-d'))
-        // ->first();
+            $latest_products = $this->product->with(['reviews'])->active()->orderBy('id', 'desc')->take(10)->get();
 
-        $flash_deal = FlashDeal::where(['deal_type' => 'flash_deal', 'status' => 1])->get();
+            $products = $this->product->with(['reviews'])->active()->orderBy('id')->take(16)->get();
 
+            $categories = Category::with('childes.childes')->where(['home_status' => '1'])->get();
+            // $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->take(10)->get();
 
+            // $new_arrivals_categories = $this->category
+            //     ->with('childes.childes')
+            //     ->where(['position' => 0])
+            //     ->priority()
+            //     ->latest('created_at')
+            //     ->take(5)
+            //     ->get();
 
-        $flash_deals_products = [];
-        $productIds = null;
-        if (isset($flash_deal->id)) {
+            // dd($new_arrivals_categories);
+            $brands = Brand::active()->take(15)->get();
+            //best sell product
+            $bestSellProduct = $this->order_details->with('product.reviews')
+                ->whereHas('product', function ($query) {
+                    $query->active();
+                })
+                ->select('product_id', DB::raw('COUNT(product_id) as count'))
+                ->groupBy('product_id')
+                ->orderBy("count", 'desc')
+                ->take(6)
+                ->get();
 
-            $flash_deals_products = FlashDealProduct::where('flash_deal_id', $flash_deal->id)->get();
-            $productIds = $flash_deals_products->pluck('product_id')->toArray();
-        }
+            //Top-rated
+            $topRated = Review::with('product')
+                ->whereHas('product', function ($query) {
+                    $query->active();
+                })
+                ->select('product_id', DB::raw('AVG(rating) as count'))
+                ->groupBy('product_id')
+                ->orderBy("count", 'desc')
+                ->take(6)
+                ->get();
 
-
-        $productsInFlashDeal = [];
-        if (isset($productIds)) {
-
-            $productsInFlashDeal = $this->product->active()->whereIn('id', $productIds)->get();
-        }
-        if (Auth::guard('customer')->check()) {
-            $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
-
-            $wishlistProductsArray = $wishlistProducts->toArray();
-
-            $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
-            $cartProductsArray = $cartProducts->toArray();
-        } else {
-            $totalDiscount = 0;
-            $totalProductPrice = 0;
-
-            $productIds = $request->session()->get('cart', []);
-            $productIds = array_filter($productIds, 'is_numeric');
-            $myCartProducts = Product::whereIn('id', $productIds)->get();
-
-            foreach ($myCartProducts as $product) {
-                $totalProductPrice += $product->unit_price;
-                $discountAmount = ($product->discount / 100) * $product->unit_price;
-                $totalDiscount += $discountAmount;
+            if ($bestSellProduct->count() == 0) {
+                $bestSellProduct = $latest_products;
             }
 
-            $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
-            $total_product_price = $totalProductPrice;
-            $wishlistProductsArray = [];
-            $products = Product::get();
-            $cartGroupId = null;
-            $shippingAddress = [];
-            $cartProductsArray = $productIds;
+            if ($topRated->count() == 0) {
+                $topRated = $bestSellProduct;
+            }
+
+            $deal_of_the_day = DealOfTheDay::join('products', 'products.id', '=', 'deal_of_the_days.product_id')->select('deal_of_the_days.*', 'products.unit_price')->where('products.status', 1)->where('deal_of_the_days.status', 1)->first();
+            $main_banner = $this->banner->where(['banner_type' => 'Main Banner', 'theme' => $theme_name, 'published' => 1, 'is_web' => 1])->latest()->get();
+            $main_section_banner = $this->banner->where(['banner_type' => 'Main Section Banner', 'theme' => $theme_name, 'published' => 1, 'is_web' => 1])->orderBy('id', 'desc')->latest()->get();
+
+            // return $deal_of_the_day;
+            // return $main_banner;
+
+            $product = $this->product->active()->inRandomOrder()->first();
+            // $footer_banner = $this->banner->where('banner_type','Footer Banner')->where('theme', theme_root_path())->where('published',1)->orderBy('id','desc')->take(6)->get();
+
+            $footer_banner = $this->banner
+                ->where('banner_type', 'Footer Banner')
+                ->where('theme', theme_root_path())
+                ->where('published', 1)
+                ->orderBy('id', 'desc')
+                ->take(6)
+                ->get();
+
+            // Use null coalescing operator to provide an empty array if $footer_banner is null
+            $footer_banner = $footer_banner ?? [];
+
+            // return  $footer_banner;
+
+
+            // $flash_deals = FlashDeal::with(['products'=>function($query){
+            //     $query->with(['product.wish_list'=>function($query){
+            //         return $query->where('customer_id', Auth::guard('customer')->user()->id ?? 0);
+            //     }, 'product.compare_list'=>function($query){
+            //         return $query->where('user_id', Auth::guard('customer')->user()->id ?? 0);
+            //     }])->whereHas('product',function($q){
+            //         $q->active();
+            //     });
+            // }])
+            // ->where(['deal_type'=>'flash_deal', 'status'=>1])
+            // ->whereDate('start_date','<=',date('Y-m-d'))
+            // ->whereDate('end_date','>=',date('Y-m-d'))
+            // ->first();
+
+            $flash_deal = FlashDeal::where(['deal_type' => 'flash_deal', 'status' => 1])->get();
+
+
+
+            $flash_deals_products = [];
+            $productIds = null;
+            if (isset($flash_deal->id)) {
+
+                $flash_deals_products = FlashDealProduct::where('flash_deal_id', $flash_deal->id)->get();
+                $productIds = $flash_deals_products->pluck('product_id')->toArray();
+            }
+
+
+            $productsInFlashDeal = [];
+            if (isset($productIds)) {
+
+                $productsInFlashDeal = $this->product->active()->whereIn('id', $productIds)->get();
+            }
+            if (Auth::guard('customer')->check()) {
+                $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+                $wishlistProductsArray = $wishlistProducts->toArray();
+
+                $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+                $cartProductsArray = $cartProducts->toArray();
+            } else {
+                $totalDiscount = 0;
+                $totalProductPrice = 0;
+
+                $productIds = $request->session()->get('cart', []);
+                $productIds = array_filter($productIds, 'is_numeric');
+                $myCartProducts = Product::whereIn('id', $productIds)->get();
+
+                foreach ($myCartProducts as $product) {
+                    $totalProductPrice += $product->unit_price;
+                    $discountAmount = ($product->discount / 100) * $product->unit_price;
+                    $totalDiscount += $discountAmount;
+                }
+
+                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+                $total_product_price = $totalProductPrice;
+                $wishlistProductsArray = [];
+                $products = Product::get();
+                $cartGroupId = null;
+                $shippingAddress = [];
+                $cartProductsArray = $productIds;
+            }
+        } elseif ($viewName == 'home_mobile') {
+            $theme_name = theme_root_path();
+            $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
+            $home_categories = Category::where('home_status', true)->priority()->get();
+            $home_categories->map(function ($data) {
+                $id = '"' . $data['id'] . '"';
+                $data['products'] = Product::active()
+                    ->where('category_ids', 'like', "%{$id}%")
+                    ->inRandomOrder()->take(12)->get();
+            });
+
+            $current_date = date('Y-m-d H:i:s');
+            //products based on top seller
+            $top_sellers = $this->seller->approved()->with(['shop', 'orders', 'product.reviews'])
+                ->whereHas('orders', function ($query) {
+                    $query->where('seller_is', 'seller');
+                })
+                ->withCount(['orders', 'product' => function ($query) {
+                    $query->active();
+                }])->orderBy('orders_count', 'DESC')->take(12)->get();
+
+            $top_sellers?->map(function ($seller) {
+                $seller->product?->map(function ($product) {
+                    $product['rating'] = $product?->reviews->pluck('rating')->sum();
+                    $product['review_count'] = $product->reviews->count();
+                });
+                $seller['total_rating'] = $seller?->product->pluck('rating')->sum();
+                $seller['review_count'] = $seller->product->pluck('review_count')->sum();
+                $seller['average_rating'] = $seller['total_rating'] / ($seller['review_count'] == 0 ? 1 : $seller['review_count']);
+            });
+
+            //end
+
+            //feature products finding based on selling
+            $featured_products = $this->product->with(['reviews'])->active()
+                ->where('featured', 1)
+                ->withCount(['order_details'])->orderBy('order_details_count', 'DESC')
+                ->take(12)
+                ->get();
+            //end
+
+            $home_layouts = HomeLayout::where('web_status', 1)->orderBy('web_order', 'asc')->get();
+
+
+            $latest_products = $this->product->with(['reviews'])->active()->orderBy('id', 'desc')->take(10)->get();
+
+            $products = $this->product->with(['reviews'])->active()->orderBy('id')->take(16)->get();
+
+            $categories = Category::with('childes.childes')->where(['home_status' => '1'])->get();
+            // $categories = $this->category->with('childes.childes')->where(['position' => 0])->priority()->take(10)->get();
+
+            // $new_arrivals_categories = $this->category
+            //     ->with('childes.childes')
+            //     ->where(['position' => 0])
+            //     ->priority()
+            //     ->latest('created_at')
+            //     ->take(5)
+            //     ->get();
+
+            // dd($new_arrivals_categories);
+            $brands = Brand::active()->take(15)->get();
+            //best sell product
+            $bestSellProduct = $this->order_details->with('product.reviews')
+                ->whereHas('product', function ($query) {
+                    $query->active();
+                })
+                ->select('product_id', DB::raw('COUNT(product_id) as count'))
+                ->groupBy('product_id')
+                ->orderBy("count", 'desc')
+                ->take(6)
+                ->get();
+
+            //Top-rated
+            $topRated = Review::with('product')
+                ->whereHas('product', function ($query) {
+                    $query->active();
+                })
+                ->select('product_id', DB::raw('AVG(rating) as count'))
+                ->groupBy('product_id')
+                ->orderBy("count", 'desc')
+                ->take(6)
+                ->get();
+
+            if ($bestSellProduct->count() == 0) {
+                $bestSellProduct = $latest_products;
+            }
+
+            if ($topRated->count() == 0) {
+                $topRated = $bestSellProduct;
+            }
+
+            $deal_of_the_day = DealOfTheDay::join('products', 'products.id', '=', 'deal_of_the_days.product_id')->select('deal_of_the_days.*', 'products.unit_price')->where('products.status', 1)->where('deal_of_the_days.status', 1)->first();
+            $main_banner = $this->banner->where(['banner_type' => 'Main Banner', 'theme' => $theme_name, 'published' => 1, 'is_mobile' => 1])->latest()->get();
+            $main_section_banner = $this->banner->where(['banner_type' => 'Main Section Banner', 'theme' => $theme_name, 'published' => 1, 'is_mobile' => 1])->orderBy('id', 'desc')->latest()->get();
+
+            // return $deal_of_the_day;
+            // return $main_banner;
+
+            $product = $this->product->active()->inRandomOrder()->first();
+            // $footer_banner = $this->banner->where('banner_type','Footer Banner')->where('theme', theme_root_path())->where('published',1)->orderBy('id','desc')->take(6)->get();
+
+            $footer_banner = $this->banner
+                ->where('banner_type', 'Footer Banner')
+                ->where('theme', theme_root_path())
+                ->where('published', 1)
+                ->orderBy('id', 'desc')
+                ->take(6)
+                ->get();
+
+            // Use null coalescing operator to provide an empty array if $footer_banner is null
+            $footer_banner = $footer_banner ?? [];
+
+            // return  $footer_banner;
+
+
+            // $flash_deals = FlashDeal::with(['products'=>function($query){
+            //     $query->with(['product.wish_list'=>function($query){
+            //         return $query->where('customer_id', Auth::guard('customer')->user()->id ?? 0);
+            //     }, 'product.compare_list'=>function($query){
+            //         return $query->where('user_id', Auth::guard('customer')->user()->id ?? 0);
+            //     }])->whereHas('product',function($q){
+            //         $q->active();
+            //     });
+            // }])
+            // ->where(['deal_type'=>'flash_deal', 'status'=>1])
+            // ->whereDate('start_date','<=',date('Y-m-d'))
+            // ->whereDate('end_date','>=',date('Y-m-d'))
+            // ->first();
+
+            $flash_deal = FlashDeal::where(['deal_type' => 'flash_deal', 'status' => 1])->get();
+
+
+
+            $flash_deals_products = [];
+            $productIds = null;
+            if (isset($flash_deal->id)) {
+
+                $flash_deals_products = FlashDealProduct::where('flash_deal_id', $flash_deal->id)->get();
+                $productIds = $flash_deals_products->pluck('product_id')->toArray();
+            }
+
+
+            $productsInFlashDeal = [];
+            if (isset($productIds)) {
+
+                $productsInFlashDeal = $this->product->active()->whereIn('id', $productIds)->get();
+            }
+            if (Auth::guard('customer')->check()) {
+                $wishlistProducts = DB::table('wishlists')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+
+                $wishlistProductsArray = $wishlistProducts->toArray();
+
+                $cartProducts  = DB::table('carts')->where('customer_id', Auth::guard('customer')->user()->id)->pluck('product_id');
+                $cartProductsArray = $cartProducts->toArray();
+            } else {
+                $totalDiscount = 0;
+                $totalProductPrice = 0;
+
+                $productIds = $request->session()->get('cart', []);
+                $productIds = array_filter($productIds, 'is_numeric');
+                $myCartProducts = Product::whereIn('id', $productIds)->get();
+
+                foreach ($myCartProducts as $product) {
+                    $totalProductPrice += $product->unit_price;
+                    $discountAmount = ($product->discount / 100) * $product->unit_price;
+                    $totalDiscount += $discountAmount;
+                }
+
+                $totalDiscountedPrice = $totalProductPrice - $totalDiscount;
+                $total_product_price = $totalProductPrice;
+                $wishlistProductsArray = [];
+                $products = Product::get();
+                $cartGroupId = null;
+                $shippingAddress = [];
+                $cartProductsArray = $productIds;
+            }
         }
 
         // $current_date = Carbon::now();
@@ -284,11 +460,12 @@ class HomeController extends Controller
         // dd($wishlistProducts);
 
         // return $flash_deals_products;
-        
+
 
         return view(
             VIEW_FILE_NAMES[$viewName],
-            compact('cartProductsArray',
+            compact(
+                'cartProductsArray',
                 'wishlistProductsArray',
                 'featured_products',
                 'topRated',
