@@ -165,14 +165,17 @@ class SocialAuthController extends Controller
         $validator = Validator::make($request->all(), [
             'gender' => 'required|in:1,0',
             'date_of_birth' => 'required|Date',
-            'name' => 'required',
+            'l_name' => 'required',
+            'f_name' => 'required',
         ]);
         if ($validator->fails()) {
             return response()->json(['errors' => Helpers::error_processor($validator)], 403);
         }else{
             if(Auth::guard('customer')->check()){
                 User::where('id', Auth::guard('customer')->user()->id)->update([
-                    'name' => $request['name'],
+                    'f_name' => $request['f_name'],
+                    'l_name' => $request['l_name'],
+                    'name' => $request['f_name'].' '.$request['l_name'],
                     'gender' => $request['gender'],
                     'date_of_birth' => $request['date_of_birth'],
                 ]);
