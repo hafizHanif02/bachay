@@ -3,11 +3,12 @@
 namespace App\Model;
 
 use App\CPU\Helpers;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\DB;
+use App\Model\Category;
 use App\Models\CustomPage;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\App;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class Category extends Model
 {
@@ -33,6 +34,11 @@ class Category extends Model
     public function childes()
     {
         return $this->hasMany(Category::class, 'parent_id')->orderBy('priority', 'asc');
+    }
+
+    public function sub_categories()
+    {
+        return $this->hasMany(Category::class, 'parent_id')->select('id', 'parent_id', 'name', 'icon')->orderBy('priority', 'asc');
     }
 
     public function product()

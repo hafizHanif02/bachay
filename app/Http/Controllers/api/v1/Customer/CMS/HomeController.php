@@ -513,10 +513,16 @@ public function ShopDetails($id)
 
     public function CategoryDetail($id)
     {
-        $category = Category::where('id', $id)->with(['childes'])->first();
+        $category = Category::where('id', $id)
+        ->with('sub_categories' 
+        )
+        ->select('id', 'name', 'icon')
+        ->first();
+
+        $category->image = asset('storage/app/public/category/' . $category->icon);
         $latest_products = Product::where('category_id', $id)->orderBy('id', 'desc')->take(3)->get();
 
-        foreach($category->childes as $child){
+        foreach($category->sub_categories as $child){
             $child->image = asset('storage/app/public/category/' . $child->icon);
         }
         foreach ($latest_products as $product) {
