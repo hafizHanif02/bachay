@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Model\Shop;
 use App\Model\Brand;
 use App\Model\Banner;
+use App\Model\Product;
 use App\Model\Category;
 use App\Models\Article;
 use App\Model\FlashDeal;
@@ -509,75 +510,85 @@ public function ShopDetails($id)
     }
 
     public function CategoryDetail($id)
-{
-    $category = Category::where('id', $id)->with(['childes.product', 'product'])->first();
+    {
+        $category = Category::where('id', $id)->with(['childes'])->first();
+        $latest_products = Product::where('category_id', $id)->orderBy('id', 'desc')->take(3)->get();
 
-    if ($category != null) {
-        $url = asset('storage/app/public/category/' . $category->icon);
-        $category->image = $url;
-        $banners = Banner::where([
-            'resource_type' => 'category',
-            'resource_id' => $category->id,
-        ])->get();
-
-        foreach ($category->product as $product) {
+        foreach ($latest_products as $product) {
             $product->thumbnail = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
         }
 
-        $organizedBanners = [];
-        foreach ($banners as $banner) {
-            $banner->photo = asset('storage/app/public/banner/' . $banner->photo);
-            $banner->mobile_photo = asset('storage/app/public/banner/mobile/' . $banner->mobile_photo);
-            $bannerType = $banner->banner_type;
-            if (!isset($organizedBanners[$bannerType])) {
-                $organizedBanners[$bannerType] = [];
+        $top_products = Product::where('category_id', $category->id)->with('order_details')->get();
+
+        
+        return $latest_products;
+
+        if ($category != null) {
+            $url = asset('storage/app/public/category/' . $category->icon);
+            $category->image = $url;
+            $banners = Banner::where([
+                'resource_type' => 'category',
+                'resource_id' => $category->id,
+            ])->get();
+
+            foreach ($category->product as $product) {
+                $product->thumbnail = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
             }
-            $organizedBanners[$bannerType][] = $banner;
-        }
-        $category['banners'] = $organizedBanners;
 
-        $custom_page = CustomPage::where([
-            'resource_type' => 'category',
-            'resource_id' => $category->id,
-            'is_mobile' => 1
-        ])->with('page_data')->first();
+            $organizedBanners = [];
+            foreach ($banners as $banner) {
+                $banner->photo = asset('storage/app/public/banner/' . $banner->photo);
+                $banner->mobile_photo = asset('storage/app/public/banner/mobile/' . $banner->mobile_photo);
+                $bannerType = $banner->banner_type;
+                if (!isset($organizedBanners[$bannerType])) {
+                    $organizedBanners[$bannerType] = [];
+                }
+                $organizedBanners[$bannerType][] = $banner;
+            }
+            $category['banners'] = $organizedBanners;
 
-        $inline_array = [];
-        $currentArray = [];
-        $sumWidth = 0;
+            $custom_page = CustomPage::where([
+                'resource_type' => 'category',
+                'resource_id' => $category->id,
+                'is_mobile' => 1
+            ])->with('page_data')->first();
 
-        if ($custom_page != null) {
-            if ($custom_page->page_data != null) {
-                foreach ($custom_page->page_data as $page) {
-                    $imgUrl = asset("storage/app/public/category/{$category->name}" . $page->image);
-                    $page->image = $imgUrl;
-                    $sumWidth += $page->width;
+            $inline_array = [];
+            $currentArray = [];
+            $sumWidth = 0;
 
-                    if ($sumWidth <= 100) {
-                        $currentArray[] = $page;
-                    } else {
+            if ($custom_page != null) {
+                if ($custom_page->page_data != null) {
+                    foreach ($custom_page->page_data as $page) {
+                        $imgUrl = asset("storage/app/public/category/{$category->name}" . $page->image);
+                        $page->image = $imgUrl;
+                        $sumWidth += $page->width;
+
+                        if ($sumWidth <= 100) {
+                            $currentArray[] = $page;
+                        } else {
+                            $inline_array[] = $currentArray;
+                            $currentArray = [$page];
+                            $sumWidth = $page->width;
+                        }
+                    }
+
+                    if (!empty($currentArray)) {
                         $inline_array[] = $currentArray;
-                        $currentArray = [$page];
-                        $sumWidth = $page->width;
                     }
                 }
 
-                if (!empty($currentArray)) {
-                    $inline_array[] = $currentArray;
-                }
+                $data = $custom_page;
+                $data['in_line'] = $inline_array;
+            } else {
+                $data = $category;
             }
 
-            $data = $custom_page;
-            $data['in_line'] = $inline_array;
+            return response()->json($data, 200);
         } else {
-            $data = $category;
+            return response()->json(['message' => 'Category not found.'], 200);
         }
-
-        return response()->json($data, 200);
-    } else {
-        return response()->json(['message' => 'Category not found.'], 200);
     }
-}
 
     public function categoriesPromoSingle(Request $request){
         $custom_page = CustomPage::where([

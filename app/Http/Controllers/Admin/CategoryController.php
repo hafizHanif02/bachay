@@ -36,7 +36,7 @@ class CategoryController extends Controller
             });
             $query_param = ['search' => $request['search']];
         }else{
-            $categories = Category::where(['position' => 0]);
+            $categories = Category::where(['parent_id' => 0]);
         }
 
         $categories = $categories->latest()->paginate(Helpers::pagination_limit())->appends($query_param);
