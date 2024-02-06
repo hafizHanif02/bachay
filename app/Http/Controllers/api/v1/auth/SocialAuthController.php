@@ -162,6 +162,7 @@ class SocialAuthController extends Controller
     }
 
     public function update_user(Request $request){
+        dd(Auth::user());
         $validator = Validator::make($request->all(), [
             'gender' => 'required|in:1,0',
             'date_of_birth' => 'required|Date',
@@ -172,7 +173,7 @@ class SocialAuthController extends Controller
             return response()->json(['errors' => Helpers::error_processor($validator)], 403);
         }else{
             if(Auth::check()){
-                User::where('id', Auth::guard('customer')->user()->id)->update([
+                User::where('id', Auth::user()->id)->update([
                     'f_name' => $request['f_name'],
                     'l_name' => $request['l_name'],
                     'name' => $request['f_name'].' '.$request['l_name'],
