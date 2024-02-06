@@ -14,7 +14,6 @@ Route::group(['namespace' => 'api\v1', 'prefix' => 'v1', 'middleware' => ['api_l
     Route::get('/categories', [HomeController::class, 'NewArrtival']);
     Route::get('/categories/all', [HomeController::class, 'AllCategorys']);
     Route::get('/categories/{id}', [HomeController::class, 'CategoryDetail']);
-    Route::get('/sub-categories/{id}', [HomeController::class, 'SubCategoryDetail']);
 
     Route::get('/promo', [HomeController::class, 'categoriesPromo']);
     Route::get('/promo/{id}', [HomeController::class, 'categoriesPromoSingle']);

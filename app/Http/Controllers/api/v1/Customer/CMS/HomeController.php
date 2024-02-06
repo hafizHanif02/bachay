@@ -513,11 +513,7 @@ public function ShopDetails($id)
 
     public function CategoryDetail($id)
     {
-        $category = Category::where('id', $id)
-        ->with('sub_categories' 
-        )
-        ->select('id', 'name', 'icon')
-        ->first();
+        $category = Category::where('id', $id)->with('sub_categories')->select('id', 'name', 'icon')->first();
 
         $category->image = asset('storage/app/public/category/' . $category->icon);
         $latest_products = Product::where('category_id', $id)->orderBy('id', 'desc')->take(3)->get();
