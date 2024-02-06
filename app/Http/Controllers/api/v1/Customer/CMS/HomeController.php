@@ -516,6 +516,9 @@ public function ShopDetails($id)
         $category = Category::where('id', $id)->with(['childes'])->first();
         $latest_products = Product::where('category_id', $id)->orderBy('id', 'desc')->take(3)->get();
 
+        foreach($$category->childes as $child){
+            $child->image = asset('storage/app/public/category/' . $child->image);
+        }
         foreach ($latest_products as $product) {
             $product->thumbnail = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
         }
@@ -542,6 +545,10 @@ public function ShopDetails($id)
         $girl_tag = Tag::where('tag', 'Girl')->first();
         
         $products = Product::where('category_id', $category->id)->get();
+
+        foreach($products as $product){
+            $product->thumbnail = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
+        }
         
         $boy_products = [];
         $girl_products = [];
@@ -557,12 +564,8 @@ public function ShopDetails($id)
                 $girl_products[] = $product;
             }
         }
-
-        dd($boy_products, $girl_products);
-        
-
-
-
+        $category['Boy Products'] = $boy_products;
+        $category['Girl Products'] = $girl_products;
         if ($category != null) {
             $url = asset('storage/app/public/category/' . $category->icon);
             $category->image = $url;
