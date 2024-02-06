@@ -1,9 +1,10 @@
 <div class="slider-container mobileSection-main mt-3">
     <div class="slider-main">
+        {{ dd($main_banner) }}
         @foreach ($main_banner as $banner)
             <div>
                 <img class="rounded-5 object-fit-cover"
-                    src="{{ asset('storage/app/public/banner/' . $banner->mobile_photo) }}" alt="Image"
+                    src="{{ asset('storage/app/public/banner/mobile/' . $banner->mobile_photo) }}" alt="Image"
                     width="100%" height="350px">
             </div>
         @endforeach
