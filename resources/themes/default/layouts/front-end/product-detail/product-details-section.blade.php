@@ -50,7 +50,7 @@
                             @else
                                 @break
                             @endif
-                        @endforeach
+                            @endforeach
 
                             {{-- @foreach (json_decode($product->images) as $key => $photo)
                                 <img class="small-image object-fit-cover"
