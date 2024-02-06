@@ -1,6 +1,5 @@
 <div class="slider-container mobileSection-main mt-3">
     <div class="slider-main">
-        {{ dd($main_banner) }}
         @foreach ($main_banner as $banner)
             <div>
                 <img class="rounded-5 object-fit-cover"
