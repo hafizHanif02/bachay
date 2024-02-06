@@ -517,7 +517,7 @@ public function ShopDetails($id)
         $latest_products = Product::where('category_id', $id)->orderBy('id', 'desc')->take(3)->get();
 
         foreach($category->childes as $child){
-            $child->image = asset('storage/app/public/category/' . $child->image);
+            $child->image = asset('storage/app/public/category/' . $child->icon);
         }
         foreach ($latest_products as $product) {
             $product->thumbnail = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
