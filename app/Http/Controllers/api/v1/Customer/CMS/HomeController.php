@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\V1\Customer\CMS;
 
+use App\Model\Tag;
 use Carbon\Carbon;
 use App\Model\Shop;
 use App\Model\Brand;
@@ -10,6 +11,7 @@ use App\Model\Product;
 use App\Model\Category;
 use App\Models\Article;
 use App\Model\FlashDeal;
+use App\Model\ProductTag;
 use App\Models\CustomPage;
 use Illuminate\Http\Request;
 use App\Models\familyRelation;
@@ -518,10 +520,48 @@ public function ShopDetails($id)
             $product->thumbnail = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
         }
 
-        $top_products = Product::where('category_id', $category->id)->with('order_details')->get();
+        $category['Latest Products'] = $latest_products;
 
+        $top_products = Product::where('category_id', $category->id)
+        ->with('order_details')
+        ->get();
+
+        foreach ($top_products as $product) {
+            $product->thumbnail = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
+            $product->order_count = $product->order_details->count();
+        }
+
+        $top_products = $top_products->sortByDesc('order_count');
+
+        $top_3_products = $top_products->take(3);
+
+        $category['Top Products'] = $top_3_products;
+
+
+        $boy_tag = Tag::where('tag', 'Boy')->first();
+        $girl_tag = Tag::where('tag', 'Girl')->first();
         
-        return $latest_products;
+        $products = Product::where('category_id', $category->id)->get();
+        
+        $boy_products = [];
+        $girl_products = [];
+        
+        foreach ($products as $product) {
+            $tags_products = ProductTag::where('product_id', $product->id)
+                ->pluck('tag_id')
+                ->toArray();    
+            if (in_array($boy_tag->id, $tags_products)) {
+                $boy_products[] = $product;
+            }
+            if (in_array($girl_tag->id, $tags_products)) {
+                $girl_products[] = $product;
+            }
+        }
+
+        dd($boy_products, $girl_products);
+        
+
+
 
         if ($category != null) {
             $url = asset('storage/app/public/category/' . $category->icon);
