@@ -127,7 +127,7 @@
                                                class="title-color text-capitalize">{{translate('category')}}</label>
                                         <select class="js-example-responsive form-control w-100"
                                                 name="category_id">
-                                            @foreach(\App\CPU\CategoryManager::parents() as $category)
+                                            @foreach(\App\Model\Category::where('parent_id',0)->get() as $category)
                                                 <option value="{{$category['id']}}">{{$category['name']}}</option>
                                             @endforeach
                                         </select>
