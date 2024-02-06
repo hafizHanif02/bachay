@@ -162,7 +162,6 @@ class SocialAuthController extends Controller
     }
 
     public function update_user(Request $request){
-        dd(Auth::user());
         $validator = Validator::make($request->all(), [
             'gender' => 'required|in:1,0',
             'date_of_birth' => 'required|Date',
