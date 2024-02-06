@@ -171,7 +171,7 @@ class SocialAuthController extends Controller
         if ($validator->fails()) {
             return response()->json(['errors' => Helpers::error_processor($validator)], 403);
         }else{
-            if(Auth::guard('customer')->check()){
+            if(Auth::check()){
                 User::where('id', Auth::guard('customer')->user()->id)->update([
                     'f_name' => $request['f_name'],
                     'l_name' => $request['l_name'],

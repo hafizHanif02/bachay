@@ -256,7 +256,8 @@ class HomeController extends Controller
                 $shippingAddress = [];
                 $cartProductsArray = $productIds;
             }
-        } elseif ($viewName == 'home_mobile') {
+        } 
+        elseif ($viewName == 'home_mobile') {
             $theme_name = theme_root_path();
             $brand_setting = BusinessSetting::where('type', 'product_brand')->first()->value;
             $home_categories = Category::where('home_status', true)->priority()->get();
@@ -361,6 +362,7 @@ class HomeController extends Controller
                 ->where('banner_type', 'Footer Banner')
                 ->where('theme', theme_root_path())
                 ->where('published', 1)
+                ->where('is_mobile', 1)
                 ->orderBy('id', 'desc')
                 ->take(6)
                 ->get();
