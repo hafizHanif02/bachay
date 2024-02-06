@@ -179,6 +179,7 @@ class SocialAuthController extends Controller
                     'gender' => $request['gender'],
                     'date_of_birth' => $request['date_of_birth'],
                 ]);
+                return response()->json(['message' => 'Your Profile Has Been Updated']);
             }else{
                 return response()->json(['error' => translate('Customer_not_found_or_Account_has_been_suspended')]);
             }
