@@ -14,30 +14,40 @@ use Illuminate\Support\Facades\Auth;
 
 class QuizController extends Controller
 {
-    public function SubmitQuiz(Request $request)
+    public function submitQuiz(Request $request)
     {
-        if(Auth::check()){
+        if (Auth::check()) {
             $user = Auth::user();
-            $child = familyRelation::where(['id'=> $request->child_id, 'user_id' => $user->id])->first();
-            foreach($request->question as $question){
-                $quiz = QuizQuestion::where('id', $question['question_id'])->with('answer')->first();
-                $quizanswer = QuizAnswer::where('id', $question['answer_id'])->first();
-                if($child != null){
-                    $quizsubmission = new QuizSubmission();
-                    $quizsubmission->quiz_id = $quiz->id;
-                    $quizsubmission->child_id = $child->id;
-                    $quizsubmission->user_id = $user->id;
-                    $quizsubmission->answer_id = $question['answer_id'];
-                    $quizsubmission->save();
-                    return response()->json(['message' => 'Quiz Submitted Successfully'], 200);
-                }else{
-                    return response()->json(['errors' => translate('Child Not Found!')], 401);
+            $child = FamilyRelation::where(['id' => $request->child_id, 'user_id' => $user->id])->first();
+            $quiz = Quiz::where('id', $request->quiz_id)->with('quiz_question')->first();
+            dd($request);
+            if ($child !== null) {
+                if ($quiz !== null) {
+                    $questionIds = $quiz->quiz_question->pluck('id')->all();
+
+                    $submissionData = [];
+                    foreach ($questionIds as $index => $questionId) {
+                        $submissionData[] = [
+                            'question_id' => $questionId,
+                            'answer' => $request->answer[$index] ?? null,
+                        ];
+                    }
+    
+                    return response()->json([
+                        'submission_data' => $submissionData,
+                        'message' => translate('Quiz submitted successfully.'),
+                    ], 200);
+                } else {
+                    return response()->json(['errors' => translate('Quiz not found.')], 404);
                 }
+            } else {
+                return response()->json(['errors' => translate('Child not found or unauthorized.')], 401);
             }
-        }else{
-            return response()->json(['errors' => translate('Please login first!')], 401);
+        } else {
+            return response()->json(['errors' => translate('Please log in first.')], 401);
         }
     }
+    
 
     // public function AllQuiz(){
     //     $quiz = QuizQuestion::with('answer')->get();
