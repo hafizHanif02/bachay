@@ -20,7 +20,7 @@ class QuizController extends Controller
             $user = Auth::user();
             $child = FamilyRelation::where(['id' => $request->child_id, 'user_id' => $user->id])->first();
             $quiz = Quiz::where('id', $request->quiz_id)->with('quiz_question')->first();
-            dd($request);
+            dd($request->answer[2]);
             if ($child !== null) {
                 if ($quiz !== null) {
                     $questionIds = $quiz->quiz_question->pluck('id')->all();
