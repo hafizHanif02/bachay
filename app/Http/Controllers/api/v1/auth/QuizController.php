@@ -28,7 +28,7 @@ class QuizController extends Controller
                     foreach ($questionIds as $index => $questionId) {
                         QuizSubmission::create([
                             'user_id' => $user->id,
-                            'child_id' => $requst->child_id,
+                            'child_id' => $request->child_id,
                             'quiz_id' => $questionId,
                             'answer_id' => $request->answer[$index] ?? null,
                         ]);
