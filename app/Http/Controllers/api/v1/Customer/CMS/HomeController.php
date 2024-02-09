@@ -525,7 +525,7 @@ public function ShopDetails($id)
             $product->thumbnail = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
         }
 
-        $category['categories']['Latest Products'] = $latest_products;
+        // $category['Latest Products'] = $latest_products;
 
         $top_products = Product::where('category_id', $category->id)
         ->with('order_details')
@@ -540,7 +540,7 @@ public function ShopDetails($id)
 
         $top_3_products = $top_products->take(3);
 
-        $category['categories']['Top Products'] = $top_3_products;
+        // $category['Top Products'] = $top_3_products;
 
 
         $boy_tag = Tag::where('tag', 'Boy')->first();
@@ -566,8 +566,22 @@ public function ShopDetails($id)
                 $girl_products[] = $product;
             }
         }
-        $category['categories']['Boy Products'] = $boy_products;
-        $category['categories']['Girl Products'] = $girl_products;
+        // $category['Boy Products'] = $boy_products;
+        // $category['Girl Products'] = $girl_products;
+
+
+        $new_categories = [
+                'Latest Products' => $latest_products,
+                'Top Products' => $top_3_products,
+                'Boy Products' => $boy_products,
+                'Girl Products' => $girl_products
+        ];
+
+        $category['categories'] = $new_categories;
+        
+        // Merge the existing data with the new structure
+        // $category = array_merge($category, $new_categories);
+
         if ($category != null) {
             $url = asset('storage/app/public/category/' . $category->icon);
             $category->image = $url;
