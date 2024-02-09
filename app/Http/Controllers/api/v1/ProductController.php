@@ -448,7 +448,7 @@ class ProductController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'product_id' => ['required','exists:products,id'],
-            'comment' => 'required',
+            // 'comment' => 'required',
             'rating' => 'required',
         ]);
 
