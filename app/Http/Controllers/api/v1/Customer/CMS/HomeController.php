@@ -525,7 +525,7 @@ public function ShopDetails($id)
             $product->thumbnail = asset('storage/app/public/product/thumbnail/' . $product->thumbnail);
         }
 
-        $category['Latest Products'] = $latest_products;
+        $category['categories']['Latest Products'] = $latest_products;
 
         $top_products = Product::where('category_id', $category->id)
         ->with('order_details')
@@ -540,7 +540,7 @@ public function ShopDetails($id)
 
         $top_3_products = $top_products->take(3);
 
-        $category['Top Products'] = $top_3_products;
+        $category['categories']['Top Products'] = $top_3_products;
 
 
         $boy_tag = Tag::where('tag', 'Boy')->first();
@@ -566,8 +566,8 @@ public function ShopDetails($id)
                 $girl_products[] = $product;
             }
         }
-        $category['Boy Products'] = $boy_products;
-        $category['Girl Products'] = $girl_products;
+        $category['categories']['Boy Products'] = $boy_products;
+        $category['categories']['Girl Products'] = $girl_products;
         if ($category != null) {
             $url = asset('storage/app/public/category/' . $category->icon);
             $category->image = $url;
