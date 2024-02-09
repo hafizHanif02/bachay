@@ -20,21 +20,20 @@ class QuizController extends Controller
             $user = Auth::user();
             $child = FamilyRelation::where(['id' => $request->child_id, 'user_id' => $user->id])->first();
             $quiz = Quiz::where('id', $request->quiz_id)->with('quiz_question')->first();
-            dd($request->answer[2]);
             if ($child !== null) {
                 if ($quiz !== null) {
                     $questionIds = $quiz->quiz_question->pluck('id')->all();
 
                     $submissionData = [];
                     foreach ($questionIds as $index => $questionId) {
-                        $submissionData[] = [
-                            'question_id' => $questionId,
-                            'answer' => $request->answer[$index] ?? null,
-                        ];
+                        QuizSubmission::create([
+                            'user_id' => $user->id,
+                            'child_id' => $requst->child_id,
+                            'quiz_id' => $questionId,
+                            'answer_id' => $request->answer[$index] ?? null,
+                        ]);
                     }
-    
                     return response()->json([
-                        'submission_data' => $submissionData,
                         'message' => translate('Quiz submitted successfully.'),
                     ], 200);
                 } else {
